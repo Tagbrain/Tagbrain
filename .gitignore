@@ -1,0 +1,19 @@
+# you can find protection structure in the Tagbrain
+# ignore protection nodes
+protect
+channels_function
+database
+sessions
+
+
+# channels files
+channels
+basket
+
+# artifacts, addition files
+node_modules
+
+/dist
+
+Z_development
+

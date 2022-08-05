@@ -1,0 +1,9 @@
+.correct{
+    color:var(--text-content);
+}
+.wrong{
+    color:var(--shiny-light);
+}
+.wrong:hover{
+    color:var(--shiny-light);
+}

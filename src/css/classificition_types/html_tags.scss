@@ -1,0 +1,77 @@
+*{
+  cursor:var(--cursor-auto);
+}
+
+html {
+    background: var(--backgroud);
+    font-family: someFont, Arial;
+    color: var(--text-content);
+    font-size: 14px;
+    font-weight:500;
+  }
+  
+  table {
+    border-collapse: collapse;
+    table-layout: fixed; }
+  
+  ul, ol {
+    list-style-type: none; }
+  
+  a {
+    text-decoration: none; 
+  }
+  
+    body .container {
+      width: 1170px;
+      margin: 0 auto; }
+      @media screen and (max-width: 1200px) {
+        body .container {
+          width: 960px; } }
+      @media screen and (max-width: 998px) {
+        body .container {
+          width: 720px; } }
+      @media screen and (max-width: 768px) {
+        body .container {
+          width: 540px; } }
+      @media screen and (max-width: 576px) {
+        body .container {
+          width: 96%; } }
+  
+  a {
+    color: var(--text-content); 
+  }
+  a:hover{
+    color: var(--tags-color); 
+  }
+
+body{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    height: 100vh;
+    overflow: hidden;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; }
+  
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0; }
+  
+  section, header, nav, aside, footer, article {
+    display: block; }
+
+
+
+  .selection-area {
+    border-top: 1px dotted var(--tags-color);
+    border-bottom: 1px dotted var(--tags-color);
+    background: #e1ff0010;
+    position: absolute;
+    z-index: 999;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+    filter: alpha(opacity=40);
+   }
+  

@@ -1,0 +1,80 @@
+//svg styles
+
+.liner_icon_style, 
+.liner_icon_style > * {
+        transition: 1s;
+        fill: none;
+        stroke: var(--text-content);
+        stroke-width: 16;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+}
+.fill_icon_style {
+        fill: var(--text-content);
+}
+
+.liner_icon_style:hover{
+        stroke:var(--shiny-light); 
+        transition: 1s;
+        cursor:var(--cursor-pointer);
+}
+
+.icon_size_middle{
+pointer-events: none;
+height: 16px;
+width: 16px; 
+cursor:var(--cursor-pointer);
+}
+.icon_size_sl_a_middle{
+height: 22px;
+width: 22px;      
+}
+.icon_size_sl_a_middle:hover{
+cursor:var(--cursor-pointer);    
+}
+.icon_size_big{
+height: 34px;
+width: 34px; 
+}
+
+//header logo
+.header_logo:hover .circle_logo{
+        stroke:white; 
+        transition: 1s;
+        cursor:var(--cursor-pointer);
+        border: 1px dashed var(--strokes);
+}
+.style_logo_circle{
+        fill:none;
+        stroke: var(--text-content);
+        stroke-width:16;
+        stroke-linecap:round;
+        stroke-miterlimit:10;
+}
+.style_logo{
+        fill:var(--text-content);
+        stroke: var(--backgroud);
+        stroke-width:3px;
+        stroke-linecap:round;
+        transition:1s;
+}
+.header_logo:hover .style_logo{
+        fill:var(--shiny-light);
+        stroke: #ffffff00;
+        //filter: drop-shadow( 0px 0px 20px var(--shiny-light));
+        transition:1s;
+        cursor:var(--cursor-pointer);
+}
+.style_logo_circle{
+        transition:1s; 
+}
+.header_logo:hover .style_logo_circle{
+        stroke: var(--shiny-light);
+        transition:1s;
+        cursor: var(--cursor-pointer);
+}
+
+//general
+.active_icon {
+        background:var(--strokes);
+}

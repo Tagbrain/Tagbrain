@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+
+# Enables mod_rewrite
+RewriteEngine on
+
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /(.*)index\.php($|\ |\?)
+RewriteRule ^ /%1 [R=301,L]
+
+RewriteCond  %{REQUEST_FILENAME}    !-f
+RewriteCond  %{REQUEST_FILENAME}    !-d
+RewriteRule  .* index.php
+
+#Session timeout
+    php_value session.cookie_lifetime 36000000
+    php_value session.gc_maxlifetime 36000000
+</IfModule>
