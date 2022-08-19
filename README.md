@@ -32,4 +32,4 @@
     + graph by the project structure
     + ideas
     + tasks
-    + everything connected by Tagbrain
+    + everything related to Tagbrain
