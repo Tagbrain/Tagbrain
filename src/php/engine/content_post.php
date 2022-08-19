@@ -2,26 +2,14 @@
 session_start();
 //return chanel bd access
 include "post_template.php";
+include "load_post_content.php";
 
-class load_lists_items{
-   public function loadDataFromFile($file, $posts_folder_link){
-      $pathway = $posts_folder_link.$file;
-      $content_empty_items = 'New post'; 
-      if(filesize($pathway) < 1){
-         $fh_empty = fopen($pathway, 'w+'); 
-         fwrite($fh_empty, $content_empty_items);
-         fclose($fh_empty);
-      }
-      $f = fopen($pathway, "r");
-      $post_content = fread($f, filesize ($pathway));
-      $post_content = str_replace("\r\n","</br>", $post_content);
-      fclose ($f);
-      return $post_content;
-   }
+class controller_load_items{
+   use load_post_content;
    use template_post_trait;
 }
 
-$class_lists_items = new load_lists_items();
+$class_lists_items = new controller_load_items();
 
 //link on posts folder
 if($_POST["page"]){

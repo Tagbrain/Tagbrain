@@ -1,7 +1,7 @@
 <?php
 
 include "php/database/dbh.classes.php";
-include "php/general_traits/state_trait.php";
+include "php/general_units/state_trait.php";
 
 class load_page_vars {
     use dbh;

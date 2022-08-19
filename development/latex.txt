@@ -1,0 +1,10 @@
+    /*
+    if(post_el.innerText.match("LATEX_START") != null){
+      renderMathInElement(post_el, {
+        delimiters: [
+          {left: 'LATEX_START', right: 'LATEX_END', display: true},        
+
+        ],
+        throwOnError : false
+      });
+    }*/

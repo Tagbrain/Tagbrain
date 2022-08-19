@@ -47,6 +47,19 @@
 				<br><br><br><br>
 			</div>
 		</div>
+
+		<div class="tab_right_bar">
+			<input type="radio" id="RAM_right_bar" name="tab-group-1">
+			<label class="menu_item_right_bar" for="RAM_right_bar" title="RAM">				
+				<svg class="liner_icon_style icon_size_big">
+					<use xlink:href="#sprite_ram"></use>
+				</svg>
+			</label>
+			<div class="tools_container" id="RAM_right_bar_container">
+				<div>List last posts</div>
+				<div id="last_posts_lists" class="output_block"></div>
+			</div>
+		</div>
 		
 		<div class="tab_right_bar">
 			<input type="radio" id="functions_right_bar" name="tab-group-1">
@@ -58,118 +71,102 @@
 			<div class="tools_container" id="functions_right_bar_container">
 				<div>Clipboard panel</div>
 				<div class="clipboard_symbols_panel">
-					<span class="tools_button_copy">
+					<button class="tools_button_copy">
 						●
-					</span>
-					<span titile="connector: object•object" class="tools_button_copy">
+					</button>
+					<button titile="connector: object•object" class="tools_button_copy">
 						•
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						✖
-					</span>
-					<span title="copy TAB" class="tools_button_copy">
+					</button>
+					<button title="copy TAB" class="tools_button_copy">
 						&nbsp;&nbsp;&nbsp;&nbsp;
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						〇
-					</span>
-					<span class="tools_button_copy">
-						△
-					</span>
-					<span class="tools_button_copy">
-						∞
-					</span>
-					<span class="tools_button_copy">
-						▽
-					</span>
-					<span class="tools_button_copy">
-						▷
-					</span>
-					<span class="tools_button_copy">
-						◁
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						⊃
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						⊂
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						⋃
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						⋂
-					</span>
-					<span title="released" class="tools_button_copy">
+					</button>
+					<button title="released" class="tools_button_copy">
 						🡲
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						↑
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						←
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						→
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						↓
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						×
-					</span>
-					<span title="?" class="tools_button_copy">
+					</button>
+					<button title="?" class="tools_button_copy">
 						⌗
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						≈
-					</span>
-					<span title="addition_[properties]" class="tools_button_copy">
+					</button>
+					<button title="addition_[properties]" class="tools_button_copy">
 						+
-					</span>
-					<span title="$variable_name=#tag(#tag(text))" class="tools_button_copy">
+					</button>
+					<button title="$variable_name=#tag(#tag(text))" class="tools_button_copy">
 						$
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						#
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						&
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						!
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						/
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						?
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						{}
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						()
-					</span>
-					<span class="tools_button_copy">
+					</button>
+					<button class="tools_button_copy">
 						[]
-					</span>
-					<span title="mask of input structure: @[class1 → class2], class1 are basic properties, class2 are terminal properties" class="tools_button_copy">
+					</button>
+					<button title="mask of input structure: @[class1 → class2], class1 are basic properties, class2 are terminal properties" class="tools_button_copy">
 						@
-					</span>
-					<span title="subitems for describe GENERAL properties uplying subitems" class="tools_button_copy">
+					</button>
+					<button title="subitems for describe GENERAL properties uplying subitems" class="tools_button_copy">
 						(G)
-					</span>	
-					<span title="SPECIFIC properties an uplying item" class="tools_button_copy">
+					</button>	
+					<button title="SPECIFIC properties an uplying item" class="tools_button_copy">
 						(S)
-					</span>	
-					<span class="tools_button_copy">
+					</button>	
+					<button class="tools_button_copy">
 						—
-					</span>
-					<span class="tools_button_copy" title="item_n or item_m">
+					</button>
+					<button class="tools_button_copy" title="item_n or item_m">
 						||
-					</span>
-					
+					</button>
 				</div>
 				<br><br>
 				<div class="clipboard_symbols_panel">
@@ -244,19 +241,6 @@
 							'<a title="Create new channel" id="create_new_channel_button">(+)</a>';
 				};
 				?>
-			</div>
-		</div>
-
-		<div class="tab_right_bar">
-			<input type="radio" id="RAM_right_bar" name="tab-group-1">
-			<label class="menu_item_right_bar" for="RAM_right_bar" title="RAM">				
-				<svg class="liner_icon_style icon_size_big">
-					<use xlink:href="#sprite_ram"></use>
-				</svg>
-			</label>
-			<div class="tools_container" id="RAM_right_bar_container">
-				<div>List last posts</div>
-				<div id="last_posts_lists" class="output_block"></div>
 			</div>
 		</div>
 

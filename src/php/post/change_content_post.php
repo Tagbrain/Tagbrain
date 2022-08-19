@@ -17,7 +17,7 @@ class change_post {
         }
     }
 
-    protected function put_history_changing_row($channel_name,$user, $item_id, $file_time){
+    protected function put_history_changing_row($channel_name, $user, $item_id, $file_time){
         $post_changing_statistic = __DIR__ . "/../../channels/".$channel_name."/last_changing";
         $new_row = $user.",".$item_id.",".$file_time."\n";
         if(!file_exists($post_changing_statistic.'.csv')){
@@ -67,16 +67,14 @@ class change_post {
             $this->put_history_changing_row($channel_name,$_SESSION["userid"], $item_id, $file_time);
 
         } else {
-
             echo "No access";
-
         }
 
     }
     
 }
 
-$user = $_SESSION["userid"];
+//definition
 $item_id = htmlspecialchars_decode($_POST['parent_item_id']);
 $new_content = htmlspecialchars_decode($_POST['new_content']);
 $channel_name = $_POST['channel_folder'];
