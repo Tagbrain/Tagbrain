@@ -29,4 +29,7 @@
         + GO
 
 + Full information on Tagbrain project page
-    + and graph by project structure, idea, tasks...
+    + graph by the project structure
+    + ideas
+    + tasks
+    + everything connected by Tagbrain
