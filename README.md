@@ -7,7 +7,7 @@
 <a href="https://tagbrain.org/">Site link</a>
 
 + Description
-    + Web-tool for collaborative creation hypergraphs + of knowledge 
+    + Web-tool for collaborative creation hypergraphs of knowledge 
         + with 
             + tags interface
             + functions of dynamic self-optimization + the structure
