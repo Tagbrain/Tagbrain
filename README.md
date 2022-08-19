@@ -14,7 +14,7 @@
             + and other biological functions,  mechanisms taken and mimic from structure of the brain
 
 + Tasks to be closed by the project
-	+ Creating of a complex classification of the key concepts of any science or app or process or book or article or + + something else
+	+ Creating of a complex classification of the key concepts of any science or app or process or book or article or something else
         + by the object method with tag interface
         + group of functions which can improve the structure of some knowledge and compress it
     + Creation of a platform for collaborative structured knowledge editing
