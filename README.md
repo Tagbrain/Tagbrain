@@ -33,3 +33,9 @@
     + ideas
     + tasks
     + everything related to Tagbrain
+
+```
+function test() {
+	test
+}
+```
