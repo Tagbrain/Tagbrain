@@ -11,9 +11,17 @@ trait template_post_trait{
                <span class="save_flag"></span>
                <span class="file_time" title="last_editing">'.$file_time.'</span>
             </div>'.
-            '<a class="delete_item_button button_cont_stl">'.
-               '<svg class="fill_icon_style icon_size_middle"><use xlink:href="#sprite_delete_button"></use></svg>'.
-            '</a>'.
+            '<div class="post_icon_container">'.
+               '<a class="button_cont_stl">'.
+                  '<svg class="liner_icon_style icon_size_middle"><use xlink:href="#sprite_attachment"></use></svg>'.
+               '</a>'.
+               '<a class="button_cont_stl">'.
+                  '<svg class="liner_icon_style icon_size_middle"><use xlink:href="#sprite_fork_icon"></use></svg>'.
+               '</a>'.
+               '<a class="button_cont_stl">'.
+                  '<svg class="liner_icon_style icon_size_middle"><use xlink:href="#sprite_delete_button"></use></svg>'.
+               '</a>'.
+            '</div>'.
             '<div class="sense_item">'.
                '<div class="numbers_bar"></div>'.
               '<div contenteditable="true" spellcheck="false" id='.'"'.'item_input_id_'.$file_id.'"'.' class="item_input">';

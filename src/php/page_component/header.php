@@ -72,14 +72,14 @@
 				</a>
 				<div class="menu_container">
 					<a href="#" class="a_cl">TAGBRAIN</a>
-					<a href="#" class="a_cl" id="page_tag_map_name"><?php 
+					<span id="page_tag_map_name"><?php 
 						if($page_state == "/"){
 							echo "/project";
 						} else {
 							echo $page_state; 
 						}
 						?>
-					</a>
+					</span>
 					<span class="public_private_index">
 						<?php 
 						if($channel_private == true){
@@ -89,6 +89,11 @@
 						}
 						?>
 					</span>
+				</div>
+				<div id="export_import">
+					<svg class="liner_icon_style icon_size_middle">
+						<use xlink:href="#sprite_export"></use>
+					</svg>
 				</div>
 				<?php if(!$_SESSION["userid"]){
 						echo '<form method="post" action="php/sessions/sign_in/signin_inc.php" onsubmit="return validate_code_form()" id="container_post_code">'.

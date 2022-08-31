@@ -1,7 +1,7 @@
 import {elements} from "./obj_post_edit_f.js";
 import {patterns} from "./obj_post_edit_f.js";
 import {functions} from "./obj_post_edit_f.js";
-import {get_post_tags_obj} from "../all_posts_action/search_controller.js";
+import {get_string_tags_struct} from "../../units/get_string_tags_struct.js";
 
 //UNITS
   let refractory_timer;
@@ -54,7 +54,7 @@ import {get_post_tags_obj} from "../all_posts_action/search_controller.js";
     let post_content_text = post_el.innerText;
     let firsts_words_post = post_content_text.split(/([^\p{L}_0-9#]*)/g, 20).join("");
     let time_last_editing_post = post_el.parentNode.parentNode.querySelector(".file_time").textContent;
-    let obj_post_tags = get_post_tags_obj(post_tags_arr);
+    let obj_post_tags = get_string_tags_struct(post_tags_arr);
 
     let post_info = {
       id: post_id,
@@ -114,7 +114,7 @@ import {get_post_tags_obj} from "../all_posts_action/search_controller.js";
         if (post_save_minutes < 10){
           post_save_minutes = "0" + post_save_minutes;
         }
-        let time_data_hours_minutes = "Post " + id_parent_item + " saved in " + post_save_hours+":"+post_save_minutes;
+        let time_data_hours_minutes = "Saved " + post_save_hours+":"+post_save_minutes;
         saved_not_saved_block.textContent = time_data_hours_minutes;
         setTimeout(clean_save_not_save_block, 60000);
       }

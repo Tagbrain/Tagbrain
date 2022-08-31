@@ -21,17 +21,6 @@ document.addEventListener('DOMContentLoaded',function(){
         window.location.href = "#" + last_item_id;
     });
 
-
-    document.addEventListener("click", (e) => {
-        e = e || window.event;
-        var del_button_search_row = e.target;
-        if (del_button_search_row.classList.contains("search_row_delete")){
-            del_button_search_row.parentNode.parentNode.remove();
-        } else if (del_button_search_row.classList.contains("ram_row_delete")){
-            del_button_search_row.parentNode.parentNode.remove();
-        }
-    })
-
     function contains_parent_with_class(node, class_name, limit_node){
         let iterable_node = node;
         if (iterable_node.nodeType == 3){

@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "../protect/server_protect.php";
-include "../general_units/get_post_search_obj.php";
+include "../general_units/activation/get_post_search_obj.php";
 include "../engine/load_post_content.php";
 
 class search_controller {
@@ -47,7 +47,12 @@ class search_controller {
         */
  
         if (empty($channel_search_obj)) {
-            echo json_encode("NO RESULTS");
+            $response_arr = array(
+                "status" => "success",
+                "remove_posts" => array(),
+                "add_posts" => array()
+            );
+            echo json_encode($response_arr);
             exit();
         }
 
@@ -61,6 +66,7 @@ class search_controller {
         }
         usort($channel_search_obj, "cmp");
         $splice_group = $channel_search_obj;
+        $finded_posts = array();
 
         if(count($channel_search_obj) < 10){
             $splice_group = array_splice($channel_search_obj, 0, 10);
@@ -135,12 +141,9 @@ class search_controller {
             $response_arr["add_posts"] = $add_posts;
         }
         echo json_encode($response_arr);
-
+       
         //delayed function
     }
-    
-
-
 
     protected function change_post_name_activation(){
         //last posts decrease

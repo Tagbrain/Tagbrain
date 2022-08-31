@@ -31,6 +31,7 @@ let path = {
         htaccess: source_folder + "/.htaccess",
         txt_root: source_folder + "/*.txt",
         basket: source_folder + "/basket/",
+        cache: source_folder + "/tmp/cache.json"
     },
     watch:{
         index_php: source_folder + "/index.php",
@@ -56,7 +57,11 @@ group_media = require('gulp-group-css-media-queries'),
 clean_css = require("gulp-clean-css"),
 htmlmin = require('gulp-htmlmin'),
 webpack = require('webpack-stream'),
-browserify = require('browserify');
+walk    = require('walk'),
+browserify = require('browserify'),
+fs = require('fs'),
+uglify = require('gulp-uglify');
+
 
 let webConfig = {
     target: "node",
@@ -94,6 +99,41 @@ function js(){
     return src(path.src.js)
         .pipe(webpack(webConfig))
         .pipe(dest(path.build.js))
+        //.pipe(get_js_uglify(path.build.js))
+}
+function get_js_uglify(files_dir){
+
+    var files   = [];
+    
+    var walker = walk.walk(files_dir, { followLinks: false });
+    walker.on('file', function(root, stat, next) {
+        var some_file = {};
+        var content = fs.readFile(root + '/' + stat.name, 'utf8', (err, data) => {
+            if (err) {
+              console.error(err);
+              return;
+            }
+            console.log(data);
+          });
+        some_file[stat.name] = content;
+        files.push(some_file);
+        next();
+    });
+    
+    let cacheFileName = path.src.cache;
+    let options = {
+        mangle: {
+            properties: true,
+        },
+        nameCache: JSON.parse(fs.readFileSync(cacheFileName, "utf8"))
+    };
+
+    for(let i = 0; i < files.length; i++){
+        fs.writeFileSync(files_dir+Object.keys(files[i])[0], uglify.minify(
+            JSON.stringify(files[i])
+        , options).code, "utf8");
+    }
+    fs.writeFileSync(cacheFileName, JSON.stringify(options.nameCache), "utf8");
 }
 function js_special(){
     return src(path.src.js_special)
@@ -110,7 +150,6 @@ function css(){
         .pipe(clean_css())
         .pipe(dest(path.build.css))
 }
-
 function img(){
     return src(path.src.img)
         .pipe(dest(path.build.img))

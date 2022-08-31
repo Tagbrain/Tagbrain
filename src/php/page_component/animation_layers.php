@@ -69,6 +69,7 @@
 	</div>
 	<div id="post_pop_up_menu" class="post_pop_up_hide">
 		<a class="a_cl" id="button_create_from_selection">Create a new post from the selection</a><br>
+		<a class="a_cl" id="paste_text">Paste</a><br>
 		<a class="a_cl" id="export_content">Export the selection → other channel</a><br>
 		<a class="a_cl" id="post_parsing">Post parsing</a>
 	</div>

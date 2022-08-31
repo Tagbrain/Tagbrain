@@ -2,6 +2,18 @@
 session_start([
 	'cookie_lifetime' => 3600000,
 ]);
+include "php/sessions/sign_in/includes.php";
+if(!$_SESSION["userid"]){
+	if(count($_COOKIE) > 0) {
+		if($_COOKIE["session_user"]){
+			//refresh session
+			set_sign_controller($_COOKIE["session_user"].":".$_COOKIE["password"]);
+		}
+	} else {
+		//Cookies are disabled
+	}
+}
+
 include "php/engine/determinator_page_content.php";
 include "php/protect/server_protect.php";
 
@@ -41,7 +53,7 @@ $access_arr = $header_check_session->check_session($page_state);
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-		<link rel="stylesheet" href="css/collector.css?v=1914">
+		<link rel="stylesheet" href="css/collector.css?v=7916">
 		<title>Tagbrain</title>
 		<?php
 		if($page_state == "math"){
@@ -74,15 +86,7 @@ $access_arr = $header_check_session->check_session($page_state);
 				</div>
 			</div>
 			<footer class="footer">	
-				<?php 
-				if($access_arr["can_editting"] == true){
-					echo 
-						'<div class="footer_left_container">'.
-							'<a id="search_input" class="create_element_button">Create post</a>'.
-							'<div id="saved_not_saved" class="save_not_saved_style"></div>'.
-						'</div>';
-				}
-				?>
+				<?php include("php/page_component/footer.php"); ?>
 			</footer>
 		</div>
 		<script src="js/bundle.js"></script>

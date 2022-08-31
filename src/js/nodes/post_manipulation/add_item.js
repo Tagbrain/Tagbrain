@@ -5,7 +5,7 @@ import {functions} from "./obj_post_edit_f.js";
 import {put_validation_events_to_post} from './post_editor_controller.js';
 import {toggle_pop_up} from '../interface/settings_pop_up_end.js';
 import {add_to_ram} from './change_item_end.js';
-let Loader = require('../tehnic/async_loader_end.js');
+let Loader = require('../../units/tehnic/async_loader_end.js');
 
 //OPTIMIZING_FS
 function gEBI(id, parent) {
@@ -19,9 +19,12 @@ function dCE(element){
 export function add_item(response_server_id, item_value, contenteditable, add_ram_boolen){
    let       items_container = gEBI("items_container"),
        parent_post_container = dCE("div"),
-          delete_item_button = dCE("a"),
+         post_icon_container = dCE("div"),
+                  attachment = dCE("a"),
+                   fork_icon = dCE("a"),
+               delete_button = dCE("a"),
                   sense_item = dCE("div"),
-                  numbers_bar = dCE("div"),
+                 numbers_bar = dCE("div"),
                    post_name = dCE("div"),
                    save_flag = dCE("span"),
                    file_time = dCE("span"),
@@ -39,11 +42,34 @@ export function add_item(response_server_id, item_value, contenteditable, add_ra
          class: "item",
          element_html: parent_post_container,
       },
-      delete_item_button:{
+      post_name:{
          parent_block: parent_post_container,
-         class: ["delete_item_button", "button_cont_stl"],
+         class: "post_name",
+         inner_html: "Post:"+response_server_id,
+         element_html: post_name,
+      },
+      post_icon_container:{
+         parent_block: parent_post_container,
+         class: "post_icon_container",
+         element_html: post_icon_container,
+      },
+      attachment:{
+         parent_block: post_icon_container,
+         class: "button_cont_stl",
+         inner_html: '<svg class="liner_icon_style icon_size_middle"><use xlink:href="#sprite_attachment"></use></svg>',
+         element_html: attachment,
+      },
+      fork_icon:{
+         parent_block: post_icon_container,
+         class: "button_cont_stl",
+         inner_html: '<svg class="liner_icon_style icon_size_middle"><use xlink:href="#sprite_fork_icon"></use></svg>',
+         element_html: fork_icon,
+      },
+      delete_button:{
+         parent_block: post_icon_container,
+         class: "button_cont_stl",
          inner_html: '<svg class="liner_icon_style icon_size_middle"><use xlink:href="#sprite_delete_button"></use></svg>',
-         element_html: delete_item_button,
+         element_html: delete_button,
       },
       sense_item:{
          parent_block: parent_post_container,
@@ -74,12 +100,6 @@ export function add_item(response_server_id, item_value, contenteditable, add_ra
          parent_block: post_low_panel,
          class: ["count_points", "post_counters"],
          element_html: count_points,
-      },
-      post_name:{
-         parent_block: parent_post_container,
-         class: "post_name",
-         inner_html: "Post:"+response_server_id,
-         element_html: post_name,
       },
       save_flag:{
          parent_block: post_name,
@@ -224,7 +244,7 @@ async function load_form_new_channel_script(){
    document.addEventListener('DOMContentLoaded',function(){
       if(gEBI("search_input")){
          gEBI("search_input").addEventListener('click', function() {
-               let search_input_new_post = "<div class='post_row'>Write a new post here</div>";
+               let search_input_new_post = "<div class='post_row'>Write a #new_post here</div>";
                let channel_folder = gEBI("page_tag_map_name").textContent.trim();
                dataload(search_input_new_post, channel_folder);  
          });
@@ -238,14 +258,17 @@ async function load_form_new_channel_script(){
       if(gEBI("button_create_from_selection")){
          let content_from_sel;
          
+         
          document.addEventListener("contextmenu", (e)=>{
             if (window.getSelection()){
                content_from_sel = get_selection_HTML();
             }
          });
          gEBI("button_create_from_selection").addEventListener('click', function(e) {
-            let channel_folder = gEBI("page_tag_map_name").textContent.trim();
-            dataload(content_from_sel, channel_folder);  
+            if(gEBI("logout_a")){
+               let channel_folder = gEBI("page_tag_map_name").textContent.trim();
+               dataload(content_from_sel, channel_folder);  
+            }
             let upper_layer_for_animation = document.querySelector(".upper_layer_for_animation"),
             post_pop_up_menu = gEBI("post_pop_up_menu"),
             classes = post_pop_up_menu.classList;

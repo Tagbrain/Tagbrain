@@ -79,10 +79,14 @@ $item_id = htmlspecialchars_decode($_POST['parent_item_id']);
 $new_content = htmlspecialchars_decode($_POST['new_content']);
 $channel_name = $_POST['channel_folder'];
 
-if(isset($item_id, $new_content, $channel_name)){
-    $change_post = new change_post();
-    $change_post->get_and_check_data($channel_name, $new_content, $item_id);
-    echo "save";
+if($_SESSION["userid"]){
+    if(isset($item_id, $new_content, $channel_name)){
+        $change_post = new change_post();
+        $change_post->get_and_check_data($channel_name, $new_content, $item_id);
+        echo "save";
+    } else {
+        echo "Data is not complete";
+    }
 } else {
-    echo "Data is not complete";
+    echo "No session";
 }

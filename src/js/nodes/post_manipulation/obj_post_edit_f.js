@@ -103,15 +103,6 @@ export let functions = {
                }
           }
      },
-     find_row_words(post_row, array_of_search_key) {
-          let content_row_text = post_row.innerText;
-          let regexp = new RegExp(array_of_search_key.join("|"), 'gu');
-          if (regexp.test(content_row_text)) {
-               return true
-          } else {
-               return false
-          }
-     },
      create_new_row(content, is_enter) {
           let new_line_div = document.createElement("div");
           if (content != "") {
@@ -125,34 +116,71 @@ export let functions = {
      },
      get_current_line_spaces(current_node) {
           let text_content = current_node.textContent;
-          let obj_spaces = this.get_first_spaces_and_boolen_exist_text(text_content);
-          return obj_spaces.spaces;
+          let obj_space = this.get_first_spaces_and_boolen_exist_text(text_content);
+          //current_node.textContent = obj_space.content;
+          return obj_space.spaces;
      },
-     get_first_spaces_and_boolen_exist_text(text_content) {
-          let textContent_characters_array = text_content.match(/./gi),
-               textContent_first_spaces = 0,
-               spaces_amount = 0,
-               text_exist = false;
+     get_first_spaces_and_boolen_exist_text(text_content, previous_spaces, pos_par) {
+          let  spaces_amount = 0,
+               text_exist = false,
+               spaces_string = "";
 
-          if (textContent_characters_array != null) {
-               for (let i = 0; i < textContent_characters_array.length; i++) {
-                    if (textContent_characters_array[i] == patterns.invisible_char)
-                         continue
-                    if (textContent_characters_array[i] == " ") {
+          let text_row = text_content.replace(/./gi, function (key) {
+               if(text_exist == false){
+                    if (key == patterns.invisible_char)
+                         return "";
+                    if (key == " ") {
                          spaces_amount += 1;
-                         continue
-                    } else if (textContent_characters_array[i] == "\t") {
+                         spaces_string += " ";
+                         return "";
+                    } else if (key == "\t") {
                          spaces_amount += 4;
-                         continue
-                    } else {
+                         spaces_string += "    ";
+                         return "";
+                    } else {//end tabulation
                          text_exist = true;
-                         break
+                         return key;
+                    }
+               } else {
+                    return key;
+               }
+          });
+          
+          if(pos_par != undefined){
+               if(pos_par == "first"){
+                    spaces_amount = 0;
+                    spaces_string = "";
+               } 
+          } else {
+               if(previous_spaces != undefined){
+                    if(spaces_amount > previous_spaces)
+                         if(spaces_amount - previous_spaces > 6){
+                              spaces_amount = previous_spaces + 4;
+                              spaces_string = " ".repeat(previous_spaces + 4);
+                         }
+               }
+
+               let tabulation = spaces_amount % 4;
+
+               if(tabulation > 0){
+                    if (tabulation > 2){
+                         spaces_string = spaces_string + " ";
+                         spaces_amount = spaces_amount + 1;
+                    } else {
+                         if(tabulation == 2){
+                              spaces_string = spaces_string.slice(2);
+                              spaces_amount = spaces_amount - 2;
+                         } else {//==1
+                              spaces_string = spaces_string.slice(1);
+                              spaces_amount = spaces_amount - 1;
+                         }
                     }
                }
-               textContent_first_spaces = spaces_amount;
           }
+          
           return {
-               spaces: textContent_first_spaces,
+               spaces: spaces_amount,
+               content: spaces_string + text_row,
                text_exist: text_exist,
           };
      },
@@ -262,8 +290,10 @@ export let functions = {
 
 
           tab_index == "enter" ? amount_spaces_current_node = 0 : true;
+          
           if (obj_second_line_spaces.text_exist == false) {
                second_part_content = "";
+               //second_part_content = obj_second_line_spaces.content;
           };
 
           current_node.textContent = first_part_content;
@@ -303,7 +333,7 @@ export let functions = {
               current_node = this.get_current_line_div(),
               current_node_spaces = this.get_current_line_spaces(current_node),
               paste_rows = [];
-              paste_rows = paste.split("\n");
+              paste_rows = paste.split(/\r?\n/);
           //check count selectnodes
 
           //check count rows in paste text
@@ -360,7 +390,6 @@ export let functions = {
                     } else {
                          current_node.after(paste_line);
                     }
-                    
                     current_node = paste_line;
                }
                this.focus_end_element(current_node);
@@ -459,27 +488,183 @@ export let functions = {
                return obj_escape_html_map[pattern];
           });
      },
-     //search block
-     search_format_function(current_post, array_of_search_key) {
-          let rows = current_post.childNodes;
+     get_pos_activation(){
 
-          let obj_result_search = this.surround_post_text_in_tags_controller(rows, array_of_search_key);
-          let finded_words = obj_result_search.finded_words;
-          let finded_tags_post = obj_result_search.finded_all_tags_array;
+     },
+     destruct_shape_activation_number(str_num){
+
+          array_pos = [];
+
+          let symbols = [];
+          symbols = matchAll(/./g);
+
+          current_row = -1;
+          current_depth = 0;
+
+          for(let i = 0; i < symbols.length; i++){
+               if(symbols[i] == "8"){
+                    current_row += 1;
+               } else if (symbols[i] == "9"){
+                    if(symbols[i] == "9"){
+                         current_depth -= 1;
+                    } else {
+                         current_depth += 1;
+                    }
+               } else {
+                    continue;
+               }
+               array_pos.push(current_row, current_depth);
+          }
+
+          return array_pos;
+     },
+     generate_struct_activ_num(obj_allrow){
+          function collect_part_number(curr_col, prev_col, activation_octal){
+
+               if(prev_col == curr_col){
+                    return "8" + activation_octal;
+               } else if(prev_col < curr_col){
+                    return "98" + activation_octal;
+               } else if(prev_col > curr_col){
+                    let quotient = Math.floor((prev_col - curr_col)/ 4);
+                    return "99".repeat(quotient) + "8" + activation_octal;
+               }
+          }
+          let general_activation = 0;
+          let number = "";
+          let last_depth_tmp = 0;
+          if(obj_allrow.length > 0)
+          
+          for (let i = 0; i < obj_allrow.length; i++) {
+               let activation_octal = "0";
+              
+
+               if(obj_allrow[i]["is_key_row"] == true){
+                    let  row_activ = this.get_row_score(obj_allrow[i]["row"]),
+                         depth_activ = this.get_depth_score(obj_allrow[i]["depth"]),
+                         activation = row_activ * depth_activ;
+                         general_activation += activation;
+
+                    activation_octal = this.get_octal_number(activation);
+
+                    number += collect_part_number(obj_allrow[i]["depth"], last_depth_tmp, activation_octal);
+               } else {
+                    number += collect_part_number(obj_allrow[i]["depth"], last_depth_tmp, "");
+               }
+
+               last_depth_tmp = obj_allrow[i]["depth"];
+          }
 
           return {
-               finded_words: finded_words,
-               finded_tags_post: finded_tags_post,
+               number: number,
+               general_activation: general_activation,
+          }
+     },
+     get_row_score(row_num){
+          if(row_num < 4){
+               return 10;
+          } else if(row_num < 8) {
+               return 3;
+          } else {
+               return 1;
+          }
+     },
+     get_depth_score(depth_num){
+          if(depth_num < 9){
+               return 10;
+          } else if (depth_num < 12){
+               return 5;
+          } else if (depth_num < 20){
+               return 2;
+          } else {
+               return 1;
+          } 
+     },
+     convert_num_to_custom_system(num){
+          return {
+               from : function (baseFrom) {
+                   return {
+                       to : function (baseTo) {
+                           return parseInt(num, baseFrom).toString(baseTo);
+                       }
+                   };
+               }
+          };
+     },   
+     get_octal_number(num){
+          return this.convert_num_to_custom_system(num).from(10).to(8);
+     },
+     //search block
+     search_format_function(current_post, array_of_search_key) {
+          let obj_result_search = {};
+          let rows = current_post.childNodes;
+          if(rows.length > 0)
+               return obj_result_search = this.surround_post_text_in_tags_controller(rows, array_of_search_key);
+     },
+     get_chain_fathers(rows, arr_objs_rows, arr_objs_current_rows){
+          if(arr_objs_rows != null){
+               let arr_chains = [];
+
+               outer:for (let i = 0; i < arr_objs_current_rows.length; i++){
+                    let chain_fathers = '<span class="arrows_sh">'
+                                             + arr_objs_current_rows[i]["key"] 
+                                        +'</span><br>';
+
+                    let j = arr_objs_current_rows[i]["row"] - 1;
+                    let curr_d = arr_objs_current_rows[i]["depth"];
+                    let z = 0;
+                    while(j >= 0 && z < 5){
+                         if(curr_d > arr_objs_rows[j]["depth"]){//is parent
+                              let value = rows[j].textContent.trim();
+                              chain_fathers = value + "<span class='arrows_sh'> => </span>" + chain_fathers;
+                              if(arr_objs_rows[j]["depth"] == 0){
+                                   chain_fathers = "|&nbsp;&nbsp;" + chain_fathers;
+                                   arr_chains.push(chain_fathers);
+                                   continue outer
+                              } else {
+                                   curr_d = arr_objs_rows[j]["depth"];
+                                   z++;
+                              }
+                         }
+                         j--;
+                    }
+                    chain_fathers = "" + chain_fathers;
+                    arr_chains.push(chain_fathers);
+               }
+               return arr_chains;
           }
      },
      surround_post_text_in_tags_controller(rows, array_of_search_key) {
           let finded_words = [],
-              finded_all_tags_array = [];
+          finded_tags_struct = [],
+          cut_rows_arr = [],
+          arr_objs_struct_activ = [],
+          arr_objs_current_rows = [];
+
+          let previus_row_spaces = 0;
 
           for (let i = 0; i < rows.length; i++) {
-               let text_row = rows[i].textContent;
-               let escaped_itext_row = this.escape_text(text_row);
+               let  obj_struct_activ = {},
+                    is_key_row = false,
+                    text_row = rows[i].textContent,
+                    space_obj;
 
+               if(text_row == "" || text_row == "\n"){
+                    cut_rows_arr.push(i);
+                    continue;
+               } else if(i == 0){
+                    space_obj = this.get_first_spaces_and_boolen_exist_text(text_row, previus_row_spaces, "first");
+               } else {
+                    space_obj = this.get_first_spaces_and_boolen_exist_text(text_row, previus_row_spaces);
+               }
+               
+               obj_struct_activ["depth"] = space_obj.spaces;
+               obj_struct_activ["row"] = i;
+
+               let content_right_spaces = space_obj.content;
+               let escaped_itext_row = this.escape_text(content_right_spaces);
+
+               //#remove
                let text_symbols_spans_formatting = escaped_itext_row.replace(patterns.pattern_symbols, function (match_pattern) {
                     if (match_pattern.indexOf("span") != -1) {
                          match_pattern = "";
@@ -491,6 +676,7 @@ export let functions = {
 
                let regexp;
                let array_is_empty = false;
+               
 
                if (array_of_search_key != null) {
                     if (array_of_search_key.length > 0) {
@@ -506,8 +692,10 @@ export let functions = {
                     if (array_is_empty == false) {
                          if (array_of_search_key.includes(search_key) == true) {
                               finded_words.push(search_key);
+                              is_key_row = true;
+                              obj_struct_activ["key"] = search_key;
                               if (/#[\p{L}_0-9]*/.test(search_key) == true) {
-                                   finded_all_tags_array.push(search_key);
+                                   finded_tags_struct.push({key:search_key, c:i, d:space_obj.spaces});
                                    search_key = "<span class='item_tags_style'><mark>" + search_key + "</mark></span>";
                                    return search_key;
                               } else {
@@ -518,11 +706,13 @@ export let functions = {
                     }
 
                     if (/#[\p{L}_0-9]*/.test(search_key) == true) {
-                         finded_all_tags_array.push(search_key);
+                         finded_tags_struct.push({key:search_key, c:i, d:space_obj.spaces});
                          if (array_is_empty == false) {
                               let reg_words_in_tag = new RegExp(array_of_search_key.join('|'), 'gu')
                               search_key = search_key.replace(reg_words_in_tag, function (word) {
                                    finded_words.push(word);
+                                   is_key_row = true;
+                                   obj_struct_activ["key"] = search_key;
                                    word = "<mark>" + word + "</mark>";
                                    return word;
                               })
@@ -533,10 +723,42 @@ export let functions = {
                });
 
                rows[i].innerHTML = text_with_symbols_tags;
+               obj_struct_activ["is_key_row"] = is_key_row;
+               arr_objs_struct_activ.push(obj_struct_activ);
+               if(is_key_row == true)
+                    arr_objs_current_rows.push(obj_struct_activ);
+               
+               previus_row_spaces = space_obj.spaces;
           }
+          //parents child properties
+          //arr_objs_current_rows, leave only 5 items
+          
+          if(arr_objs_current_rows.length > 5){
+               arr_objs_current_rows.sort((a, b) => b.depth - a.depth);
+               arr_objs_current_rows = arr_objs_current_rows.slice(0, 5);
+          }
+               
+          let chain_fathers = this.get_chain_fathers(rows, arr_objs_struct_activ, arr_objs_current_rows);
+
+          let obj_st_acitvations = this.generate_struct_activ_num(arr_objs_struct_activ);
+
+          //AFTER OTHER
+          if(cut_rows_arr != null){
+               for(let i = rows.length - 1; i >= 0; i--){
+                    for(let j = 0; j < cut_rows_arr.length; j++){
+                         if(i == cut_rows_arr[j]){
+                              rows[i].remove(); 
+                         }
+                    }
+               }
+          }
+          
           return {
                finded_words: finded_words,
-               finded_all_tags_array: finded_all_tags_array,
+               finded_tags_struct: finded_tags_struct,
+               struct_activ_num: obj_st_acitvations.number,
+               general_activation: obj_st_acitvations.general_activation,
+               chain_fathers: chain_fathers,
           }
      },
      validate_row_formate(node, caret_pos){

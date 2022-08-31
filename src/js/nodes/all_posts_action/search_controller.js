@@ -4,6 +4,8 @@ import {functions} from "../post_manipulation/obj_post_edit_f.js";
 import {post_format} from "../post_manipulation/add_item.js";
 import {add_item} from "../post_manipulation/add_item.js";
 
+//UNITS
+import {get_string_tags_struct} from "../../units/get_string_tags_struct.js";
 
 
 //OPTIMIZING_F
@@ -15,28 +17,7 @@ return document.createElement(element);
 }
 
 //UNITS
-export function get_post_tags_obj(post_tags_arr){
-     let j = 0;
-     let count_tags = 0;
-     let finded_post_tags_string = '';
-     if(post_tags_arr != null){
-          while(j < post_tags_arr.length){
-               if(count_tags < 20){
-                    finded_post_tags_string += '<span class="item_tags_style">' + post_tags_arr[j].toString()+'</span>'+ '&nbsp; &nbsp; ';   
-               } else if(count_tags > 19 && count_tags < 21 ){
-                    finded_post_tags_string += ' ... ';
-               } else if(j == post_tags_arr.length - 1){
-                    finded_post_tags_string += ' <span class="item_tags_style">' + post_tags_arr[j].toString()+'</span> ';
-               }
-               count_tags++;
-               j++;
-          }
-     }  
-     return {
-          count: count_tags,
-          string: finded_post_tags_string,
-     }
-}
+
 function clean_selection(){
      let array_of_finded = [];
      if(document.getElementsByTagName("mark")[0]){
@@ -162,7 +143,7 @@ function call_refractory_timer(timer_name, ms){
 function refractor_front_end_search(timer_name, array_key, ms){
      if(timer_name != undefined)
           window.clearTimeout(timer_name);
-     timer_name = window.setTimeout(get_front_end_search_array, ms, "assosiation", array_key)
+     timer_name = window.setTimeout(get_front_end_search_array, ms, "association", array_key)
 }
 function get_front_end_search_array(type_search, array_of_search_key){ 
        let  counter_posts = 0,
@@ -173,33 +154,27 @@ function get_front_end_search_array(type_search, array_of_search_key){
 
           for(let i = 0; i < collection_posts.length; i++){
                let post_block = collection_posts[i];
-               let post_content_text = post_block.innerText;
 
                if(array_of_search_key != null){
+
                     let time_last_editing_post = post_block.parentNode.parentNode.querySelector(".file_time").textContent,  
-                    firsts_words_post = post_content_text.split(/\s|\n|\r/g, 60).join(" ");
-                    let first_row = functions.get_first_line(post_block);
-                    let is_need_obj = functions.find_row_words(first_row, array_of_search_key);
-                    let header_search_ind;
-                    if(is_need_obj == true){
-                         header_search_ind = "the object";
-                    } else {
-                         header_search_ind = "";
-                    }
+                        firsts_words_post = post_block.childNodes[0].textContent.trim();    
 
                     let search_post_obj = functions.search_format_function(post_block, array_of_search_key),
                          finded_post_words = search_post_obj.finded_words,
-                         finded_post_tags = search_post_obj.finded_tags_post,
+                         finded_tags_struct = search_post_obj.finded_tags_struct,
+                         general_activation = search_post_obj.general_activation,
+                         struct_activ_num = search_post_obj.struct_activ_num,
+                         chain_fathers = search_post_obj.chain_fathers,
                               count_finded = 0;
 
                     if(finded_post_words != null)
                          count_finded = finded_post_words.length;
 
-                    let obj_post_tags = get_post_tags_obj(finded_post_tags);
+                    let obj_post_tags = get_string_tags_struct(finded_tags_struct);
                     
-               
                     //optimazing array tags
-                    if(type_search == "assosiation"){
+                    if(type_search == "association"){
                          true
                     } else {
                          let unique_array_of_search_key = array_of_search_key.filter((val, ind, arr) => arr.indexOf(val) === ind);
@@ -208,22 +183,27 @@ function get_front_end_search_array(type_search, array_of_search_key){
                               break;
                     }
                     
-                    if(count_finded > 0){
+                    let activation = 0;
+
+                    if(general_activation > 0){
                          counter_posts++;
                          if (post_block.parentNode.parentNode.id != ''){
                               ids.push( {
                                    id: post_block.parentNode.parentNode.id, 
-                                   finded: count_finded,
+                                   activation: general_activation,
                                    count_tags: obj_post_tags.count,
                                    words: firsts_words_post,
                                    tags: obj_post_tags.string,
                                    time: time_last_editing_post,
-                                   header_search_ind: header_search_ind     
+                                   chain_fathers: chain_fathers,
                               });
                          }
                     }
                }
           }
+
+          //check sort par
+          ids.sort((a, b) => b.activation - a.activation );
      }
 
      //output
@@ -231,27 +211,29 @@ function get_front_end_search_array(type_search, array_of_search_key){
      ids = ids.map( post_block => {
           return    '<div class="search_row">' 
                          + '<a class="link_part" href="#' + post_block.id + '">'
-                              + '<span>|'
-                                   + '<span class="special_symbols_style">'
-                                        + post_block.finded
+                              + '<span class="search_act_cont">'
+                                   + '<span class="special_symbols_style" title="Activation">'
+                                        + post_block.activation
                                    + '</span>'
-                              + '| </span>' 
+                              + '</span>' 
                               + '<span class="header_search_ind special_symbols_style">'
-                                   + post_block.header_search_ind
+                                   + ''
                               + '</span>' 
                               + '<span class="search_row_head_time">'
                                    + post_block.time 
                               + ' </span>'
                               + '<span class="first_words_search_row">' 
-                                   + post_block.words 
-                              + '</span><br>'  
+                                   + post_block.words + '<br><br>'
+                                   + post_block.chain_fathers.join("")
+                              + '</span><br><br>'  
                          + '</a>' 
                          + '<div class="search_row_body">'
                               + '<span>'
                                    + '<span> '
                                         + post_block.count_tags
                                    + ' </span>'
-                                   + '<span> [ '
+                                   + '<span class="search_toggle toggle_turned_off"> + </span>'
+                                   + '<span class="toggle_content hide_cl"> [ '
                                         + post_block.tags
                                    + ']</span>'
                               + '</span>'
@@ -282,9 +264,12 @@ function get_front_end_search_array(type_search, array_of_search_key){
  }, false);
 
  let field_search_r_bar = document.querySelector('#search_input_block');
+
  field_search_r_bar.addEventListener('keydown', function(e){
-     if (e.key === 'Enter') {
+     const key = e.code || e.keyCode;
+     if (key === 13 || key === 'Enter') {
           call_refractory_timer(refractory_timer, 500);
+          field_search_r_bar.blur();
      } else {
           /*
           let search_field = document.querySelector('#search_input_block'),
@@ -295,8 +280,8 @@ function get_front_end_search_array(type_search, array_of_search_key){
           */
      }
 })
-     //CONTROLLER
 
+//CONTROLLER
 function start_search_controller(front_end_search, back_end_search, type_search){
      let search_field = document.querySelector('#search_input_block'),
      search_val = search_field.value,
@@ -322,7 +307,7 @@ function start_search_controller(front_end_search, back_end_search, type_search)
                } 
 
                if(front_end_search == true){ 
-                    get_front_end_search_array("assosiation", array_of_search_key);
+                    get_front_end_search_array("association", array_of_search_key);
                }
 
           }
@@ -342,5 +327,5 @@ function success_reaction(obj_search_data, array_of_search_key){
 
      clean_output_field();
 
-     get_front_end_search_array("assosiation", array_of_search_key);
+     get_front_end_search_array("association", array_of_search_key);
 }

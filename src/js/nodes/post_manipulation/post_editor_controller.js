@@ -21,6 +21,12 @@ import {functions} from "./obj_post_edit_f.js";
                elements.current_post = element_one;
                let selection = window.getSelection();
                let current_line = functions.get_current_line_div("start");
+
+                    if((!e.shiftKey) && (!e.ctrlKey) && (e.keyCode != 9) && (e.keyCode != 8) && (e.keyCode != 46)){
+                         let old_caret_pos = functions.get_row_caret_position();
+                         functions.validate_row_formate(current_line, old_caret_pos);
+                         functions.put_caret(current_line, old_caret_pos);
+                    }
           
                     if (e.key === 'Enter') {
                          if(e.shiftKey){
@@ -68,11 +74,6 @@ import {functions} from "./obj_post_edit_f.js";
                                    }
                               }
                          }
-                    }
-                    if((!e.shiftKey) && (!e.ctrlKey) && (e.keyCode != 9) && (e.keyCode != 8) && (e.keyCode != 46)){
-                         let old_caret_pos = functions.get_row_caret_position();
-                         functions.validate_row_formate(current_line, old_caret_pos);
-                         functions.put_caret(current_line, old_caret_pos);
                     }
      
                });
