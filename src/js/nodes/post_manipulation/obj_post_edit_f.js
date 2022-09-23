@@ -1,3 +1,5 @@
+import {parent_is_exist} from "../../units/parent_is_exist.js";
+
 export let elements = {
      all_posts: document.querySelectorAll(".item_input"),
      current_post: document,
@@ -7,7 +9,7 @@ export let patterns = {
      pattern_tag: /#[\p{L}_0-9]*/gui,
      pattern_verb: /\$[\p{L}_0-9]*/gui,
      word: /(\w+)*/gu,
-     pattern_symbols: /\$[\p{L}_0-9]*|↓|\||&|→|←|↑|\(G\)|<(|\/)span[^>]*>/gui,
+     pattern_symbols: /\$[\p{L}_0-9]*|↓|\||&|→|←|↑|=>|<(|\/)span[^>]*>/gui,
      code_pattern: /(\[code\][^]*\[\/code\])/gm,
      clean_codetag_pattern: /\[(|\/)code\]/gm,
 }
@@ -30,19 +32,7 @@ export let functions = {
      give_current_post() {
           let obj_caret = this.get_sel_range();
           let node = obj_caret.sel.anchorNode;
-          elements.current_post = this.find_parent_with_class(node, "item_input");
-     },
-     find_parent_with_class(node, class_name) {
-          let iterable_node = node;
-          if (iterable_node.nodeType == 3) {
-               iterable_node = iterable_node.parentNode;
-          }
-          while (iterable_node.classList.contains(class_name) == false) {
-               iterable_node = iterable_node.parentNode;
-               if (iterable_node.parentNode.classList.contains("site_template") == true)
-                    break;
-          }
-          return iterable_node;
+          elements.current_post = parent_is_exist(node, "item_input");
      },
      get_current_line_div(node_par) {
           let div_n = this.get_current_div_n(node_par);
@@ -232,7 +222,7 @@ export let functions = {
 
                }
           }
-          // do => RETURN OLD SELECTION
+          // #edit => RETURN OLD SELECTION
      },
      get_row_caret_position() {
           let obj_caret = this.get_sel_range(),
@@ -365,12 +355,19 @@ export let functions = {
                     obj_caret.sel.deleteFromDocument();
 
                     let paste_text_node = paste_rows[0],
-                    current_row_content = current_node.textContent,
-                                    len = current_row_content.length,
-                         caret_position = this.get_row_caret_position(),
-                             paste_line = [current_row_content.slice(0, caret_position), paste_text_node, current_row_content.slice(caret_position)].join('');
-                             current_node.textContent = paste_line;
+                    current_row_content = current_node.innerText;
 
+                    let caret_position;
+                    if(current_row_content == "\n"){
+                         current_row_content = "";
+                         caret_position = 0
+                    } else {
+                         caret_position = this.get_row_caret_position();
+                    }
+
+                    let paste_line = [current_row_content.slice(0, caret_position), paste_text_node, current_row_content.slice(caret_position)].join('');
+                    
+                    current_node.textContent = paste_line;
                     this.put_caret(this_post.childNodes[start_sel_block], caret_position);
 
                }
@@ -488,6 +485,20 @@ export let functions = {
                return obj_escape_html_map[pattern];
           });
      },
+     /*
+     rescape_text(text){
+          const obj_escape_html_map = {
+               '&': '&amp;',
+               '<': '&lt;',
+               '>': '&gt;',
+               '"': '&quot',
+               "'": '&#039;',
+               " ": '&nbsp;',
+          };
+          return text.replace(/&|<|>|"|'|\s/g, function (pattern) {
+               return obj_escape_html_map[pattern];
+          });
+     },*/
      get_pos_activation(){
 
      },
@@ -561,7 +572,9 @@ export let functions = {
           }
      },
      get_row_score(row_num){
-          if(row_num < 4){
+          if(row_num < 2){
+               return 13;
+          } else if(row_num < 4){
                return 10;
           } else if(row_num < 8) {
                return 3;
@@ -609,8 +622,7 @@ export let functions = {
                     let chain_fathers = '<span class="arrows_sh">'
                                              + arr_objs_current_rows[i]["key"] 
                                         +'</span><br>';
-
-                    let j = arr_objs_current_rows[i]["row"] - 1;
+                    let j = arr_objs_current_rows[i]["row"] - 2;
                     let curr_d = arr_objs_current_rows[i]["depth"];
                     let z = 0;
                     while(j >= 0 && z < 5){
@@ -618,7 +630,7 @@ export let functions = {
                               let value = rows[j].textContent.trim();
                               chain_fathers = value + "<span class='arrows_sh'> => </span>" + chain_fathers;
                               if(arr_objs_rows[j]["depth"] == 0){
-                                   chain_fathers = "|&nbsp;&nbsp;" + chain_fathers;
+                                   chain_fathers = "&nbsp;&nbsp;" + chain_fathers;
                                    arr_chains.push(chain_fathers);
                                    continue outer
                               } else {
@@ -632,6 +644,95 @@ export let functions = {
                     arr_chains.push(chain_fathers);
                }
                return arr_chains;
+          }
+     },
+     get_chain_fathers2(row_els, arr_objs_rows, arr_objs_current_rows){
+          if(arr_objs_rows != null){
+               let arr_chains = [];
+
+               outer:for (let i = arr_objs_current_rows.length-1; i > 0; i--){
+                    let one_chain_fathers = [];
+                    let j = arr_objs_current_rows[i]["row"] - 2; // number current row
+                    let curr_d = arr_objs_current_rows[i]["depth"]; //depth current row
+
+                    let z = 0;
+                    while(j >= 0 && z < 5){
+                         if(curr_d > arr_objs_rows[j]["depth"]){//is parent
+                              let value = row_els[j].textContent.trim();
+        
+                              if(arr_objs_rows[j]["depth"] == 0){//finded main parent
+                                   let obj_one_chain_father = {
+                                        "value": value,
+                                        "depth": curr_d,
+                                        "row": j,
+                                   };
+                                   one_chain_fathers.push(obj_one_chain_father);
+                                   continue outer;
+                              } else {
+                                   let obj_one_chain_father = {
+                                        "value": value,
+                                        "depth": curr_d,
+                                        "row": j,
+                                   };
+                                   one_chain_fathers.push(obj_one_chain_father);
+                                   curr_d = arr_objs_rows[j]["depth"];
+                                   z++;
+                              }
+                         }
+                         j--;
+                    }
+               }
+          }
+
+
+
+          if(arr_objs_rows != null){
+               let arr_chains = [];
+               let arr_chains_properties = [];
+               let fathers_network = "";
+               outer:for (let i = 0; i < arr_objs_current_rows.length; i++){
+                    let chain_fathers;
+                    let father_properties;
+
+                    let j = arr_objs_current_rows[i]["row"] - 2;
+                    let curr_d = arr_objs_current_rows[i]["depth"];
+                    let z = 0;
+                    while(j >= 0 && z < 5){
+                         if(curr_d > arr_objs_rows[j]["depth"]){//is parent
+                              let value = row_els[j].textContent.trim();
+                              father_properties.push(value);
+                              if(arr_objs_rows[j]["depth"] == 0){
+                                   chain_fathers = "&nbsp;&nbsp;" + chain_fathers;
+                                   arr_chains.push(chain_fathers);
+                                   let key_fathefeatures_obj = {};
+                                   key_fathefeatures_obj[arr_objs_current_rows[i]["key"]] = father_properties;
+                                   arr_chains_properties.push(key_fathefeatures_obj);
+                                   continue outer
+                              } else {
+                                   curr_d = arr_objs_rows[j]["depth"];
+                                   z++;
+                              }
+                         }
+                         j--;
+                    }
+                    chain_fathers = "" + chain_fathers;
+                    arr_chains.push(chain_fathers);
+                    let key_fathefeatures_obj = {};
+                    key_fathefeatures_obj[arr_objs_current_rows[i]["key"]] = father_properties;
+                    arr_chains_properties.push(key_fathefeatures_obj);
+
+               }
+               /*#edit
+                    for (let i = 0; i < arr_chains_properties.length; i++){
+                         get keys group
+                              key1
+                              key2
+                              ...
+                         get all sites beetwen groups one key
+                              choose the leaast depth feature as father
+                    }
+               */
+               return fathers_network;
           }
      },
      surround_post_text_in_tags_controller(rows, array_of_search_key) {
@@ -730,8 +831,7 @@ export let functions = {
                
                previus_row_spaces = space_obj.spaces;
           }
-          //parents child properties
-          //arr_objs_current_rows, leave only 5 items
+
           
           if(arr_objs_current_rows.length > 5){
                arr_objs_current_rows.sort((a, b) => b.depth - a.depth);
@@ -1024,5 +1124,5 @@ export let functions = {
           count_tags_node.textContent = "#: " + count_tags;
           count_points_node.textContent = "points: " + count_points;
           //make vertical lines 
-     },
+     }
 }

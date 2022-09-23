@@ -20,8 +20,8 @@ trait get_post_search_obj {
         while(!feof($reading)){
             $line = fgets($reading);
                 
-            $regexp = '/'.join("|",$array_of_search_key).'|#[\p{L}_0-9]*/i';
-            $regexp_words = '/'.join("|",$array_of_search_key).'/i';
+            $regexp = '/'.join("|",$array_of_search_key).'|#[\p{L}_0-9]*/iu';
+            $regexp_words = '/'.join("|",$array_of_search_key).'/iu';
             preg_match_all(
                 $regexp,
                 $line,

@@ -1,8 +1,4 @@
-<style>
-.validation_form{
-    font-size:10px;
-}
-</style>
+<style>.validation_form{font-size:10px;}</style>
 <div id="create_channel_form" contenteditable="false">
     <div>
         <input type="text" id="channel_name" required minlenght="2" maxlength="100" name="" type="text" placeholder="Channel name">

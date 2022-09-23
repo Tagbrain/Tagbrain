@@ -1,7 +1,7 @@
 import {elements} from "./obj_post_edit_f.js";
 import {patterns} from "./obj_post_edit_f.js";
 import {functions} from "./obj_post_edit_f.js";
-import {post_format} from "./add_item.js";
+import {post_format} from "../../units/give_post_format.js";
 
 function dCE(element){
     return document.createElement(element);

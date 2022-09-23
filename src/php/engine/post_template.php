@@ -2,12 +2,12 @@
 
 trait template_post_trait{
 
-   function get_post_html($can_editting_content, $file_id, $file_time, $content){
-      if ($can_editting_content == true) {
+   function get_post_html($can_editing_content, $file_id, $file_time, $content){
+      if ($can_editing_content == true) {
          echo
          '<div class="item" id="' . $file_id .'">'.
             '<div class="post_name">
-               <span>Post:'.$file_id.'</span>
+               <span>'.$file_id.'</span>
                <span class="save_flag"></span>
                <span class="file_time" title="last_editing">'.$file_time.'</span>
             </div>'.
@@ -19,12 +19,12 @@ trait template_post_trait{
                   '<svg class="liner_icon_style icon_size_middle"><use xlink:href="#sprite_fork_icon"></use></svg>'.
                '</a>'.
                '<a class="button_cont_stl">'.
-                  '<svg class="liner_icon_style icon_size_middle"><use xlink:href="#sprite_delete_button"></use></svg>'.
+                  '<svg class="liner_icon_style icon_size_middle delete_neuron_button"><use xlink:href="#sprite_delete_button"></use></svg>'.
                '</a>'.
             '</div>'.
             '<div class="sense_item">'.
                '<div class="numbers_bar"></div>'.
-              '<div contenteditable="true" spellcheck="false" id='.'"'.'item_input_id_'.$file_id.'"'.' class="item_input">';
+              '<div contenteditable="true" spellcheck="false" id='.'"'.'neuron_'.$file_id.'"'.' class="item_input">';
       } else {
          echo
          '<div class="item" id='.'"'.$file_id.'"'.'>'.
@@ -34,7 +34,7 @@ trait template_post_trait{
             <span class="file_time" title="last_editing">'.$file_time.'</span>
          </div>'.
          '<div class="sense_item">'.
-           '<div id='.'"'.'item_input_id_'.$file_id.'"'.' class="item_input">';
+           '<div id='.'"'.'neuron_'.$file_id.'"'.' class="item_input">';
      };
      try {
 
@@ -61,7 +61,7 @@ trait template_post_trait{
      '</div>';
    }
 
-   public function output_list_posts_variable($channel_folder, $can_editting_content){
+   public function output_list_posts_variable($channel_folder, $can_editing_content){
         echo '<link rel="stylesheet" href="'.$channel_folder.'/css/theme.css'.'">';
         $posts_folder_link = $channel_folder."/content_items/";
       try {
@@ -123,20 +123,20 @@ trait template_post_trait{
 
             if(count($node_arr) >= 20){
                foreach($node_arr as $node){
-                  $this->get_post_html($can_editting_content, $node["id"], $node["time"], $node["content"]);
+                  $this->get_post_html($can_editing_content, $node["id"], $node["time"], $node["content"]);
                }
             } else {
                $usual_posts_count = 20 - count($node_arr);
                array_splice($unit_arr, $usual_posts_count);
                foreach($node_arr as $node){
                   $counter_limit++;
-                  $this->get_post_html($can_editting_content, $node["id"], $node["time"], $node["content"]);
+                  $this->get_post_html($can_editing_content, $node["id"], $node["time"], $node["content"]);
                }
                foreach($unit_arr as $node){
                   if($counter_limit > 20){
                      break;
                   }
-                  $this->get_post_html($can_editting_content, $node["id"], $node["time"], $node["content"]);
+                  $this->get_post_html($can_editing_content, $node["id"], $node["time"], $node["content"]);
                   $counter_limit++;
                }
             }

@@ -18,17 +18,17 @@ document.addEventListener('DOMContentLoaded',function(){
          xhttp.send("item_id=" + item_id + "&channel_folder="+ channel_folder);
     };
 
+    //transfer in click file #edit
     document.addEventListener("click", function(e) {
         e = e || window.event;
         var delete_button_block = e.target;
-        let post_node;
-        if (delete_button_block.classList.contains("delete_item_button") == true){
+        if (delete_button_block.classList.contains("delete_neuron_button") == true){
             let remove_or_not = confirm("Do you want to delete the item?");
             if (remove_or_not == true){
                 try{
                     let channel_folder = document.getElementById("page_tag_map_name").textContent.trim();
-                    data_send_to_remove_post(delete_button_block.parentNode.id, channel_folder);
-                    delete_button_block.parentNode.parentNode.removeChild(delete_button_block.parentNode); 
+                    data_send_to_remove_post(delete_button_block.parentNode.parentNode.parentNode.id, channel_folder);
+                    delete_button_block.parentNode.parentNode.parentNode.remove(); 
                 } catch (err){
                     console.log("item won't remove<br><br>" + err);
                 }

@@ -15,7 +15,7 @@ if(!$_SESSION["userid"]){
 }
 
 include "php/engine/determinator_page_content.php";
-include "php/protect/server_protect.php";
+include "php/general_units/protect_session.php";
 
 $channel_private = $data->is_channel_private();
 $page_state = $data->state();
@@ -45,7 +45,7 @@ $access_arr = $header_check_session->check_session($page_state);
 		//$_SESSION["creator"];
 		//$_SESSION["private"];
 //not session
-	//$access_arr["can_editting"];
+	//$access_arr["can_editing"];
 	//$access_arr["full_access"];
 ?>
 <!DOCTYPE html>
@@ -53,7 +53,7 @@ $access_arr = $header_check_session->check_session($page_state);
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-		<link rel="stylesheet" href="css/collector.css?v=7916">
+		<link rel="stylesheet" href="css/collector.css?v=7117">
 		<title>Tagbrain</title>
 		<?php
 		if($page_state == "math"){
@@ -70,20 +70,9 @@ $access_arr = $header_check_session->check_session($page_state);
 				<?php include("php/page_component/header.php"); ?>
 			<div class="container_work">
 				<div id="items_container" class="items_container">
-					<?php echo($data->content($page_state, $data->get_channel_properties_array(), $access_arr["can_editting"])); ?>
+					<?php echo($data->content($page_state, $data->get_channel_properties_array(), $access_arr["can_editing"])); ?>
 				</div>
 				<?php include("php/page_component/right_bar.php"); ?>
-				<div class="switch_right_bar big_arrows_stl" id="switch_right_bar">
-					<svg class="liner_icon_style icon_size_sl_a_middle">
-						<use xlink:href="#sprite_arrow"></use>
-					</svg>
-				</div>
-
-				<div class="big_arrows_stl" id="scroll_button">
-					<svg class="liner_icon_style icon_size_sl_a_middle">
-						<use xlink:href="#sprite_arrow"></use>
-					</svg>
-				</div>
 			</div>
 			<footer class="footer">	
 				<?php include("php/page_component/footer.php"); ?>

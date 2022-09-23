@@ -1,7 +1,6 @@
 function gEBI(id, parent) {
     return (parent || document).getElementById(id);
- } 
-
+}
 const form_fields = {
  channel_name:               gEBI("channel_name"),           
  channel_name_validation:    gEBI("channel_name_validation"),
@@ -64,7 +63,7 @@ function output_result_ajax_create_channel(result_creating, channel_name){
     const loc = document.location;
     location.replace('https://' + loc.hostname + '/' + channel_name);
 }
-async function send_new_channel_data(channel_name, editors_channel, private_or_not){
+async function send_new_channel_data(channel_name, editors_channel, is_private){
     let response = await fetch('php/channels_function/add_channel/add_new_channel_exporter.php', {
         method: 'POST',
         headers: {
@@ -93,11 +92,11 @@ let field_form_elements = ["channel_name", "editors_channel"];
     form_fields.submit_button.addEventListener('click', function(event){
         event.preventDefault();
         if(form_fields.channel_name_validation.classList.contains('correct') && form_fields.editors_channel_validation.classList.contains('correct')){
-            let private = "private";
+            let is_private = "private";
             if(form_fields.checkbox.checked == false){
-                private = "public";
+                is_private = "public";
             }
-            send_new_channel_data(form_fields.channel_name.value, form_fields.editors_channel.value, private);
+            send_new_channel_data(form_fields.channel_name.value, form_fields.editors_channel.value, is_private);
             return false;
         }  
     });

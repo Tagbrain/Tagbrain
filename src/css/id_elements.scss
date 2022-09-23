@@ -10,7 +10,7 @@
 #container_post_code{
     width: 200px;
     justify-self: end;
-    grid-column: 4/5;
+    grid-column: 3/4;
     grid-row: 1/2;
 }
 
@@ -57,12 +57,14 @@
   font-family: someFont;
 }
 #last_posts_lists{
+  display: grid;
+  grid-template: repeat(auto-fit, minmax(100px, 1fr))/repeat(auto-fit, minmax(240px, 1fr));
   font-size: 12px;
   padding: 16px 8px;
 }
 #post_pop_up_menu{
   position: absolute;
-  transition: 1s;
+  transition: .5s;
   border-top: 1px dashed var(--shiny-light);
   border-bottom: 1px dashed var(--shiny-light);
   overflow: hidden;

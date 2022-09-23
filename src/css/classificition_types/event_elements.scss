@@ -91,15 +91,15 @@
     -ms-user-select: initial;
     user-select: initial; 
   }
-
-  [type="radio"] ~ label {
-    z-index: 2;
-    opacity:50%;
-  }
   [type="radio"]:checked ~ label {
     z-index: 2;
     opacity:100%;
   }
+  [type="radio"] ~ label {
+    z-index: 2;
+    opacity:50%;
+  }
+
   [type="radio"]:checked ~ label ~ .settings_container {
     z-index: 1;
   }
@@ -108,7 +108,7 @@
     transform: translateX(0);
   }
 
-  [type="radio"]:checked ~ label ~ .tools_container {
+  [type="radio"]:checked ~ label ~ .tools_container  {
     z-index: 1;
   }
   [type="radio"]:checked ~ label ~ .tools_container > * {

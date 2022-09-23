@@ -21,6 +21,8 @@ import './interface/clipboard_buttons_end.js';
 import './interface/settings_pop_up_end.js';
 import './interface/settings_search_end.js';
 import './interface/logout_end.js';
+import './interface/menu_controller.js';
+import './interface/get_channel_data.js';
 
 import './channels/remove_this_channel_end.js';
 

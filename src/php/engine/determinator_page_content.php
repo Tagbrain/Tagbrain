@@ -77,7 +77,7 @@ class load_page_vars {
         return [$channel_title, $exist, $access];
     }
 
-    function content($page, $get_channel_properties_array, $can_editting){
+    function content($page, $get_channel_properties_array, $can_editing){
         //access page  
         $exist = $get_channel_properties_array[1];
         $access = $get_channel_properties_array[2];
@@ -94,7 +94,7 @@ class load_page_vars {
                 $post = array(
                     'page' => $page,
                     'name' => $page_name,
-                    'can_editting' => $can_editting,
+                    'can_editing' => $can_editing,
                     'password' => '',
                     'submit' => TRUE,
                 );
@@ -115,7 +115,7 @@ class load_page_vars {
                 $content = 
                 '<div class="item" id="Channel_not_exist">'.
                     '<div class="sense_item">'.
-                        '<div id="item_input_id_not_exist" class="item_input">'.
+                        '<div id="network_not_exist" class="item_input">'.
                             '<div class="wrong">This channel doesn\'t exist</div>'.
                             '<a href="/project" class="a_cl">Main page</a>'.
                         '</div>'.
@@ -126,7 +126,7 @@ class load_page_vars {
             $content = 
             '<div class="item" id="Channel_not_exist">'.
                 '<div class="sense_item">'.
-                    '<div id="item_input_id_not_exist" class="item_input">'.
+                    '<div id="network_not_exist" class="item_input">'.
                         '<div class="wrong">This channel is private</div>'.
                         '<a href="/project" class="a_cl">Main page</a>'.
                     '</div>'.

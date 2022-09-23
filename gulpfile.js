@@ -26,7 +26,7 @@ let path = {
         img: source_folder + "/img/**/*.{jpg,png,svg,webp,php}",
         fonts: source_folder + "/fonts/*.{otf,ttf,woff2}",
         html_content_items: source_folder + "/content_items/**/*.php",
-        channel_post: source_folder + "/channels/**/*.*",
+        channel_post: source_folder + "/channels/**/*",
         technical_post:source_folder + "/technical_post/**/*.php",
         htaccess: source_folder + "/.htaccess",
         txt_root: source_folder + "/*.txt",

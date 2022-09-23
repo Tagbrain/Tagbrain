@@ -33,12 +33,15 @@ if(gEBI("sprite_association")){
 
 context_search_input.addEventListener("click", () => {
     let classes = settings_container.classList;
+    let arrow_pos = context_search_input.classList;
     if(classes.contains("collaps_block")){
         classes.remove('collaps_block');
         classes.add('open_collapsed_block');
+        arrow_pos.add("arrow_down");
     } else {
         classes.remove('open_collapsed_block');
         classes.add('collaps_block');
+        arrow_pos.remove("arrow_down");
     }
 })
 

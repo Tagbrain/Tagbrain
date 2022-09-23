@@ -2,7 +2,8 @@ import {elements} from "../post_manipulation/obj_post_edit_f.js";
 import {patterns} from "../post_manipulation/obj_post_edit_f.js";
 import {functions} from "../post_manipulation/obj_post_edit_f.js";
 import {post_format} from "../post_manipulation/add_item.js";
-import {add_item} from "../post_manipulation/add_item.js";
+import {add_neuron} from "../../units/add_neuron.js";
+import {send_data_ajax} from "../../units/send_data_ajax.js";
 
 //UNITS
 import {get_string_tags_struct} from "../../units/get_string_tags_struct.js";
@@ -50,37 +51,10 @@ function add_posts(arr_objs_posts){
 
           for(let i = 0; i < arr_objs_posts.length;i++){
                let post_id = arr_objs_posts[i].file_name;
-               add_item(post_id, arr_objs_posts[i].content, "true", false);
+               add_neuron(post_id, arr_objs_posts[i].content, "true", false);
           }
      }
 
-}
-
-async function send_data_server(array_of_search_key, channel_name, collection_post_without_ram, collection_ram_post_name){
-     let data = {
-          channel_name: channel_name,
-          array_of_search_key: array_of_search_key,
-          collection_post_without_ram: collection_post_without_ram,
-          collection_ram_post_name: collection_ram_post_name,
-     }
-     let json = JSON.stringify(data)
-     let response = await fetch("php/channel_search/channel_search_controller.php",{
-          method: "POST",
-          headers:{
-               'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-               "Access-Control-Allow-Origin" : "*", 
-               "Access-Control-Allow-Credentials" : true 
-          },
-          body: "data=" + json
-     });
-     if (response.ok) { 
-          let response_json = await response.json();
-          if(response_json.status == "success")
-              success_reaction(response_json, array_of_search_key);
-      } else {
-          console.log("Search data not load");
-          //get_front_end_search_array();
-      }
 }
 function check_state(search_val){
      if (search_val.length < 3){
@@ -207,7 +181,7 @@ function get_front_end_search_array(type_search, array_of_search_key){
      }
 
      //output
-     document.querySelector("#counter_block_found_words").textContent = "Found posts: "+ counter_posts;
+     document.querySelector("#counter_block_found_words").textContent = "Best neurons: "+ counter_posts;
      ids = ids.map( post_block => {
           return    '<div class="search_row">' 
                          + '<a class="link_part" href="#' + post_block.id + '">'
@@ -264,13 +238,22 @@ function get_front_end_search_array(type_search, array_of_search_key){
  }, false);
 
  let field_search_r_bar = document.querySelector('#search_input_block');
+ let send_search_request = document.querySelector('#send_search_request');
+ send_search_request.addEventListener('click', function(e){
+     call_refractory_timer(refractory_timer, 500);
+})
 
- field_search_r_bar.addEventListener('keydown', function(e){
+
+field_search_r_bar.addEventListener('keydown', function(e){
+
      const key = e.code || e.keyCode;
      if (key === 13 || key === 'Enter') {
-          call_refractory_timer(refractory_timer, 500);
-          field_search_r_bar.blur();
-     } else {
+          let send_search_request = document.querySelector('#send_search_request');
+          send_search_request.click();
+          //call_refractory_timer(refractory_timer, 500);
+     }    
+          
+     
           /*
           let search_field = document.querySelector('#search_input_block'),
           search_val = search_field.value;
@@ -278,7 +261,7 @@ function get_front_end_search_array(type_search, array_of_search_key){
           let refractor_front_end;
           refractor_front_end_search(refractor_front_end, array_of_search_key, 300);
           */
-     }
+     
 })
 
 //CONTROLLER
@@ -302,7 +285,18 @@ function start_search_controller(front_end_search, back_end_search, type_search)
                //check regexp or not regexp
                
                if(back_end_search == true){
-                    send_data_server(array_of_search_key, channel_name, collection_post_without_ram, collection_ram_post_name);
+                    let data = {
+                         channel_name: channel_name,
+                         array_of_search_key: array_of_search_key,
+                         collection_post_without_ram: collection_post_without_ram,
+                         collection_ram_post_name: collection_ram_post_name,
+                    };
+                    let url = "php/channel_search/channel_search_controller.php";
+                    let controller_f = function(response_obj){
+                         success_reaction(response_obj, array_of_search_key);
+                    }
+                    let error_message = "Search data not load";
+                    send_data_ajax(data, url, controller_f, false, error_message);
                     front_end_search = false;
                } 
 

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../protect/server_protect.php";
+include "../general_units/protect_session.php";
 
 class change_post {
 
@@ -13,7 +13,10 @@ class change_post {
             $file_time = date("d|m|Y|H:i:s", $unix_timestamp);
             return $file_time;
         } else {
-            echo "post not exist";
+            $array_response = array("status" => "post not exist");
+            $json = json_encode($array_response);
+            echo $json;
+            exit();
         }
     }
 
@@ -56,9 +59,9 @@ class change_post {
 
     public function get_and_check_data($channel_name, $new_content, $item_id){
 
-        $can_editing = $this->check_session_data($_SESSION["userid"],$_SESSION["all_member_channels"], $_SESSION["editor"],$_SESSION["creator"], $channel_name);
+        $access_arr = $this->check_session_data($_SESSION["userid"],$_SESSION["all_member_channels"], $_SESSION["editor"],$_SESSION["creator"], $channel_name);
 
-        if($can_editing == true){
+        if($access_arr["can_editing"] == true){
 
             $dir_content_items = __DIR__ . "/../../channels/".$channel_name."/content_items/";
             $name_item = $item_id.".php";
@@ -74,19 +77,25 @@ class change_post {
     
 }
 
-//definition
-$item_id = htmlspecialchars_decode($_POST['parent_item_id']);
-$new_content = htmlspecialchars_decode($_POST['new_content']);
-$channel_name = $_POST['channel_folder'];
-
+//DEF
+$data = json_decode(htmlspecialchars_decode($_POST["data"]));
+    $item_id = $data->item_id;
+    $new_content = $data->new_content;
+    $channel_name = $data->channel_name;
+//htmlspecialchars_decode(
 if($_SESSION["userid"]){
     if(isset($item_id, $new_content, $channel_name)){
         $change_post = new change_post();
         $change_post->get_and_check_data($channel_name, $new_content, $item_id);
-        echo "save";
+        $array_response = array("status" => "save");
+        $json = json_encode($array_response);
+        echo $json;
     } else {
         echo "Data is not complete";
     }
 } else {
-    echo "No session";
+    $array_response = array("status" => "No session");
+    $json = json_encode($array_response);
+    echo $json;
+    
 }

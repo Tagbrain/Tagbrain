@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../protect/server_protect.php";
+include "../general_units/protect_session.php";
 include "../general_units/activation/get_post_search_obj.php";
 include "../engine/load_post_content.php";
 
@@ -10,11 +10,10 @@ class search_controller {
     use get_post_search_obj;
     use load_post_content;
 
-    public $pattern_tag = '/#[\p{L}_0-9]*/i';
+    public $pattern_tag = '/#[\p{L}_0-9]*/ui';
 
     //controller
     protected function start_search_controller($channel_name, $array_of_search_key, $collection_post_without_ram, $collection_ram_post_name){
-
 
         $channel_posts_dir = __DIR__ . "/../../channels/".$channel_name."/content_items/";
         $files = array_diff(scandir($channel_posts_dir), array('.', '..'));
@@ -171,9 +170,9 @@ class search_controller {
 
     public function get_and_check_data($channel_name, $array_of_search_key, $collection_post_without_ram, $collection_ram_post_name){
 
-        $can_editing = $this->check_session_data($_SESSION["userid"],$_SESSION["all_member_channels"], $_SESSION["editor"],$_SESSION["creator"], $channel_name);
+        $access_arr = $this->check_session_data($_SESSION["userid"],$_SESSION["all_member_channels"], $_SESSION["editor"],$_SESSION["creator"], $channel_name);
 
-        if($can_editing == true){
+        if($access_arr["can_editing"] == true){
 
             $this->start_search_controller($channel_name, $array_of_search_key, $collection_post_without_ram, $collection_ram_post_name);
 

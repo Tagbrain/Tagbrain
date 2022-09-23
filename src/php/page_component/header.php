@@ -71,30 +71,43 @@
 					</svg>
 				</a>
 				<div class="menu_container">
-					<a href="#" class="a_cl">TAGBRAIN</a>
-					<span id="page_tag_map_name"><?php 
-						if($page_state == "/"){
-							echo "/project";
-						} else {
-							echo $page_state; 
-						}
-						?>
-					</span>
-					<span class="public_private_index">
-						<?php 
-						if($channel_private == true){
-							echo "private";
-						} else {
-							echo "public"; 
-						}
-						?>
-					</span>
+					<div class="header_channel_data">
+						<a href="#" class="a_cl">TAGBRAIN</a>
+						<span id="page_tag_map_name"><?php 
+							if($page_state == "/"){
+								echo "/project";
+							} else {
+								echo $page_state; 
+							}
+							?>
+						</span>
+						<span class="public_private_index">
+							<?php 
+							if($channel_private == true){
+								echo "private";
+							} else {
+								echo "public"; 
+							}
+							?>
+						</span>
+					</div>
+					<div class="menu_button_panel">
+						<a title="Read mode toggle">
+							<svg class="liner_icon_style icon_size_middle">
+								<use xlink:href="#sprite_r"></use>
+							</svg>
+						</a>
+						<a id="export_import" title="Export">
+							<svg class="liner_icon_style icon_size_middle">
+								<use xlink:href="#sprite_export"></use>
+							</svg>
+						</a>
+						<a id="work_mode_button" class="icon_buttons_visual_effects" title="Work Mode">
+							⚡
+						</a>
+					</div>
 				</div>
-				<div id="export_import">
-					<svg class="liner_icon_style icon_size_middle">
-						<use xlink:href="#sprite_export"></use>
-					</svg>
-				</div>
+
 				<?php if(!$_SESSION["userid"]){
 						echo '<form method="post" action="php/sessions/sign_in/signin_inc.php" onsubmit="return validate_code_form()" id="container_post_code">'.
 								'<input type="submit" id="send_code_to_email" value="▷">'.
@@ -105,7 +118,11 @@
 								' <input type="submit" title="logout" id="logout_a" value="'.$_SESSION["userid"].'">'.
 							 '</form>';
 							 if($access_arr["full_access"] == true){
-								echo '<a id="setting_button" class="setting_button a_cl">Settings</a>';
+								echo '<a id="setting_button" class="setting_button">'.
+									'<svg class="liner_icon_style icon_size_middle">'.
+										'<use xlink:href="#sprite_settings"></use>'.
+									'</svg>'.
+								'</a>';
 							 }
 					}			
 				?>

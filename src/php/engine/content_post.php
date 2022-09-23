@@ -14,7 +14,7 @@ $class_lists_items = new controller_load_items();
 //link on posts folder
 if($_POST["page"]){
    $page_address         = $_POST["page"];
-   $can_editting_content = $_POST["can_editting"];
+   $can_editing_content = $_POST["can_editing"];
    $trim_page=str_replace('.','',$page_address);
    $channel_folder = "";
    if($trim_page != "" && $trim_page != "/"){
@@ -23,7 +23,7 @@ if($_POST["page"]){
       $channel_folder = "../../channels/project";
    }
 
-   $class_lists_items->output_list_posts_variable($channel_folder, $can_editting_content);
+   $class_lists_items->output_list_posts_variable($channel_folder, $can_editing_content);
    
 }
 

@@ -5,6 +5,8 @@ channels_function
 database
 sessions
 
+#protection_files
+*.json
 
 # channels files
 channels
