@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../protect/server_protect.php";
+include "../general_units/protect_session.php";
 
 class delete_post {
     use session_protect;

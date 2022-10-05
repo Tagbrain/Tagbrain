@@ -36,8 +36,8 @@ let path = {
     watch:{
         index_php: source_folder + "/index.php",
         php: source_folder + "/php/",
-        js: source_folder + "/js/**/*.js",
-        js_special: source_folder + "/js_special/*.js",
+        js: source_folder + "/js/**/*.{js,ts}",
+        js_special: source_folder + "/js_special/*.{js, ts}",
         css: source_folder + "/css/**/*.{css,scss}",
         img: source_folder + "/img/**/*.{jpg,png,svg,webp,php}",
         html_content_items: source_folder + "/content_items/**/*.php",
@@ -60,30 +60,30 @@ webpack = require('webpack-stream'),
 walk    = require('walk'),
 browserify = require('browserify'),
 fs = require('fs'),
-uglify = require('gulp-uglify');
+uglify = require('gulp-uglify'),
+path1 = require('path');
 
 
 let webConfig = {
     target: "node",
     mode: 'development',
-    entry: './src/js/nodes/index.js',
-    output: {
-        filename:'bundle.js'
-    },
+    entry: './src/js/nodes/index.ts',
     module: {
         rules: [
           {
-            test: /\.js$/,
-            exclude: /(node_modules|bower_components)/,
-            use: {
-              loader: 'babel-loader',
-              options: {
-                presets: ['@babel/preset-env']
-              }
-            }
-          }
-        ]
-    }
+            test: /\.tsx?$/,
+            use: 'ts-loader',
+            exclude: /node_modules/,
+          },
+        ],
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
+    },
+    output: {
+        filename:'bundle.js',
+        path: path1.resolve(__dirname, 'js/dist'),
+    },
 };
 function index_php(){
     return src(path.src.index_php)

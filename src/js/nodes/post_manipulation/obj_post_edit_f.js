@@ -1,4 +1,5 @@
 import {parent_is_exist} from "../../units/parent_is_exist.js";
+import {get_chain_fathers2} from "../../units/generalization_gen_1";
 
 export let elements = {
      all_posts: document.querySelectorAll(".item_input"),
@@ -646,95 +647,6 @@ export let functions = {
                return arr_chains;
           }
      },
-     get_chain_fathers2(row_els, arr_objs_rows, arr_objs_current_rows){
-          if(arr_objs_rows != null){
-               let arr_chains = [];
-
-               outer:for (let i = arr_objs_current_rows.length-1; i > 0; i--){
-                    let one_chain_fathers = [];
-                    let j = arr_objs_current_rows[i]["row"] - 2; // number current row
-                    let curr_d = arr_objs_current_rows[i]["depth"]; //depth current row
-
-                    let z = 0;
-                    while(j >= 0 && z < 5){
-                         if(curr_d > arr_objs_rows[j]["depth"]){//is parent
-                              let value = row_els[j].textContent.trim();
-        
-                              if(arr_objs_rows[j]["depth"] == 0){//finded main parent
-                                   let obj_one_chain_father = {
-                                        "value": value,
-                                        "depth": curr_d,
-                                        "row": j,
-                                   };
-                                   one_chain_fathers.push(obj_one_chain_father);
-                                   continue outer;
-                              } else {
-                                   let obj_one_chain_father = {
-                                        "value": value,
-                                        "depth": curr_d,
-                                        "row": j,
-                                   };
-                                   one_chain_fathers.push(obj_one_chain_father);
-                                   curr_d = arr_objs_rows[j]["depth"];
-                                   z++;
-                              }
-                         }
-                         j--;
-                    }
-               }
-          }
-
-
-
-          if(arr_objs_rows != null){
-               let arr_chains = [];
-               let arr_chains_properties = [];
-               let fathers_network = "";
-               outer:for (let i = 0; i < arr_objs_current_rows.length; i++){
-                    let chain_fathers;
-                    let father_properties;
-
-                    let j = arr_objs_current_rows[i]["row"] - 2;
-                    let curr_d = arr_objs_current_rows[i]["depth"];
-                    let z = 0;
-                    while(j >= 0 && z < 5){
-                         if(curr_d > arr_objs_rows[j]["depth"]){//is parent
-                              let value = row_els[j].textContent.trim();
-                              father_properties.push(value);
-                              if(arr_objs_rows[j]["depth"] == 0){
-                                   chain_fathers = "&nbsp;&nbsp;" + chain_fathers;
-                                   arr_chains.push(chain_fathers);
-                                   let key_fathefeatures_obj = {};
-                                   key_fathefeatures_obj[arr_objs_current_rows[i]["key"]] = father_properties;
-                                   arr_chains_properties.push(key_fathefeatures_obj);
-                                   continue outer
-                              } else {
-                                   curr_d = arr_objs_rows[j]["depth"];
-                                   z++;
-                              }
-                         }
-                         j--;
-                    }
-                    chain_fathers = "" + chain_fathers;
-                    arr_chains.push(chain_fathers);
-                    let key_fathefeatures_obj = {};
-                    key_fathefeatures_obj[arr_objs_current_rows[i]["key"]] = father_properties;
-                    arr_chains_properties.push(key_fathefeatures_obj);
-
-               }
-               /*#edit
-                    for (let i = 0; i < arr_chains_properties.length; i++){
-                         get keys group
-                              key1
-                              key2
-                              ...
-                         get all sites beetwen groups one key
-                              choose the leaast depth feature as father
-                    }
-               */
-               return fathers_network;
-          }
-     },
      surround_post_text_in_tags_controller(rows, array_of_search_key) {
           let finded_words = [],
           finded_tags_struct = [],
@@ -758,7 +670,7 @@ export let functions = {
                } else {
                     space_obj = this.get_first_spaces_and_boolen_exist_text(text_row, previus_row_spaces);
                }
-               
+               obj_struct_activ["key"] = text_row.trim();
                obj_struct_activ["depth"] = space_obj.spaces;
                obj_struct_activ["row"] = i;
 
@@ -832,13 +744,13 @@ export let functions = {
                previus_row_spaces = space_obj.spaces;
           }
 
-          
           if(arr_objs_current_rows.length > 5){
                arr_objs_current_rows.sort((a, b) => b.depth - a.depth);
                arr_objs_current_rows = arr_objs_current_rows.slice(0, 5);
           }
                
           let chain_fathers = this.get_chain_fathers(rows, arr_objs_struct_activ, arr_objs_current_rows);
+          //let chain_fathers = get_chain_fathers2(rows, arr_objs_struct_activ, arr_objs_current_rows);
 
           let obj_st_acitvations = this.generate_struct_activ_num(arr_objs_struct_activ);
 

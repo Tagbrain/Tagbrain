@@ -83,5 +83,6 @@
 		<svg class="background_svg" viewBox="0 0 1200 1200">
 			<use xlink:href="#sprite_background" class=""></use>
 		</svg>
+		<div id="cellural_automaton"></div>
 	</div>
 </div>

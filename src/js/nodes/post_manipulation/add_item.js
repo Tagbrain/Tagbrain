@@ -34,10 +34,10 @@ function get_selection_HTML(){
       let div = dCE("div");
       div.innerHTML = selection;
       if(/\p{L}/gu.test(div.innerText)){
-         let element = post_format(div.innerText);
+         let obj_els = post_format(div.innerText);
          return {
-            html: element.innerHTML,
-            text: element.innerText,
+            html: obj_els.html.innerHTML,
+            text: obj_els.text,
          }
       } else {
          return '<div class="post_row">New post</div>';

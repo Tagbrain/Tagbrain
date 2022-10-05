@@ -73,7 +73,32 @@ import {functions} from "./obj_post_edit_f.js";
                               }
                          }
                     }
-      
+                    if (e.shiftKey){
+                         if (e.keyCode == 37){
+                              if (e.ctrlKey){
+                                   e.preventDefault();
+                                   console.log("left arrow");
+                              }
+                         }
+                         if (e.keyCode == 38){
+                              if (e.ctrlKey){
+                                   e.preventDefault();
+                                   console.log("up arrow");
+                              }
+                         }
+                         if (e.keyCode == 39){
+                              if (e.ctrlKey){
+                                   e.preventDefault();
+                                   console.log("right arrow");
+                              }
+                         }
+                         if (e.keyCode == 40){
+                              if (e.ctrlKey){
+                                   e.preventDefault();
+                                   console.log("down arrow");
+                              }
+                         }
+                    }
                });
       
           element_one.addEventListener('paste', (event) => {

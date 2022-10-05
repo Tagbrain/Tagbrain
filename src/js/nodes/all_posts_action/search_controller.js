@@ -1,7 +1,6 @@
 import {elements} from "../post_manipulation/obj_post_edit_f.js";
 import {patterns} from "../post_manipulation/obj_post_edit_f.js";
 import {functions} from "../post_manipulation/obj_post_edit_f.js";
-import {post_format} from "../post_manipulation/add_item.js";
 import {add_neuron} from "../../units/add_neuron.js";
 import {send_data_ajax} from "../../units/send_data_ajax.js";
 
@@ -233,7 +232,7 @@ function get_front_end_search_array(type_search, array_of_search_key){
              search_input.value = tag; 
          }
          call_refractory_timer(refractory_timer, 500);
-         document.querySelector("#search_right_bar").checked = true; 
+         document.querySelector("#search_right_bar").click(); 
      }
  }, false);
 
