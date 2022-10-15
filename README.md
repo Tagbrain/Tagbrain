@@ -35,6 +35,89 @@
     + everything related to Tagbrain
 
 + News
+ + ✅v 1.1.1⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯15.10.2022
+```
+    #brain_structure
+        generalization function of the first generation v 1.0
+        #search
+            activation calibration 
+    #js
+        #typescript
+            support
+    #transhumanism channel
+        [↑] compatibility similar words 
+        → [↑] amount #connection~s
+    #statistic
+        $add the function 
+            $get_channel_data
+                #connection
+                tags
+                density
+                neuron~s
+    #syntax 
+        induction and deduction
+            example
+                father10
+                    #null
+                        father20
+                        father21
+                    → father30
+                        #null
+                            father40
+                            father41
+                        → #the_word
+            #description
+                father30 general feature for father20 and father21
+    #search
+        #front_end
+            mobile adaptation
+    #opitmization #function~s
+        [↑] creation speed of new #neuron~s
+    #bug~s
+        #interface 
+            #right_bar
+        $fix
+            transfer line function
+                enter event
+                    cursor #bug
+            #back_end 
+                session
+                    protection function   
+            create neuron from selection
+            $fix #menu
+                check state
+    #interface
+        $change
+            #menu
+                #right_bar
+                    fixed tabs menu 
+                        no scroll
+            mobile adaptation
+            button~s position
+            #animation
+                event
+                    click 
+                flow #tip~s
+                    text
+            #right_bar
+                #RAM
+                    two column of #RAM results
+            #icon~s
+                settings
+                arrows style~s $update
+            [↑] #menu adaptivity
+            [↑] stability
+                $delete #neuron
+            background
+                svg img
+    #for_developers
+        new units 
+            for ajax_request~s
+        terminology
+            now we will use "#neuron" instead of "post"
+            #neuron is the elementary unit of a #graph
+```
+
  + ✅v 1.0.0⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯31.08.2022
 ```
  
