@@ -33,3 +33,169 @@
     + ideas
     + tasks
     + everything related to Tagbrain
+
++ News
+ + ✅v 1.0.0⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯31.08.2022
+```
+ 
+    added server search 
+        more properties for sorting data
+            saving buffer
+                only the necessary posts are retained on the page
+                    after starting the next generation of the search function
+        #smart
+            add support of drop-down blocks
+            stability
+                replace several function by async
+            [↑] fast of back end
+                cutting html from server data
+            replace function v 1.0
+            #search
+                #front_end
+                    [↑] front end search speed in 2 times
+                        $optimized the regexp
+                    js 
+                    $added
+                        sorting of the search data
+                        post activation index
+                        chain_fathers_function
+            new types of key_words except for tags
+                $action
+            power mode upgrade
+                remove 
+                    backgrounds
+                    animations
+                        header
+        #interface
+            row validation in real time
+                #rigth_bar
+                    new tab
+                        tagbrain tips
+                        $contain generator tips to 
+                            optimizations of your graph
+                            mistakes in the graph
+            focus style of a current row
+            new icons
+                create post
+                fork
+                attachment
+            search activation styles
+            change
+                focus row styles
+                padding of the right bar
+                arrows style
+            change the main font to monospaced
+                why
+                    [↑] visibility of structures and speed up work
+                    [↑] readable of a text
+            post validation
+                word limit exceeded
+                    value
+                        500 characters
+                            $add error style
+            auto space validation
+        fix #bugs 
+            copy/paste functions
+                caret bugs
+                paste several rows of bugs
+            log in
+                header redirect bag
+                cookie
+                    session duration
+            tab
+                improve the interface of the press_enter event
+                bug of deleting empty lines
+            empty post
+                cursor loss
+        #degeneration
+            LATEX support canceled
+                it will add in attaches to a post with HTML and images
+            remove 
+                several paste patterns from the bottom of the right bar tab 
+                background animation
+                #right_bar
+                    several icons
+                #syntax
+                    (G) anonymous class
+        #for_developers
+            add open Github repository
+            improve syntax project
+                now I will use new files format of writing
+                    use #special_comments
+                        UNITS
+                        NODE
+                            LISTENER
+                            CONTROLLER
+                    and appropriate order
+            updated
+                syntax
+                    now I'm starting to add a new graph of function of the project
+                        to $increase ease of application support
+
+
+```
+
++ ✅v 0.8.5⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯29.07.2022
+```
+        optimize the check content function
+            echo tags structures
+        RAM block
+            output more information about last posts
+        add private, public index
+        protect
+            add a validation level for sending data to the server
+        #interface
+            add a technology the fast custom cursor with dynamic colors
+            add to delete_search_row_button
+            improve search_container_scroll
+            add opacity property for an active search row
+            change search row block
+            improve right bar icons styles
+            response of the app on tag click event 
+            new cursor style
+            upgrade work mode
+            click tag animation
+            context menu animation
+        pop up window for the post
+            new interface for function
+            create new post from selection current post
+        fix #bugs
+            new post 
+                save data
+                validation
+                a post scroll
+                search escaping
+                merge post edit functions
+        requests
+            change several sync functions with async
+        degeneration
+            remove draft from right bar
+                you can do this a new post. For example with tag: draft
+            remove animation dataload
+```
++ ✅v 0.6.8⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯14.07.2022
+```
+    post time last editing data for every post
+    multiple search front end(words, tags)
+    update design the search window
+    new indicator in the search window
+        number of similarities
+        array of all the tags
+            pandas collapsing style arrays with [ ... ] symbol and last item of the list
+        data
+    design
+        add styles of the search window
+        add background animation
+        improve styles post save point
+        new icons: 
+            arrows
+    dblclick or ctrl + dbclick methods adding new tags to the search row
+    fix bugs 
+        refractory functions
+        post save point
+        tools container buttons
+        interface
+            improve the mobile version
+            improve blocks spacing
+    RAM: list of links to the latest edited posts
+```
