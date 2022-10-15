@@ -127,7 +127,7 @@
 			<div class="tools_container" id="functions_right_bar_page">
 				<a title="5 last items">Copy buffer</a>
 				<br><br>
-				<button>upper/lower-case</button>
+				<button title="upper/lower case">AA<->aa</button>
 				<br><br>
 				<div>Clipboard panel</div>
 				<div class="clipboard_symbols_panel">

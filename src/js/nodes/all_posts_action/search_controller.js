@@ -197,7 +197,7 @@ function get_front_end_search_array(type_search, array_of_search_key){
                               + ' </span>'
                               + '<span class="first_words_search_row">' 
                                    + post_block.words + '<br><br>'
-                                   + post_block.chain_fathers.join("")
+                                   + post_block.chain_fathers
                               + '</span><br><br>'  
                          + '</a>' 
                          + '<div class="search_row_body">'

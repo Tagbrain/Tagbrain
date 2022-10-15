@@ -615,38 +615,6 @@ export let functions = {
           if(rows.length > 0)
                return obj_result_search = this.surround_post_text_in_tags_controller(rows, array_of_search_key);
      },
-     get_chain_fathers(rows, arr_objs_rows, arr_objs_current_rows){
-          if(arr_objs_rows != null){
-               let arr_chains = [];
-
-               outer:for (let i = 0; i < arr_objs_current_rows.length; i++){
-                    let chain_fathers = '<span class="arrows_sh">'
-                                             + arr_objs_current_rows[i]["key"] 
-                                        +'</span><br>';
-                    let j = arr_objs_current_rows[i]["row"] - 2;
-                    let curr_d = arr_objs_current_rows[i]["depth"];
-                    let z = 0;
-                    while(j >= 0 && z < 5){
-                         if(curr_d > arr_objs_rows[j]["depth"]){//is parent
-                              let value = rows[j].textContent.trim();
-                              chain_fathers = value + "<span class='arrows_sh'> => </span>" + chain_fathers;
-                              if(arr_objs_rows[j]["depth"] == 0){
-                                   chain_fathers = "&nbsp;&nbsp;" + chain_fathers;
-                                   arr_chains.push(chain_fathers);
-                                   continue outer
-                              } else {
-                                   curr_d = arr_objs_rows[j]["depth"];
-                                   z++;
-                              }
-                         }
-                         j--;
-                    }
-                    chain_fathers = "" + chain_fathers;
-                    arr_chains.push(chain_fathers);
-               }
-               return arr_chains;
-          }
-     },
      surround_post_text_in_tags_controller(rows, array_of_search_key) {
           let finded_words = [],
           finded_tags_struct = [],
@@ -744,13 +712,13 @@ export let functions = {
                previus_row_spaces = space_obj.spaces;
           }
 
-          if(arr_objs_current_rows.length > 5){
+          if(arr_objs_current_rows.length > 10){
                arr_objs_current_rows.sort((a, b) => b.depth - a.depth);
-               arr_objs_current_rows = arr_objs_current_rows.slice(0, 5);
+               arr_objs_current_rows = arr_objs_current_rows.slice(0, 10);
           }
                
-          let chain_fathers = this.get_chain_fathers(rows, arr_objs_struct_activ, arr_objs_current_rows);
-          //let chain_fathers = get_chain_fathers2(rows, arr_objs_struct_activ, arr_objs_current_rows);
+          //let chain_fathers = this.get_chain_fathers(rows, arr_objs_struct_activ, arr_objs_current_rows);
+          let chain_fathers = get_chain_fathers2(rows, arr_objs_struct_activ, arr_objs_current_rows);
 
           let obj_st_acitvations = this.generate_struct_activ_num(arr_objs_struct_activ);
 

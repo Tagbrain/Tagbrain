@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded',function(){
         let tag_element = e.target;
         if(tag_element.classList)
             if(tag_element.classList.contains("item_tags_style"))
-                add_click_animation(e, "find");
+                add_click_animation(e, "activate");
     });
 
 })

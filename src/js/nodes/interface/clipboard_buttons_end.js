@@ -21,9 +21,9 @@ work_mode_button.addEventListener('click', function(){
     if(document.querySelector(".animation_erythrocytes")){
       document.querySelector(".animation_erythrocytes").remove();
     }
-    if(document.querySelector(".background_svg")){
-      document.querySelector(".background_svg").remove();
-    }
+    //if(document.querySelector(".background_svg")){
+      //document.querySelector(".background_svg").remove();
+    //}
     if(CW_CL.contains('CW_power_mode')){
       CW_CL.remove('CW_power_mode');
     } else {
