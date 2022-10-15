@@ -126,7 +126,9 @@
 
 			<div class="tools_container" id="functions_right_bar_page">
 				<a title="5 last items">Copy buffer</a>
-				<br>
+				<br><br>
+				<button title="upper/lower case">AA<->aa</button>
+				<br><br>
 				<div>Clipboard panel</div>
 				<div class="clipboard_symbols_panel">
 					<button class="tools_button_copy">
@@ -206,9 +208,6 @@
 					</button>
 					<button title="mask of input structure: @[class1 → class2], class1 are basic properties, class2 are terminal properties" class="tools_button_copy">
 						@
-					</button>
-					<button title="SPECIFIC properties an uplying item" class="tools_button_copy">
-						(S)
 					</button>	
 					<button class="tools_button_copy">
 						—

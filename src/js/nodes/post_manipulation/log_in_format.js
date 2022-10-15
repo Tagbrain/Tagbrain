@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded',function(){
     let input_fields = elements.all_posts;
         input_fields.forEach((post) => {
             let paste = post.innerText;
-            let html_el = post_format(paste);
-            post.innerHTML =  html_el.innerHTML;
+            let obj_els = post_format(paste);
+            post.innerHTML =  obj_els.html.innerHTML;
             functions.search_format_function(post, []);
         });
 });

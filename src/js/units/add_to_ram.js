@@ -31,7 +31,7 @@ export function add_to_ram(post_el, post_id, post_tags_arr, is_special_neuron){
             + '<span class="ram_head_time">'
                   + post_info.time 
             + ' </span>'
-            + '<span class="ram_row_first_words special_symbols_style">' 
+            + '<span class="ram_row_first_words">' 
                   + post_info.words 
             + '</span><br>'  
         + '</a>' 
@@ -65,7 +65,7 @@ export function add_to_ram(post_el, post_id, post_tags_arr, is_special_neuron){
             + '<span class="ram_head_time">'
                   + '' 
             + ' </span>'
-            + '<span class="ram_row_first_words">' 
+            + '<span class="ram_row_first_words special_symbols_style">' 
                   + post_info.words 
             + '</span><br>'  
         + '</a>' 

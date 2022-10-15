@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded',function(){
         let tag_element = e.target;
         if(tag_element.classList)
             if(tag_element.classList.contains("item_tags_style"))
-                add_click_animation(e);
+                add_click_animation(e, "activate");
     });
 
 })
@@ -85,14 +85,15 @@ export function remove_click_animation(click_element){
     click_element.remove();
 }
 
-export function add_click_animation(e) {
+export function add_click_animation(e, message) {
     let circle_cont = document.getElementById("circle_cont");
         
     let click_element = document.createElement("div");
+    click_element.innerHTML = message; 
     click_element.classList.add("dot");
     circle_cont.append(click_element);
         
     circle_cont.style.top = (e.clientY-100) + "px";
     circle_cont.style.left = (e.clientX-100) + "px";
     setTimeout(remove_click_animation, 800, click_element);
-  }
+}

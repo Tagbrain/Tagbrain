@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded',function(){
                         }
                     }
                 }
-                console.log("text");
+                console.log("text34");
                 right_bar_page.classList.add("show_page");
             }
         }
