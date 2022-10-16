@@ -56,6 +56,12 @@ function cycle_generalization(data: General_result, glob_depth: number, data_sav
          //-<
               let new_branch = generalization_function(data.arr_chains_reducted, glob_depth);
               cycle_generalization(new_branch, glob_depth, data_saver);
+
+              //#edit #add
+              //if length more than 4
+              //check equal key
+              //divide on chains
+              //start cycle generalization
     } else {
          data_saver.push(...data.arr_chains_reducted);
     }
@@ -69,9 +75,9 @@ function parsing_chains(collected_chains: arr_chains){
           let html_chain: string[] = [];
           for (let i = 0; i < chain.length; i++){
                let depth = chain[i]["depth"];
-               if(depth > 0){
-                    depth = Math.floor(depth/2);
-               }
+               //if(depth > 0){
+                //    depth = Math.floor(depth/2);
+               //}
                let html_row: string;
                if(chain[i]["is_key_row"] == false){
                     html_row= "&nbsp;".repeat(depth) + chain[i]["key"];
@@ -100,6 +106,8 @@ function put_chains_html_to_string(array_chains_html: string[][]){
 function generalization_function(array_chains: arr_chains, glob_depth: number){
 
     let   uniting_father_chains: {depth: number, key: string, is_key_row: boolean, escape: boolean}[][] = [],
+          is_group_unit: boolean = true,
+          group_unit_is_curr: boolean = false,
           is_last_unit: boolean = true,
           arr_chains_reducted = [...array_chains],
           first_key: string = "",
@@ -112,7 +120,7 @@ function generalization_function(array_chains: arr_chains, glob_depth: number){
          outer: for (let i = 0; i < arr_chains.length; i++){//take first el for compare
               if(arr_chains[i] != null){
                    for (let j = arr_chains[i].length - 1; j >= 0; j--){
-                         if(is_last_unit != false){
+                         if(is_group_unit != false){
                               let current_father_obj = arr_chains[i][j];
                               if (current_father_obj["escape"] == true){
                                    continue
@@ -120,21 +128,21 @@ function generalization_function(array_chains: arr_chains, glob_depth: number){
                               first_key = current_father_obj["key"];
                               for(let y = i + 1; y < arr_chains.length; y++){//take second el for compare
                                    for(let o = arr_chains[y].length - 1; o >= 0; o--){
-                                        //if(typeof arr_chains[y] === "undefined"){continue outer};
+
                                         let second_father_obj = arr_chains[y][o];
                                         let second_key = second_father_obj["key"];
 
                                         if(first_key == second_key){
-                                             is_last_unit = false;
+                                             group_unit_is_curr = second_father_obj["is_key_row"];
+
+                                             is_group_unit = false;
                                              if(uniting_father_chains.length != 0){
                                                   //if uniting_father_chains is_completed
 
                                                   uniting_father_chains.push(arr_chains[y]);
-                                                  //CHECK
                                                   arr_chains_reducted.splice(i,1);
 
                                              } else {// is uniting_father_chains not exist
-                                                  //HERE #edit
                                                   uniting_father_chains.push(arr_chains[i], arr_chains[y]);
                                                   if(i > y){//from larger to smaller
                                                        arr_chains_reducted.splice(i,1);
@@ -156,16 +164,22 @@ function generalization_function(array_chains: arr_chains, glob_depth: number){
                          }
                     }
               }    
+
          }
     } 
+     //check last unit
+     if(is_group_unit == false){
+          is_last_unit = false;
+     } else {// there is not group unit
+          is_last_unit = true;
+     }
 
     let parent_escaped_start: chain[] = [];
     let parent_escaped_end: chain[] = [];
     let child_escaped_start: chain[] = [];
     let child_escaped_end: chain[] = [];
 
-    if(is_last_unit == false){
-     
+    if(is_group_unit == false){
           //cut fathers_chains before current word
           for(let i = 0; i < uniting_father_chains.length; i++){
                let chain_for_unite: {depth: number, key: string, is_key_row: boolean, escape: boolean}[] = uniting_father_chains[i];
@@ -205,31 +219,33 @@ function generalization_function(array_chains: arr_chains, glob_depth: number){
                     parent_escaped_end = [{
                          "key": "<span class='arrows_sh'>→ "+ first_key +"</span>",
                          "depth": parents_chains[0][0]["depth"],
-                         "is_key_row": false,
+                         "is_key_row": group_unit_is_curr,
                          "escape": true
                     }];
+                    child_chains = calibrate_chains_depth(child_chains, parents_chains[0][0]["depth"]);
                } else {
                     parents_chains = calibrate_chains_depth(parents_chains, glob_depth);
                     parent_escaped_start = [{
-                         "key": "<span class='arrows_sh'>#null</span>",
+                         "key": "<span class='arrows_sh'>|-〇</span>",
                          "depth": glob_depth,
                          "is_key_row": false,
                          "escape": true
                     }];
                     parent_escaped_end = [{
-                         "key": "<span class='arrows_sh'>→ "+ first_key +"</span>",
+                         "key": "<span class='arrows_sh'>→ </span>"+ first_key,
                          "depth": glob_depth,
-                         "is_key_row": false,
+                         "is_key_row": group_unit_is_curr,
                          "escape": true
                     }];
+                    child_chains = calibrate_chains_depth(child_chains, glob_depth);
                }
-               child_chains = calibrate_chains_depth(child_chains, glob_depth);
+               
           } else {// zero parents
                //create current key father_obj
                //ESCAPE
                child_escaped_start = [{
                     "key": first_key,
-                    "is_key_row": false,
+                    "is_key_row": group_unit_is_curr,
                     "depth": glob_depth,
                     "escape": true
                }]

@@ -19,7 +19,6 @@ class search_controller {
         $files = array_diff(scandir($channel_posts_dir), array('.', '..'));
 
         $channel_search_obj = array();
-        $general_tags_count = 0;
         foreach($files as $file){
             $file_id = str_replace(".php", "", $file);
             
@@ -37,7 +36,6 @@ class search_controller {
                 array_push($channel_search_obj, $post_search_obj);
             }
 
-            $general_tags_count += $post_search_obj["tags_count"];
         }
         
         /*print_r($channel_search_obj);
@@ -129,7 +127,6 @@ class search_controller {
 
         $response_arr = array(
             "status" => "success", 
-            "all_tags" => $general_tags_count
         );
 
         if(count($remove_posts) > 0){

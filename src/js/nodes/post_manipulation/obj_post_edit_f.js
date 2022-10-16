@@ -10,7 +10,7 @@ export let patterns = {
      pattern_tag: /#[\p{L}_0-9]*/gui,
      pattern_verb: /\$[\p{L}_0-9]*/gui,
      word: /(\w+)*/gu,
-     pattern_symbols: /\$[\p{L}_0-9]*|↓|\||&|→|←|↑|=>|<(|\/)span[^>]*>/gui,
+     pattern_symbols: /\$[\p{L}_0-9]*|↓|→|←|↑|\|-〇|<(|\/)span[^>]*>/gui,
      code_pattern: /(\[code\][^]*\[\/code\])/gm,
      clean_codetag_pattern: /\[(|\/)code\]/gm,
 }
@@ -481,8 +481,9 @@ export let functions = {
                '&quot': '"',
                '&#039;': "'",
                '&nbsp;': " ",
+               '|-0': "|-〇",
           };
-          return text.replace(/&amp;|&lt;|&gt;|&quot|&#039|&nbsp;/g, function (pattern) {
+          return text.replace(/&amp;|&lt;|&gt;|&quot|&#039|&nbsp;|\|-0/g, function (pattern) {
                return obj_escape_html_map[pattern];
           });
      },

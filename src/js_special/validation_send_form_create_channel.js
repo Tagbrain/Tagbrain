@@ -1,3 +1,34 @@
+async function send_data_ajax(data, url, controller_f, URLencode, error_message){
+    let json;
+    if(data != null){
+        if(URLencode == false || undefined){
+            json = JSON.stringify(data);
+        } else {
+            json = encodeURIComponent((JSON.stringify(data)));
+        }
+    }
+
+    let head = {
+        method: "POST",
+        headers:{
+             'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+             "Access-Control-Allow-Origin" : "*", 
+             "Access-Control-Allow-Credentials" : true 
+        }
+    };
+    if(data != null)
+        head["body"] = "data=" + json;
+
+    let response = await fetch(url, head);
+
+
+     if (response.ok) { 
+         controller_f(await response.json());
+      } else {
+          console.log(error_message);
+      }
+}
+
 function gEBI(id, parent) {
     return (parent || document).getElementById(id);
 }
@@ -69,9 +100,6 @@ async function send_new_channel_data(channel_name, editors_channel, is_private){
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
         },
-        body: "channel_name=" + channel_name +
-                "&editors=" + editors_channel +
-        "&private_or_not=" + private_or_not
     });
     if (response.ok) { 
         let result_creating = await response.text();
@@ -96,7 +124,22 @@ let field_form_elements = ["channel_name", "editors_channel"];
             if(form_fields.checkbox.checked == false){
                 is_private = "public";
             }
-            send_new_channel_data(form_fields.channel_name.value, form_fields.editors_channel.value, is_private);
+            let data = {
+                "channel_name=": form_fields.channel_name.value,
+                "editors=": form_fields.editors_channel.value,
+                "private_or_not=": is_private
+            }
+            let url = "php/channels_function/add_channel/add_new_channel_exporter.php";
+            let controller_f = function(response_obj){
+                if(response_obj.status == "success"){
+                        let result_creating = response_obj.response;
+                        output_result_ajax_create_channel(result_creating, channel_name);
+                } else {
+                    output_result_ajax_create_channel("Ошибка HTTP: " + response_obj.status);
+                }
+            };
+            let error_message = "error";
+            send_data_ajax(data, url, controller_f, true, error_message);
             return false;
         }  
     });

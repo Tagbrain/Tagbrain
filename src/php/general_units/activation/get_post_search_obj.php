@@ -72,7 +72,6 @@ trait get_post_search_obj {
         $return_obj = array(
             "post_activation" => $post_activation, 
             "is_node" => $is_node,
-            "tags_count" => count($tags_array)
             //"obj" => $search_obj //error encoding special symbols for json response
         );
         return $return_obj;
