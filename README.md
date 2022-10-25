@@ -21,10 +21,10 @@
         + Information from which can be used for complex systems integrated with AI
 
 Screenshots
-<h3 style="display:grid;grid-template: 1fr/repeat(auto-fit,minmax(300px,1fr));  padding: 16px 8px; ">
+<div style="display:grid;grid-template: 1fr/repeat(auto-fit,minmax(300px,1fr))">
     <img alt="transhumanism1" style="grid-column: 1/2; padding: 4px;" src="https://github.com/Tagbrain/Tagbrain/blob/main/transhumanism1.png"/>
     <img alt="transhumanism1" style="padding: 4px;" src="https://github.com/Tagbrain/Tagbrain/blob/main/transhumanism2.png"/>
-</h3>
+</div>
 Terminology v 0.1
 
 ### Basic
