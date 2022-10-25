@@ -24,7 +24,7 @@ class chanell_data_collector{
         $brain_data = array(
             "Neurons" => $neuron_count,
             "Tags" => $array_brain_tags["brain_tags_count"],
-            "Connections" => $brain_connection,
+            "Synapses" => $brain_connection,
             "Relative performance" => $relative_performance,
             "Brain density" => $brain_density
         );

@@ -30,16 +30,11 @@ export let functions = {
                }
           }
      },
-     give_current_post() {
-          let obj_caret = this.get_sel_range();
-          let node = obj_caret.sel.anchorNode;
-          elements.current_post = parent_is_exist(node, "item_input");
-     },
-     get_current_line_div(node_par) {
+     get_current_line_div(node_par: Element | string) {
           let div_n = this.get_current_div_n(node_par);
           return elements.current_post.childNodes[div_n];
      },
-     get_current_div_n(node_par) {
+     get_current_div_n(node_par: Element | string) {
           let obj_caret = this.get_sel_range(),
                children_list1 = elements.current_post.children;
 
@@ -82,8 +77,8 @@ export let functions = {
                }
           }
      },
-     get_first_line(post) {
-          let post_rows = post.childNodes;
+     get_first_line(post: Element) {
+          let post_rows = post.children as HTMLCollectionOf<HTMLElement>;
           if (post_rows != null) {
                if (post_rows.length > 0) {
                     for (let i = 0; i < post_rows.length; i++) {
@@ -94,7 +89,7 @@ export let functions = {
                }
           }
      },
-     create_new_row(content, is_enter) {
+     create_new_row(content: string, is_enter: boolean) {
           let new_line_div = document.createElement("div");
           if (content != "") {
                new_line_div.innerHTML = content;
@@ -105,13 +100,13 @@ export let functions = {
           new_line_div.className = "post_row";
           return new_line_div;
      },
-     get_current_line_spaces(current_node) {
+     get_current_line_spaces(current_node: Element) {
           let text_content = current_node.textContent;
           let obj_space = this.get_first_spaces_and_boolen_exist_text(text_content);
           //current_node.textContent = obj_space.content;
           return obj_space.spaces;
      },
-     get_first_spaces_and_boolen_exist_text(text_content, previous_spaces, pos_par) {
+     get_first_spaces_and_boolen_exist_text(text_content: string, previous_spaces: number, pos_par: string) {
           let  spaces_amount = 0,
                text_exist = false,
                spaces_string = "";
@@ -175,35 +170,39 @@ export let functions = {
                text_exist: text_exist,
           };
      },
-     focus_end_element(element) {
+     focus_end_element(element: HTMLElement) {
           let new_range = new Range();
           new_range.selectNodeContents(element);
-          document.getSelection().removeAllRanges();
-          document.getSelection().addRange(new_range);
+          document.getSelection()?.removeAllRanges();
+          document.getSelection()?.addRange(new_range);
           new_range.collapse();
      },
-     put_caret(node, pos){
+     put_caret(node: HTMLElement, pos: string){
      
-          let position;
+          let position: number = 0;
           // do => SAVE_SELECTION
           if(typeof(pos) === 'number'){
                position = pos;
           } else if (pos === "end" || undefined){
                let new_range = new Range();
                new_range.selectNodeContents(node);
-               document.getSelection().removeAllRanges();
-               document.getSelection().addRange(new_range);
+               if (document.getSelection !== null){
+               document.getSelection()?.removeAllRanges();
+               document.getSelection()?.addRange(new_range);
+               }
                new_range.collapse();
                return
           }
 
-          let childs = node.childNodes;
+          let childs = node.children as HTMLCollectionOf<HTMLElement>;
           let i = 0;
 
           if(childs != null){
                while(i < childs.length) {
-
-                    let len = childs[i].textContent.length;
+                    let text = childs[i].textContent,
+                    len: number = 0;
+                    if(text != null)
+                         len = text.length;
 
                     if(len < position){
                          position = position - len;
@@ -212,11 +211,11 @@ export let functions = {
                     } else {
                          if(childs[i].nodeType == 3){
                               node.focus();
-                              document.getSelection().collapse(childs[i], position);
+                              document.getSelection()?.collapse(childs[i], position);
                               return
                          } else {
                               childs[i].focus();
-                              document.getSelection().collapse(childs[i].childNodes[0], position);
+                              document.getSelection()?.collapse(childs[i].childNodes[0], position);
                               return
                          }
                     }
@@ -231,34 +230,37 @@ export let functions = {
                caret_position = this.get_position_in_row(obj_caret.sel.anchorNode, obj_caret.sel.anchorOffset, current_row);
           return caret_position;
      },
-     get_position_in_row(node, node_position, current_row) {
+     get_position_in_row(node: HTMLElement , node_position:number, current_row:HTMLElement) {
           let position_in_row_where_node = 0,
-                  current_row_childnodes = [];
+                  current_row_childnodes: HTMLCollection;
 
-          current_row_childnodes = current_row.childNodes;
+          current_row_childnodes = current_row.children;
 
-          if (current_row_childnodes != null) {
-               for (let i = 0; i < current_row_childnodes.length; i++) {
-                    if (node == current_row_childnodes[i] || current_row_childnodes[i].contains(node)) {
+          for (let i = 0; i < current_row_childnodes.length; i++) {
+
+               let unit: string | HTMLElement = current_row_childnodes[i] as string | HTMLElement;
+               if (typeof unit !== 'string'){//node isn't string
+                    if (node == unit || unit.contains(node)) {
                          position_in_row_where_node += node_position;
                          break
-                    } else {
-                         let child_textcont;
-                         if (current_row_childnodes[i].nodeType != 3){
-                              child_textcont = current_row_childnodes[i].textContent;
-                         } else {
-                              child_textcont = current_row_childnodes[i];
-                         }
-                         position_in_row_where_node += child_textcont.length;
-                    }
+                    } 
+                    if (unit.nodeType != 3){
+                         let textcont = unit.textContent;
+                         if(textcont != null)
+                              position_in_row_where_node += textcont.length;
+                    } 
+               } else {
+                    position_in_row_where_node += unit.length;
                }
-          }
-          current_row = current_row.textContent;
 
+          }
+          let row_content = current_row.textContent;
+          if(row_content != null)
+               current_row.textContent = row_content;
           return position_in_row_where_node;
      },
      //textNode first level post
-     surrounded_div(text) {
+     surrounded_div(text: string) {
           //if contain several rows divide
           let obj_caret = this.get_sel_range(),
                range = obj_caret.range;
@@ -270,7 +272,7 @@ export let functions = {
           range.collapse();
           return new_line_div;
      },
-     transfer_line(tab_index) {
+     transfer_line(tab_index: string) {
           let current_node = this.get_current_line_div(),
                current_node_content = current_node.textContent,
                amount_spaces_current_node = this.get_current_line_spaces(current_node),
@@ -308,22 +310,21 @@ export let functions = {
                this.focus_end_element(new_div_lastchild);
           }
      },
-     insert_one_tab(focus, current_node) {
-          let node_text = current_node.innerText;
+     insert_one_tab(focus: boolean, current_element: HTMLElement) {
+          let node_text = current_element.innerText;
 
           node_text = "    " + node_text;
-          current_node.innerHTML = node_text;
+          current_element.innerHTML = node_text;
 
           if (focus)
-               if (focus == true)
-                    this.focus_end_element(current_node);
+               this.focus_end_element(current_element);
      },
-     paste_formatting(paste) {
-          let this_post = elements.current_post,
+     paste_formatting(paste: string) {
+          let this_post: any = elements.current_post,
               obj_caret = this.get_sel_range(),
               current_node = this.get_current_line_div(),
               current_node_spaces = this.get_current_line_spaces(current_node),
-              paste_rows = [];
+              paste_rows: string[] = [];
               paste_rows = paste.split(/\r?\n/);
           //check count selectnodes
 
@@ -347,7 +348,7 @@ export let functions = {
                          let content_second_line = this_post.childNodes[start_sel_block + 1].textContent;
                          this_post.childNodes[start_sel_block + 1].textContent = " ".repeat(spaces_previus_line_n) + content_second_line;
                     } else { //remove zero line
-                         removeChild(this_post.childNodes[start_sel_block + 1]);
+                         this_post.removeChild(this_post.childNodes[start_sel_block + 1]);
                     }
 
                     this.focus_end_element(this_post.childNodes[start_sel_block]);
@@ -395,7 +396,7 @@ export let functions = {
           }
           //divides lines by comma separator
      },
-     deleteTab(target_block, focus) {
+     deleteTab(target_block: HTMLElement, focus: boolean) {
           let content = target_block.innerText;
 
           if (content.startsWith(patterns.invisible_char)) {
@@ -416,8 +417,7 @@ export let functions = {
           target_block.innerHTML = content;
 
           if (focus)
-               if (focus == true)
-                    this.focus_end_element(target_block);
+               this.focus_end_element(target_block);
      },
      get_selection_obj() {
           let limit_sel_div1 = this.get_current_div_n("start"),
@@ -473,8 +473,8 @@ export let functions = {
                node_end_pos: end_sel_node_pos,
           }
      },
-     escape_text(text) {
-          const obj_escape_html_map = {
+     escape_text(text: any) {
+          let obj_escape_html_map: {[key: string]: any} = {
                '&amp;': '&',
                '&lt;': '<',
                '&gt;': '>',
@@ -483,8 +483,9 @@ export let functions = {
                '&nbsp;': " ",
                '|-0': "|-〇",
           };
-          return text.replace(/&amp;|&lt;|&gt;|&quot|&#039|&nbsp;|\|-0/g, function (pattern) {
-               return obj_escape_html_map[pattern];
+          return text.replace(/&amp;|&lt;|&gt;|&quot|&#039|&nbsp;|\|-0/g, function (pattern: string) {
+               let response: string = obj_escape_html_map[pattern];
+               return response;
           });
      },
      /*
@@ -504,42 +505,43 @@ export let functions = {
      get_pos_activation(){
 
      },
-     destruct_shape_activation_number(str_num){
+     destruct_shape_activation_number(str_num: string){
 
-          array_pos = [];
+          let array_pos: number[] = [];
 
-          let symbols = [];
-          symbols = matchAll(/./g);
+          let symbols:RegExpMatchArray | null;
+          symbols = str_num.match(/./g);
 
-          current_row = -1;
-          current_depth = 0;
-
-          for(let i = 0; i < symbols.length; i++){
-               if(symbols[i] == "8"){
-                    current_row += 1;
-               } else if (symbols[i] == "9"){
-                    if(symbols[i] == "9"){
-                         current_depth -= 1;
+          let current_row: number = -1;
+          let current_depth: number = 0;
+          if(symbols != null){
+               for(let i = 0; i < symbols.length; i++){
+                    if(symbols[i] == "8"){
+                         current_row += 1;
+                    } else if (symbols[i] == "9"){
+                         if(symbols[i] == "9"){
+                              current_depth -= 1;
+                         } else {
+                              current_depth += 1;
+                         }
                     } else {
-                         current_depth += 1;
+                         continue;
                     }
-               } else {
-                    continue;
+                    array_pos.push(current_row, current_depth);
                }
-               array_pos.push(current_row, current_depth);
           }
 
           return array_pos;
      },
-     generate_struct_activ_num(obj_allrow){
-          function collect_part_number(curr_col, prev_col, activation_octal){
+     generate_struct_activ_num(obj_allrow: []){
+          function collect_part_number(curr_depth:number, prev_depth:number, activation_octal: string){
 
-               if(prev_col == curr_col){
+               if(prev_depth == curr_depth){
                     return "8" + activation_octal;
-               } else if(prev_col < curr_col){
+               } else if(prev_depth < curr_depth){
                     return "98" + activation_octal;
-               } else if(prev_col > curr_col){
-                    let quotient = Math.floor((prev_col - curr_col)/ 4);
+               } else if(prev_depth > curr_depth){
+                    let quotient = Math.floor((prev_depth - curr_depth)/ 4);
                     return "99".repeat(quotient) + "8" + activation_octal;
                }
           }
@@ -573,7 +575,7 @@ export let functions = {
                general_activation: general_activation,
           }
      },
-     get_row_score(row_num){
+     get_row_score(row_num: number){
           if(row_num < 2){
                return 13;
           } else if(row_num < 4){
@@ -584,7 +586,7 @@ export let functions = {
                return 1;
           }
      },
-     get_depth_score(depth_num){
+     get_depth_score(depth_num: number){
           if(depth_num < 9){
                return 10;
           } else if (depth_num < 12){
@@ -595,41 +597,41 @@ export let functions = {
                return 1;
           } 
      },
-     convert_num_to_custom_system(num){
+     convert_num_to_custom_system(num: string){
           return {
-               from : function (baseFrom) {
+               from : function (baseFrom: number) {
                    return {
-                       to : function (baseTo) {
+                       to : function (baseTo: number) {
                            return parseInt(num, baseFrom).toString(baseTo);
                        }
                    };
                }
           };
      },   
-     get_octal_number(num){
+     get_octal_number(num: string){
           return this.convert_num_to_custom_system(num).from(10).to(8);
      },
      //search block
-     search_format_function(current_post, array_of_search_key) {
+     search_format_function(current_post: HTMLElement, array_of_search_key: string[]) {
           let obj_result_search = {};
           let rows = current_post.childNodes;
           if(rows.length > 0)
                return obj_result_search = this.surround_post_text_in_tags_controller(rows, array_of_search_key);
      },
-     surround_post_text_in_tags_controller(rows, array_of_search_key) {
-          let finded_words = [],
-          finded_tags_struct = [],
-          cut_rows_arr = [],
-          arr_objs_struct_activ = [],
-          arr_objs_current_rows = [];
+     surround_post_text_in_tags_controller(rows: HTMLElement[], array_of_search_key: string[]) {
+          let finded_words:string[] = [],
+          finded_tags_struct:any[] = [],
+          cut_rows_arr:number[] = [],
+          arr_objs_struct_activ:{key: string, row: number, depth: number, is_key_row: boolean}[] = [],
+          arr_objs_current_rows:{key: string, row: number, depth: number}[] = [];
 
           let previus_row_spaces = 0;
 
           for (let i = 0; i < rows.length; i++) {
-               let  obj_struct_activ = {},
-                    is_key_row = false,
+               let  obj_struct_activ:{key: string, row: number, depth: number, is_key_row: boolean} = {key: "", row: 0, depth: 0, is_key_row: false},
+                    is_key_row: boolean = false,
                     text_row = rows[i].textContent,
-                    space_obj;
+                    space_obj:{spaces: number, content: string, text_exist:boolean};
 
                if(text_row == "" || text_row == "\n"){
                     cut_rows_arr.push(i);
@@ -639,7 +641,11 @@ export let functions = {
                } else {
                     space_obj = this.get_first_spaces_and_boolen_exist_text(text_row, previus_row_spaces);
                }
-               obj_struct_activ["key"] = text_row.trim();
+               if(text_row != null)
+                    obj_struct_activ["key"] = text_row.trim();
+               else {
+                    obj_struct_activ["key"] = "";
+               } 
                obj_struct_activ["depth"] = space_obj.spaces;
                obj_struct_activ["row"] = i;
 
@@ -647,7 +653,7 @@ export let functions = {
                let escaped_itext_row = this.escape_text(content_right_spaces);
 
                //#remove
-               let text_symbols_spans_formatting = escaped_itext_row.replace(patterns.pattern_symbols, function (match_pattern) {
+               let text_symbols_spans_formatting = escaped_itext_row.replace(patterns.pattern_symbols, function (match_pattern: string) {
                     if (match_pattern.indexOf("span") != -1) {
                          match_pattern = "";
                     } else {
@@ -669,7 +675,7 @@ export let functions = {
                     }
                }
 
-               let text_with_symbols_tags = text_symbols_spans_formatting.replace(regexp, function (search_key) {
+               let text_with_symbols_tags = text_symbols_spans_formatting.replace(regexp, function (search_key: string) {
 
                     if (array_is_empty == false) {
                          if (array_of_search_key.includes(search_key) == true) {
@@ -704,12 +710,13 @@ export let functions = {
                     }
                });
 
+
+
                rows[i].innerHTML = text_with_symbols_tags;
                obj_struct_activ["is_key_row"] = is_key_row;
                arr_objs_struct_activ.push(obj_struct_activ);
-               if(is_key_row == true)
-                    arr_objs_current_rows.push(obj_struct_activ);
-               
+
+               this.add_current_row(is_key_row,arr_objs_current_rows, obj_struct_activ);
                previus_row_spaces = space_obj.spaces;
           }
 
@@ -719,7 +726,7 @@ export let functions = {
           }
                
           //let chain_fathers = this.get_chain_fathers(rows, arr_objs_struct_activ, arr_objs_current_rows);
-          let chain_fathers = get_chain_fathers2(rows, arr_objs_struct_activ, arr_objs_current_rows);
+          let chain_fathers = get_chain_fathers2(rows,arr_objs_current_rows, arr_objs_struct_activ);
 
           let obj_st_acitvations = this.generate_struct_activ_num(arr_objs_struct_activ);
 
@@ -742,11 +749,16 @@ export let functions = {
                chain_fathers: chain_fathers,
           }
      },
-     validate_row_formate(node, caret_pos){
+     add_current_row(is_key_row: boolean, arr_objs_current_rows: {key: string,row: number,depth: number}[], obj_struct_activ: {key: string,row: number,depth: number,is_key_row: boolean}){
+          if(is_key_row == true){
+               arr_objs_current_rows.push(obj_struct_activ);
+          }
+     },
+     validate_row_formate(node: HTMLElement, caret_pos: number){
           let text_row = node.textContent;
           let escaped_itext_row = this.escape_text(text_row);
 
-          let text_symbols_spans_formatting = escaped_itext_row.replace(patterns.pattern_symbols, function (match_pattern) {
+          let text_symbols_spans_formatting = escaped_itext_row.replace(patterns.pattern_symbols, function (match_pattern: string) {
                if (match_pattern.indexOf("span") != -1) {
                     match_pattern = "";
                } else {
@@ -757,7 +769,7 @@ export let functions = {
 
           let regexp = new RegExp('#[\\p{L}_0-9]*', 'gmu');
                
-          let text_with_symbols_tags = text_symbols_spans_formatting.replace(regexp, function (search_key) {
+          let text_with_symbols_tags = text_symbols_spans_formatting.replace(regexp, function (search_key:string) {
                search_key = "<span class='item_tags_style'>" + search_key + "</span>";
                return search_key;
           });
@@ -765,9 +777,9 @@ export let functions = {
           node.innerHTML = text_with_symbols_tags;
      },
      //
-     put_rows(post, is_return_array){
-          let subclasses = [];
-          let rows = post.childNodes;
+     put_rows(post:HTMLElement, is_return_array:boolean){
+          let subclasses: number[] = [];
+          let rows = post.children;
           //get hide rows
           for(let i = 0; i < rows.length; i++){
                
@@ -775,50 +787,59 @@ export let functions = {
                     subclasses.push(i);
                }
           }
-          let numbers_bar = post.parentNode.querySelector(".numbers_bar");
+          let numbers_bar: HTMLElement | null = null;
 
-          let count_rows = rows.length;
-          numbers_bar.innerHTML = "";
-          let numbers_array = [];
+          let parent: HTMLElement | null = null;
+          if(post.parentElement != null){
+               parent = post.parentElement;
+               numbers_bar = parent.querySelector(".numbers_bar");
+          }
 
-          for(let ind = 1; ind < (count_rows+1); ind++){
-               let container = document.createElement("div");
+          if(numbers_bar != null){
+               let count_rows = rows.length;
+               numbers_bar.innerHTML = "";
+               let numbers_array: HTMLElement [] = [];
 
-               let number = document.createElement("div");
-               number.innerHTML = ind;
+               for(let ind = 1; ind < (count_rows+1); ind++){
+                    let container: HTMLElement  = document.createElement("div");
 
-               let arrows_container = document.createElement("div");
-               arrows_container.className = "arrows_c";
+                    let number: HTMLElement  = document.createElement("div");
+                    number.innerHTML = ind.toString();
+
+                    let arrows_container = document.createElement("div");
+                    arrows_container.className = "arrows_c";
+                    
+                    container.append(number, arrows_container);
+                    numbers_bar.append(container);
+
+                    numbers_array.push(container);
+               }
+
+               let num_conts = numbers_bar.children;
                
-               container.append(number, arrows_container);
-               numbers_bar.append(container);
+               for(let j = 0; j < subclasses.length; j++){
+                    num_conts[subclasses[j]].classList.add("subclass");
+               }     
 
-               numbers_array.push(container);
+               if(is_return_array != undefined){
+                    return numbers_array;
+               }
           }
-
-          let num_conts = numbers_bar.childNodes;
-          
-          for(let j = 0; j < subclasses.length; j++){
-               num_conts[subclasses[j]].classList.add("subclass");
-          }     
-
-          if(is_return_array != undefined){
-               return numbers_array;
-          }
-
      },
-     make_drop_down_blocks(parent_el) {
-
-          let classes_arr = [];
-          var arr_row_spaces = [];
-          classes_arr = parent_el.childNodes;
-          let numbers_bar = [];
+     make_drop_down_blocks(parent_el: HTMLElement) {
+          var arr_row_spaces: number[] = [];
+          let classes_arr = parent_el.children as HTMLCollectionOf<HTMLElement>;
+          let numbers_bar: HTMLElement[] = [];
           
           if(classes_arr.length > 0){
 
                numbers_bar = this.put_rows(parent_el, true);
-               let arrows_containers = parent_el.parentNode.querySelectorAll(".arrows_c");
-
+               let arrows_containers: HTMLCollectionOf<HTMLElement>;
+               if(parent_el.parentElement != null){
+                    arrows_containers = parent_el.parentElement.getElementsByClassName("arrows_c") as HTMLCollectionOf<HTMLElement>;
+               } else {
+                    return
+               }
                for(let i = 0; i < classes_arr.length; i++){
                     let text = classes_arr[i].innerText;
                     let obj_spaces = this.get_first_spaces_and_boolen_exist_text(text);
@@ -828,8 +849,8 @@ export let functions = {
                for(let j = 0; j < arr_row_spaces.length; j++){
 
                     //check collapsed
-                    let subclasses_num = [];
-                    let subclasses = [];
+                    let subclasses_num: HTMLElement[] = [];
+                    let subclasses: HTMLElement[] = [];
 
                     if(arr_row_spaces[j+1] == null){
                          break
@@ -851,7 +872,7 @@ export let functions = {
                          }
 
                     }
-                    if(classes_arr[j].textContent.trim() == ""){
+                    if(classes_arr[j].innerText.trim() == ""){
                          continue
                     }
                     
@@ -893,7 +914,6 @@ export let functions = {
                                              for(let c = 0; c < subclasses.length; c++){
                                                   let sub_c_CL = subclasses[c].classList;
                                                   let sub_c_num_CL = subclasses_num[c].classList;
-                                                  
                                                   if(!sub_c_CL.contains("subclass")){
                                                        if(sub_c_CL.contains("class")){
                                                             sub_c_CL.remove("class");
@@ -913,13 +933,13 @@ export let functions = {
           }
      },
      echo_data() {
-          let count_rows = 0,
-               count_tags = 0,
-               count_words = 0,
-               count_points = 0,
-               count_words_arr = [],
-               count_tags_arr = [],
-               rows_arr = [],
+          let count_rows: number = 0,
+               count_tags: number = 0,
+               count_words: number = 0,
+               count_points: number = 0,
+               count_words_arr: RegExpMatchArray | null = [],
+               count_tags_arr: RegExpMatchArray | null = [],
+               rows_arr: NodeListOf<ChildNode>,
                content = elements.current_post.textContent;
 
           let patterns1 = {
@@ -930,21 +950,27 @@ export let functions = {
           rows_arr = elements.current_post.childNodes;
           if (rows_arr != null) {
                for (let j = 0; j < rows_arr.length; j++) {
-                    let text_characters_arr = rows_arr[j].textContent.match(/[^\s]*[\p{L}\p{P}_0-9]/gu);
+                    let text_characters_arr: any = [];
+                    let text = rows_arr[j].textContent;
+                    if (text != null)
+                    text_characters_arr = text.match(/[^\s]*[\p{L}\p{P}_0-9]/gu);
                     if (text_characters_arr != null)
                          count_rows += 1;
                }
           }
 
-          //get count words
-          count_words_arr = content.match(patterns1.words);
-          if (count_words_arr != null)
-               count_words = count_words_arr.length;
+          if(content != null){
+               //get count words
+               count_words_arr = content.match(patterns1.words);
+               if (count_words_arr != null)
+                    count_words = count_words_arr.length;
 
-          //get count tags
-          count_tags_arr = content.match(patterns.pattern_tag);
-          if (count_tags_arr != null)
-               count_tags = count_tags_arr.length;
+               //get count tags
+               count_tags_arr = content.match(patterns.pattern_tag);
+               if (count_tags_arr != null)
+                    count_tags = count_tags_arr.length;
+          }
+
           //sigmoid(count_tags)
 
           let counters = {
@@ -955,15 +981,15 @@ export let functions = {
 
           //let points = (normalizing_tag_f(count_tags) * normalizing_rows_f(count_rows) / normalizing_words_f(count_words);
 
-          function normalizing_tag_f(count_tags) {
+          function normalizing_tag_f(count_tags: number) {
                sigmoid(count_tags)
           }
 
-          function normalizing_rows_f(count_rows) {
+          function normalizing_rows_f(count_rows: number) {
                sigmoid(count_tags)
           }
 
-          function normalizing_words_f(count_words) {
+          function normalizing_words_f(count_words: number) {
                //let count_words_index = 0.0001*(count_words**2) - (0.02*count_words) + 1.0001;
                //after extreme other function
                //count_words = 0,001*(count_words**2) - (0,02*count_words) + 7,99;
@@ -980,10 +1006,10 @@ export let functions = {
           }
 
           //math
-          function sigmoid(z) {
+          function sigmoid(z: number) {
                return 10 / (1 + Math.exp(-z));
           }
-          function echo_points(count_points) {
+          function echo_points(count_points: number) {
                let hard_index = 10;
                let result = sigmoid(count_points / hard_index);
                return result;
@@ -991,19 +1017,32 @@ export let functions = {
           count_points = echo_points(count_points);
           count_points = Math.floor(count_points * 10) / 10;
 
-          let post_low_panel = elements.current_post.parentNode.parentNode.querySelector(".post_low_panel")
-          let count_rows_node = post_low_panel.querySelector(".count_rows"),
-               count_words_node = post_low_panel.querySelector(".count_words"),
-               count_tags_node = post_low_panel.querySelector(".count_tags"),
-               count_points_node = post_low_panel.querySelector(".count_points");
-          if(count_words > 500){
-               count_words_node.innerHTML = "W: " + "<error>" + count_words + "</error>";
-          } else {
-               count_words_node.textContent = "W: " + count_words;
+          let post_low_panel_parent = elements.current_post.parentNode,
+              post_low_panel_parent2,
+              fields_count;
+          if(post_low_panel_parent != null)
+               post_low_panel_parent2 = post_low_panel_parent.parentNode;
+               if(post_low_panel_parent2 != null)
+                    fields_count = post_low_panel_parent2.querySelector(".post_low_panel");
+          if(fields_count != null){
+               let count_rows_node = fields_count.querySelector(".count_rows"),
+                    count_words_node = fields_count.querySelector(".count_words"),
+                    count_tags_node = fields_count.querySelector(".count_tags"),
+                    count_points_node = fields_count.querySelector(".count_points");
+               if(count_words_node != null){
+                    if(count_words > 500){
+                         count_words_node.innerHTML = "W: " + "<error>" + count_words + "</error>";
+                    } else {
+                         count_words_node.textContent = "W: " + count_words;
+                    }
+                    if(count_rows_node != null)
+                    count_rows_node.textContent = "R: " + count_rows;
+                    if(count_tags_node != null)
+                    count_tags_node.textContent = "#: " + count_tags;
+                    if(count_points_node != null)
+                    count_points_node.textContent = "points: " + count_points;
+               }
           }
-          count_rows_node.textContent = "R: " + count_rows;
-          count_tags_node.textContent = "#: " + count_tags;
-          count_points_node.textContent = "points: " + count_points;
           //make vertical lines 
      }
 }

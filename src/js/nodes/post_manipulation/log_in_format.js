@@ -1,6 +1,6 @@
-import {elements} from "./obj_post_edit_f.js";
-import {patterns} from "./obj_post_edit_f.js";
-import {functions} from "./obj_post_edit_f.js";
+import {elements} from "./obj_post_edit_f";
+import {patterns} from "./obj_post_edit_f";
+import {functions} from "./obj_post_edit_f";
 import {post_format} from "../../units/give_post_format.js";
 
 function dCE(element){

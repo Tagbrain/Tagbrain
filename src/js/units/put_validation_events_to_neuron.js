@@ -1,6 +1,6 @@
-import {elements} from "../nodes/post_manipulation/obj_post_edit_f.js";
-import {patterns} from "../nodes/post_manipulation/obj_post_edit_f.js";
-import {functions} from "../nodes/post_manipulation/obj_post_edit_f.js";
+import {elements} from "../nodes/post_manipulation/obj_post_edit_f";
+import {patterns} from "../nodes/post_manipulation/obj_post_edit_f";
+import {functions} from "../nodes/post_manipulation/obj_post_edit_f";
 
 export function put_validation_events_to_neuron(element_one){
     element_one.addEventListener('keydown', function(e){

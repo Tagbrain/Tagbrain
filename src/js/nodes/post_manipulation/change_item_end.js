@@ -1,6 +1,6 @@
-import {elements} from "./obj_post_edit_f.js";
-import {patterns} from "./obj_post_edit_f.js";
-import {functions} from "./obj_post_edit_f.js";
+import {elements} from "./obj_post_edit_f";
+import {patterns} from "./obj_post_edit_f";
+import {functions} from "./obj_post_edit_f";
 import {send_data_ajax} from "../../units/send_data_ajax.js";
 import {add_to_ram} from "../../units/add_to_ram.js"
 

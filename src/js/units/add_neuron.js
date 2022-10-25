@@ -1,7 +1,7 @@
 import {gEBI, dCE} from "./compress_f.js";
-import {elements} from "../nodes/post_manipulation/obj_post_edit_f.js";
-import {patterns} from "../nodes/post_manipulation/obj_post_edit_f.js";
-import {functions} from "../nodes/post_manipulation/obj_post_edit_f.js";
+import {elements} from "../nodes/post_manipulation/obj_post_edit_f";
+import {patterns} from "../nodes/post_manipulation/obj_post_edit_f";
+import {functions} from "../nodes/post_manipulation/obj_post_edit_f";
 import {add_to_ram} from "./add_to_ram.js"
 import {post_format} from "./give_post_format.js";
 import {put_validation_events_to_neuron} from "./put_validation_events_to_neuron.js";

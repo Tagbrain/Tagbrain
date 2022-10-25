@@ -1,9 +1,5 @@
 import {gEBI, dCE} from "../../units/compress_f.js";
-import {elements} from "./obj_post_edit_f.js";
-import {patterns} from "./obj_post_edit_f.js";
-import {functions} from "./obj_post_edit_f.js";
 import {toggle_pop_up} from '../interface/settings_pop_up_end.js';
-import {add_to_ram} from "../../units/add_to_ram.js"
 let Loader = require('../../units/tehnic/async_loader_end.js');
 import {add_neuron} from "../../units/add_neuron.js";
 import {post_format} from "../../units/give_post_format.js";

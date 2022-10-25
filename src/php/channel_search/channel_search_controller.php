@@ -169,13 +169,13 @@ class search_controller {
 
         $access_arr = $this->check_session_data($_SESSION["userid"],$_SESSION["all_member_channels"], $_SESSION["editor"],$_SESSION["creator"], $channel_name);
 
-        if($access_arr["can_editing"] == true){
+        //if($access_arr["can_editing"] == true){
 
             $this->start_search_controller($channel_name, $array_of_search_key, $collection_post_without_ram, $collection_ram_post_name);
 
-        } else {
-            echo "No access";
-        }
+        //} else {
+        //    echo "No access";
+        //}
 
     }
     

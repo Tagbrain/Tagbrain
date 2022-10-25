@@ -125,9 +125,9 @@ let field_form_elements = ["channel_name", "editors_channel"];
                 is_private = "public";
             }
             let data = {
-                "channel_name=": form_fields.channel_name.value,
-                "editors=": form_fields.editors_channel.value,
-                "private_or_not=": is_private
+                channel_name: form_fields.channel_name.value,
+                editors: form_fields.editors_channel.value,
+                private_or_not: is_private
             }
             let url = "php/channels_function/add_channel/add_new_channel_exporter.php";
             let controller_f = function(response_obj){
@@ -139,7 +139,7 @@ let field_form_elements = ["channel_name", "editors_channel"];
                 }
             };
             let error_message = "error";
-            send_data_ajax(data, url, controller_f, true, error_message);
+            send_data_ajax(data, url, controller_f, false, error_message);
             return false;
         }  
     });

@@ -4,7 +4,7 @@
     <img alt="Logo" src="https://github.com/Tagbrain/Tagbrain/blob/main/Tagbrain_logo.png" width="400"/>
 </h3>
 
-<a href="https://tagbrain.org/">Site link</a>
+<a href="https://tagbrain.org/project/">Site link</a>
 
 + Description
     + Web-tool for collaborative creation hypergraphs of knowledge 
@@ -20,19 +20,29 @@
     + Creation of a platform for collaborative structured knowledge editing
         + Information from which can be used for complex systems integrated with AI
 
-+ Stack
-    + current
-        + PHP
-        + JS
-    + need
-        + Python
-        + GO
+Screenshots
+<h3 align="display:grid;grid-template: repeat(auto-fit,minmax(100px,1fr))/repeat(auto-fit,minmax(280px,1fr));  padding: 16px 8px; ">
+    <img alt="transhumanism1" src="https://github.com/Tagbrain/Tagbrain/blob/main/transhumanism1.png"/>
+    <img alt="transhumanism1" src="https://github.com/Tagbrain/Tagbrain/blob/main/transhumanism2.png"/>
+</h3>
+Terminology v 0.1
 
-+ Full information on Tagbrain project page
-    + graph by the project structure
-    + ideas
-    + tasks
-    + everything related to Tagbrain
+### Basic
+————————
+Neuron is a file that contains a tree structure of words (ordinary(weak synapses) and synapses)
+
+Synapse is a word with a hash tag that is found in the tree structure of a neuron. If different neurons have the same synapses, then they form connections between these neurons.
+
+Connection is a fibers of different weigth that connect synapses with the same values. The fibers thicknesses are determined by row number, row depth (tabulation), components selective activation and weight index.
+————————
+### Neural activity
+————————
+Neural activation
+Number index is characterized the significance of summarizing activations of target synapses. In many causes the index is 0 because the neuron has no target synapses.
+
+Tangle of activation
+Chain activation of neurons by key synapses and addition synapses, which are strengthen or forgotten during the collect of the tangle of activations. A target neuron can has no key synapses but it can activate by strengthening addition features of previous truly target neurons.
+————————
 
 + News
  + ✅v 1.1.1⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯15.10.2022

@@ -273,7 +273,7 @@ function generalization_function(array_chains: arr_chains, glob_depth: number){
 
 
 //CONTROLLER
-export function get_chain_fathers2(row_els: HTMLElement[], arr_objs_rows:{depth: number, row:number, key: string, is_key_row: boolean}[], arr_objs_current_rows:{depth: number, row:number, is_key_row: boolean, key: string}[]){
+export function get_chain_fathers2(row_els: HTMLElement[], arr_objs_current_rows:{depth: number, row:number, key: string}[], arr_objs_rows:{depth: number, row:number, key: string, is_key_row: boolean}[]){
      if(arr_objs_rows != null){
           //get_group_of_key_word
                     

@@ -21,7 +21,6 @@ export async function send_data_ajax(data, url, controller_f, URLencode, error_m
 
     let response = await fetch(url, head);
 
-
      if (response.ok) { 
          controller_f(await response.json());
       } else {

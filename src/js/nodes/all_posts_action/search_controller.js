@@ -1,6 +1,6 @@
-import {elements} from "../post_manipulation/obj_post_edit_f.js";
-import {patterns} from "../post_manipulation/obj_post_edit_f.js";
-import {functions} from "../post_manipulation/obj_post_edit_f.js";
+import {elements} from "../post_manipulation/obj_post_edit_f";
+import {patterns} from "../post_manipulation/obj_post_edit_f";
+import {functions} from "../post_manipulation/obj_post_edit_f";
 import {add_neuron} from "../../units/add_neuron.js";
 import {send_data_ajax} from "../../units/send_data_ajax.js";
 
@@ -226,6 +226,7 @@ function get_front_end_search_array(type_search, array_of_search_key){
      if(target.classList.contains("item_tags_style")){
          let search_input = document.querySelector('#search_input_block');
          var tag = target.textContent || target.innerText;
+         tag = tag.trim();
          if (e.ctrlKey) {
              search_input.value += ','+tag;
          } else {
