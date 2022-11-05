@@ -11,7 +11,7 @@ setInterval(function(){
 
 function refresh_automate(){
 
-    let cellular_automata = document.getElementById("cellular_automata");
+    let cellular_automata: HTMLElement = document.getElementById("cellular_automata");
     let current_state : any ;
     let object_units : any, new_units;
     if(cellular_automata!= null){

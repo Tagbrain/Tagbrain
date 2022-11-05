@@ -177,13 +177,45 @@ export let functions = {
           document.getSelection()?.addRange(new_range);
           new_range.collapse();
      },
-     put_caret(node: HTMLElement, pos: string){
-     
-          let position: number = 0;
+     put_caret(node: HTMLElement | Text, pos: string){
           // do => SAVE_SELECTION
           if(typeof(pos) === 'number'){
-               position = pos;
+               let position: number = pos;
+               if(node.nodeType == 1){
+                    let Elnode = node as Node;
+                    let childs = Elnode.childNodes;
+                    let i = 0;
+                    if(childs != null){
+                         while(i < childs.length) {
+                              let text = childs[i].textContent,
+                              len: number = 0;
+                              if(text != null)
+                                   len = text.length;
+
+                              if(len < position){
+                                   position = position - len;
+                                   i++;
+                                   continue
+                              } else {
+                                   if(childs[i].nodeType == 3){
+                                        let element: HTMLElement = Elnode as HTMLElement;
+                                        element.focus();
+                                        document.getSelection()?.collapse(childs[i], position);
+                                        return
+                                   } else {
+                                        let element: HTMLElement = childs[i] as HTMLElement;
+                                        element.focus();
+                                        document.getSelection()?.collapse(childs[i].childNodes[0], position);
+                                        return
+                                   }
+                              }
+                         }
+                    }
+               }
+               // #edit => RETURN OLD SELECTION
+
           } else if (pos === "end" || undefined){
+
                let new_range = new Range();
                new_range.selectNodeContents(node);
                if (document.getSelection !== null){
@@ -193,36 +225,6 @@ export let functions = {
                new_range.collapse();
                return
           }
-
-          let childs = node.children as HTMLCollectionOf<HTMLElement>;
-          let i = 0;
-
-          if(childs != null){
-               while(i < childs.length) {
-                    let text = childs[i].textContent,
-                    len: number = 0;
-                    if(text != null)
-                         len = text.length;
-
-                    if(len < position){
-                         position = position - len;
-                         i++;
-                         continue
-                    } else {
-                         if(childs[i].nodeType == 3){
-                              node.focus();
-                              document.getSelection()?.collapse(childs[i], position);
-                              return
-                         } else {
-                              childs[i].focus();
-                              document.getSelection()?.collapse(childs[i].childNodes[0], position);
-                              return
-                         }
-                    }
-
-               }
-          }
-          // #edit => RETURN OLD SELECTION
      },
      get_row_caret_position() {
           let obj_caret = this.get_sel_range(),
@@ -230,33 +232,62 @@ export let functions = {
                caret_position = this.get_position_in_row(obj_caret.sel.anchorNode, obj_caret.sel.anchorOffset, current_row);
           return caret_position;
      },
-     get_position_in_row(node: HTMLElement , node_position:number, current_row:HTMLElement) {
-          let position_in_row_where_node = 0,
-                  current_row_childnodes: HTMLCollection;
-
-          current_row_childnodes = current_row.children;
+     iterate_childs_to_target(target_node: Node | Text, current_node: Node | Text, position_in_row_where_node: number){
+          if(target_node != current_node){
+               let current_node_children: NodeListOf<Node> = current_node.childNodes;
+               for (let i = 0; i < current_node_children.length; i++) {
+                    let child = current_node_children[i];
+                    if(target_node == child){
+                         return position_in_row_where_node;
+                    } else {
+                         if(child.nodeType == 3){//this is text
+                              let text = child.textContent;
+                              if(text != null){
+                                   position_in_row_where_node += text.length;
+                              }
+                         } else {//this is node
+                              if(current_node.contains(target_node)){
+                                   this.iterate_childs_to_target(target_node, child, position_in_row_where_node);
+                              } else {
+                                   let text_node = current_node.textContent
+                                   if(text_node != null){
+                                        position_in_row_where_node += text_node.length;
+                                   }
+                              }
+                         }
+                    }
+               }
+          }
+          return position_in_row_where_node;
+     },
+     get_position_in_row(target_node: HTMLElement | Text, node_position:number, current_row:Node) {
+          let position_in_row_where_node = 0;
+          let current_row_childnodes: NodeListOf<Node> = current_row.childNodes;
 
           for (let i = 0; i < current_row_childnodes.length; i++) {
-
-               let unit: string | HTMLElement = current_row_childnodes[i] as string | HTMLElement;
-               if (typeof unit !== 'string'){//node isn't string
-                    if (node == unit || unit.contains(node)) {
-                         position_in_row_where_node += node_position;
+               let current_node: Text | HTMLElement = current_row_childnodes[i] as Text | HTMLElement;
+               if(target_node == current_node){//this is target node
+                    position_in_row_where_node += node_position;
+                    break
+               } else {//this contains target node
+                    if(current_node.contains(target_node)){//current_node contain target node
+                         position_in_row_where_node = this.iterate_childs_to_target(target_node, current_node, position_in_row_where_node);
+                         position_in_row_where_node += node_position
                          break
-                    } 
-                    if (unit.nodeType != 3){
-                         let textcont = unit.textContent;
+                    } else {//get current node length and follow to the next 
+                         let textcont = current_node.textContent;
                          if(textcont != null)
                               position_in_row_where_node += textcont.length;
-                    } 
-               } else {
-                    position_in_row_where_node += unit.length;
+                         continue
+                    }
                }
 
-          }
+          }   
+          //clean syntax
           let row_content = current_row.textContent;
           if(row_content != null)
                current_row.textContent = row_content;
+
           return position_in_row_where_node;
      },
      //textNode first level post
@@ -619,8 +650,7 @@ export let functions = {
                return obj_result_search = this.surround_post_text_in_tags_controller(rows, array_of_search_key);
      },
      surround_post_text_in_tags_controller(rows: HTMLElement[], array_of_search_key: string[]) {
-          let finded_words:string[] = [],
-          finded_tags_struct:any[] = [],
+          let finded_tags_struct:any[] = [],
           cut_rows_arr:number[] = [],
           arr_objs_struct_activ:{key: string, row: number, depth: number, is_key_row: boolean}[] = [],
           arr_objs_current_rows:{key: string, row: number, depth: number}[] = [];
@@ -679,7 +709,6 @@ export let functions = {
 
                     if (array_is_empty == false) {
                          if (array_of_search_key.includes(search_key) == true) {
-                              finded_words.push(search_key);
                               is_key_row = true;
                               obj_struct_activ["key"] = search_key;
                               if (/#[\p{L}_0-9]*/.test(search_key) == true) {
@@ -698,7 +727,6 @@ export let functions = {
                          if (array_is_empty == false) {
                               let reg_words_in_tag = new RegExp(array_of_search_key.join('|'), 'gu')
                               search_key = search_key.replace(reg_words_in_tag, function (word) {
-                                   finded_words.push(word);
                                    is_key_row = true;
                                    obj_struct_activ["key"] = search_key;
                                    word = "<mark>" + word + "</mark>";
@@ -742,7 +770,6 @@ export let functions = {
           }
           
           return {
-               finded_words: finded_words,
                finded_tags_struct: finded_tags_struct,
                struct_activ_num: obj_st_acitvations.number,
                general_activation: obj_st_acitvations.general_activation,
@@ -755,21 +782,13 @@ export let functions = {
           }
      },
      validate_row_formate(node: HTMLElement, caret_pos: number){
+          
           let text_row = node.textContent;
           let escaped_itext_row = this.escape_text(text_row);
 
-          let text_symbols_spans_formatting = escaped_itext_row.replace(patterns.pattern_symbols, function (match_pattern: string) {
-               if (match_pattern.indexOf("span") != -1) {
-                    match_pattern = "";
-               } else {
-                    match_pattern = "<span class='special_symbols_style'>" + match_pattern + "</span>";
-               }
-               return match_pattern;
-          });
-
           let regexp = new RegExp('#[\\p{L}_0-9]*', 'gmu');
                
-          let text_with_symbols_tags = text_symbols_spans_formatting.replace(regexp, function (search_key:string) {
+          let text_with_symbols_tags = escaped_itext_row.replace(regexp, function (search_key:string) {
                search_key = "<span class='item_tags_style'>" + search_key + "</span>";
                return search_key;
           });

@@ -56,10 +56,9 @@ export function add_neuron(response_server_id, neuron_content, contenteditable, 
       let obj_els = post_format(new_neuron_el.innerText);
       new_neuron_el.innerHTML =  obj_els.html.innerHTML;
       functions.search_format_function(new_neuron_el, []);
-
       put_validation_events_to_neuron(new_neuron_el);
       if(add_ram_boolen == undefined){
-         add_to_ram(new_neuron_el, response_server_id, [])
+         add_to_ram(new_neuron_el, response_server_id, false)
       } else if (add_ram_boolen == false){
          false
       }

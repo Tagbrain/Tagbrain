@@ -1,11 +1,12 @@
 import {elements} from "../post_manipulation/obj_post_edit_f";
 import {patterns} from "../post_manipulation/obj_post_edit_f";
 import {functions} from "../post_manipulation/obj_post_edit_f";
+//UNITS
 import {add_neuron} from "../../units/add_neuron.js";
 import {send_data_ajax} from "../../units/send_data_ajax.js";
-
-//UNITS
+import {get_compress_html_set} from "../../units/compress_neuron_for_bar";
 import {get_string_tags_struct} from "../../units/get_string_tags_struct.js";
+import {get_neuron_features} from "../../units/get_neuron_features";
 
 
 //OPTIMIZING_F
@@ -119,101 +120,25 @@ function refractor_front_end_search(timer_name, array_key, ms){
      timer_name = window.setTimeout(get_front_end_search_array, ms, "association", array_key)
 }
 function get_front_end_search_array(type_search, array_of_search_key){ 
-       let  counter_posts = 0,
-                      ids = [];  
+     let ids = [];  
 
      let collection_posts = document.querySelectorAll('#items_container .item_input');
      if(collection_posts != null){
-
+ 
           for(let i = 0; i < collection_posts.length; i++){
-               let post_block = collection_posts[i];
-
-               if(array_of_search_key != null){
-
-                    let time_last_editing_post = post_block.parentNode.parentNode.querySelector(".file_time").textContent,  
-                        firsts_words_post = post_block.childNodes[0].textContent.trim();    
-
-                    let search_post_obj = functions.search_format_function(post_block, array_of_search_key),
-                         finded_post_words = search_post_obj.finded_words,
-                         finded_tags_struct = search_post_obj.finded_tags_struct,
-                         general_activation = search_post_obj.general_activation,
-                         struct_activ_num = search_post_obj.struct_activ_num,
-                         chain_fathers = search_post_obj.chain_fathers,
-                              count_finded = 0;
-
-                    if(finded_post_words != null)
-                         count_finded = finded_post_words.length;
-
-                    let obj_post_tags = get_string_tags_struct(finded_tags_struct);
-                    
-                    //optimazing array tags
-                    if(type_search == "association"){
-                         true
-                    } else {
-                         let unique_array_of_search_key = array_of_search_key.filter((val, ind, arr) => arr.indexOf(val) === ind);
-                         let unique_finded_words = finded_post_words.filter((val, ind, arr) => arr.indexOf(val) === ind);
-                         if(unique_array_of_search_key.length > unique_finded_words.length);
-                              break;
-                    }
-                    
-                    let activation = 0;
-
-                    if(general_activation > 0){
-                         counter_posts++;
-                         if (post_block.parentNode.parentNode.id != ''){
-                              ids.push( {
-                                   id: post_block.parentNode.parentNode.id, 
-                                   activation: general_activation,
-                                   count_tags: obj_post_tags.count,
-                                   words: firsts_words_post,
-                                   tags: obj_post_tags.string,
-                                   time: time_last_editing_post,
-                                   chain_fathers: chain_fathers,
-                              });
-                         }
-                    }
-               }
+                 let post_block = collection_posts[i];
+                 let object_features = get_neuron_features(post_block, type_search, array_of_search_key);
+                 object_features["type_window"] = "search";
+                 ids.push(object_features);
           }
 
           //check sort par
           ids.sort((a, b) => b.activation - a.activation );
+     
      }
-
      //output
-     document.querySelector("#counter_block_found_words").textContent = "Best neurons: "+ counter_posts;
-     ids = ids.map( post_block => {
-          return    '<div class="search_row">' 
-                         + '<a class="link_part" href="#' + post_block.id + '">'
-                              + '<span class="search_act_cont">'
-                                   + '<span class="special_symbols_style" title="Activation">'
-                                        + post_block.activation
-                                   + '</span>'
-                              + '</span>' 
-                              + '<span class="header_search_ind special_symbols_style">'
-                                   + ''
-                              + '</span>' 
-                              + '<span class="search_row_head_time">'
-                                   + post_block.time 
-                              + ' </span>'
-                              + '<span class="first_words_search_row">' 
-                                   + post_block.words + '<br><br>'
-                                   + post_block.chain_fathers
-                              + '</span><br><br>'  
-                         + '</a>' 
-                         + '<div class="search_row_body">'
-                              + '<span>'
-                                   + '<span> '
-                                        + post_block.count_tags
-                                   + ' </span>'
-                                   + '<span class="search_toggle toggle_turned_off"> + </span>'
-                                   + '<span class="toggle_content hide_cl"> [ '
-                                        + post_block.tags
-                                   + ']</span>'
-                              + '</span>'
-                              + '<a class="search_row_delete">✖</a>'
-                         + '</div>'
-                    + '</div>';
-     });
+     document.querySelector("#counter_block_found_words").textContent = "Best neurons: "+ ids.length;
+     ids = ids.map( post_features => get_compress_html_set(post_features));
      document.querySelector('#result_block').innerHTML = ids.join('');
 }     
 

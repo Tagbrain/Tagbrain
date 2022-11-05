@@ -30,9 +30,10 @@ function transfer_obj_to_html(obj){
         let controller_f = function(response_obj){
             if(response_obj.status == "success"){
                 let content = transfer_obj_to_html(response_obj.brain_data);
-                let time = new Date();
-                let neuron = add_neuron("brain_data_"+time.getSeconds(), content, false, false, false);
-                add_to_ram(neuron, "brain_data", false, true);
+                if(gEBI("brain_data"))
+                    gEBI("brain_data").remove();
+                let neuron = add_neuron("brain_data", content, false, false, false);
+                add_to_ram(neuron, "brain_data", true);
             }
         };
         send_data_ajax(data, url, controller_f, false, error_message);

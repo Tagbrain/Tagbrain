@@ -44,19 +44,18 @@ function cycle_generalization(data: General_result, glob_depth: number, data_sav
           let child_branch: General_result;
           if(data.child_escaped_start.length != 0){
                data_saver.push(data.child_escaped_start);
-               child_branch = generalization_function(data.child_chains, glob_depth + 1);
+               child_branch = generalization_function(data.child_chains, glob_depth);
           } else {
-               child_branch = generalization_function(data.child_chains, glob_depth + 1);
+               child_branch = generalization_function(data.child_chains, glob_depth);
           }
-
-          cycle_generalization(child_branch, glob_depth + 1, data_saver);
+          cycle_generalization(child_branch, glob_depth, data_saver);
           if(data.child_escaped_end.length != 0)
                data_saver.push(data.child_escaped_end);
               
          //-<
               let new_branch = generalization_function(data.arr_chains_reducted, glob_depth);
-              cycle_generalization(new_branch, glob_depth, data_saver);
-
+              cycle_generalization(new_branch, glob_depth + 1, data_saver);
+              
               //#edit #add
               //if length more than 4
               //check equal key
@@ -210,11 +209,9 @@ function generalization_function(array_chains: arr_chains, glob_depth: number){
      
 
           //#remove escape
-          //calibrate chains_fathers depth + 1 tab
           if(parents_chains.length != 0){
                //IS CORRECT? #edit
                if(parents_chains.length == 1){
-                    //parents_chains = calibrate_chains_depth(parents_chains, glob_depth);
                     //GET DEPTH FIRST
                     parent_escaped_end = [{
                          "key": "<span class='arrows_sh'>→ "+ first_key +"</span>",

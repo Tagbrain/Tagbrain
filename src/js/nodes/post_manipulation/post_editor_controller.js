@@ -15,7 +15,7 @@ import {functions} from "./obj_post_edit_f";
 
      //CONTROLLER
      function put_validation_events_to_neuron(element_one){
-          element_one.addEventListener('keydown', function(e){
+          element_one.addEventListener('keypress', function(e){
                elements.current_post = element_one;
                let selection = window.getSelection();
                let current_line = functions.get_current_line_div("start");

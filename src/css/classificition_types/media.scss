@@ -37,10 +37,10 @@
         margin: 0px 0px;
     }
     .header{
-        grid-template-columns: 0px 1fr 0px;
+        grid-template:1fr / 0px 1fr 0px;
     }
     .logo_and_menu_buttons{
-        grid-template-columns: 60px 40px 230px;
+        grid-template-columns: 80px 100px 1fr;
     }
     .menu_container{
         grid-template: 1fr/30px 30px 1fr;
@@ -54,5 +54,9 @@
     .tag_container_on{
         display:grid;
         padding-top: 80px;
+    }
+    .icon_size_middle{
+        height: 24px;
+        width: 24px; 
     }
 }

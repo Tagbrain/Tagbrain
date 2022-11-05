@@ -103,13 +103,15 @@
 							</svg>
 						</a>
 						<a id="work_mode_button" class="icon_buttons_visual_effects" title="Work Mode">
-							⚡
+							<svg class="liner_icon_style icon_size_middle">
+								<use xlink:href="#sprite_ligthning"></use>
+							</svg>
 						</a>
 					</div>
 				</div>
 
 				<?php if(!$_SESSION["userid"]){
-						echo '<form method="post" action="php/sessions/sign_in/signin_inc.php" onsubmit="return validate_code_form()" id="container_post_code">'.
+						echo '<form method="post" action="php/sessions/sign_in/signin_inc.php" class="header_central_text" onsubmit="return validate_code_form()" id="container_post_code">'.
 								'<input type="submit" id="send_code_to_email" value="▷">'.
 								'<input name="password_code" autocomplete="current-password"  type="text" id="log_code_input" maxlength="50" class="log_code_input_style" placeholder="Email log">'.
 							'</form>';

@@ -49,7 +49,7 @@ let path = {
     clean: "./" + project_folder + "/"
 }
 
-let {src, dest} = require ('gulp'),
+let {src, dest} = require('gulp'),
 gulp = require('gulp'),
 del = require('del'),
 scss = require("gulp-sass")(require("sass")),

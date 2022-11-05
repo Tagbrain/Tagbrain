@@ -9,12 +9,12 @@ import {add_to_ram} from "../../units/add_to_ram.js"
   function gEBI(id, parent) {
     return (parent || document).getElementById(id);
   } 
-  function call_refractor_send_data(timer_name, ms, target_blur, post_tags){
+  function call_refractor_send_data(timer_name, ms, target_blur){
     if(timer_name != undefined)
       window.clearTimeout(timer_name);
-    timer_name = window.setTimeout(code_and_send_data, ms, target_blur, post_tags)
+    timer_name = window.setTimeout(code_and_send_data, ms, target_blur)
   }
-  function put_not_save_flag(target_blur){
+  function put_not_save_class(target_blur){
     let save_flag_container = target_blur.parentNode.parentNode.querySelector(".save_flag");
     save_flag_container.innerHTML = " ●";
   }
@@ -22,18 +22,16 @@ import {add_to_ram} from "../../units/add_to_ram.js"
     let post = gEBI(post_id),
     save_flag_container = post.querySelector(".save_flag");
     save_flag_container.innerHTML = "";
-    gEBI("history_"+post_id).innerHTML = "";
+    if(gEBI("ram_"+post_id))
+      gEBI("ram_"+post_id).querySelector(".activation_container ").className = "activation_container saved_neuron";
+    if(gEBI("search_"+post_id))
+      gEBI("search_"+post_id).querySelector(".activation_container ").className = "activation_container saved_neuron";
   }
   function clean_save_not_save_block(){
     let saved_not_saved_block = gEBI("saved_not_saved");
     saved_not_saved_block.textContent = "";
   }
-  function give_post_right_format(post_el){
-    let search_post_obj = functions.search_format_function(post_el, []);
-    let finded_post_tags = search_post_obj.finded_tags_post;
-    return finded_post_tags;
-  }
-  function code_and_send_data(target_el, post_tags){
+  function code_and_send_data(target_el){
 
     let content_to_php = target_el.innerText,
               post_id = target_el.parentNode.parentNode.id,
@@ -49,20 +47,14 @@ import {add_to_ram} from "../../units/add_to_ram.js"
         if(response_obj.status == "save"){
           delete_save_flag(post_id);
           let saved_not_saved_block = gEBI("saved_not_saved"),
-            post_save_time = new Date(),
-            post_save_hours = post_save_time.getHours(), 
-            post_save_minutes = post_save_time.getMinutes();
-          if (post_save_minutes < 10){
-            post_save_minutes = "0" + post_save_minutes;
-          }
-          let time_data_hours_minutes = "Saved " + post_save_hours+":"+post_save_minutes;
+          time_data_hours_minutes = "Saved";
           saved_not_saved_block.textContent = time_data_hours_minutes;
           setTimeout(clean_save_not_save_block, 60000);
         }
     };
     let error_message = "Search data not load";
     send_data_ajax(data, url, controller_f, true, error_message);
-    add_to_ram(target_el, post_id, post_tags);
+    add_to_ram(target_el, post_id, false);
   }
   function validate_blur_row(){
     let focused_rows = document.querySelector(".focus_row");
@@ -96,15 +88,25 @@ import {add_to_ram} from "../../units/add_to_ram.js"
   //CONTROLLER
 
   function start_controller(target_post){
-
     elements.current_post = target_post;
-    
     functions.echo_data();
-    let finded_post_tags = give_post_right_format(target_post);
-    put_not_save_flag(target_post);
+    //functions.search_format_function(target_post, []);
+
+    let first_row_val;
+    let array_current_key_word = target_post.querySelectorAll("mark");
+    if(array_current_key_word.length == 0){
+      first_row_val = target_post.children[0].innerText.trim();
+      functions.search_format_function(target_post, [first_row_val]);
+    } else {
+      let arr_text_val = [];
+      for(var i = 0; i < array_current_key_word.length; i++){
+        arr_text_val.push(array_current_key_word[i].innerText.trim());
+      }
+      functions.search_format_function(target_post, arr_text_val);
+    }
+
+    put_not_save_class(target_post);
     validate_blur_row();
     functions.make_drop_down_blocks(target_post);
-
-    call_refractor_send_data(refractory_timer, 900, target_post, finded_post_tags);
-
+    call_refractor_send_data(refractory_timer, 900, target_post);
   }
