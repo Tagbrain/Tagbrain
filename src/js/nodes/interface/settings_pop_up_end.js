@@ -23,20 +23,20 @@ if(gEBI("exit_button")){
     }); 
 }
 
-function node_inside_post(node, post_class){
-    if(node.classList.contains(post_class) == true){
+function node_inside_neuron(node, neuron_class){
+    if(node.classList.contains(neuron_class) == true){
         return {
-            inside_post: true,
-            post_id: node.id,
+            inside_neuron: true,
+            neuron_id: node.id,
         }
     }
-    while (node.classList.contains(post_class) != true) {
+    while (node.classList.contains(neuron_class) != true) {
         node = node.parentNode;
         if(node !== document.body){
-            if (node.classList.contains(post_class) == true) {
+            if (node.classList.contains(neuron_class) == true) {
                 return {
-                    inside_post: true,
-                    post_id: node.id,
+                    inside_neuron: true,
+                    neuron_id: node.id,
                 }
             }
         } else {
@@ -44,36 +44,54 @@ function node_inside_post(node, post_class){
         }
     }
     return {
-        inside_post: false,
-        post_id: undefined,
+        inside_neuron: false,
+        neuron_id: undefined,
     }
 }
 
-export function toggle_pop_up(remove_class, add_class, element_classlist, back_layer_element, pointer_e_stl){
-    element_classlist.remove(remove_class);
+export function toggle_pop_up(remove_class, add_class, el_cls, back_layer_element, pointer_e_stl){
+    el_cls.remove(remove_class);
     back_layer_element.style.pointerEvents = pointer_e_stl;
-    element_classlist.add(add_class);
+    el_cls.add(add_class);
+}
+function close_pop_up_click_outside(e, neuron_pop_up_menu, el_cls, upper_layer_for_animation){
+    e.preventDefault();
+    e = e || window.event;
+    let neuron = e.target,
+    obj_neuron = node_inside_neuron(neuron, "item")
+    if(obj_neuron.inside_neuron == false){
+        toggle_pop_up('neuron_pop_up_show', 'neuron_pop_up_hide', el_cls, upper_layer_for_animation, 'none');
+        document.removeEventListener("click", function (e){close_pop_up_click_outside(e, neuron_pop_up_menu, el_cls, upper_layer_for_animation)}, false);
+    }
+    
+}
+function show_context_pop_up(e, el_cls, upper_layer_for_animation){
+    toggle_pop_up('neuron_pop_up_hide', 'neuron_pop_up_show', el_cls, upper_layer_for_animation, 'visible');
+    neuron_pop_up_menu.style.top = e.clientY + "px";
+    neuron_pop_up_menu.style.left = e.clientX + "px";
+    let options = {
+        once: true,
+    };
+    document.addEventListener("click", function (e){close_pop_up_click_outside(e, neuron_pop_up_menu, el_cls, upper_layer_for_animation)}, options);
 }
 
-let post_pop_up_menu = gEBI("post_pop_up_menu");
+let neuron_pop_up_menu = gEBI("neuron_pop_up_menu");
 let items_container = gEBI("items_container");
 document.addEventListener("contextmenu", (e) => {
     e.preventDefault();
     e = e || window.event;
-    let post = e.target,
-    obj_node = node_inside_post(post, "item"),
-     classes = post_pop_up_menu.classList;
+    let neuron = e.target,
+    obj_node = node_inside_neuron(neuron, "item"),
+    el_cls = neuron_pop_up_menu.classList;
 
-    if(obj_node.inside_post == true){
-        if(classes.contains("post_pop_up_hide")){
-            toggle_pop_up('post_pop_up_hide', 'post_pop_up_show', classes, upper_layer_for_animation, 'visible');
-            post_pop_up_menu.style.top = e.clientY + "px";
-            post_pop_up_menu.style.left = e.clientX + "px";
+    if(obj_node.inside_neuron == true){
+        if(el_cls.contains("neuron_pop_up_hide")){
+            show_context_pop_up(e, el_cls, upper_layer_for_animation);
         } else {
-            toggle_pop_up('post_pop_up_show', 'post_pop_up_hide', classes, upper_layer_for_animation, 'none');
+            toggle_pop_up('neuron_pop_up_show', 'neuron_pop_up_hide', el_cls, upper_layer_for_animation, 'none');
         }
     } else {
-        toggle_pop_up('post_pop_up_show', 'post_pop_up_hide', classes, upper_layer_for_animation, 'none');
+        toggle_pop_up('neuron_pop_up_show', 'neuron_pop_up_hide', el_cls, upper_layer_for_animation, 'none');
     }  
 });
 

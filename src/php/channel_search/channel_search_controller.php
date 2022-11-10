@@ -69,7 +69,7 @@ class search_controller {
             $splice_group = array_splice($channel_search_obj, 0, 10);
             $finded_posts = $splice_group;
         } else if (count($channel_search_obj) > 10){
-            $splice_group = array_splice($channel_search_obj, 0, 20);
+            $splice_group = array_splice($channel_search_obj, 0, 15);
             $finded_posts = $splice_group;
         }
         

@@ -34,7 +34,7 @@ Screenshots
 ### Terminology v 0.1
 
 + Basic
-    + <span class="class_synapse">#neuron</class> is a file that contains a tree structure of words (ordinary(weak synapses) and synapses)
+    + <a href="">#neuron</a> is a file that contains a tree structure of words (ordinary(weak synapses) and synapses)
     + #synapse is a word with a hash tag that is found in the tree structure of a neuron. If different neurons have the same synapses, then they form connections between these neurons.
     + #connection is a fibers of different weigth that connect synapses with the same values. The fibers thicknesses are determined by row number, row depth (tabulation), components selective activation and weight index.
     + #microfeature is a part of the chain_of_fathers from 2 or more fathers (features).

@@ -7,10 +7,10 @@ export let elements = {
 }
 export let patterns = {
      invisible_char: '︀',
-     pattern_tag: /#[\p{L}_0-9]*/gui,
-     pattern_verb: /\$[\p{L}_0-9]*/gui,
+     pattern_tag: '#[\\p{L}_0-9]*',
+     pattern_verb: '\\$[\\p{L}_0-9]*',
      word: /(\w+)*/gu,
-     pattern_symbols: /\$[\p{L}_0-9]*|↓|→|←|↑|\|-〇|<(|\/)span[^>]*>/gui,
+     pattern_symbols: /↓|→|←|↑|\|-〇/gui,
      code_pattern: /(\[code\][^]*\[\/code\])/gm,
      clean_codetag_pattern: /\[(|\/)code\]/gm,
 }
@@ -683,59 +683,73 @@ export let functions = {
                let escaped_itext_row = this.escape_text(content_right_spaces);
 
                //#remove
+               
                let text_symbols_spans_formatting = escaped_itext_row.replace(patterns.pattern_symbols, function (match_pattern: string) {
-                    if (match_pattern.indexOf("span") != -1) {
-                         match_pattern = "";
-                    } else {
-                         match_pattern = "<span class='special_symbols_style'>" + match_pattern + "</span>";
-                    }
+                    match_pattern = "<span class='special_symbols_style'>" + match_pattern + "</span>";
                     return match_pattern;
                });
-
+               
                let regexp;
-               let array_is_empty = false;
+               let search_array_is_empty = true;
                
 
                if (array_of_search_key != null) {
                     if (array_of_search_key.length > 0) {
-                         regexp = new RegExp(array_of_search_key.join('|') + '|#[\\p{L}_0-9]*', 'gmu');
+                         regexp = new RegExp(array_of_search_key.join('|') + '|' + patterns.pattern_tag + '|' + patterns.pattern_verb, 'gmu');
+                         search_array_is_empty = false;
                     } else {
-                         array_is_empty = true;
-                         regexp = new RegExp('#[\\p{L}_0-9]*', 'gmu');
+                         search_array_is_empty = true;
+                         regexp = new RegExp(patterns.pattern_tag + '|' + patterns.pattern_verb, 'gmu');
                     }
                }
 
-               let text_with_symbols_tags = text_symbols_spans_formatting.replace(regexp, function (search_key: string) {
-
-                    if (array_is_empty == false) {
-                         if (array_of_search_key.includes(search_key) == true) {
+               let text_with_symbols_tags = escaped_itext_row.replace(regexp, function (search_key: string) {
+                    let reg_verb = new RegExp(patterns.pattern_verb, 'gmu'),
+                         reg_tag = new RegExp(patterns.pattern_tag, 'gmu'),
+                    
+                         is_exist_tags:boolean = reg_tag.test(search_key),
+                         is_exist_tags_action:boolean = reg_verb.test(search_key),
+                         is_exist_finding_word:boolean = array_of_search_key.includes(search_key);
+      
+                    if (search_array_is_empty == false) {
+                         if (is_exist_finding_word) {
                               is_key_row = true;
                               obj_struct_activ["key"] = search_key;
-                              if (/#[\p{L}_0-9]*/.test(search_key) == true) {
+                              if (is_exist_tags) {
                                    finded_tags_struct.push({key:search_key, c:i, d:space_obj.spaces});
                                    search_key = "<span class='item_tags_style'><mark>" + search_key + "</mark></span>";
+                                   return search_key;
+                              } else if(is_exist_tags_action){
+                                   //#edit finded_action push
+                                   search_key = "<span class='special_symbols_style'><mark>" + search_key + "</mark></span>";
                                    return search_key;
                               } else {
                                    search_key = "<mark>" + search_key + "</mark>";
                                    return search_key;
                               }
+                         } else {
+                              if (is_exist_tags) {
+                                   finded_tags_struct.push({key:search_key, c:i, d:space_obj.spaces});
+                                   search_key = "<span class='item_tags_style'>" + search_key + "</span>";
+                                   return search_key;
+                              } else if(is_exist_tags_action){
+                                   //#edit finded_action push
+                                   search_key = "<span class='special_symbols_style'>" + search_key + "</span>";
+                                   return search_key;
+                              }
+                         }
+                    } else {
+                         if (is_exist_tags) {
+                              finded_tags_struct.push({key:search_key, c:i, d:space_obj.spaces});
+                              search_key = "<span class='item_tags_style'>" + search_key + "</span>";
+                              return search_key;
+                         } else if(is_exist_tags_action){
+                              //#edit finded_action push
+                              search_key = "<span class='special_symbols_style'>" + search_key + "</span>";
+                              return search_key;
                          }
                     }
-
-                    if (/#[\p{L}_0-9]*/.test(search_key) == true) {
-                         finded_tags_struct.push({key:search_key, c:i, d:space_obj.spaces});
-                         if (array_is_empty == false) {
-                              let reg_words_in_tag = new RegExp(array_of_search_key.join('|'), 'gu')
-                              search_key = search_key.replace(reg_words_in_tag, function (word) {
-                                   is_key_row = true;
-                                   obj_struct_activ["key"] = search_key;
-                                   word = "<mark>" + word + "</mark>";
-                                   return word;
-                              })
-                         }
-                         search_key = "<span class='item_tags_style'>" + search_key + "</span>";
-                         return search_key;
-                    }
+                    
                });
 
 
@@ -786,7 +800,7 @@ export let functions = {
           let text_row = node.textContent;
           let escaped_itext_row = this.escape_text(text_row);
 
-          let regexp = new RegExp('#[\\p{L}_0-9]*', 'gmu');
+          let regexp = new RegExp(patterns.pattern_tag, 'gmu');
                
           let text_with_symbols_tags = escaped_itext_row.replace(regexp, function (search_key:string) {
                search_key = "<span class='item_tags_style'>" + search_key + "</span>";
@@ -985,7 +999,8 @@ export let functions = {
                     count_words = count_words_arr.length;
 
                //get count tags
-               count_tags_arr = content.match(patterns.pattern_tag);
+               //let reg_tag = new RegExp(patterns.pattern_tag, 'gui')
+               count_tags_arr = content.match(/#[\p{L}_0-9]*/gui);
                if (count_tags_arr != null)
                     count_tags = count_tags_arr.length;
           }

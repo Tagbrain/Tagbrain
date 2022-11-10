@@ -93,9 +93,9 @@ function get_selection_HTML(){
                send_data_f(neuron_from_selection["text"], channel_name, neuron_from_selection["html"]);
             }
             let upper_layer_for_animation = document.querySelector(".upper_layer_for_animation"),
-            post_pop_up_menu = gEBI("post_pop_up_menu"),
-            classes = post_pop_up_menu.classList;
-            toggle_pop_up('post_pop_up_show', 'post_pop_up_hide', classes, upper_layer_for_animation, 'none');
+            neuron_pop_up_menu = gEBI("neuron_pop_up_menu"),
+            classes = neuron_pop_up_menu.classList;
+            toggle_pop_up('neuron_pop_up_show', 'neuron_pop_up_hide', classes, upper_layer_for_animation, 'none');
          });
       };
    })
