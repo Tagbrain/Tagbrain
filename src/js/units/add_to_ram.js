@@ -9,13 +9,11 @@ export function add_to_ram(post_el, neuron_id, is_special_neuron){
 
     let html_ram_row;
     let neuron_features;
-    if(is_special_neuron == false){//neurons unusual html
+    if(is_special_neuron == false){//neurons usual html
       let type_search = "association";
-      let first_row_val;
       let array_current_key_word = post_el.querySelectorAll("mark");
       if(array_current_key_word.length == 0){
-        first_row_val = post_el.children[0].innerText.trim();
-        neuron_features = get_neuron_features(post_el, type_search, [first_row_val]);
+        neuron_features = get_neuron_features(post_el, type_search, []);
       } else {
         let arr_text_val = [];
         for(var i = 0; i < array_current_key_word.length; i++){

@@ -1,170 +1,64 @@
-import {elements} from "../post_manipulation/obj_post_edit_f";
-import {patterns} from "../post_manipulation/obj_post_edit_f";
-import {functions} from "../post_manipulation/obj_post_edit_f";
 //UNITS
-import {add_neuron} from "../../units/add_neuron.js";
 import {send_data_ajax} from "../../units/send_data_ajax.js";
-import {get_compress_html_set} from "../../units/compress_neuron_for_bar";
 import {get_string_tags_struct} from "../../units/get_string_tags_struct.js";
-import {get_neuron_features} from "../../units/get_neuron_features";
+import {gEBI, dCE} from "../../units/compress_f.js";
+import {set_refractor} from "../../units/set_refractor";
+import {get_collection_ram_neuron_ids} from "../../units/get_collection_ram_neuron_ids";
+import {remove_arr_neurons_client} from "../../units/remove_arr_neurons_client";
+import {add_arr_neurons_client} from "../../units/add_arr_neurons_client";
+import {get_collection_neurons_ids} from "../../units/get_collection_neurons_ids";
+import {clean_serach_output_field} from "../../units/clean_serach_output_field";
+import {validate_search_input_field} from "../../units/validate_search_input_field";
+import {get_collection_neurons_without_ram} from "../../units/get_collection_neurons_without_ram";
+import {get_search_formatted_input_val} from "../../units/get_search_formatted_input_val";
+import {print_collection_neuron_features} from "../../units/print_collection_neuron_features";
+import {collect_current_neurons_features} from "../../units/collect_current_neurons_features";
+import {is_class_of_event_target} from "../../units/is_class_of_event_target";
+import {parent_is_exist} from "../../units/parent_is_exist";
+import {get_features_outgrowth} from "../../units/get_features_outgrowth";
 
 
-//OPTIMIZING_F
-function gEBI(id, parent) {
-     return (parent || document).getElementById(id);
-}
-function dCE(element){
-return document.createElement(element);
-}
-
-//UNITS
-
-function clean_selection(){
-     let array_of_finded = [];
-     if(document.getElementsByTagName("mark")[0]){
-          array_of_finded = document.querySelectorAll("mark");
-          if(array_of_finded != null){
-               for(let i = 0; i < array_of_finded.length; i++){
-                    let content = array_of_finded[i].innerText;
-                    array_of_finded[i].outerHTML = content;
-               }
-          }    
-     }
-}
-function clean_output_field(){
-     let result_field = document.getElementById("result_block");
-     result_field.innerHTML = "";
-}
-function delete_posts(arr_id){
-     if(Object.keys(arr_id).length > 0){
-          let obj = Object.keys(arr_id);
-          for(let i = 0; i < obj.length; i++){
-               let post_id = arr_id[obj[i]];;
-               let post = document.getElementById(post_id);
-               post.remove();
-          }
-     }
-}
-function add_posts(arr_objs_posts){
-
-     if(arr_objs_posts.length > 0){
-
-          for(let i = 0; i < arr_objs_posts.length;i++){
-               let post_id = arr_objs_posts[i].file_name;
-               add_neuron(post_id, arr_objs_posts[i].content, "true", false);
-          }
-     }
-
-}
-function check_state(search_val){
-     if (search_val.length < 3){
-          document.querySelector('#result_block').innerHTML = "Write a word more than 2 symbols in the search input";
-          clean_selection();
-          return false;   
-     } else {
-          return true;
-     }
-}
-function get_collection_post_name(){
-     let arr_ids = [];
-     let array_post_name = document.querySelectorAll(".item");
-     array_post_name.forEach((element)=>{
-          let id_el = element.id;
-          arr_ids.push(id_el);
-     })
-     return arr_ids;
-}
-function get_collection_ram_post_name(){
-     let arr_ids = [];
-     let last_posts_lists = document.getElementById("last_posts_lists");
-     let ram_links_el_arr = last_posts_lists.querySelectorAll(".ram_row");
-     ram_links_el_arr.forEach((element)=>{
-          let id_ram = element.id;
-          id_ram = id_ram.replace("ram_", "");
-          arr_ids.push(id_ram);
-     })
-     return arr_ids;
-}
-function get_format_search_data(search_val){
-     let split_search_array = [];
-     split_search_array = search_val.split(/\,/g);
-     let array_of_search_key = split_search_array.filter(word => word.length > 2);
-
-     //divide tag on word + tag
-
-     if(array_of_search_key.length > 0){
-          return array_of_search_key;
-     } else {
-          return false;
-     }
-}
-function get_collection_posts_without_ram(full_collection, ram_collection){
-     let coll_without_ram = [];
-     if(ram_collection.length == 0){
-          return full_collection;
-     } else {
-          coll_without_ram = full_collection.filter(x => !ram_collection.includes(x));
-          return coll_without_ram;
-     }
-}
-
-let refractory_timer;
-function call_refractory_timer(timer_name, ms){
-     if(timer_name != undefined)
-          window.clearTimeout(timer_name);
-     timer_name = window.setTimeout(start_search_controller, ms, false, true)
-}
-function refractor_front_end_search(timer_name, array_key, ms){
-     if(timer_name != undefined)
-          window.clearTimeout(timer_name);
-     timer_name = window.setTimeout(get_front_end_search_array, ms, "association", array_key)
-}
 function get_front_end_search_array(type_search, array_of_search_key){ 
-     let ids = [];  
-
-     let collection_posts = document.querySelectorAll('#items_container .item_input');
-     if(collection_posts != null){
- 
-          for(let i = 0; i < collection_posts.length; i++){
-                 let post_block = collection_posts[i];
-                 let object_features = get_neuron_features(post_block, type_search, array_of_search_key);
-                 object_features["type_window"] = "search";
-                 ids.push(object_features);
-          }
-
-          //check sort par
-          ids.sort((a, b) => b.activation - a.activation );
-     
+     let neurons_features_arr = collect_current_neurons_features(type_search, array_of_search_key);
+     if(neurons_features_arr != null){
+          print_collection_neuron_features(neurons_features_arr);
      }
-     //output
-     document.querySelector("#counter_block_found_words").textContent = "Best neurons: "+ ids.length;
-     ids = ids.map( post_features => get_compress_html_set(post_features));
-     document.querySelector('#result_block').innerHTML = ids.join('');
 }     
 
  //NODE
      //LISTENER
 
  document.addEventListener('dblclick', function(e) {
-     e = e || window.event;
-     var target = e.target;
-     if(target.classList.contains("item_tags_style")){
-         let search_input = document.querySelector('#search_input_block');
-         var tag = target.textContent || target.innerText;
-         tag = tag.trim();
-         if (e.ctrlKey) {
-             search_input.value += ','+tag;
-         } else {
-             search_input.value = tag; 
-         }
-         call_refractory_timer(refractory_timer, 500);
-         document.querySelector("#search_right_bar").click(); 
-     }
+     if(is_class_of_event_target(e, "item_tags_style")){
+          if(parent_is_exist(e.target, "item_input")){
+               let features_outgrowth = get_features_outgrowth(e.target);
+               //let chain_fathers = get_chain_fathers_from_tag(obj_pos_in_neuron.row);
+     
+               //add_chain_fathers_in_current_stack_activation
+                    //use it to work with all function with chain_fathers
+               if (e.ctrlKey) {
+                    //attach_chain_fathers_in_search_tab
+                    //change_control_chains_panel
+               } else { 
+                    //change_chain_fathers_in_search_tab
+                    //change_control_chains_panel
+               }
+               //send_search_request_of_microfeatures
+     
+               let search_button = gEBI("#search_right_bar");
+     
+               let start_controller = start_search_controller(false, true);
+               set_refractor(start_controller, 3000);
+               if(search_button != false){
+                 search_button.click(); 
+               } 
+          }
+     };
  }, false);
 
- let field_search_r_bar = document.querySelector('#search_input_block');
- let send_search_request = document.querySelector('#send_search_request');
- send_search_request.addEventListener('click', function(e){
+let field_search_r_bar = gEBI('#search_input_block');
+let send_search_request = gEBI('#send_search_request');
+send_search_request.addEventListener('click', function(e){
      call_refractory_timer(refractory_timer, 500);
 })
 
@@ -173,16 +67,14 @@ field_search_r_bar.addEventListener('keydown', function(e){
 
      const key = e.code || e.keyCode;
      if (key === 13 || key === 'Enter') {
-          let send_search_request = document.querySelector('#send_search_request');
+          let send_search_request = gEBI('#send_search_request');
           send_search_request.click();
           //call_refractory_timer(refractory_timer, 500);
      }    
-          
-     
           /*
           let search_field = document.querySelector('#search_input_block'),
           search_val = search_field.value;
-          let array_of_search_key = get_format_search_data(search_val);
+          let array_of_search_key = get_search_formatted_input_val(search_val);
           let refractor_front_end;
           refractor_front_end_search(refractor_front_end, array_of_search_key, 300);
           */
@@ -190,20 +82,19 @@ field_search_r_bar.addEventListener('keydown', function(e){
 })
 
 //CONTROLLER
-function start_search_controller(front_end_search, back_end_search, type_search){
-     let search_field = document.querySelector('#search_input_block'),
-     search_val = search_field.value,
-     channel_name = document.getElementById("page_tag_map_name").textContent.trim();
+function start_search_controller(front_end_search, back_end_search){
+     let search_field = gEBI('#search_input_block'),
+     search_input = search_field.value,
+     graph_name = window["tagbrain_graph"].graph_name;
 
-     let state = check_state(search_val);
+     let state = validate_search_input_field(search_input);
 
      if(state == true){
 
-          let array_of_search_key = get_format_search_data(search_val);
-
-          let collection_post_name = get_collection_post_name();
-          let collection_ram_post_name = get_collection_ram_post_name();
-          let collection_post_without_ram = get_collection_posts_without_ram(collection_post_name, collection_ram_post_name);
+          let array_of_search_key = get_search_formatted_input_val(search_input),
+          collection_neuron_id = get_collection_neurons_ids(),
+          collection_ram_neuron_id = get_collection_ram_neuron_ids(),
+          collection_neurons_without_ram = get_collection_neurons_without_ram(collection_neuron_id, collection_ram_post_name);
 
           if(array_of_search_key != false){
 
@@ -211,10 +102,10 @@ function start_search_controller(front_end_search, back_end_search, type_search)
                
                if(back_end_search == true){
                     let data = {
-                         channel_name: channel_name,
+                         graph_name: graph_name,
                          array_of_search_key: array_of_search_key,
-                         collection_post_without_ram: collection_post_without_ram,
-                         collection_ram_post_name: collection_ram_post_name,
+                         collection_neurons_without_ram: collection_neurons_without_ram,
+                         collection_ram_neuron_id: collection_ram_neuron_id,
                     };
                     let url = "php/channel_search/channel_search_controller.php";
                     let controller_f = function(response_obj){
@@ -236,15 +127,15 @@ function start_search_controller(front_end_search, back_end_search, type_search)
 function success_reaction(obj_search_data, array_of_search_key){
      if(obj_search_data.remove_posts){
           let arr_id_posts_for_del = obj_search_data.remove_posts;
-          delete_posts(arr_id_posts_for_del);
+          remove_arr_neurons_client(arr_id_posts_for_del);
      }
 
      if(obj_search_data.add_posts){
-          let arr_objs_posts = obj_search_data.add_posts;
-          add_posts(arr_objs_posts);
+          let arr_objs_neurons = obj_search_data.add_posts;
+          add_arr_neurons_client(arr_objs_neurons);
      }
 
-     clean_output_field();
+     clean_serach_output_field();
 
      get_front_end_search_array("association", array_of_search_key);
 }

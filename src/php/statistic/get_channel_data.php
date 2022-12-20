@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../general_units/protect_session.php";
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/protect_session.php";
 include "../general_units/collect_all_connection.php";
 include "../general_units/get_channel_connection_count.php";
 
@@ -40,7 +40,7 @@ class chanell_data_collector{
 
     public function get_and_check_data($channel_name){
 
-        $access = $this->check_session_data($_SESSION["userid"],$_SESSION["all_member_channels"], $_SESSION["editor"],$_SESSION["creator"], $channel_name);
+        $access = $this->check_session_data($channel_name);
 
         if($access["can_editing"] == true){
             $this->get_channel_data($channel_name);

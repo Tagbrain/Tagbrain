@@ -7,27 +7,6 @@ let settings_container = gEBI("settings_objects_search"),
 context_search_input = gEBI("send_search_request"),
 search_input = gEBI("search_input_block");
 
-if(gEBI("sprite_association")){
-    let association = gEBI("sprite_association"),
-    intersection = gEBI("sprite_intersection"),
-    radio_buttons = [association, intersection];
-}
-
-if(gEBI("sprite_association")){
-    radio_buttons.forEach(some_radio => {
-        some_radio.addEventListener("click", (e) => {
-            let classes = some_radio.classList;
-            if(classes.contains("active_icon") == false){
-                search_input.focus();
-                classes.add('active_icon');
-            } else {
-                search_input.focus();
-                classes.remove('active_icon');
-            }
-        })
-    })
-}
-
 //NODE
     //LISTENER
 

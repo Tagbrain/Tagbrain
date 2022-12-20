@@ -1,7 +1,7 @@
 <?php
 
 include "php/database/dbh.classes.php";
-include "php/general_units/state_trait.php";
+include "php/units/functions/state_trait.php";
 
 class load_page_vars {
     use dbh;
@@ -106,7 +106,7 @@ class load_page_vars {
                             'content' => $data,
                         )
                         );
-                $context  = stream_context_create($opts);
+                $context = stream_context_create($opts);
 
                 $url = $this->siteURL()."/php/engine/content_post.php";
                 $content = file_get_contents($url,FALSE,$context);

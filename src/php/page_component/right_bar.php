@@ -73,34 +73,24 @@
 					<input id="send_search_request" style="display:none;" type="submit">
 				</div>
 				<div id="settings_objects_search" class="settings_objects_search collaps_block container_for_buttons">
-					<span class="">
-						<button class="button_cont_stl">
-							<svg class="liner_icon_style icon_size_middle">
-								<use xlink:href="#sprite_association"></use>
-							</svg>
-						</button>
-						<button class="button_cont_stl">
-							<svg class="liner_icon_style icon_size_middle">
-								<use xlink:href="#sprite_intersection"></use>
-							</svg>
-						</button>
-					</span>
-					<input placeholder="parents keys" type="text">
-					<input placeholder="child keys" type="text">
+					<div class="flag_checker" title="Match whole word">WW</div>
+					<div class="flag_checker" title="Find in area of visibility">F</div>
+					<div class="flag_checker" title="Find in the graph">G</div>
+					<div class="flag_checker" title="Find in all your graphes">ALL G</div>
 				</div>
-
 				<div class="container_search_tab_input">
 					<span id="send_replace_request" class="buttons_inputs_search_tab">▷</span>
 					<input id="replace_input_block" class="input_tools" type="text" placeholder="Replace">
 				</div>
 				<br>
-				
-
-				<button id="replace_word_button">
+				<div id="replace_word_button" class="flag_checker"> 
 					Change
-				</button>
-				<button id="replace_all_words">
+				</div>
+				<div id="replace_all_words" class="flag_checker">
 					Change all
+				</div>
+				<button id="Activate_graph">
+					Activate graph request
 				</button>
 
 				<br><br>

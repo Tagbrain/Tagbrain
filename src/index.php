@@ -2,7 +2,7 @@
 session_start([
 	'cookie_lifetime' => 3600000,
 ]);
-include "php/sessions/sign_in/includes.php";
+include $_SERVER['DOCUMENT_ROOT']."/php/sessions/sign_in/includes.php";
 if(!$_SESSION["userid"]){
 	if(count($_COOKIE) > 0) {
 		if($_COOKIE["session_user"]){
@@ -14,8 +14,8 @@ if(!$_SESSION["userid"]){
 	}
 }
 
-include "php/engine/determinator_page_content.php";
-include "php/general_units/protect_session.php";
+include $_SERVER['DOCUMENT_ROOT']."/php/engine/determinator_page_content.php";
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/protect_session.php";
 
 $channel_private = $data->is_channel_private();
 $page_state = $data->state();
@@ -29,7 +29,7 @@ class header_check_session{
 	
 	use session_protect;
 	public function check_session($page_state){
-		return $this->check_session_data($_SESSION["userid"],$_SESSION["all_member_channels"],$_SESSION["editor"], $_SESSION["creator"], $page_state);
+		return $this->check_session_data($page_state);
 	}
 
 }
@@ -54,6 +54,7 @@ $access_arr = $header_check_session->check_session($page_state);
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 		<link rel="stylesheet" href="css/collector.css?v=7117">
+		<?php echo '<link rel="stylesheet" href="'.$_SERVER['DOCUMENT_ROOT'].'/channels/'.$page_state.'/css/theme.css'.'">'; ?>
 		<title>Tagbrain</title>
 		<?php
 		if($page_state == "math"){
@@ -69,8 +70,19 @@ $access_arr = $header_check_session->check_session($page_state);
 		<div class="site_template">
 				<?php include("php/page_component/header.php"); ?>
 			<div class="container_work">
-				<div id="items_container" class="items_container">
-					<?php echo($data->content($page_state, $data->get_channel_properties_array(), $access_arr["can_editing"])); ?>
+				<div id="tab_container" class="tab_container"></div>
+				<div class="neuron_container">
+					<div id="search_container" class="neuron_container_unit hide_cl">
+						<span class="">
+							Test field
+						</span>
+						<input placeholder="parents keys" type="text">
+						<input placeholder="child keys" type="text">
+					</div>
+					<div id="items_container" class="neuron_container_unit">
+						<div id="loading_flag">Loading...</div>
+						<!-- ?php echo($data->content($page_state, $data->get_channel_properties_array(), $access_arr["can_editing"])); ?>-->
+					</div>
 				</div>
 				<?php include("php/page_component/right_bar.php"); ?>
 			</div>

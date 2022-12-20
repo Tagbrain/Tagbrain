@@ -35,7 +35,7 @@
 }
 .container_work{
     display: grid;
-    grid-template: 1fr/2fr minmax(304px, 1fr);
+    grid-template: 28px 1fr/2fr minmax(304px, 1fr);
     grid-row: 1/4;
     grid-column: 1/4;
     justify-self: center;
@@ -104,9 +104,11 @@ display:block;
 }
 .settings_objects_search{
   display:grid;
+  align-items: center;
   grid-template:repeat(auto-fit,minmax(34px,25%))/repeat(auto-fit,minmax(34px,25%));
-  height: 150px;
+  height: 40px;
   transition:1s;
+  align-items: center;
 }
 
   //units
@@ -152,11 +154,7 @@ display:block;
   row-gap: 16px;
   column-gap: 16px;
 }
-.items_container {
-  padding: 0 40px; 
-  overflow-y: auto;
-  overflow-x: hidden;
-}
+
 .tag_container_off {
   display:none;
   transition:1s;
@@ -210,14 +208,8 @@ display:block;
   grid-column: 3/4;
   grid-row: 1/2;
 }
-.items_container {
-  grid-row: 1/2;
-  grid-column: 1/2;
-  width: 100%;
-  }
-.items_container_fullscreen{
-grid-column: 1/3;
-}
+
+
 .exit_icon_pos{
   grid-column: 2/3;
 }
@@ -350,7 +342,7 @@ grid-column: 1/3;
   /*____________right bar____________*/
 .tag_container {
   row-gap: 20px;
-  grid-row: 1/2;
+  grid-row: 1/3;
   grid-column: 2/3;
   width: 100%;
   grid-template: 80px 1fr/1fr;
@@ -409,18 +401,7 @@ transition: .5s;
 .file_time{
   padding-left: 6px;
 }
-.container_for_buttons{
-  display:block;
-}
-.collaps_block{
-  overflow:hidden;
-  height:0px;
-  transition:1s;
-}
-.open_collapsed_block{
-  overflow:hidden;
-  transition:1s;
-}
+
 .big_arrows_stl{
   display: grid;
   width: 24px;
@@ -695,6 +676,7 @@ input[type="radio"]{
 
 .container_search_tab_input{
   display:grid;
+  align-items: center;
   grid-template: auto / 20px 1fr;
 }
 .buttons_inputs_search_tab{
@@ -776,3 +758,45 @@ transition:.3s;
   display: grid;
   grid-template: 1fr / 32px 1fr;
 }
+.tab_container{
+  display: grid;
+  grid-row: 1/2;
+  grid-column: 1/2;
+
+  padding: 0 40px;
+  grid-template: repeat(auto-fit,minmax(10px,1fr))/repeat(auto-fit,minmax(10px,1fr));
+  overflow-x: auto;
+  justify-items: center;
+  .tab_button{
+    width: max-content;
+    border: 1px dashed var(--background-svg);
+    border-radius: 10px;
+    padding: 0 6px;
+    height: 22px;
+  }
+  .tab_button > span{
+    cursor:var(--cursor-pointer);
+  }
+}
+
+.neuron_container{
+  display:grid;
+  grid-template: 1fr / 1fr;
+  grid-row: 2/3;
+  grid-column: 1/2;
+  width: 100%;
+  overflow: auto;
+  .neuron_container_unit{
+    grid-row: 1/2;
+    grid-column: 1/2;
+    width: 100%;
+    padding: 0 40px; 
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+.neuron_container_fullscreen{
+  grid-column: 1/3;
+}
+
+

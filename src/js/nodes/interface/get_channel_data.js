@@ -1,6 +1,6 @@
 import {gEBI, dCE} from "../../units/compress_f.js";
 import {send_data_ajax} from "../../units/send_data_ajax.js";
-import {add_neuron} from "../../units/add_neuron.js";
+import {add_neuron_client} from "../../units/add_neuron_client.js";
 import {add_to_ram} from "../../units/add_to_ram.js"
 //UNITS
 //#edit #delete
@@ -32,8 +32,8 @@ function transfer_obj_to_html(obj){
                 let content = transfer_obj_to_html(response_obj.brain_data);
                 if(gEBI("brain_data"))
                     gEBI("brain_data").remove();
-                let neuron = add_neuron("brain_data", content, false, false, false);
-                add_to_ram(neuron, "brain_data", true);
+                let neuron_obj = add_neuron_client("brain_data", content, false, false, false);
+                add_to_ram(neuron_obj.shell, "brain_data", true);
             }
         };
         send_data_ajax(data, url, controller_f, false, error_message);

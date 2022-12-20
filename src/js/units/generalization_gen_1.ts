@@ -65,7 +65,6 @@ function cycle_generalization(data: General_result, glob_depth: number, data_sav
          data_saver.push(...data.arr_chains_reducted);
     }
 }
-
 function parsing_chains(collected_chains: arr_chains){
 
      let html_chains: string[][] = [];
@@ -100,8 +99,6 @@ function put_chains_html_to_string(array_chains_html: string[][]){
      
      return response;
 }
-
-
 function generalization_function(array_chains: arr_chains, glob_depth: number){
 
     let   uniting_father_chains: {depth: number, key: string, is_key_row: boolean, escape: boolean}[][] = [],

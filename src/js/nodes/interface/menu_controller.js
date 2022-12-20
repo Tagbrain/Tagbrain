@@ -1,4 +1,4 @@
-import {parent_is_exist} from "../../units/parent_is_exist.js";
+import {parent_is_exist} from "../../units/parent_is_exist";
 import {gEBI} from "../../units/compress_f.js";
 
 document.addEventListener('DOMContentLoaded',function(){

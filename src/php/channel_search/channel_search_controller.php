@@ -1,16 +1,18 @@
 <?php
 session_start();
-include "../general_units/protect_session.php";
-include "../general_units/activation/get_post_search_obj.php";
-include "../engine/load_post_content.php";
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/protect_session.php";
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/get_post_search_obj.php";
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/load_neuron_tree.php";
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/get_extension.php";
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/put_right_format_file.php";
 
 class search_controller {
     //untis
     use session_protect;
     use get_post_search_obj;
-    use load_post_content;
-
-    public $pattern_tag = '/#[\p{L}_0-9]*/ui';
+    use load_neuron_tree;
+    use get_extension;
+    use put_right_format_file;
 
     //controller
     protected function start_search_controller($channel_name, $array_of_search_key, $collection_post_without_ram, $collection_ram_post_name){
@@ -37,12 +39,7 @@ class search_controller {
             }
 
         }
-        
-        /*print_r($channel_search_obj);
-        echo json_encode($channel_search_obj);
-        exit();
-        */
- 
+
         if (empty($channel_search_obj)) {
             $response_arr = array(
                 "status" => "success",
@@ -52,7 +49,6 @@ class search_controller {
             echo json_encode($response_arr);
             exit();
         }
-
 
         //sorting
         function cmp($a, $b){
@@ -65,25 +61,31 @@ class search_controller {
         $splice_group = $channel_search_obj;
         $finded_posts = array();
 
-        if(count($channel_search_obj) < 10){
+        
+        if(count($channel_search_obj) <= 10){
             $splice_group = array_splice($channel_search_obj, 0, 10);
             $finded_posts = $splice_group;
         } else if (count($channel_search_obj) > 10){
-            $splice_group = array_splice($channel_search_obj, 0, 15);
+            $splice_group = array_splice($channel_search_obj, 0, 20);
             $finded_posts = $splice_group;
         }
         
         for($i=0; $i<count($finded_posts); $i++){
             $cont_file_path = $channel_posts_dir."/".$finded_posts[$i]["file_name"].".php";
-            $content = $this->loadDataFromFile($cont_file_path);
-            $finded_posts[$i]["content"] = $content; 
+
+            $extension = $this->get_extension($cont_file_path);
+            if($extension != "json"){
+                $new_neuron_path = $this->put_right_format_file($cont_file_path, $extension);
+            }
+            $neuron_tree = $this->load_neuron_tree($new_neuron_path);
+            //#edit
+            //#edit check format and change the neuron if it's txt and php
+            $finded_posts[$i]["content"] = $neuron_tree; 
         }
 
-        /*
-        print_r($finded_posts);
-        echo json_encode($finded_posts);
-        exit();
-        */
+        //print_r($finded_posts);
+        //print_r($collection_post_without_ram);
+        //exit();
         
         $exist_posts = array();
         $remove_posts = array();
@@ -93,7 +95,6 @@ class search_controller {
 
         foreach($finded_posts as $finded_post){
             
-
             $is_exist = false;
             
             foreach($collection_post_without_ram as $num => $post_front_end){
@@ -113,6 +114,9 @@ class search_controller {
         }
         
         $remove_posts = array_diff($collection_post_without_ram, $exist_posts);
+        
+        //print_r($remove_posts);
+        //print_r($exist_posts);
 
         /*
             collect cluster_memory from the best posts
@@ -167,7 +171,7 @@ class search_controller {
 
     public function get_and_check_data($channel_name, $array_of_search_key, $collection_post_without_ram, $collection_ram_post_name){
 
-        $access_arr = $this->check_session_data($_SESSION["userid"],$_SESSION["all_member_channels"], $_SESSION["editor"],$_SESSION["creator"], $channel_name);
+        $access_arr = $this->check_session_data($channel_name);
 
         //if($access_arr["can_editing"] == true){
 

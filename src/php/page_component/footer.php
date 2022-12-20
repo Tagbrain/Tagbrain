@@ -2,7 +2,7 @@
     <?php 
     if($access_arr["can_editing"] == true){
         echo 
-                '<a id="search_input" class="create_element_button">'.
+                '<a id="footer_add_neuron_button" class="create_element_button">'.
                     '<svg class="liner_icon_style icon_size_sl_a_middle">'.
                         '<use xlink:href="#sprite_new_post"></use>'.
                     '</svg>'.

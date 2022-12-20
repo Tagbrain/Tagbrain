@@ -13,8 +13,8 @@ work_mode_button.addEventListener('click', function(){
   let CW_CL = container_work.classList;
   if( window.innerHeight == screen.height) {
     closeFullscreen();
-    if(CW_CL.contains('CW_power_mode')){
-      CW_CL.remove('CW_power_mode');
+    if(CW_CL.contains('container_work_mode_power')){
+      CW_CL.remove('container_work_mode_power');
     } 
   } else {
     openFullscreen();
@@ -24,10 +24,10 @@ work_mode_button.addEventListener('click', function(){
     //if(document.querySelector(".background_svg")){
       //document.querySelector(".background_svg").remove();
     //}
-    if(CW_CL.contains('CW_power_mode')){
-      CW_CL.remove('CW_power_mode');
+    if(CW_CL.contains('container_work_mode_power')){
+      CW_CL.remove('container_work_mode_power');
     } else {
-      CW_CL.add('CW_power_mode');
+      CW_CL.add('container_work_mode_power');
     }
     //change size items
   }

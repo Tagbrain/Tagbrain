@@ -1,6 +1,6 @@
-import {elements} from "../nodes/post_manipulation/obj_post_edit_f";
-import {patterns} from "../nodes/post_manipulation/obj_post_edit_f";
-import {functions} from "../nodes/post_manipulation/obj_post_edit_f";
+import {elements} from "../nodes/neuron_action_controller/obj_post_edit_f";
+import {patterns} from "../nodes/neuron_action_controller/obj_post_edit_f";
+import {functions} from "../nodes/neuron_action_controller/obj_post_edit_f";
 
 export function put_validation_events_to_neuron(element_one){
      element_one.addEventListener('keydown', function(e){
@@ -10,25 +10,25 @@ export function put_validation_events_to_neuron(element_one){
           if (e.keyCode == 9){
                e.preventDefault();
                if(selection == ''){
-               if (!e.shiftKey){
-                    functions.insert_one_tab(true, current_line);
-               } else { //shift is pressed
-                    functions.deleteTab(current_line, true); 
-               }
+                    if (e.shiftKey){
+                         functions.deleteTab(current_line, true); 
+                    } else { //shift is pressed
+                         functions.insert_one_tab(true, current_line);
+                    }
                } else if (selection != ''){
                     let post_child_nodes = [],
                     selection_obj = functions.get_selection_obj();
 
                     post_child_nodes = element_one.childNodes;
                     if(e.shiftKey){
-                    for(let i = selection_obj.start_block_n; i < (selection_obj.end_block_n+1); i++){
-                         functions.deleteTab(post_child_nodes[i], false);
-                    }
-                    if(post_child_nodes[selection_obj.end_block_n]){
-                         document.getSelection().setBaseAndExtent(post_child_nodes[selection_obj.start_block_n], 0, post_child_nodes[selection_obj.end_block_n], post_child_nodes[selection_obj.end_block_n].childNodes.length);
-                    } else {
-                         //one line
-                    }
+                         for(let i = selection_obj.start_block_n; i < (selection_obj.end_block_n+1); i++){
+                              functions.deleteTab(post_child_nodes[i], false);
+                         }
+                         if(post_child_nodes[selection_obj.end_block_n]){
+                              document.getSelection().setBaseAndExtent(post_child_nodes[selection_obj.start_block_n], 0, post_child_nodes[selection_obj.end_block_n], post_child_nodes[selection_obj.end_block_n].childNodes.length);
+                         } else {
+                              //one line
+                         }
                     } else { // one tab
                          let post_child_nodes = [],
                          selection_obj = functions.get_selection_obj();
@@ -51,12 +51,19 @@ export function put_validation_events_to_neuron(element_one){
          let selection = window.getSelection();
          let current_line = functions.get_current_line_div("start");
  
-              if((!e.shiftKey) && (!e.ctrlKey) && (e.keyCode != 9) && (e.keyCode != 8) && (e.keyCode != 46)){
+               if((!e.shiftKey) && (!e.ctrlKey) && (e.keyCode != 9) && (e.keyCode != 8) && (e.keyCode != 46)){
                    let old_caret_pos = functions.get_row_caret_position();
                    functions.validate_row_formate(current_line, old_caret_pos);
                    functions.put_caret(current_line, old_caret_pos);
-              }
-    
+               } 
+               /*
+               if(e.shiftKey) {
+                    selection_obj = functions.get_selection_obj();
+                         for(let i = selection_obj.start_block_n; i < (selection_obj.end_block_n+1); i++){
+                         functions.deleteTab(post_child_nodes[i], false);
+                    }
+               }
+               */
               if (e.key === 'Enter') {
                    if(e.shiftKey){
                         e.preventDefault();

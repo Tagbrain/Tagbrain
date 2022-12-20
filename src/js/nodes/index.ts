@@ -1,20 +1,24 @@
 
 import './click_controller.js';
 
-import './post_manipulation/add_item.js';
-import './post_manipulation/delete_items.js';
-import './post_manipulation/post_editor_controller.js';
-import './post_manipulation/change_item_end.js';
-import './post_manipulation/send_post_statistic.js';
-import './post_manipulation/mouse_move_scroll_items_end.js';
-import './post_manipulation/log_in_format.js';
-import './post_manipulation/cellular_automata.ts';
+import './tagbrain_graph';
+
+import './neuron_action_controller/neuron_add.js';
+import './neuron_action_controller/neuron_delete.js';
+import './neuron_action_controller/neuron_editor_controller.js';
+import './neuron_action_controller/change_neuron_end.js';
+import './neuron_action_controller/send_post_statistic.js';
+import './neuron_action_controller/mouse_move_scroll_items_end.js';
+import './neuron_action_controller/log_in_format.js';
+import './neuron_action_controller/cellular_automata.ts';
+
 
 
 import './all_posts_action/search_controller.js';
 import './all_posts_action/replace_controller.js';
 import './all_posts_action/post_save_controller.js';
-import './all_posts_action/controller_user_activity.js';
+import './all_posts_action/controller_user_activity';
+import './all_posts_action/controller_tabs.js';
 
 import './interface/interface_function_end.js';
 import './interface/history_posts_link_end.js';
