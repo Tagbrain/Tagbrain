@@ -1,21 +1,24 @@
 @media screen and (max-width: 1000px) {
-    .neuron_container{
-        padding: 0 12px;
-    }
     ::-webkit-scrollbar {
         width: 0px;
         right: 0px;
     }
-    .neuron_container {
-        padding: 0 0 0 12px;
+    .mental_image_c_container {
+        padding: 16px 8px 0 8px;
     }
     .item{
-        padding:16px 8px;
+        padding:16px 8px 0px 8px;
         box-shadow: none;
         border:none;
     }
     .tools_container{
         top: 60px;
+    }
+    .header{
+        grid-template:1fr / 8px 1fr 8px;
+    }
+    .tab_container{
+        padding: 0 8px;
     }
 }; 
 @media screen and (max-width: 600px) {
@@ -49,7 +52,7 @@
         display:none;
     }
     .container_work{
-        grid-template: 1fr/1fr;
+        grid-template: 20px 1fr/1fr;
     }
     .tag_container_on{
         display:grid;

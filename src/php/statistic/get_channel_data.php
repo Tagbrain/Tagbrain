@@ -1,11 +1,11 @@
 <?php
 session_start();
-include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/protect_session.php";
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/check_session_data.php";
 include "../general_units/collect_all_connection.php";
 include "../general_units/get_channel_connection_count.php";
 
 class chanell_data_collector{
-    use session_protect;
+    use check_session_data;
     use collect_all_connection;
     use get_channel_connection_count;
 

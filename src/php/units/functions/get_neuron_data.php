@@ -1,8 +1,7 @@
 <?php
-include "get_extension.php";
-include "put_right_format_file.php";
-include "load_neuron_tree.php";
-
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/get_extension.php";
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/put_right_format_file.php";
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/load_neuron_tree.php";
 
 trait get_neuron_data {
     use get_extension;

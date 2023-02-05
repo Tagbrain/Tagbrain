@@ -3,7 +3,7 @@
 		<div id="central_pop_up_block" class="central_pop_up_block">
 			<div class="settings_header">
 				<a class="exit_icon_pos button_cont_stl" id="exit_button">
-					<svg class="liner_icon_style  icon_size_middle">
+					<svg class="linear_icon_c_target  icon_size_middle">
 						<use xlink:href="#sprite_cross"></use>
 					</svg>
 				</a>
@@ -79,10 +79,17 @@
 	</div>
 </div>
 <div class="bottom_layer_for_img_animation">
+
 	<div class="background_svg_container">
 		<svg class="background_svg" viewBox="0 0 1200 1200">
 			<use xlink:href="#sprite_background" class=""></use>
 		</svg>
-		<div id="cellural_automaton"></div>
+		<svg class="output_field_svg" viewBox="0 0 1200 1200">
+			<style type="text/css">
+				.st1656{fill:none; color: white;}
+			</style>
+			<text id="cellural_automaton" x="588" y="588" class="st1656" width="90.6" height="90.6"/></text>
+		</svg>
 	</div>
+
 </div>

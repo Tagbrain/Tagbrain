@@ -1,10 +1,10 @@
 import {elements} from "./obj_post_edit_f";
-import {patterns} from "./obj_post_edit_f";
 import {functions} from "./obj_post_edit_f";
 import {send_data_ajax} from "../../units/send_data_ajax.js";
 import {get_neuron_object_outgrowths} from "../../units/get_neuron_object_outgrowths";
 import {add_to_ram} from "../../units/add_to_ram.js";
 import {gEBI, dCE} from "../../units/compress_f.js";
+import {find_formate_neuron} from "../../units/find_formate_neuron";
 
 //UNITS
   let refractory_timer;
@@ -86,13 +86,13 @@ import {gEBI, dCE} from "../../units/compress_f.js";
 
     let array_current_key_word = target_neuron.querySelectorAll("mark");
     if(array_current_key_word.length == 0){
-      functions.search_format_function(target_neuron, []);
+      find_formate_neuron(target_neuron, []);
     } else {
       let arr_text_val = [];
       for(var i = 0; i < array_current_key_word.length; i++){
         arr_text_val.push(array_current_key_word[i].innerText.trim());
       }
-      functions.search_format_function(target_neuron, arr_text_val);
+      find_formate_neuron(target_neuron, arr_text_val);
     }
 
     put_not_save_class(target_neuron);

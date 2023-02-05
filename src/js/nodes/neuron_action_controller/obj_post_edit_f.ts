@@ -1,18 +1,11 @@
-import {parent_is_exist} from "../../units/parent_is_exist";
-import {get_chain_fathers2} from "../../units/generalization_gen_1";
+import {patterns} from "../../units/declare_patterns";
+import {escape_text} from "../../units/escape_text";
+import {get_depth_outgrowth} from "../../units/get_depth_outgrowth";
+import {drop_down_c_neuron_c_branche_s} from "../../units/drop_down_c_neuron_c_branche_s";
 
 export let elements = {
      all_posts: document.querySelectorAll(".item_input"),
      current_post: document,
-}
-export let patterns = {
-     invisible_char: '︀',
-     pattern_tag: '#[\\p{L}_0-9]*',
-     pattern_verb: '\\$[\\p{L}_0-9]*',
-     word: /(\w+)*/gu,
-     pattern_symbols: /↓|→|←|↑|\|-〇/gui,
-     code_pattern: /(\[code\][^]*\[\/code\])/gm,
-     clean_codetag_pattern: /\[(|\/)code\]/gm,
 }
 //if you work with functions_obj get current_post from elements_obj
 export let functions = {
@@ -101,74 +94,9 @@ export let functions = {
           return new_line_div;
      },
      get_current_line_spaces(current_node: Element) {
-          let text_content = current_node.textContent;
-          let obj_space = this.get_first_spaces_and_boolen_exist_text(text_content);
-          //current_node.textContent = obj_space.content;
-          return obj_space.spaces;
-     },
-     get_first_spaces_and_boolen_exist_text(text_content: string, previous_spaces: number, pos_par: string) {
-          let  spaces_amount = 0,
-               text_exist = false,
-               spaces_string = "";
-
-          let text_row = text_content.replace(/./gi, function (key) {
-               if(text_exist == false){
-                    if (key == patterns.invisible_char)
-                         return "";
-                    if (key == " ") {
-                         spaces_amount += 1;
-                         spaces_string += " ";
-                         return "";
-                    } else if (key == "\t") {
-                         spaces_amount += 4;
-                         spaces_string += "    ";
-                         return "";
-                    } else {//end tabulation
-                         text_exist = true;
-                         return key;
-                    }
-               } else {
-                    return key;
-               }
-          });
-          
-
-          if(pos_par == "first"){
-               spaces_amount = 0;
-               spaces_string = "";
-          } else {
-               if(previous_spaces != undefined){
-                    if(spaces_amount > previous_spaces)
-                         if(spaces_amount - previous_spaces > 6){
-                              spaces_amount = previous_spaces + 4;
-                              spaces_string = " ".repeat(previous_spaces + 4);
-                         }
-               }
-
-               let tabulation = spaces_amount % 4;
-
-               if(tabulation > 0){
-                    if (tabulation > 2){
-                         spaces_string = spaces_string + " ";
-                         spaces_amount = spaces_amount + 1;
-                    } else {
-                         if(tabulation == 2){
-                              spaces_string = spaces_string.slice(2);
-                              spaces_amount = spaces_amount - 2;
-                         } else {//==1
-                              spaces_string = spaces_string.slice(1);
-                              spaces_amount = spaces_amount - 1;
-                         }
-                    }
-               }
-          }
-          
-          return {
-               spaces: spaces_amount,
-               content: text_row,
-               spaces_string: spaces_string,
-               text_exist: text_exist,
-          };
+          let outgrowth_text = current_node.textContent;
+          let obj_space = get_depth_outgrowth(outgrowth_text);
+          return obj_space.depth;
      },
      focus_end_element(element: HTMLElement) {
           let new_range = new Range();
@@ -305,12 +233,12 @@ export let functions = {
      },
      transfer_line(tab_index: string) {
           let current_node = this.get_current_line_div(),
-               current_node_content = current_node.textContent,
+               current_node_content:string = current_node.textContent,
                amount_spaces_current_node = this.get_current_line_spaces(current_node),
                caret_position = this.get_row_caret_position(),
                first_part_content = current_node_content.slice(0, caret_position),
-               second_part_content = current_node_content.slice(caret_position),
-               obj_second_line_spaces = this.get_first_spaces_and_boolen_exist_text(second_part_content);
+               second_part_content: string = current_node_content.slice(caret_position),
+               obj_second_line_spaces = get_depth_outgrowth(second_part_content);
 
 
           tab_index == "enter" ? amount_spaces_current_node = 0 : true;
@@ -356,7 +284,7 @@ export let functions = {
               current_node = this.get_current_line_div(),
               current_node_spaces = this.get_current_line_spaces(current_node),
               paste_rows: string[] = [];
-              paste_rows = paste.split(/\r?\n/);
+              paste_rows = paste.split(/\r?\n|\,|\;|\:/);
           //check count selectnodes
 
           //check count rows in paste text
@@ -501,21 +429,6 @@ export let functions = {
                node_end_pos: end_sel_node_pos,
           }
      },
-     escape_text(text: any) {
-          let obj_escape_html_map: {[key: string]: any} = {
-               '&amp;': '&',
-               '&lt;': '<',
-               '&gt;': '>',
-               '&quot': '"',
-               '&#039;': "'",
-               '&nbsp;': " ",
-               '|-0': "|-〇",
-          };
-          return text.replace(/&amp;|&lt;|&gt;|&quot|&#039|&nbsp;|\|-0/g, function (pattern: string) {
-               let response: string = obj_escape_html_map[pattern];
-               return response;
-          });
-     },
      get_pos_activation(){
 
      },
@@ -547,250 +460,10 @@ export let functions = {
 
           return array_pos;
      },
-     generate_struct_activ_num(obj_allrow: []){
-          function collect_part_number(curr_depth:number, prev_depth:number, activation_octal: string){
-
-               if(prev_depth == curr_depth){
-                    return "8" + activation_octal;
-               } else if(prev_depth < curr_depth){
-                    return "98" + activation_octal;
-               } else if(prev_depth > curr_depth){
-                    let quotient = Math.floor((prev_depth - curr_depth)/ 4);
-                    return "99".repeat(quotient) + "8" + activation_octal;
-               }
-          }
-          let general_activation = 0;
-          let number = "";
-          let last_depth_tmp = 0;
-          if(obj_allrow.length > 0)
-          
-          for (let i = 0; i < obj_allrow.length; i++) {
-               let activation_octal = "0";
-              
-
-               if(obj_allrow[i]["is_key_row"] == true){
-                    let  row_activ = this.get_row_score(obj_allrow[i]["row"]),
-                         depth_activ = this.get_depth_score(obj_allrow[i]["depth"]),
-                         activation = row_activ * depth_activ;
-                         general_activation += activation;
-
-                    activation_octal = this.get_octal_number(activation);
-
-                    number += collect_part_number(obj_allrow[i]["depth"], last_depth_tmp, activation_octal);
-               } else {
-                    number += collect_part_number(obj_allrow[i]["depth"], last_depth_tmp, "");
-               }
-
-               last_depth_tmp = obj_allrow[i]["depth"];
-          }
-
-          return {
-               number: number,
-               general_activation: general_activation,
-          }
-     },
-     get_row_score(row_num: number){
-          if(row_num < 2){
-               return 13;
-          } else if(row_num < 4){
-               return 10;
-          } else if(row_num < 8) {
-               return 3;
-          } else {
-               return 1;
-          }
-     },
-     get_depth_score(depth_num: number){
-          if(depth_num < 9){
-               return 10;
-          } else if (depth_num < 12){
-               return 5;
-          } else if (depth_num < 20){
-               return 2;
-          } else {
-               return 1;
-          } 
-     },
-     convert_num_to_custom_system(num: string){
-          return {
-               from : function (baseFrom: number) {
-                   return {
-                       to : function (baseTo: number) {
-                           return parseInt(num, baseFrom).toString(baseTo);
-                       }
-                   };
-               }
-          };
-     },   
-     get_octal_number(num: string){
-          return this.convert_num_to_custom_system(num).from(10).to(8);
-     },
-     //search block
-     search_format_function(neuron: HTMLElement, array_of_search_key: string[]) {
-          let is_zero_activation = false;
-          if(array_of_search_key.length == 0){
-               let first_row_val = neuron.children[0].textContent;
-               if(first_row_val != null){
-                    array_of_search_key.push(first_row_val.trim());
-               }
-               is_zero_activation = true;
-          }
-          let obj_result_search = {};
-          let rows = neuron.childNodes;
-          if(rows.length > 0)
-               return obj_result_search = this.surround_post_text_in_tags_controller(rows, array_of_search_key, is_zero_activation);
-     },
-     surround_post_text_in_tags_controller(rows: HTMLElement[], array_of_search_key: string[], is_zero_activation: boolean) {
-          let finded_tags_struct:any[] = [],
-          cut_rows_arr:number[] = [],
-          arr_objs_struct_activ:{key: string, row: number, depth: number, is_key_row: boolean}[] = [],
-          arr_objs_current_rows:{key: string, row: number, depth: number}[] = [];
-
-          let previus_row_spaces = 0;
-
-          for (let i = 0; i < rows.length; i++) {
-               let  obj_struct_activ:{key: string, row: number, depth: number, is_key_row: boolean} = {key: "", row: 0, depth: 0, is_key_row: false},
-                    is_key_row: any = false,
-                    text_row = rows[i].textContent,
-                    space_obj:{spaces: number, spaces_string:string, content: string, text_exist:boolean};
-
-               if(text_row == "" || text_row == "\n"){
-                    cut_rows_arr.push(i);
-                    continue;
-               } else if(i == 0){
-                    space_obj = this.get_first_spaces_and_boolen_exist_text(text_row, previus_row_spaces, "first");
-               } else {
-                    space_obj = this.get_first_spaces_and_boolen_exist_text(text_row, previus_row_spaces);
-               }
-               if(text_row != null)
-                    obj_struct_activ["key"] = text_row.trim();
-               else {
-                    obj_struct_activ["key"] = "";
-               } 
-               obj_struct_activ["depth"] = space_obj.spaces;
-               obj_struct_activ["row"] = i;
-
-               let content_right_spaces = space_obj.spaces_string + space_obj.content;
-               let escaped_itext_row = this.escape_text(content_right_spaces);
-
-               
-               /* #remove
-                    let text_symbols_spans_formatting = escaped_itext_row.replace(patterns.pattern_symbols, function (match_pattern: string) {
-                         match_pattern = "<span class='special_symbols_style'>" + match_pattern + "</span>";
-                         return match_pattern;
-                    });
-               */
-               let regexp;
-               let search_array_is_empty = true;
-               
-
-               if (array_of_search_key != null) {
-                    if (array_of_search_key.length > 0) {
-                         regexp = new RegExp(array_of_search_key.join('|') + '|' + patterns.pattern_tag + '|' + patterns.pattern_verb, 'gmu');
-                         search_array_is_empty = false;
-                    } else {
-                         search_array_is_empty = true;
-                         regexp = new RegExp(patterns.pattern_tag + '|' + patterns.pattern_verb, 'gmu');
-                    }
-               }
-
-               let text_with_symbols_tags = escaped_itext_row.replace(regexp, function (search_key: string) {
-                    let reg_verb = new RegExp(patterns.pattern_verb, 'giu'),
-                         reg_tag = new RegExp(patterns.pattern_tag, 'giu'),
-                         word_tag = new RegExp(array_of_search_key.join('|'), 'giu'),
-                    
-                         is_exist_tags:boolean = reg_tag.test(search_key),
-                         is_exist_tags_action:boolean = reg_verb.test(search_key),
-                         is_exist_finding_word:boolean = word_tag.test(search_key);
-      
-                    if (search_array_is_empty == false) {
-                         if (is_exist_finding_word) {
-                              is_key_row = true;
-                              obj_struct_activ["key"] = search_key;
-                              if (is_exist_tags) {
-                                   finded_tags_struct.push({key:search_key, c:i, d:space_obj.spaces});
-                                   search_key = "<span class='item_tags_style'><mark>" + search_key + "</mark></span>";
-                                   return search_key;
-                              } else if(is_exist_tags_action){
-                                   //#edit finded_action push
-                                   search_key = "<span class='special_symbols_style'><mark>" + search_key + "</mark></span>";
-                                   return search_key;
-                              } else {
-                                   search_key = "<mark>" + search_key + "</mark>";
-                                   return search_key;
-                              }
-                         } else {
-                              if (is_exist_tags) {
-                                   finded_tags_struct.push({key:search_key, c:i, d:space_obj.spaces});
-                                   search_key = "<span class='item_tags_style'>" + search_key + "</span>";
-                                   return search_key;
-                              } else if(is_exist_tags_action){
-                                   //#edit finded_action push
-                                   search_key = "<span class='special_symbols_style'>" + search_key + "</span>";
-                                   return search_key;
-                              }
-                         }
-                    } else {
-                         if (is_exist_tags) {
-                              finded_tags_struct.push({key:search_key, c:i, d:space_obj.spaces});
-                              search_key = "<span class='item_tags_style'>" + search_key + "</span>";
-                              return search_key;
-                         } else if(is_exist_tags_action){
-                              //#edit finded_action push
-                              search_key = "<span class='special_symbols_style'>" + search_key + "</span>";
-                              return search_key;
-                         }
-                    }
-                    
-               });
-
-               rows[i].innerHTML = text_with_symbols_tags;
-               obj_struct_activ["is_key_row"] = is_key_row;
-               arr_objs_struct_activ.push(obj_struct_activ);
-
-               if(is_key_row == true){
-                    arr_objs_current_rows.push(obj_struct_activ);
-               }
-               previus_row_spaces = space_obj.spaces;
-          }
-          let chain_fathers: any;
-          if(arr_objs_current_rows.length > 0){
-               if(arr_objs_current_rows.length > 10){
-                    arr_objs_current_rows.sort((a, b) => b.depth - a.depth);
-                    arr_objs_current_rows = arr_objs_current_rows.slice(0, 10);
-               }
-               chain_fathers = get_chain_fathers2(rows,arr_objs_current_rows, arr_objs_struct_activ);
-          }
-
-          let obj_st_acitvations = this.generate_struct_activ_num(arr_objs_struct_activ);
-          let gen_activation = obj_st_acitvations.general_activation;
-          if(is_zero_activation == true){
-               gen_activation = 0;
-               chain_fathers = array_of_search_key[0];
-          }
-          
-          //AFTER OTHER
-          if(cut_rows_arr != null){
-               for(let i = rows.length - 1; i >= 0; i--){
-                    for(let j = 0; j < cut_rows_arr.length; j++){
-                         if(i == cut_rows_arr[j]){
-                              rows[i].remove(); 
-                         }
-                    }
-               }
-          }
-          
-          return {
-               finded_tags_struct: finded_tags_struct,
-               struct_activ_num: obj_st_acitvations.number,
-               general_activation: gen_activation,
-               chain_fathers: chain_fathers,
-          }
-     },
      validate_row_formate(node: HTMLElement, caret_pos: number){
           
           let text_row = node.textContent;
-          let escaped_itext_row = this.escape_text(text_row);
+          let escaped_itext_row = escape_text(text_row);
 
           let regexp = new RegExp(patterns.pattern_tag, 'gmu');
                
@@ -867,8 +540,8 @@ export let functions = {
                }
                for(let i = 0; i < classes_arr.length; i++){
                     let text = classes_arr[i].innerText;
-                    let obj_spaces = this.get_first_spaces_and_boolen_exist_text(text);
-                    arr_row_spaces.push(obj_spaces.spaces);
+                    let obj_spaces = get_depth_outgrowth(text);
+                    arr_row_spaces.push(obj_spaces.depth);
                }
 
                for(let j = 0; j < arr_row_spaces.length; j++){
@@ -957,118 +630,4 @@ export let functions = {
                }
           }
      },
-     echo_data() {
-          let count_rows: number = 0,
-               count_tags: number = 0,
-               count_words: number = 0,
-               count_points: number = 0,
-               count_words_arr: any = [],
-               count_tags_arr: any = [],
-               rows_arr: NodeListOf<ChildNode>,
-               content = elements.current_post.textContent;
-
-          let patterns1 = {
-               words: /[^\s]*[\p{L}\p{P}_0-9]/gu,
-          }
-
-          //get not empty rows
-          rows_arr = elements.current_post.childNodes;
-          if (rows_arr != null) {
-               for (let j = 0; j < rows_arr.length; j++) {
-                    let text_characters_arr: any = [];
-                    let text = rows_arr[j].textContent;
-                    if (text != null)
-                    text_characters_arr = text.match(/[^\s]*[\p{L}\p{P}_0-9]/gu);
-                    if (text_characters_arr != null)
-                         count_rows += 1;
-               }
-          }
-
-          if(content != null){
-               //get count words
-               count_words_arr = content.match(patterns1.words);
-               if (count_words_arr != null)
-                    count_words = count_words_arr.length;
-
-               //get count tags
-               //let reg_tag = new RegExp(patterns.pattern_tag, 'gui')
-               count_tags_arr = content.match(/#[\p{L}_0-9]*/gui);
-               if (count_tags_arr != null)
-                    count_tags = count_tags_arr.length;
-          }
-
-          //sigmoid(count_tags)
-
-          let counters = {
-               words: count_words,
-               rows: count_rows,
-               tags: count_tags,
-          }
-
-          //let points = (normalizing_tag_f(count_tags) * normalizing_rows_f(count_rows) / normalizing_words_f(count_words);
-
-          function normalizing_tag_f(count_tags: number) {
-               sigmoid(count_tags)
-          }
-
-          function normalizing_rows_f(count_rows: number) {
-               sigmoid(count_tags)
-          }
-
-          function normalizing_words_f(count_words: number) {
-               //let count_words_index = 0.0001*(count_words**2) - (0.02*count_words) + 1.0001;
-               //after extreme other function
-               //count_words = 0,001*(count_words**2) - (0,02*count_words) + 7,99;
-               //sigmoid(count_words)
-               sigmoid(count_words)
-          }
-
-
-          //check structurization
-          if (count_rows * 3 > count_words) {
-               count_points = (count_tags * count_rows) / (2 * count_words);
-          } else {
-               count_points = (count_tags * count_rows) / count_words;
-          }
-
-          //math
-          function sigmoid(z: number) {
-               return 10 / (1 + Math.exp(-z));
-          }
-          function echo_points(count_points: number) {
-               let hard_index = 10;
-               let result = sigmoid(count_points / hard_index);
-               return result;
-          }
-          count_points = echo_points(count_points);
-          count_points = Math.floor(count_points * 10) / 10;
-
-          let post_low_panel_parent = elements.current_post.parentNode,
-              post_low_panel_parent2,
-              fields_count;
-          if(post_low_panel_parent != null)
-               post_low_panel_parent2 = post_low_panel_parent.parentNode;
-               if(post_low_panel_parent2 != null)
-                    fields_count = post_low_panel_parent2.querySelector(".post_low_panel");
-          if(fields_count != null){
-               let count_rows_node = fields_count.querySelector(".count_rows"),
-                    count_words_node = fields_count.querySelector(".count_words"),
-                    count_tags_node = fields_count.querySelector(".count_tags"),
-                    count_points_node = fields_count.querySelector(".count_points");
-               if(count_words_node != null){
-                    if(count_words > 500){
-                         count_words_node.innerHTML = "W: " + "<error>" + count_words + "</error>";
-                    } else {
-                         count_words_node.textContent = "W: " + count_words;
-                    }
-                    if(count_rows_node != null)
-                    count_rows_node.textContent = "R: " + count_rows;
-                    if(count_tags_node != null)
-                    count_tags_node.textContent = "#: " + count_tags;
-                    if(count_points_node != null)
-                    count_points_node.textContent = "points: " + count_points;
-               }
-          }
-          //make vertical lines 
-     }
 }

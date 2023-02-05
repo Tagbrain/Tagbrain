@@ -33,7 +33,7 @@ Screenshots
 
 ### Terminology v 0.1
 
-+ Basic
++ Basic variables 
     + <a href="">#neuron</a> is a file that contains a tree structure of words (ordinary(weak synapses) and synapses)
     + #synapse is a word with a hash tag that is found in the tree structure of a neuron. If different neurons have the same synapses, then they form connections between these neurons.
     + #connection is a fibers of different weigth that connect synapses with the same values. The fibers thicknesses are determined by row number, row depth (tabulation), components selective activation and weight index.
@@ -49,18 +49,26 @@ Screenshots
     + #mental_image is a combination of several tangles.
 
 + #components_selective_activation
-    + #dendrites_outgrowths are dead-end superstructures over synapses that are formed with each neuron activation. 
+    + #dendrites_outgrowth~s are dead-end superstructures over synapses that are formed with each neuron activation. 
         And they are destroyed if other neurons except the target one are activated. 
         Needed to store information about recent activations. 
         Dendrites outgrowths allow the system to dynamically adapt to the most frequent activations of recent times, increasing their significance.
-    + #receptors of the synapses
+    + #receptor~s of the synapses
         These are functional components of a synapse that affect on the activation of the neuron at the synapse.
         The distribution of receptors in synapses is different, which allows us to create another meta-graph of the distribution of dynamic-activations.
         Each synapse has its own combination of receptors with difference weight of activation.
         We can secrete neurotransmitters that will instantly turn off or turn on groups of synapses from the search.
             example receptors names: AA, BBB, ABA, AVF ... 
-    + #neurotransmitters is different instanses for activation one receptor or them functional group. 
+    + #neurotransmitter~s is different instanses for activation one receptor or them functional group. 
         #cluster_neurotransmission is summarizing index of the weights all receptors of the neuron. For learning tagsystem
+    
++ #generalization_function
+    + Description: combine several branches of outgrowths. Uses #anemone_induction~s and #anemone_deduction~s
+
+#anemone_induction~s
+One level radial structure.Inward direction. 
+#anemone_deduction~s
+One level radial structure.Exward direction. 
 
 + Learning
     + Task: get more complete object properties when querying the graph

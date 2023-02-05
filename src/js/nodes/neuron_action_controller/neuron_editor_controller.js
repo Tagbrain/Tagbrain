@@ -1,6 +1,6 @@
 import {elements} from "./obj_post_edit_f";
-import {patterns} from "./obj_post_edit_f";
 import {functions} from "./obj_post_edit_f";
+import {echo_c_statistic_c_to_neuron} from "../../units/echo_c_statistic_c_to_neuron";
 
 //NODE
      //LISTENER
@@ -129,6 +129,6 @@ import {functions} from "./obj_post_edit_f";
                     current_line.classList.add("focus_row");
                }
                
-               functions.echo_data(); 
+               echo_c_statistic_c_to_neuron(); 
           })
      }

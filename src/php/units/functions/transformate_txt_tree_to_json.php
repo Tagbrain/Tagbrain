@@ -1,5 +1,5 @@
 <?php
-include "state_trait.php";
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/state_trait.php";
 /* 
 json
     [row, depth, content],
@@ -35,6 +35,8 @@ trait transformate_txt_tree_to_json {
         while(!feof($reading)){
             $line = fgets($reading);
             $array_part_tree = array();
+
+            $line = str_replace("", "\n", $line);
 
             $regexp = '/(?<spaces>\s*)|(?<content>[\s\S]*)/i';
             preg_match_all($regexp,$line,$matches);

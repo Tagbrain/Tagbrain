@@ -14,14 +14,12 @@
 
 mark {
     background: none;
-    padding: 2px 0px;
-    border-bottom: 1px dashed var(--text-content);
-    border-top: 1px dashed var(--text-content);
+    border-bottom: 1px dashed var(--strokes);
+    border-top: 1px dashed var(--strokes);
     color: var(--shiny-light);
 }
 replacer{
     background: none;
-    padding: 2px 0px;
     color: var(--shiny-light);
 }
 replaced_text{
@@ -48,8 +46,6 @@ replaced_text{
 
 .icon_buttons_visual_effects{
     text-shadow: 1px 0px 3px var(--text-content);
-    padding: 10px;
-    display: inline-block;
     cursor: var(--cursor-pointer);
     transition: .5s;
 }

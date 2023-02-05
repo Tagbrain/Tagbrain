@@ -18,7 +18,14 @@ let tagbrain_graph: any = {
     },
     current_neuron_element: 0,
     graph_name: gEBI("page_tag_map_name").textContent.trim(),
-    current_tabs: [],
+    cellular_automata:[],
+    keeper_last_data:[],
+    tab_collection: {},
+    neurons_objs: {},
+    current_tab: "neurons",
+    checker_collection: [],
+    current_neuron: "",
+    current_outgrowth: 0,
 }
 
 window["tagbrain_graph"] = tagbrain_graph;

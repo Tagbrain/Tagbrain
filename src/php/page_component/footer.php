@@ -3,7 +3,7 @@
     if($access_arr["can_editing"] == true){
         echo 
                 '<a id="footer_add_neuron_button" class="create_element_button">'.
-                    '<svg class="liner_icon_style icon_size_sl_a_middle">'.
+                    '<svg class="linear_icon_c_target icon_size_sl_a_middle">'.
                         '<use xlink:href="#sprite_new_post"></use>'.
                     '</svg>'.
                 '</a>'.
@@ -13,12 +13,12 @@
 </div>
 <div class="footer_rigth_container">
     <div class="big_arrows_stl" id="scroll_button">
-        <svg class="liner_icon_style icon_size_sl_a_middle">
+        <svg class="linear_icon_c_target icon_size_sl_a_middle">
             <use xlink:href="#sprite_arrow"></use>
         </svg>
     </div>
     <div class="switch_right_bar big_arrows_stl" id="switch_right_bar">
-        <svg class="liner_icon_style icon_size_sl_a_middle">
+        <svg class="linear_icon_c_target icon_size_sl_a_middle">
             <use xlink:href="#sprite_arrow"></use>
         </svg>
     </div>

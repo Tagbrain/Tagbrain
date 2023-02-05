@@ -1,8 +1,7 @@
-export function get_depth_outgrowth(outgrowth: any){
-    let text:any = outgrowth.textContent;
+export function get_depth_outgrowth(outgrowth_text: any){
     let spaces_amount: any = 0;
     let text_exist = false;
-    let content = text.replace(/./gi, function (key: String) {
+    let content = outgrowth_text.replace(/./gi, function (key: String) {
         if(text_exist == false){
             if (key == " ") {
                 spaces_amount += 1;
@@ -22,6 +21,7 @@ export function get_depth_outgrowth(outgrowth: any){
     let response = {
         content: content,
         depth: depth,
+        text_exist: text_exist,
     }
     return response
 }

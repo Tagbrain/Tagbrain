@@ -93,17 +93,17 @@
 					</div>
 					<div class="menu_button_panel">
 						<a title="Read mode toggle">
-							<svg class="liner_icon_style icon_size_middle">
+							<svg class="linear_icon_c_target icon_size_sl_a_middle" id="checker_id_1">
 								<use xlink:href="#sprite_r"></use>
 							</svg>
 						</a>
 						<a id="export_import" title="Export">
-							<svg class="liner_icon_style icon_size_middle">
+							<svg class="linear_icon_c_target icon_size_sl_a_middle" id="checker_id_2">
 								<use xlink:href="#sprite_export"></use>
 							</svg>
 						</a>
 						<a id="work_mode_button" class="icon_buttons_visual_effects" title="Work Mode">
-							<svg class="liner_icon_style icon_size_middle">
+							<svg class="linear_icon_c_target icon_size_sl_a_middle" id="checker_id_3">
 								<use xlink:href="#sprite_ligthning"></use>
 							</svg>
 						</a>
@@ -121,7 +121,7 @@
 							 '</form>';
 							 if($access_arr["full_access"] == true){
 								echo '<a id="setting_button" class="setting_button">'.
-									'<svg class="liner_icon_style icon_size_middle">'.
+									'<svg class="linear_icon_c_target icon_size_middle">'.
 										'<use xlink:href="#sprite_settings"></use>'.
 									'</svg>'.
 								'</a>';

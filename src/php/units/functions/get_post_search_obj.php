@@ -1,4 +1,5 @@
 <?php
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/load_neuron_tree.php";
 include "get_row_depth.php";
 include "get_pos_activation.php";
 include "get_key_activation.php";
@@ -9,43 +10,32 @@ trait get_post_search_obj {
     use get_pos_activation;
     use get_key_activation;
 
-    protected function get_post_search_obj($array_of_search_key, $file_path){
+    use load_neuron_tree;
 
+    protected function get_post_search_obj($array_of_search_key, $graph, $neuron){
+        $neuron_id = str_replace(".php", "", $neuron);
         $tags_array = array(); // tag // the most depth space 
         $search_obj = array();
         $row_num = 0;
         $post_activation = 0;
-        $reading = fopen($file_path, 'r');
         $is_node = "false";
-        /* #edit
-                 foreach($outgrowths as $outgrowth){
-                                                            #send to tagbrain structure
-                                                            $outgrowth{
-                                                                row
-                                                                depth
-                                                                content
-                                                            }
-            
-            $outgrowth_html = str_repeat("    ", $outgrowth["depth"]).$outgrowth["content"]."</br>";
-            $html += $outgrowth_html;
-         }
-        */ 
-        while(!feof($reading)){
-            $line = fgets($reading);
+
+        $outgrowths = $this->load_neuron_tree($graph.$neuron);
+        foreach($outgrowths as $outgrowth){
+            $content = $outgrowth["content"];
 
             $pattern_tag = '/#[\p{L}_0-9]*/ui';
             $regexp = '/(?<searching>'.join("|",$array_of_search_key).')|(?<tags>#[\p{L}_0-9]*)/iu';
-            $regexp_words = '/'.join("|",$array_of_search_key).'/iu';
 
             preg_match_all(
                 $regexp,
-                $line,
+                $content,
                 $matches
             );
             
             foreach($matches['searching'] as $match){
                 if($match == '') continue;
-                $activation_key = $this->get_key_activation($line, $row_num);
+                $activation_key = $this->get_key_activation($content, $row_num);
                 $search_obj[$match] = $activation_key;
                 if(preg_match($pattern_tag, $match, $array) != false){
                     array_push($tags_array, $match);
@@ -55,37 +45,8 @@ trait get_post_search_obj {
                 if($match == '') continue;
                 array_push($tags_array, $match);
             }
-            
-            /* #remove
-            foreach($matches as $arr){
-                foreach($arr as $match){
-                    
-                    //check searching words
-                    if(in_array($match, $array_of_search_key)){
-                        $activation_key = $this->get_key_activation($line, $row_num);
-                        $search_obj[$match] = $activation_key;
-                        if(preg_match($pattern_tag, $match, $array) != false){
-                            array_push($tags_array, $match);
-                            //tag activation
-                        }
-                    } 
-                    if(preg_match($pattern_tag, $match, $tag) != false){
-                        if(preg_match($regexp_words, $match, $output) != false){
-                            //tag contain word
-                            $activation_key = $this->get_key_activation($line, $row_num);
-                            $search_obj[$match] = $activation_key;
-                        }
-                        array_push($tags_array, $match);
-                        //tag activation
-                    }
-
-                }
-            }
-            */
-
             $row_num++;
         }
-        fclose($reading);
 
         foreach($search_obj as $key => $activation){
             $post_activation += $activation;
@@ -103,7 +64,7 @@ trait get_post_search_obj {
         $return_obj = array(
             "post_activation" => $post_activation, 
             "is_node" => $is_node,
-            //"obj" => $search_obj //error encoding special symbols for json response
+            "file_name" => $neuron_id,
         );
         return $return_obj;
     }

@@ -1,6 +1,7 @@
-import {functions} from "../nodes/neuron_action_controller/obj_post_edit_f";
 import {get_string_tags_struct} from "./get_string_tags_struct.js";
 import {check_existence_node_tag} from "./check_existence_node_tag";
+import {find_formate_neuron} from "./find_formate_neuron";
+
 type neuron_features = {
     id: string;
     words: string,
@@ -19,7 +20,7 @@ export function get_neuron_features(neuron: any, type_search: string, array_of_s
     let time_last_editing_post = neuron.parentNode.parentNode.querySelector(".file_time").textContent,  
         firsts_words_post = neuron.childNodes[0].textContent.trim();    
 
-    let search_post_obj = functions.search_format_function(neuron, array_of_search_key),
+    let search_post_obj = find_formate_neuron(neuron, array_of_search_key),
         finded_tags_struct = search_post_obj.finded_tags_struct,
         general_activation = search_post_obj.general_activation,
         struct_activ_num = search_post_obj.struct_activ_num, //for line neuron shape #edit #add

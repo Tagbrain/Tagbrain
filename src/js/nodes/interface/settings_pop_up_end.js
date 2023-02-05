@@ -76,7 +76,7 @@ function show_context_pop_up(e, el_cls, upper_layer_for_animation){
 }
 
 let neuron_pop_up_menu = gEBI("neuron_pop_up_menu");
-let items_container = gEBI("items_container");
+let neurons_container = gEBI("neurons_x_tab_content_c_container");
 document.addEventListener("contextmenu", (e) => {
     e.preventDefault();
     e = e || window.event;

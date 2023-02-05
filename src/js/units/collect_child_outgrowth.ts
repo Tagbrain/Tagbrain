@@ -21,8 +21,7 @@ export function collect_child_outgrowth(arr_objs_current_rows: arr_outgrowth, ar
 
     let r_num_curr = arr_objs_current_rows[i]["row"];
     if (typeof arr_objs_rows[r_num_curr + 1] !== 'undefined') {
-        let max_length_child_part: number = 0;
-        while (r_num_curr >= 0 && max_length_child_part < 20) {
+        while (r_num_curr >= 0) {
             let next_down_d: number = arr_objs_rows[r_num_curr + 1]["depth"];
             if (current_depth < next_down_d) {//
                 let value: string = arr_objs_rows[r_num_curr + 1]["key"];
@@ -34,7 +33,6 @@ export function collect_child_outgrowth(arr_objs_current_rows: arr_outgrowth, ar
                     escape: false
                 };
                 child_chain_fathers.unshift(obj_child_part);
-                max_length_child_part++;
             } else {
                 break
             }

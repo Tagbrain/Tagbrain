@@ -1,7 +1,11 @@
 
-import './click_controller.js';
 
+//1
 import './tagbrain_graph';
+import './all_posts_action/controller_tabs.js';
+import './all_posts_action/controller_checkers';
+//2
+import './click_controller.js';
 
 import './neuron_action_controller/neuron_add.js';
 import './neuron_action_controller/neuron_delete.js';
@@ -14,17 +18,15 @@ import './neuron_action_controller/cellular_automata.ts';
 
 
 
-import './all_posts_action/search_controller.js';
+import './all_posts_action/search_controller';
 import './all_posts_action/replace_controller.js';
 import './all_posts_action/post_save_controller.js';
 import './all_posts_action/controller_user_activity';
-import './all_posts_action/controller_tabs.js';
 
 import './interface/interface_function_end.js';
 import './interface/history_posts_link_end.js';
 import './interface/clipboard_buttons_end.js';
 import './interface/settings_pop_up_end.js';
-import './interface/settings_search_end.js';
 import './interface/logout_end.js';
 import './interface/menu_controller.js';
 import './interface/get_channel_data.js';

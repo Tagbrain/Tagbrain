@@ -1,8 +1,8 @@
 //svg styles
 
-.liner_icon_style, 
-.liner_icon_style > * {
-        transition: 1s;
+.linear_icon_c_target, 
+.linear_icon_c_target > * {
+        transition: .3s;
         fill: none;
         stroke: var(--text-content);
         stroke-width: 16;
@@ -10,10 +10,17 @@
         stroke-miterlimit: 10;
 }
 
-.liner_icon_style:hover{
+.linear_icon_c_target:hover{
         stroke:var(--shiny-light); 
-        transition: 1s;
+        transition: .3s;
         cursor:var(--cursor-pointer);
+}
+.linear_icon_c_target_x_checked > *{
+        stroke:var(--shiny-light); 
+        cursor:var(--cursor-pointer);
+}
+.linear_icon_c_target_x_checked:hover{
+        cursor:var(--cursor-auto);
 }
 
 .icon_size_middle{

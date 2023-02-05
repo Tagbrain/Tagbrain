@@ -1,6 +1,6 @@
 import {elements} from "../nodes/neuron_action_controller/obj_post_edit_f";
-import {patterns} from "../nodes/neuron_action_controller/obj_post_edit_f";
 import {functions} from "../nodes/neuron_action_controller/obj_post_edit_f";
+import {echo_c_statistic_c_to_neuron} from "../echo_c_statistic_c_to_neuron";
 
 export function put_validation_events_to_neuron(element_one){
      element_one.addEventListener('keydown', function(e){
@@ -97,7 +97,6 @@ export function put_validation_events_to_neuron(element_one){
                    focused_rows.classList.remove("focus_row");
               current_line.classList.add("focus_row");
          }
-         
-         functions.echo_data(); 
+         echo_c_statistic_c_to_neuron();
     })
  }

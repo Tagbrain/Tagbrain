@@ -1,5 +1,5 @@
 <?php
-trait session_protect {
+trait check_session_data {
     
     protected function check_session_data($page_state){
         $access = array("can_editing" => false, "full_access" => false);

@@ -4,16 +4,25 @@
 		<span class="item_tags_style">#MAIN_POST</span>
 		<span class="item_tags_style">#tags_structure</span>
 		<br>
-		<br>
-
 		<div class="menu_container_right_bar">
 			<div>
 				<input type="radio" id="search_right_bar" name="item" checked>
 				<label class="menu_item_right_bar" for="search_right_bar" title="Search">
-					<svg class="liner_icon_style icon_size_big right_menu_icon">
+					<svg class="linear_icon_c_target icon_size_big right_menu_icon">
 						<use xlink:href="#sprite_search_tab"></use>
 					</svg>
-					<svg class="liner_icon_style icon_border">
+					<svg class="linear_icon_c_target icon_border">
+						<use xlink:href="#sprite_border_icon"></use>
+					</svg>
+				</label>
+			</div>
+			<div>
+				<input type="radio" id="microfeatures_controller_right_bar" name="item">
+				<label class="menu_item_right_bar" for="microfeatures_controller_right_bar" title="Generalization controller">
+					<svg class="linear_icon_c_target icon_size_big right_menu_icon">
+						<use xlink:href="#sprite_neural_f"></use>
+					</svg>
+					<svg class="linear_icon_c_target icon_border">
 						<use xlink:href="#sprite_border_icon"></use>
 					</svg>
 				</label>
@@ -21,10 +30,10 @@
 			<div>
 				<input type="radio" id="RAM_right_bar" name="item">
 				<label class="menu_item_right_bar" for="RAM_right_bar" title="RAM">				
-					<svg class="liner_icon_style icon_size_big right_menu_icon">
+					<svg class="linear_icon_c_target icon_size_big right_menu_icon">
 						<use xlink:href="#sprite_ram"></use>
 					</svg>
-					<svg class="liner_icon_style icon_border">
+					<svg class="linear_icon_c_target icon_border">
 						<use xlink:href="#sprite_border_icon"></use>
 					</svg>
 				</label>
@@ -32,10 +41,10 @@
 			<div>
 				<input type="radio" id="functions_right_bar" name="item">
 				<label class="menu_item_right_bar" for="functions_right_bar" title="functions">				
-					<svg class="liner_icon_style icon_size_big right_menu_icon">
+					<svg class="linear_icon_c_target icon_size_big right_menu_icon">
 						<use xlink:href="#sprite_functions_tab"></use>
 					</svg>
-					<svg class="liner_icon_style icon_border">
+					<svg class="linear_icon_c_target icon_border">
 						<use xlink:href="#sprite_border_icon"></use>
 					</svg>
 				</label>
@@ -43,10 +52,10 @@
 			<div>
 				<input type="radio" id="channels_map_right_bar" name="item">
 				<label class="menu_item_right_bar" for="channels_map_right_bar" title="Your channels">
-					<svg class="liner_icon_style icon_size_big right_menu_icon">
+					<svg class="linear_icon_c_target icon_size_big right_menu_icon">
 						<use xlink:href="#sprite_channels_tab"></use>
 					</svg>
-					<svg class="liner_icon_style icon_border">
+					<svg class="linear_icon_c_target icon_border">
 						<use xlink:href="#sprite_border_icon"></use>
 					</svg>
 				</label>
@@ -54,10 +63,10 @@
 			<div>
 				<input type="radio" id="smart_tips_right_bar" name="item">
 				<label class="menu_item_right_bar" for="smart_tips_right_bar" title="Tips generator">
-					<svg class="liner_icon_style icon_size_big right_menu_icon">
+					<svg class="linear_icon_c_target icon_size_big right_menu_icon">
 						<use xlink:href="#sprite_smart_tips"></use>
 					</svg>
-					<svg class="liner_icon_style icon_border">
+					<svg class="linear_icon_c_target icon_border">
 						<use xlink:href="#sprite_border_icon"></use>
 					</svg>
 				</label>
@@ -67,40 +76,52 @@
 	<div class="tab_right_bar_wrap">
 		<div class="tab_right_bar">
 			<div class="tools_container show_page" id="search_right_bar_page">
+
+				<a id="activation_all_graphes_c_purpose_x_checker_icon" class="icon_buttons_visual_effects" title="Activate actions for all graphes">
+					<svg class="linear_icon_c_target icon_size_sl_a_middle" id="checker_id_4">
+						<use xlink:href="#sprite_c_search_icons_x_all_graphes"></use>
+					</svg>
+				</a>
+
 				<div class="container_search_tab_input">
-					<span id="send_search_request" class="buttons_inputs_search_tab">▷</span>
-					<input id="search_input_block" class="input_tools" type="text" placeholder="⌕ Search word">
-					<input id="send_search_request" style="display:none;" type="submit">
+					<input id="search_input_block" class="input_tools" type="text" placeholder="⌕ Search RegExp">
+					<a id="send_search_request" class="buttons_inputs_search_tab icon_buttons_visual_effects" title="Find synapses">
+						<svg class="linear_icon_c_target icon_size_middle">
+							<use xlink:href="#sprite_c_search_icons_x_send_request"></use>
+						</svg>
+					</a>
 				</div>
-				<div id="settings_objects_search" class="settings_objects_search collaps_block container_for_buttons">
-					<div class="flag_checker" title="Match whole word">WW</div>
-					<div class="flag_checker" title="Find in area of visibility">F</div>
-					<div class="flag_checker" title="Find in the graph">G</div>
-					<div class="flag_checker" title="Find in all your graphes">ALL G</div>
+
+				<div id="settings_objects_search" class="settings_objects_search container_for_buttons">
+					<a class="icon_buttons_visual_effects" title="whole words">
+						<svg class="linear_icon_c_target icon_size_sl_a_middle" id="checker_id_5">
+							<use xlink:href="#sprite_c_search_icons_x_whole_synapse"></use>
+						</svg>
+					</a>
+					<a id="regexp_c_purpose_x_checker_x_search_window" class="icon_buttons_visual_effects" title="Turn on -> Regular expression">
+						<svg class="linear_icon_c_target icon_size_sl_a_middle linear_icon_c_target_x_checked">
+							<use xlink:href="#sprite_c_search_icons_x_regexp"></use>
+						</svg>
+					</a>
 				</div>
+
 				<div class="container_search_tab_input">
-					<span id="send_replace_request" class="buttons_inputs_search_tab">▷</span>
 					<input id="replace_input_block" class="input_tools" type="text" placeholder="Replace">
+					<a id="send_replace_request"  class="buttons_inputs_search_tab icon_buttons_visual_effects" title="Replace synapses">
+						<svg class="linear_icon_c_target icon_size_middle">
+							<use xlink:href="#sprite_c_search_icons_x_replace"></use>
+						</svg>
+					</a>
 				</div>
-				<br>
-				<div id="replace_word_button" class="flag_checker"> 
-					Change
-				</div>
-				<div id="replace_all_words" class="flag_checker">
-					Change all
-				</div>
-				<button id="Activate_graph">
-					Activate graph request
-				</button>
 
 				<br><br>
 				<div class="header_reuslt_window">
 					<span id="counter_block_found_words"></span> 
 					<a id="combine_features" title="collect_need_object">
-						<svg class="liner_icon_style icon_size_sl_a_middle">
+						<svg class="linear_icon_c_target icon_size_sl_a_middle">
 							<use xlink:href="#sprite_merge_posts"></use>
 						</svg>
-					<a>
+					</a>
 				</div>
 				<div id="result_block" class="container_search_rows output_block">
 				</div>
@@ -114,8 +135,19 @@
 				<div id="last_posts_lists" class="output_block"></div>
 			</div>
 
+			<div class="tools_container" id="microfeatures_controller_right_bar_page">
+				<div id="donors_microfeatures_c_purpose_x_neurons_id_c_content">Donors microfeatures</div>
+				<div id="synapses_tree_c_content_x_input_field">Synapses tree</div>
+				<div id="anemones_c_content_x_input_field">Anemones:</div>
+			</div>
+
 			<div class="tools_container" id="functions_right_bar_page">
-				<a title="5 last items">Copy buffer</a>
+				<a title="5 last items">open_copy_buffer()</a>
+				<a title="The most activated synapse of the graph">get_important_synapse()</a>
+				<br>
+				<div>For developers</div>
+				<br>
+				<a title="Use this graph syntax">show_str_graph_syntax()</a>
 				<br><br>
 				<button title="upper/lower case">AA<->aa</button>
 				<br><br>

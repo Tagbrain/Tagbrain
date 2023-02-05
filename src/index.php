@@ -15,7 +15,7 @@ if(!$_SESSION["userid"]){
 }
 
 include $_SERVER['DOCUMENT_ROOT']."/php/engine/determinator_page_content.php";
-include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/protect_session.php";
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/check_session_data.php";
 
 $channel_private = $data->is_channel_private();
 $page_state = $data->state();
@@ -27,7 +27,7 @@ if($first_letters == "/"){
 
 class header_check_session{
 	
-	use session_protect;
+	use check_session_data;
 	public function check_session($page_state){
 		return $this->check_session_data($page_state);
 	}
@@ -66,23 +66,13 @@ $access_arr = $header_check_session->check_session($page_state);
 		</head>
 	<body>
 		<?php include("php/page_component/animation_layers.php"); ?>
-		<div class="grid" id="circle_cont"></div>
+		<div class="grid" id="wave_container"></div>
 		<div class="site_template">
 				<?php include("php/page_component/header.php"); ?>
 			<div class="container_work">
 				<div id="tab_container" class="tab_container"></div>
-				<div class="neuron_container">
-					<div id="search_container" class="neuron_container_unit hide_cl">
-						<span class="">
-							Test field
-						</span>
-						<input placeholder="parents keys" type="text">
-						<input placeholder="child keys" type="text">
-					</div>
-					<div id="items_container" class="neuron_container_unit">
-						<div id="loading_flag">Loading...</div>
-						<!-- ?php echo($data->content($page_state, $data->get_channel_properties_array(), $access_arr["can_editing"])); ?>-->
-					</div>
+				<div id="mental_image_c_container" class="mental_image_c_container">
+						<!-- mental_images_c_js_injection_c_action-->
 				</div>
 				<?php include("php/page_component/right_bar.php"); ?>
 			</div>

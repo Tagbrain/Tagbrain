@@ -1,10 +1,9 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/protect_session.php";
 include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/put_neuron_tree_in_file.php";
-
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/check_session_data.php";
 class neuron_changing {
 
-    use session_protect;
+    use check_session_data;
     use put_neuron_tree_in_file;
 
     function __construct($action, $graph_name, $neuron_tree, $neuron_id, $unix_time){
@@ -33,6 +32,8 @@ class neuron_changing {
                     $this->change_neuron();
                 } else if($this->action == 'add'){
                     $this->add_neuron();
+                } else if($this->action == 'add_c_cookie_x_draft_zc_neuron'){
+                    $this->add_c_cookie_x_draft_zc_neuron(); 
                 } else if($this->action == 'remove'){
                     $this->remove_neuron();
                 } 
@@ -119,6 +120,7 @@ class neuron_changing {
         );
         echo json_encode($response);
     }
+
 
     protected function change_neuron(){
         $name_neuron = $this->neuron_id.".json";

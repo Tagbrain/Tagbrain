@@ -18,14 +18,14 @@ type current_outgrowth = {
     is_key_row: boolean
 }[];
 
-export function get_chain_fathers_from_neuron(arr_objs_current_rows: arr_outgrowth, arr_objs_rows: current_outgrowth) {
+export function get_chains_fathers_from_neuron(arr_objs_current_rows: arr_outgrowth, arr_objs_rows: current_outgrowth) {
     if (arr_objs_rows != null) {
         //get_group_of_key_word
 
         let arr_chains: arr_chain[] = [];
 
         //collect keys properties
-        outer: for (let i = arr_objs_current_rows.length - 1; i >= 0; i--) {
+        for (let i = arr_objs_current_rows.length - 1; i >= 0; i--) {
             let full_branch_outgrowths: arr_chain = [];
             let current_depth: number = arr_objs_current_rows[i]["depth"];
 
@@ -42,6 +42,5 @@ export function get_chain_fathers_from_neuron(arr_objs_current_rows: arr_outgrow
             arr_chains.push(full_branch_outgrowths);
         }
         return arr_chains;
-        return generalization_controller(arr_chains);
     }
 }

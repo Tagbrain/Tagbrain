@@ -8,3 +8,9 @@ trait load_neuron_tree{
       return $neuron_tree["outgrowths"];
    }
 }
+/*
+outgrowths
+   content
+   row
+   depth
+*/ 

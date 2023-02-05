@@ -1,20 +1,24 @@
-import {tab_main_container} from "../../classes/tab_main_container";
-
-function create_tab_class(tab_object){
-    let tab_class = new tab_main_container(tab_object["name"], tab_object["default"]);
-    return tab_class;
-}
+import {class_c_controller_c_tabs_functions} from "../../classes/class_c_controller_c_tabs_functions";
 
 let tabs_array = [
-    {name: "Neurons", default: true},
-    {name: "Draft", default: false},
+    {
+        name: "neurons", 
+        default: true,
+        content_html: '<div id="loading_flag_random_neurons">Loading...</div>',
+    },
+    {
+        name: "draft", 
+        default: true,
+        content_html: '<div id="loading_flag_cookies_neurons">Loading...</div>',
+    },
 ]
 
 for(let i = 0; i < tabs_array.length; i++){
-    let tab_class = create_tab_class(tabs_array[i]);
+    let tab_features = tabs_array[i];
+    let tab_class = new class_c_controller_c_tabs_functions(tab_features["name"], tab_features["default"], tab_features["content_html"]);
     tabs_array[i]["class"] = tab_class;
-    tabs_array[i]["class"].add_tab();
 }
+window["tagbrain_graph"]["tab_collection"]["neurons"].open_tab();
 
 
 

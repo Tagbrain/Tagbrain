@@ -1,5 +1,6 @@
 <?php
-include "transformate_txt_tree_to_json.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/php/units/functions/transformate_txt_tree_to_json.php";
+
 trait put_right_format_file {
     use transformate_txt_tree_to_json;
 

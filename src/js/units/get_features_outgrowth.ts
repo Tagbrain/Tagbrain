@@ -5,7 +5,7 @@ export function get_features_outgrowth(element:any){
     let neuron = get_parent_with_class(element, "item_input");
     let outgrowth = get_parent_with_class(element, "post_row");
     let row_ind = [...neuron.children].indexOf(outgrowth);
-    let obj_outgrowth = get_depth_outgrowth(outgrowth);
+    let obj_outgrowth = get_depth_outgrowth(outgrowth.textContent);
     let obj = {
         depth: obj_outgrowth.depth,
         row: row_ind,

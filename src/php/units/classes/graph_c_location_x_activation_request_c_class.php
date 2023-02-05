@@ -1,6 +1,7 @@
 <?php
 session_start();
-include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/protect_session.php";
+
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/check_session_data.php";
 include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/get_post_search_obj.php";
 include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/load_neuron_tree.php";
 include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/get_extension.php";
@@ -8,33 +9,40 @@ include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/put_right_format_file.ph
 
 class search_controller {
     //untis
-    use session_protect;
+    use check_session_data;
     use get_post_search_obj;
     use load_neuron_tree;
     use get_extension;
     use put_right_format_file;
 
-    //controller
-    protected function start_search_controller($channel_name, $array_of_search_key, $collection_post_without_ram, $collection_ram_post_name){
+    function __construct($graph_name, $request_data, $regexp_is_activated, $is_all_graphes_activated){
+        $this->graph_name = $graph_name;
+        $this->is_all_graphes_activated = $is_all_graphes_activated;
+        $this->request_data = $request_data;
+        $this->regexp_is_activated = $regexp_is_activated;
+        $this->collection_post_without_ram = $collection_post_without_ram;
+        $this->collection_ram_post_name = $collection_ram_post_name;
+    }
 
-        $channel_posts_dir = __DIR__ . "/../../channels/".$channel_name."/content_items/";
-        $files = array_diff(scandir($channel_posts_dir), array('.', '..'));
+    //controller
+    protected function start_search_controller(){
+
+        $graph = __DIR__ . "/../../channels/".$this->graph_name."/content_items/";
+        $neurons = array_diff(scandir($graph), array('.', '..'));
 
         $channel_search_obj = array();
-        foreach($files as $file){
-            $file_id = str_replace(".php", "", $file);
+        foreach($neurons as $neuron){
+
+            $neuron_id = str_replace(".php", "", $neuron);
             
-            foreach($collection_ram_post_name as $num => $ram_post_front_end){
-                if($ram_post_front_end == $file_id){
+            foreach($this->collection_ram_post_name as $num => $ram_post_front_end){
+                if($ram_post_front_end == $neuron_id){
                     continue 2;
                 }
             }
 
-            $file_path = $channel_posts_dir.$file;
-
-            $post_search_obj = $this->get_post_search_obj($array_of_search_key, $file_path);
+            $post_search_obj = $this->get_post_search_obj($this->request_data, $graph ,$neuron);
             if($post_search_obj != false){
-                $post_search_obj["file_name"] = $file_id;
                 array_push($channel_search_obj, $post_search_obj);
             }
 
@@ -71,11 +79,11 @@ class search_controller {
         }
         
         for($i=0; $i<count($finded_posts); $i++){
-            $cont_file_path = $channel_posts_dir."/".$finded_posts[$i]["file_name"].".php";
+            $cont_neuron_path = $graph."/".$finded_posts[$i]["file_name"].".php";
 
-            $extension = $this->get_extension($cont_file_path);
+            $extension = $this->get_extension($cont_neuron_path);
             if($extension != "json"){
-                $new_neuron_path = $this->put_right_format_file($cont_file_path, $extension);
+                $new_neuron_path = $this->put_right_format_file($cont_neuron_path, $extension);
             }
             $neuron_tree = $this->load_neuron_tree($new_neuron_path);
             //#edit
@@ -83,9 +91,6 @@ class search_controller {
             $finded_posts[$i]["content"] = $neuron_tree; 
         }
 
-        //print_r($finded_posts);
-        //print_r($collection_post_without_ram);
-        //exit();
         
         $exist_posts = array();
         $remove_posts = array();
@@ -97,15 +102,13 @@ class search_controller {
             
             $is_exist = false;
             
-            foreach($collection_post_without_ram as $num => $post_front_end){
+            foreach($this->collection_post_without_ram as $num => $post_front_end){
+                if($finded_post["file_name"] == $post_front_end){
+                    $is_exist = true; 
 
-                    if($finded_post["file_name"] == $post_front_end){
-                        $is_exist = true; 
-
-                        array_push($exist_posts, $finded_post["file_name"]);
-                        break;
-                    } 
-    
+                    array_push($exist_posts, $finded_post["file_name"]);
+                    break;
+                } 
             }
 
             if($is_exist === false){//not exist in collection_post_without_ram
@@ -113,7 +116,7 @@ class search_controller {
             }
         }
         
-        $remove_posts = array_diff($collection_post_without_ram, $exist_posts);
+        $remove_posts = array_diff($this->collection_post_without_ram, $exist_posts);
         
         //print_r($remove_posts);
         //print_r($exist_posts);
@@ -168,37 +171,8 @@ class search_controller {
         // add general tags from this 
         */
     }
-
-    public function get_and_check_data($channel_name, $array_of_search_key, $collection_post_without_ram, $collection_ram_post_name){
-
-        $access_arr = $this->check_session_data($channel_name);
-
-        //if($access_arr["can_editing"] == true){
-
-            $this->start_search_controller($channel_name, $array_of_search_key, $collection_post_without_ram, $collection_ram_post_name);
-
-        //} else {
-        //    echo "No access";
-        //}
-
+    public function get_and_check_data(){
+        $access_arr = $this->check_session_data($this->graph_name);
+        $this->start_search_controller($this->graph_name, $this->request_data, $this->collection_post_without_ram, $this->collection_ram_post_name);
     }
-    
 }
-
-//definition
-$user = $_SESSION["userid"];
-$data = json_decode($_POST["data"]);
-    $channel_name = $data->channel_name;
-    $array_of_search_key = $data->array_of_search_key;
-    $collection_post_without_ram = $data->collection_post_without_ram;
-    $collection_ram_post_name = $data->collection_ram_post_name;
-
-//init_controller    
-if(isset($channel_name, $array_of_search_key)){
-    $search_controller = new search_controller();
-    $search_controller->get_and_check_data($channel_name, $array_of_search_key, $collection_post_without_ram, $collection_ram_post_name);
-} else {
-    echo "Data is not complete";
-}
-
-

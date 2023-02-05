@@ -1,23 +1,25 @@
+import { add_wave_animation_x_click_c_event } from "../../units/add_wave_animation_x_click_c_event";
+
 document.addEventListener('DOMContentLoaded',function(){
     let switch_right_bar = document.querySelector("#switch_right_bar"),
         tag_container = document.querySelector(".tag_container"),
-        items_container = document.getElementById("neuron_container");
+        mental_image_c_container = document.getElementById("mental_image_c_container");
     switch_right_bar.addEventListener('click', () => {
         if(tag_container.classList.contains("tag_container_off")){
             tag_container.classList.remove('tag_container_off');
             tag_container.classList.add('tag_container_on');
-            items_container.classList.remove('neuron_container_fullscreen');
+            mental_image_c_container.classList.remove('neuron_container_fullscreen');
         } else {
             tag_container.classList.add('tag_container_off');
             tag_container.classList.remove('tag_container_on');
-            items_container.classList.add('neuron_container_fullscreen');
+            mental_image_c_container.classList.add('neuron_container_fullscreen');
         }
     });
 
     let scroll_button_bottom = document.querySelector("#scroll_button"),
-        items_container_scroll = document.querySelector("#items_container");
+        neurons_container_scroll = document.querySelector("#neurons_x_tab_content_c_container");
     scroll_button_bottom.addEventListener('click', () => {
-        let last_item_id =  items_container_scroll.lastElementChild.id;
+        let last_item_id =  neurons_container_scroll.lastElementChild.id;
         window.location.href = "#" + last_item_id;
     });
 
@@ -76,24 +78,8 @@ document.addEventListener('DOMContentLoaded',function(){
         let tag_element = e.target;
         if(tag_element.classList)
             if(tag_element.classList.contains("item_tags_style"))
-                add_click_animation(e, "activate");
+            add_wave_animation_x_click_c_event(e, "activate");
     });
 
 })
 
-export function remove_click_animation(click_element){
-    click_element.remove();
-}
-
-export function add_click_animation(e, message) {
-    let circle_cont = document.getElementById("circle_cont");
-        
-    let click_element = document.createElement("div");
-    click_element.innerHTML = message; 
-    click_element.classList.add("dot");
-    circle_cont.append(click_element);
-        
-    circle_cont.style.top = (e.clientY-100) + "px";
-    circle_cont.style.left = (e.clientX-100) + "px";
-    setTimeout(remove_click_animation, 800, click_element);
-}

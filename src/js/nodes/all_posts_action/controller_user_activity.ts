@@ -2,8 +2,11 @@ import {gEBI, dCE} from "../../units/compress_f.js";
 import {generate_random_neuron_image} from "./load_random_neurons";
 
 document.addEventListener('DOMContentLoaded',function(){
-    if(gEBI("loading_flag") != false){
+    if(gEBI("loading_flag_random_neurons") != false){
         generate_random_neuron_image();
+    }
+    if(gEBI("loading_flag_cookies_neurons") != false){
+        //gEBI("loading_flag_cookies_neurons").remove();
     }
 });
 //content volume

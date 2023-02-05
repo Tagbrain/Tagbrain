@@ -1,7 +1,7 @@
 import {get_neuron_features} from "./get_neuron_features";
 export function collect_current_neurons_features(type_search: string, array_of_search_key: any[]){
     let neurons_features_arr:any[] = [];  
-    let collection_posts = document.querySelectorAll('#items_container .item_input');
+    let collection_posts = document.querySelectorAll('#neurons_x_tab_content_c_container .item_input');
     if(collection_posts != null){
 
          for(let i = 0; i < collection_posts.length; i++){

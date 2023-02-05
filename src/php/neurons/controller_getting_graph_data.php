@@ -5,16 +5,14 @@ include $_SERVER['DOCUMENT_ROOT']."/php/units/classes/get_graph_data.php";
 
 //DEF
 $data = json_decode(htmlspecialchars_decode($_POST["data"]));
-    $parameter = $data->parameter;
+    $action = $data->action;
     $graph_name = $data->graph_name;
-    $amount = $data->amount;
-    $search_keys = $data->search_keys;
+    $facultative = $data->facultative;
 
 if($_SESSION["userid"]){
-    if(isset($parameter, $graph_name)){
+    if(isset($action, $graph_name)){
 
-        $get_graph_class = new get_graph_data($parameter, $graph_name, $amount, $search_keys);
-        $get_graph_class->controller_parameter();
+        $get_graph_class = new get_graph_data($action, $graph_name, $facultative);
 
     } else {
         $array_response = array(
