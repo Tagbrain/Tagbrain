@@ -17,12 +17,14 @@ class get_graph_data {
             $this->search_keys = $facultative->search_keys;
             $this->neuron_id = $facultative->neuron_id;
         //macrofeatures
-            $this->$graph_dir = $_SERVER['DOCUMENT_ROOT']."/channels/".$this->graph_name."/content_items/";
+            $this->graph_dir = $_SERVER['DOCUMENT_ROOT']."/channels/".$this->graph_name."/content_items/";
 
-        $this->user = $_SESSION["userid"];
-        $this->all_member_channels = $_SESSION["all_member_channels"];
-        $this->editors =  $_SESSION["editor"];
-        $this->creator = $_SESSION["creator"];
+        if($_SESSION["userid"]){
+            $this->user = $_SESSION["userid"];
+            $this->all_member_channels = $_SESSION["all_member_channels"];
+            $this->editors =  $_SESSION["editor"];
+            $this->creator = $_SESSION["creator"];
+        }
 
         $this->controller_getting_data();
     }
@@ -39,7 +41,7 @@ class get_graph_data {
 
     protected function get_random_neurons(){
         try {
-            $files = array_diff(scandir($this->$graph_dir ), array('..', '.'));
+            $files = array_diff(scandir($this->graph_dir), array('..', '.'));
             $neuron_data_arr = array(); 
 
             if(count($files) > 20){
@@ -47,7 +49,7 @@ class get_graph_data {
             }
 
             foreach($files as $file){
-                $neuron_data = $this->get_neuron_data($this->$graph_dir, $file);  
+                $neuron_data = $this->get_neuron_data($this->graph_dir, $file);  
                 array_push($neuron_data_arr, $neuron_data);
             }
             $access = $this->check_session_data($this->graph_name);
@@ -73,7 +75,7 @@ class get_graph_data {
     protected function get_current_neuron(){
         try {
             $access = $this->check_session_data($this->graph_name);
-            $neuron_data = $this->get_neuron_data($this->$graph_dir, $this->neuron_id.".json"); 
+            $neuron_data = $this->get_neuron_data($this->graph_dir, $this->neuron_id.".json"); 
             $response = array(
                 "status" => "success",
                 "data" => $neuron_data,

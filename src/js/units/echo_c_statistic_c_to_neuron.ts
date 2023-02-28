@@ -9,14 +9,14 @@ export function echo_c_statistic_c_to_neuron() {
         count_words_arr: any = [],
         count_tags_arr: any = [],
         rows_arr: NodeListOf<ChildNode>,
-        content = elements.current_post.textContent;
+        content = window["tagbrain_graph"]["cursor_position"]["neuron_element"].textContent;
 
     let patterns1 = {
         words: /[^\s]*[\p{L}\p{P}_0-9]/gu,
     }
 
     //get not empty rows
-    rows_arr = elements.current_post.childNodes;
+    rows_arr = window["tagbrain_graph"]["cursor_position"]["neuron_element"].childNodes;
     if (rows_arr != null) {
         for (let j = 0; j < rows_arr.length; j++) {
             let text_characters_arr: any = [];
@@ -87,7 +87,7 @@ export function echo_c_statistic_c_to_neuron() {
     count_points = echo_points(count_points);
     count_points = Math.floor(count_points * 10) / 10;
 
-    let post_low_panel_parent = elements.current_post.parentNode,
+    let post_low_panel_parent = window["tagbrain_graph"]["cursor_position"]["neuron_element"].parentNode,
         post_low_panel_parent2,
         fields_count;
     if (post_low_panel_parent != null)

@@ -43,7 +43,7 @@ function add_new_neuron_from_selection(outgrowths){
          add_ram_boolen: true,
          is_format: true,
       }
-      let neuron_c_new_x_class = new class_c_neuron(neuron_features)
+      let neuron_c_new_x_class = new class_c_neuron(neuron_features);
    }
    let upper_layer_for_animation = document.querySelector(".upper_layer_for_animation"),
    neuron_pop_up_menu = gEBI("neuron_pop_up_menu"),
@@ -78,11 +78,11 @@ function add_new_neuron_from_selection(outgrowths){
          let data_new_neuron;
          document.addEventListener("contextmenu", (e) => {
             if (window.getSelection()){
-               outgrowths_new_neuron = get_selection_neuron_outgrowths();
+               window["tagbrain_graph"]["selection_obj"]["last_outgrowths"] = get_selection_neuron_outgrowths();
             }
          });
          gEBI("button_create_from_selection").addEventListener('click', function(e) {
-            add_new_neuron_from_selection(outgrowths_new_neuron);
+            add_new_neuron_from_selection(window["tagbrain_graph"]["selection_obj"]["last_outgrowths"]);
          });
       };
    });

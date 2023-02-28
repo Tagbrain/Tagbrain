@@ -54,7 +54,11 @@ $access_arr = $header_check_session->check_session($page_state);
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 		<link rel="stylesheet" href="css/collector.css?v=7117">
-		<?php echo '<link rel="stylesheet" href="'.$_SERVER['DOCUMENT_ROOT'].'/channels/'.$page_state.'/css/theme.css'.'">'; ?>
+		<?php echo '<link rel="stylesheet" href="/channels/'.$page_state.'/css/theme.css'.'">'; ?>
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+		<link rel="manifest" href="/site.webmanifest">
 		<title>Tagbrain</title>
 		<?php
 		if($page_state == "math"){
@@ -76,10 +80,11 @@ $access_arr = $header_check_session->check_session($page_state);
 				</div>
 				<?php include("php/page_component/right_bar.php"); ?>
 			</div>
-			<footer class="footer">	
+			<footer class="footer" style="transform: translate(0px) scale(1);">	
 				<?php include("php/page_component/footer.php"); ?>
 			</footer>
 		</div>
+		<div id="layoutViewport"></div>
 		<script src="js/bundle.js"></script>
 		<script src="js/generator.js"></script>
 		<script src="js/history.js"></script>

@@ -14,7 +14,7 @@ import { is_class_of_event_target } from "../../units/is_class_of_event_target";
 import { parent_is_exist } from "../../units/parent_is_exist";
 import { get_features_outgrowth } from "../../units/get_features_outgrowth";
 import { validate_x_input_field_and_search_c_target } from "../../units/validate_x_input_field_and_search_c_target";
-
+import { get_c_input_field_value_c_search_word_s } from "../../units/get_c_input_field_value_c_search_word_s";
 
 /*
 #mechanism
@@ -69,13 +69,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }, false);
 
     function start_search_controller(front_end_search: boolean, back_end_search: boolean) {
-        let input_c_target_x_find_synapses_c_purpose = gEBI('search_input_block'),
-            search_content_c_value = input_c_target_x_find_synapses_c_purpose.value;
-        let is_valid = validate_x_input_field_and_search_c_target(search_content_c_value);
+
+        let searcher = get_c_input_field_value_c_search_word_s(),
+            is_valid = validate_x_input_field_and_search_c_target(searcher);
 
         if (is_valid == true) {
 
-            let regexp = search_content_c_value,
+            let regexp = searcher,
                 collection_neuron_id = get_collection_neurons_ids(),
                 collection_ram_neuron_id = get_collection_ram_neuron_ids();
             let collection_neurons_without_ram: string[] = [];

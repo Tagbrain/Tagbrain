@@ -38,7 +38,7 @@ function send_c_request_c_get_c_neuron_s_c_draft_x_draft(){
   for(let neuron_features of collection_c_neurons_s_c_data) {
     neuron_features["contenteditable"] = true;
     neuron_features["add_ram_boolen"] = false;
-    neuron_features["is_format"] = true;
+    neuron_features["is_format"] = false;
     neuron_features["default_tab"] = "draft";
     new class_c_neuron(neuron_features);
   }
@@ -55,7 +55,6 @@ function get_c_local_storage_c_neuron_s(){
       let arr_c_number:any = key_s_c_local[i].matchAll(reg_id);
       for(let number of arr_c_number) {
         let {id} = number.groups;
-	      console.log(`${id}`);
         let content:any = localStorage.getItem("neuron_c_dr["+id+"]");
         response.push({neuron_id:id, outgrowths:JSON.parse(urldecode(content))});
       }
@@ -79,7 +78,7 @@ function parse_neuron(data: any, contenteditable: any){
       add_ram_boolen: false,
       is_format: true,
    }
-   let neuron_c_new_x_class = new class_c_neuron(neuron_features);
+   new class_c_neuron(neuron_features);
   }
   
 }

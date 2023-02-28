@@ -28,7 +28,7 @@ trait get_c_microfeatures_c_format_c_parent_line_child_line {
         }
     }
     protected function get_c_microfeatures_c_format_c_parent_line_child_line($neuron_path, $neuron_id, $body_regexp){
-        $outgrowths = $this->load_neuron_tree($neuron_path);
+        $outgrowths = $this->load_neuron_tree($neuron_path, false);
         $microfeature_c_obj = array(
             "neuron_id" => $neuron_id,
             "microfeatures" => array(),

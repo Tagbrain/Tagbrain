@@ -50,25 +50,24 @@ export function generate_struct_activ_num(obj_allrow: any[]){
     let last_depth_tmp = 0;
     if(obj_allrow.length > 0)
     
-    for (let i = 0; i < obj_allrow.length; i++) {
+     for (let i = 0; i < obj_allrow.length; i++) {
          let activation_octal = "0";
-        
-
+         
          if(obj_allrow[i]["is_key_row"] == true){
-              let  row_activ = get_row_score(obj_allrow[i]["row"]),
+               let row_activ = get_row_score(obj_allrow[i]["row"]),
                    depth_activ = get_depth_score(obj_allrow[i]["depth"]),
                    activation = row_activ * depth_activ;
-                   general_activation += activation;
+               general_activation += activation;
 
               activation_octal = get_octal_number(activation.toString());
 
               number += collect_part_number(obj_allrow[i]["depth"], last_depth_tmp, activation_octal);
-         } else {
+          } else {
               number += collect_part_number(obj_allrow[i]["depth"], last_depth_tmp, "");
-         }
+          }
 
-         last_depth_tmp = obj_allrow[i]["depth"];
-    }
+          last_depth_tmp = obj_allrow[i]["depth"];
+     }
 
     return {
          number: number,

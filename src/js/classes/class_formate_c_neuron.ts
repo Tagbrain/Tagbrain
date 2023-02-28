@@ -60,7 +60,7 @@ class class_formate_c_neuron {
         let outgrowths_c_all_x_features:any = [];
         let outgrowths_c_current_x_features:outgrowth[] = [];
 
-        for (let i = 0; i < this.outgrowths.length  ; i++) {
+        for (let i = 0; i < this.outgrowths.length ; i++) {
             this.glob_ind = i;
             this.synapse_c_features = this.get_synapse_features(this.outgrowths[i]);
             let obj_features:any = {};
@@ -106,6 +106,8 @@ class class_formate_c_neuron {
             let obj_st_acitvations = generate_struct_activ_num(outgrowths_c_all_x_features);
             this.neuron_activation = obj_st_acitvations.general_activation;
             this.outrgowths_architecture = obj_st_acitvations.number;
+
+        return this.get_public_features();
     }
     get_synapse_features(synapse_el: Element){
         let features: synapse_c_with_key = {
@@ -118,7 +120,7 @@ class class_formate_c_neuron {
         
         if(text_row != null){
             if (text_row == "" || text_row.trim() == "\n") {
-                this.outgrowths.splice(this.glob_ind, 1);
+                this.outgrowths[this.glob_ind].remove();
                 return false
             } else {
                 let space_obj = get_depth_outgrowth(text_row);
@@ -139,8 +141,8 @@ class class_formate_c_neuron {
         let glob_ind = this_obj.glob_ind;
         let outgrowth_c_depth_c_memory_x_current_iteration = this_obj.outgrowth_c_depth_c_memory_x_current_iteration;
 
-        let reg_verb = new RegExp(patterns.pattern_verb, 'giu'),
-            reg_tag = new RegExp(patterns.pattern_tag, 'giu'),
+        let reg_verb = new RegExp(patterns.pattern_verb, 'iu'),
+            reg_tag = new RegExp(patterns.pattern_tag, 'iu'),
             input_regex = new RegExp(this_obj.input_data, 'giu');
             
         let text_c_terminal = content_c_escaped.replace(regexp, function (content_c_unit: string) {
@@ -149,6 +151,7 @@ class class_formate_c_neuron {
                 is_exist_finding_word = input_regex.test(content_c_unit);
 
             if(is_exist_finding_word){
+                is_key_row = true;
                 if (is_exist_tags) {
                     tree_c_tags.push({ key: content_c_unit, c: glob_ind, d: outgrowth_c_depth_c_memory_x_current_iteration });
                     content_c_unit = "<span class='item_tags_style'><mark>" + content_c_unit + "</mark></span>";
@@ -170,12 +173,20 @@ class class_formate_c_neuron {
 
             return content_c_unit
         });
-        
         return {
             content: text_c_terminal,
             is_key_row: is_key_row,
             tree_c_tags:tree_c_tags,
             tree_c_tags_c_action:tree_c_tags_c_action
+        }
+    }
+    get_public_features(){
+        return {
+            generalizated_tree:this.generalizated_tree,
+            neuron_activation: this.neuron_activation,
+            outrgowths_architecture: this.outrgowths_architecture,
+            tree_c_tags:this.tree_c_tags,
+            tree_c_tags_c_action: this.tree_c_tags_c_action,
         }
     }
 }

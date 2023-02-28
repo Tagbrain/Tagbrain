@@ -1,11 +1,13 @@
-export function drop_down_c_neuron_c_branche_s(parent_el: HTMLElement){
+import {get_depth_outgrowth} from "./get_depth_outgrowth";
+
+export function drop_down_c_neuron_c_branche_s(parent_el: any){
     var arr_row_spaces: number[] = [];
     let classes_arr = parent_el.children as HTMLCollectionOf<HTMLElement>;
     let numbers_bar: HTMLElement[] = [];
     
     if(classes_arr.length > 0){
 
-         numbers_bar = this.put_rows(parent_el, true);
+         numbers_bar = put_rows(parent_el, true) as HTMLElement[];
          let arrows_containers: HTMLCollectionOf<HTMLElement>;
          if(parent_el.parentElement != null){
               arrows_containers = parent_el.parentElement.getElementsByClassName("arrows_c") as HTMLCollectionOf<HTMLElement>;
@@ -103,4 +105,54 @@ export function drop_down_c_neuron_c_branche_s(parent_el: HTMLElement){
               
          }
     }
+}
+
+function put_rows(post:HTMLElement, is_return_array:boolean){
+     let subclasses: number[] = [];
+     let rows = post.children;
+     //get hide rows
+     for(let i = 0; i < rows.length; i++){
+          
+          if(rows[i].classList.contains("subclass")){
+               subclasses.push(i);
+          }
+     }
+     let numbers_bar: HTMLElement | null = null;
+
+     let parent: HTMLElement | null = null;
+     if(post.parentElement != null){
+          parent = post.parentElement;
+          numbers_bar = parent.querySelector(".numbers_bar");
+     }
+
+     if(numbers_bar != null){
+          let count_rows = rows.length;
+          numbers_bar.innerHTML = "";
+          let numbers_array: HTMLElement [] = [];
+
+          for(let ind = 1; ind < (count_rows+1); ind++){
+               let container: HTMLElement  = document.createElement("div");
+
+               let number: HTMLElement  = document.createElement("div");
+               number.innerHTML = ind.toString();
+
+               let arrows_container = document.createElement("div");
+               arrows_container.className = "arrows_c";
+               
+               container.append(number, arrows_container);
+               numbers_bar.append(container);
+
+               numbers_array.push(container);
+          }
+
+          let num_conts = numbers_bar.children;
+          
+          for(let j = 0; j < subclasses.length; j++){
+               num_conts[subclasses[j]].classList.add("subclass");
+          }     
+
+          if(is_return_array != undefined){
+               return numbers_array;
+          }
+     }
 }

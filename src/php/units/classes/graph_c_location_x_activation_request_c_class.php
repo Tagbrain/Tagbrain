@@ -85,7 +85,7 @@ class search_controller {
             if($extension != "json"){
                 $new_neuron_path = $this->put_right_format_file($cont_neuron_path, $extension);
             }
-            $neuron_tree = $this->load_neuron_tree($new_neuron_path);
+            $neuron_tree = $this->load_neuron_tree($new_neuron_path, true);
             //#edit
             //#edit check format and change the neuron if it's txt and php
             $finded_posts[$i]["content"] = $neuron_tree; 

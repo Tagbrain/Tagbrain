@@ -24,8 +24,21 @@ let tagbrain_graph: any = {
     neurons_objs: {},
     current_tab: "neurons",
     checker_collection: [],
-    current_neuron: "",
     current_outgrowth: 0,
+    neuron_collections_c_current: {
+        start:{},
+        ram:{},
+        new:{},
+        search_c_last_finded: [],
+    },
+    selection_obj:{
+        last_outgrowths:[],
+    },
+    cursor_position:{
+        neuron_element: undefined,
+        outgrowth: undefined,
+        depth_c_in_outgrowth: 0,
+    }
 }
 
 window["tagbrain_graph"] = tagbrain_graph;

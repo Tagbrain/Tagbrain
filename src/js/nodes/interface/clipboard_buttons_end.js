@@ -1,8 +1,10 @@
+import {paste_c_symbol_x_current_position} from "../../units/paste_c_symbol_x_current_position";
+
 let copy_symbol_button = document.querySelectorAll(".tools_button_copy");
-for(i = 0; i < copy_symbol_button.length; i++){
+for(let i = 0; i < copy_symbol_button.length; i++){
   copy_symbol_button[i].addEventListener('click', function(){ 
-    let value_copy_button = this.innerText;
-    navigator.clipboard.writeText(value_copy_button);
+    let value_copy_button = this.getAttribute("copy_attr");
+    paste_c_symbol_x_current_position(value_copy_button);
   })
 }
 
@@ -19,7 +21,7 @@ work_mode_button.addEventListener('click', function(){
   } else {
     openFullscreen();
     if(document.querySelector(".animation_erythrocytes")){
-      document.querySelector(".animation_erythrocytes").remove();
+      //document.querySelector(".animation_erythrocytes").remove();
     }
     //if(document.querySelector(".background_svg")){
       //document.querySelector(".background_svg").remove();

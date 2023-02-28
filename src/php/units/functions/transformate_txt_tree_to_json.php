@@ -36,10 +36,10 @@ trait transformate_txt_tree_to_json {
             $line = fgets($reading);
             $array_part_tree = array();
 
-            $line = str_replace("", "\n", $line);
+            $line_fixed = str_replace("\n", "", $line);
 
             $regexp = '/(?<spaces>\s*)|(?<content>[\s\S]*)/i';
-            preg_match_all($regexp,$line,$matches);
+            preg_match_all($regexp, $line_fixed, $matches);
 
             $i = 0;
             foreach($matches['spaces'] as $match_sp){

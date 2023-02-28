@@ -20,7 +20,7 @@ trait get_post_search_obj {
         $post_activation = 0;
         $is_node = "false";
 
-        $outgrowths = $this->load_neuron_tree($graph.$neuron);
+        $outgrowths = $this->load_neuron_tree($graph.$neuron, false);
         foreach($outgrowths as $outgrowth){
             $content = $outgrowth["content"];
 

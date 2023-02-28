@@ -1,5 +1,4 @@
 import {gEBI, dCE} from "./compress_f.js";
-import {post_format} from "./formate_neuron";
 import {parent_is_exist} from "./parent_is_exist";
 import {create_objects_outgrowth_from_text} from "./create_objects_outgrowth_from_text";
 
@@ -9,8 +8,10 @@ export function get_selection_neuron_outgrowths(){
       var selection = window.getSelection();
       //check neuron parent
       if(selection != null){
-            let first_node_is_true: boolean = parent_is_exist(selection.anchorNode, "item_input");
-            let second_node_is_true: boolean = parent_is_exist(selection.focusNode, "item_input");
+            let first_node = selection.anchorNode as Node;
+            let second_node = selection.focusNode as Node;
+            let first_node_is_true: boolean = parent_is_exist(first_node, "item_input");
+            let second_node_is_true: boolean = parent_is_exist(second_node, "item_input");
             if(first_node_is_true == true && second_node_is_true == true){
                //collect outgrowth
                let div = dCE("div");

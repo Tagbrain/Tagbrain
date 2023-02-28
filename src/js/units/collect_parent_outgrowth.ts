@@ -15,7 +15,7 @@ type current_outgrowth = {
     key: string,
     is_key_row: boolean
 }[];
-export function collect_parent_outgrowth(arr_objs_current_rows: arr_outgrowth, arr_objs_rows: current_outgrowth, current_depth: number ,i: number){
+export function collect_parent_outgrowth(arr_objs_current_rows: arr_outgrowth, arr_objs_rows: current_outgrowth, current_depth: number, i: number){
     let j = arr_objs_current_rows[i]["row"] - 1; // number current row
     let max_length_parent_part = 0;
     let parent_chain_fathers: arr_chain = [];

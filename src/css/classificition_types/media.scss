@@ -20,6 +20,12 @@
     .tab_container{
         padding: 0 8px;
     }
+    .tools_button_copy{
+        backdrop-filter: none;
+        opacity:70%;
+        background: var(--backgroud);
+        box-shadow:none;
+    }
 }; 
 @media screen and (max-width: 600px) {
     .tag_container{

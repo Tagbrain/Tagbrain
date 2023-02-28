@@ -1,7 +1,6 @@
 import {gEBI, dCE } from "../../units/compress_f.js";
 setInterval(function(){ 
     refresh_automate();
-	console.log("refresh");
 }, 9000);
 
 

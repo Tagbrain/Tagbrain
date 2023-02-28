@@ -98,7 +98,7 @@
 							</svg>
 						</a>
 						<a id="export_import" title="Export">
-							<svg class="linear_icon_c_target icon_size_sl_a_middle" id="checker_id_2">
+							<svg class="linear_icon_c_target icon_size_sl_a_middle" id="button_id_2">
 								<use xlink:href="#sprite_export"></use>
 							</svg>
 						</a>
@@ -107,26 +107,34 @@
 								<use xlink:href="#sprite_ligthning"></use>
 							</svg>
 						</a>
+						<a id="transformate text" class="icon_buttons_visual_effects" title="Transformate a text in neuron formate">
+							<svg class="linear_icon_c_target icon_size_sl_a_middle" id="button_id_6">
+								<use xlink:href="#sprite_whirlpool"></use>
+							</svg>
+						</a>
 					</div>
 				</div>
-
-				<?php if(!$_SESSION["userid"]){
-						echo '<form method="post" action="php/sessions/sign_in/signin_inc.php" class="header_central_text" onsubmit="return validate_code_form()" id="container_post_code">'.
-								'<input type="submit" id="send_code_to_email" value="▷">'.
-								'<input name="password_code" autocomplete="current-password"  type="text" id="log_code_input" maxlength="50" class="log_code_input_style" placeholder="Email log">'.
-							'</form>';
-					} else {
-						echo '<form  method="post" action="php/sessions/logout.inc.php" id="container_post_code">'.
-								' <input type="submit" title="logout" id="logout_a" value="'.$_SESSION["userid"].'">'.
-							 '</form>';
-							 if($access_arr["full_access"] == true){
+				<div class="header_c_menu_c_right">
+					<div class="big_arrows_stl keyboard_stl" id="button_id_7">
+						<svg class="linear_icon_c_target icon_size_sl_a_middle">
+							<use xlink:href="#sprite_keyboard"></use>
+						</svg>
+					</div>
+					<?php if(!$_SESSION["userid"]){
+							echo '<form method="post" action="php/sessions/sign_in/signin_inc.php" class="header_central_text" onsubmit="return validate_code_form()" id="container_post_code">'.
+									'<input type="submit" id="send_code_to_email" value="▷">'.
+									'<input name="password_code" autocomplete="current-password"  type="text" id="log_code_input" maxlength="50" class="log_code_input_style" placeholder="Email log">'.
+								'</form>';
+						} else {
+								if($access_arr["full_access"] == true){
 								echo '<a id="setting_button" class="setting_button">'.
 									'<svg class="linear_icon_c_target icon_size_middle">'.
 										'<use xlink:href="#sprite_settings"></use>'.
 									'</svg>'.
 								'</a>';
-							 }
-					}			
-				?>
+								}
+						}			
+					?>
+				</div>
 			</div>
 		</header>

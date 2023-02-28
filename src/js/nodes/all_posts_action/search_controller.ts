@@ -8,7 +8,7 @@ import { get_c_replace_pattern } from "../../units/get_c_replace_pattern";
 import { class_c_find_neuron_c_with_regexp } from "../../classes/class_c_find_neuron_c_with_regexp";
 import { clean_c_element_c_with_id } from "../../units/clean_c_element_c_with_id";
 import { class_formate_c_neuron } from "../../classes/class_formate_c_neuron";
-
+import { get_c_input_field_value_c_search_word_s } from "../../units/get_c_input_field_value_c_search_word_s";
 /*
 #mechanism
      #listner
@@ -35,8 +35,7 @@ import { class_formate_c_neuron } from "../../classes/class_formate_c_neuron";
 
 //CONTROLLER
 function start_search_controller(front_end_search:boolean, back_end_search:boolean) {
-     let  input_c_target_x_find_synapses_c_purpose = gEBI('search_input_block'),
-          value = input_c_target_x_find_synapses_c_purpose.value;
+     let searcher = get_c_input_field_value_c_search_word_s();
 
      let is_all_graphes_activated = window["tagbrain_graph"]["checker_collection"]["activate_all_graphes"]["is_activated"];
      //current_graph
@@ -44,28 +43,36 @@ function start_search_controller(front_end_search:boolean, back_end_search:boole
      if (back_end_search == true) {
           let data = {
                graph_name: window["tagbrain_graph"].graph_name,
-               data: value,
+               data: searcher,
                regexp_is_activated: true,
                is_all_graphes_activated: is_all_graphes_activated,
           };
           let url = "php/neurons/controller_c_search_request.php";
           let controller_f = function (response_obj: any) {
-               success_controller(response_obj["content"], value);
+               success_controller(response_obj["content"], searcher);
           }
           let error_message = "Search data not load";
           send_data_ajax(data, url, controller_f, true, error_message);
      } else if(front_end_search == true){
           clean_c_element_c_with_id("result_block");
+          window["tagbrain_graph"]["neuron_collections_c_current"]["search_c_last_finded"] = [];
+
           let tab_c_current = window["tagbrain_graph"]["current_tab"];
           let collection_c_neuron_s_c_target = get_c_collection_c_neuron_s(tab_c_current);
           for(var i = 0; i < collection_c_neuron_s_c_target.length; i++){
-               let class_c_formater = new class_formate_c_neuron(collection_c_neuron_s_c_target[i], value);
+               let neuron_obj = collection_c_neuron_s_c_target[i];
+               let neuron_features = new class_formate_c_neuron(neuron_obj["element"], searcher);
+               if(neuron_features.neuron_activation > 0){
+                    window["tagbrain_graph"]["neuron_collections_c_current"]["search_c_last_finded"].push({neuron_id: neuron_obj["id"]});
+               }
           }
      }
 }
 
 function success_controller(server_data: any, input_keys: any){
      clean_c_element_c_with_id("result_block");
+     window["tagbrain_graph"]["neuron_collections_c_current"]["search_c_last_finded"] = [];//clean_c_
+
      let list_c_graphs: string[] = Object.keys(server_data);
      for(var i = 0; i < list_c_graphs.length; i++){
           let graph_name = list_c_graphs[i];

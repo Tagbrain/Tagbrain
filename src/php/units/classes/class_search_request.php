@@ -14,7 +14,6 @@ class search_controller {
         $this->is_all_graphes_activated = $is_all_graphes_activated;
         $this->request_data = $request_data;
         $this->regexp_is_activated = $regexp_is_activated; 
-        
         $this->graph_path = $_SERVER['DOCUMENT_ROOT']."/channels/".$this->graph_name."/content_items/";
     }
 

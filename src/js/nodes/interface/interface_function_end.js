@@ -17,9 +17,10 @@ document.addEventListener('DOMContentLoaded',function(){
     });
 
     let scroll_button_bottom = document.querySelector("#scroll_button"),
-        neurons_container_scroll = document.querySelector("#neurons_x_tab_content_c_container");
+        current_tab = window["tagbrain_graph"]["current_tab"],
+        current_tab_c_obj_c_image_container = window["tagbrain_graph"]["tab_collection"][current_tab]["mental_image_container"];
     scroll_button_bottom.addEventListener('click', () => {
-        let last_item_id =  neurons_container_scroll.lastElementChild.id;
+        let last_item_id =  current_tab_c_obj_c_image_container.lastElementChild.id;
         window.location.href = "#" + last_item_id;
     });
 

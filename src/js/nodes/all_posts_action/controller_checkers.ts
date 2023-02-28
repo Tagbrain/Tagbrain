@@ -7,10 +7,6 @@ let checkers_objs = [
         value: 'read_mode',
     },
     {
-        change_target:'checker_id_2',
-        value: 'export_graph',
-    },
-    {
         change_target:'checker_id_3',
         value: 'power_mode',
     },

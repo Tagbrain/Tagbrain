@@ -40,13 +40,7 @@
     grid-column: 1/4;
     justify-self: center;
     width: 100%;
-    padding-top: 80px;
-    padding-bottom: 40px; 
-}
-.clipboard_symbols_panel{
-  display: grid;
-  grid-template: repeat(auto-fit, minmax(46px, 1fr))/repeat(auto-fit, minmax(46px, 1fr));
-  align-items: center;
+    padding: 80px;
 }
 .post_low_panel {
   grid-column: 1/3;
@@ -59,14 +53,20 @@
 }
 .footer {
   display: grid;
-  grid-row: 3/4;
-  grid-column: 1/4;
   color: var(--tags-color);
   overflow: hidden;
   padding-left: 40px;
   align-items: center;
   grid-template: 1fr/1fr 1fr;
   border-top: 1px dashed var(--content-light-shadow);
+
+  transform-origin: left bottom;
+  transform: translate(0px, 0px) scale(1);
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index:68;
 }
 .footer_left_container{
   display:grid;
@@ -76,7 +76,7 @@
 }
 .footer_rigth_container{
   display: grid;
-  grid-template: 1fr/ 1fr 1fr;
+  grid-template: 1fr/ 1fr 40px 40px 40px;
   grid-row: 1/3;
   grid-column: 2/3;
   justify-content: end;
@@ -156,6 +156,7 @@ display:block;
 }
 .header_logo_container {
   grid-column: 1/2;
+  margin-bottom: 8px;
   display:grid;
 }
 .header_logo{
@@ -165,7 +166,6 @@ display:block;
       align-self: center;
       transition:1s;
 }
-
 .create_element_button{
   grid-column:1/2;
 }
@@ -177,6 +177,7 @@ display:block;
 .menu_container{
   display: grid;
   grid-template: 20px 30px/ 1fr;
+  grid-row-gap: 4px;
   grid-column: 2/3;
   align-items: center;
 }
@@ -186,9 +187,12 @@ display:block;
   justify-self: left;
 }
 .setting_button{
-  justify-self: end;
+  justify-self: center;
   grid-column: 3/4;
   grid-row: 1/2;
+  justify-items: center;
+  align-items: end;
+  display: grid;
 }
 
 
@@ -281,19 +285,40 @@ display:block;
   transition:.4s;
 } 
 .tools_button_copy{
-  color:var(--text-content);
-  transition:.5s;
-  padding:4px;
+  color: var(--tags-color);
+  font-size: 1em;
+  height: 80%;
+  transition: all 1s cubic-bezier(1,.155,.995,-.22);
+  padding: 4px;
   text-align: center;
-  border: none;
-  background: none;
+  opacity: 80%;
+  border:none;
+  pointer-events: auto;
+  filter: blur(1px);
+  backdrop-filter: blur(2px);
+  box-shadow: 2px 2px var(--background-pop-up-blocks);
 }
 .tools_button_copy:hover{
   color: var(--shiny-light);
-  transition: .5s;
+  transition: .3s;
   cursor:var(--cursor-pointer);
-  border: none;
   background: none;
+  backdrop-filter: none;
+  filter: blur(0px);
+  border: 1px dashed var(--shiny-light);
+  border-top: 0;
+  border-bottom: 0;
+  font-weight: bolder;    
+  opacity: 1;
+}
+.header_c_menu_c_right{
+  display:grid;
+  grid-column: 3/4;
+  grid-row:1/2;
+}
+.unit_c_search_c_footer{
+  display:grid;
+  grid-template: 1fr 20px 20px/20px;
 }
 .settings_container {
   margin: 40px 0 0 0;
@@ -302,6 +327,7 @@ display:block;
   grid-row: 1/2;
   overflow-x: hidden;
   pointer-events: none;
+  opacity:100%;
 }
 
 .central_pop_up_block{
@@ -316,6 +342,27 @@ display:block;
   border-top: 1px dashed var(--text-content);
   border-bottom: 1px dashed var(--text-content);
   padding: 16px;
+}
+.keyboard{
+  z-index: 100;
+  grid-row: 2/3;
+  grid-column: 1/2;
+  width: 100vw;
+  height: 120%;
+  display: grid;
+  grid-template: repeat(auto-fit,minmax(40px,10%))/repeat(auto-fit,minmax(50px,10%));
+  align-items: center;
+  font-size: 26px;
+  column-gap: 20px;
+  pointer-events: none;
+  padding-left: 20px;
+}
+
+.keyboard_hide{
+  display:none
+};
+.keyboard_show{
+  display:grid
 }
 .header_logo:hover{
   filter: drop-shadow( 0px 0px 20px var(--shiny-light));
@@ -416,7 +463,7 @@ display:block;
   cursor:var(--cursor-pointer);
   justify-content: center;
   align-items: center;
-  justify-self: right;
+  justify-self: center;
   transition: 1s;
 }
 .search_row_head_time{
@@ -760,7 +807,7 @@ color: var(--tags-color);
   grid-column: 1/2;
   grid-row: 2/3;
   grid-template: 1fr/repeat(auto-fit,minmax(30px,20px));
-  width: 300px;
+  width: 200px;
   align-items: center;
   justify-items: center;
 }
@@ -804,7 +851,7 @@ color: var(--tags-color);
   grid-column: 1/2;
   width: 100%;
   overflow: auto;
-  padding: 16px 40px; 
+  padding: 16px 40px 0px; 
 
   .mental_image{
     grid-row: 1/2;
@@ -812,6 +859,7 @@ color: var(--tags-color);
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    padding-bottom: 80%;
     .item {
       display: grid;
       grid-template-columns: 1fr 80px;
@@ -865,6 +913,17 @@ a.link_swipe_animation>* {
   justify-items: center;
   font-size: 8px;
   color: var(--tags-color);
+}
+
+.keyboard_stl{
+  grid-column: 2/3;
+  justify-self: left;
+}
+#layoutViewport {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
 }
 
 

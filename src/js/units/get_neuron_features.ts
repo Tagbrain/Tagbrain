@@ -1,6 +1,8 @@
 import {get_string_tags_struct} from "./get_string_tags_struct.js";
 import {check_existence_node_tag} from "./check_existence_node_tag";
-import {find_formate_neuron} from "./find_formate_neuron";
+import {class_formate_c_neuron} from "../classes/class_formate_c_neuron";
+import { gEBI, dCE } from "./compress_f.js";
+import { get_c_input_field_value_c_search_word_s } from "./get_c_input_field_value_c_search_word_s";
 
 type neuron_features = {
     id: string;
@@ -15,19 +17,20 @@ type neuron_features = {
 }
 
 export function get_neuron_features(neuron: any, type_search: string, array_of_search_key: string[]){
-    let neuron_features: any = {};  
+    let neuron_features: any = {},
+        searcher = get_c_input_field_value_c_search_word_s(),
+        time_last_editing_post = neuron.parentNode.parentNode.querySelector(".file_time").textContent,  
+        firsts_words_post = neuron.childNodes[0].textContent.trim();  
 
-    let time_last_editing_post = neuron.parentNode.parentNode.querySelector(".file_time").textContent,  
-        firsts_words_post = neuron.childNodes[0].textContent.trim();    
-
-    let search_post_obj = find_formate_neuron(neuron, array_of_search_key),
-        finded_tags_struct = search_post_obj.finded_tags_struct,
-        general_activation = search_post_obj.general_activation,
-        struct_activ_num = search_post_obj.struct_activ_num, //for line neuron shape #edit #add
-        chain_fathers = search_post_obj.chain_fathers;
+    let class_neuron = new class_formate_c_neuron(neuron, searcher);
+    let obj = class_neuron.get_public_features(),
+        tree_c_tags = obj.tree_c_tags,
+        neuron_activation = obj.neuron_activation,
+        outrgowths_architecture = obj.outrgowths_architecture, //for line neuron shape #edit #add
+        generalizated_tree = obj.generalizated_tree;
     
     //for count_tags for tags_list
-    let obj_post_tags = get_string_tags_struct(finded_tags_struct);
+    let obj_post_tags = get_string_tags_struct(tree_c_tags);
     
     //optimazing array tags
     if(type_search == "association"){
@@ -36,16 +39,16 @@ export function get_neuron_features(neuron: any, type_search: string, array_of_s
     }
     
     //collect objects
-    if(general_activation > 0){
+    if(neuron_activation > 0){
         if (neuron.parentNode.parentNode.id != ''){
             neuron_features =  {
                     id: neuron.parentNode.parentNode.id, 
                     words: firsts_words_post,
-                    activation: general_activation,
+                    activation: neuron_activation,
                     count_tags: obj_post_tags.count,
                     tags: obj_post_tags.string,
                     time: time_last_editing_post,
-                    chain_fathers: chain_fathers,
+                    chain_fathers: generalizated_tree,
                     is_saved:true,
                 };
         }
@@ -71,7 +74,7 @@ export function get_neuron_features(neuron: any, type_search: string, array_of_s
                 count_tags: obj_post_tags.count,
                 tags: obj_post_tags.string,
                 time: time_last_editing_post,
-                chain_fathers: chain_fathers,
+                chain_fathers: generalizated_tree,
                 is_saved:true,
             };
             return neuron_features

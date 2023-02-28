@@ -12,7 +12,7 @@ trait put_right_format_file {
         } else {
             $response = array(
                 "status" => "fail",
-                "body" => "Error neuron_file extension"
+                "body" => "Error neuron_file extension. Current file extension:".$extension."Current neuron path: ".$neuron_path
             );
             echo json_encode($response);
             exit();

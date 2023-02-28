@@ -33,6 +33,21 @@
 			<div class="tab_right_bar">
 	
 				<div class="settings_container show_page" id="general_pop_up_page">
+					<div>
+						<?php echo $_SESSION["userid"] ?>
+					</div>
+					<a>
+						<?php 
+						if($_SESSION["userid"]){
+							echo '<form  method="post" action="php/sessions/logout.inc.php" id="container_post_code">'.
+								' <input type="submit" title="'.$_SESSION["userid"].'" id="logout_a" value="logout">'.
+							'</form>';
+						}
+						?>
+					</a>
+					</br>
+					</br>
+
 					<a class="a_cl">Color theme</a><br>
 					<a class="a_cl">Change channel name</a><br>
 					<a class="a_cl">Change channel editors</a><br>
@@ -78,6 +93,32 @@
 		<a class="a_cl" id="post_parsing">Post parsing</a>
 	</div>
 </div>
+<div class="keyboard keyboard_hide">
+		<button class="tools_button_copy" copy_attr="→">→</button>
+		<button class="tools_button_copy" copy_attr="↑">↑</button>
+		<button class="tools_button_copy" copy_attr="←">←</button>
+		<button class="tools_button_copy" copy_attr="↓">↓</button>
+		<button class="tools_button_copy" copy_attr="✖">✖</button>
+		<button title="copy TAB" class="tools_button_copy" copy_attr="tab+">|→</button>
+		<button title="copy TAB" class="tools_button_copy" copy_attr="tab-">←|</button>
+		<button class="tools_button_copy" copy_attr="|-〇">|-〇</button>
+		<button class="tools_button_copy" copy_attr="×">×</button>
+		<button class="tools_button_copy" copy_attr="≈">≈</button>
+		<button class="tools_button_copy" copy_attr="~">~</button>
+		<button title="addition_[properties]" class="tools_button_copy" copy_attr="+">+</button>
+		<button title="$variable_name=#tag(#tag(text))" class="tools_button_copy" copy_attr="$">$</button>
+		<button class="tools_button_copy" copy_attr="#">#</button>
+		<button class="tools_button_copy" copy_attr="&">&</button>
+		<button class="tools_button_copy" copy_attr="!">!</button>
+		<button class="tools_button_copy" copy_attr="/">/</button>
+		<button class="tools_button_copy" copy_attr="?">?</button>
+		<button class="tools_button_copy" copy_attr="{}">{}</button>
+		<button class="tools_button_copy" copy_attr="()">()</button>
+		<button class="tools_button_copy" copy_attr="[]">[]</button>
+		<button title="mask of input structure: @[class1 → class2], class1 are basic properties, class2 are terminal properties" class="tools_button_copy" copy_attr="@">@</button>	
+		<button class="tools_button_copy" copy_attr="—">—</button>
+		<button class="tools_button_copy" title="item_n or item_m" copy_attr="|">|</button>
+	</div>
 <div class="bottom_layer_for_img_animation">
 
 	<div class="background_svg_container">

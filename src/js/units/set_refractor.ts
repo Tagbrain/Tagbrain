@@ -4,7 +4,6 @@ export async function set_refractor(func_var: any, time: number) {
     if(window["tagbrain_graph"].refractor_neurons_is_activated == false){
         window["tagbrain_graph"].refractor_neurons_is_activated = true;
         func_var();
-        console.log('before refracter');
         await sleep(time);
         window["tagbrain_graph"].refractor_neurons_is_activated = false;
     } else {
@@ -14,7 +13,6 @@ export async function set_refractor(func_var: any, time: number) {
         if(len >= 1){
           window["tagbrain_graph"].refractor_neurons_stack[len - 1]();
           window["tagbrain_graph"].refractor_neurons_stack = [];
-          console.log('after refracter');
         } 
     }
 }
