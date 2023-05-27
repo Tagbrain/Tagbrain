@@ -6,6 +6,10 @@ import {put_c_caret_x_target_c_string_position} from "./put_c_caret_x_target_c_s
 import {get_parent_with_class} from "./get_parent_with_class";
 import {detect_c_mobile} from "./detect_c_mobile";
 import {insert_one_tab} from "./insert_one_tab";
+import {delete_one_tab} from "./delete_one_tab";
+import {transfer_line} from "./transfer_line";
+import {validate_row_formate} from "./validate_row_formate";
+
 
 
 export function put_validation_events_to_neuron(element_one){
@@ -19,9 +23,9 @@ export function put_validation_events_to_neuron(element_one){
                e.preventDefault();
                if(selection == ''){
                     if (e.shiftKey){
-                         functions.deleteTab(current_line, true); 
+                         delete_one_tab(current_line, true); 
                     } else { //shift is pressed
-                         insert_one_tab(true, current_line);
+                         insert_one_tab(current_line, true);
                     }
                } else if (selection != ''){
                     let post_child_nodes = [],
@@ -30,7 +34,7 @@ export function put_validation_events_to_neuron(element_one){
                     post_child_nodes = element_one.childNodes;
                     if(e.shiftKey){
                          for(let i = selection_obj.start_block_n; i < (selection_obj.end_block_n+1); i++){
-                              functions.deleteTab(post_child_nodes[i], false);
+                              delete_one_tab(post_child_nodes[i], false);
                          }
                          if(post_child_nodes[selection_obj.end_block_n]){
                               document.getSelection().setBaseAndExtent(post_child_nodes[selection_obj.start_block_n], 0, post_child_nodes[selection_obj.end_block_n], post_child_nodes[selection_obj.end_block_n].childNodes.length);
@@ -43,7 +47,7 @@ export function put_validation_events_to_neuron(element_one){
 
                          post_child_nodes = element_one.childNodes;
                          for(let i = selection_obj.start_block_n; i < (selection_obj.end_block_n+1); i++){
-                              insert_one_tab(false, post_child_nodes[i]);
+                              insert_one_tab(post_child_nodes[i], false);
                          }
                          if(post_child_nodes[selection_obj.end_block_n]){
                               document.getSelection().setBaseAndExtent(post_child_nodes[selection_obj.start_block_n], 0, post_child_nodes[selection_obj.end_block_n], post_child_nodes[selection_obj.end_block_n].childNodes.length);
@@ -61,21 +65,12 @@ export function put_validation_events_to_neuron(element_one){
  
                if((!e.shiftKey) && (!e.ctrlKey) && (e.keyCode != 9) && (e.keyCode != 8) && (e.keyCode != 46)){
                    let old_caret_pos = get_row_caret_position();
-                   functions.validate_row_formate(current_line, old_caret_pos);
+                   validate_row_formate(current_line);
                    put_c_caret_x_target_c_string_position(current_line, old_caret_pos);
                }
               if (e.key === 'Enter') {
-                   if(e.shiftKey){
-                        e.preventDefault();
-                        functions.transfer_line("shift_enter");
-                   } else {
-                         e.preventDefault();
-                         if(detect_c_mobile()){
-                              functions.transfer_line("shift_enter");
-                         } else {
-                              functions.transfer_line("enter");  
-                         }
-                   }
+               e.preventDefault();
+               transfer_line("shift_enter");
               } 
  
          });

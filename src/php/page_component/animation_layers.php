@@ -86,39 +86,13 @@
 
 		</div>
 	</div>
-	<div id="neuron_pop_up_menu" class="neuron_pop_up_hide">
+	<div id="id_c_pop_up_c_context" class="pop_up neuron_pop_up_hide">
 		<a class="a_cl" id="button_create_from_selection">Create a new post from the selection</a><br>
 		<a class="a_cl" id="paste_text">Paste</a><br>
 		<a class="a_cl" id="export_content">Export the selection → other channel</a><br>
 		<a class="a_cl" id="post_parsing">Post parsing</a>
 	</div>
 </div>
-<div class="keyboard keyboard_hide">
-		<button class="tools_button_copy" copy_attr="→">→</button>
-		<button class="tools_button_copy" copy_attr="↑">↑</button>
-		<button class="tools_button_copy" copy_attr="←">←</button>
-		<button class="tools_button_copy" copy_attr="↓">↓</button>
-		<button class="tools_button_copy" copy_attr="✖">✖</button>
-		<button title="copy TAB" class="tools_button_copy" copy_attr="tab+">|→</button>
-		<button title="copy TAB" class="tools_button_copy" copy_attr="tab-">←|</button>
-		<button class="tools_button_copy" copy_attr="|-〇">|-〇</button>
-		<button class="tools_button_copy" copy_attr="×">×</button>
-		<button class="tools_button_copy" copy_attr="≈">≈</button>
-		<button class="tools_button_copy" copy_attr="~">~</button>
-		<button title="addition_[properties]" class="tools_button_copy" copy_attr="+">+</button>
-		<button title="$variable_name=#tag(#tag(text))" class="tools_button_copy" copy_attr="$">$</button>
-		<button class="tools_button_copy" copy_attr="#">#</button>
-		<button class="tools_button_copy" copy_attr="&">&</button>
-		<button class="tools_button_copy" copy_attr="!">!</button>
-		<button class="tools_button_copy" copy_attr="/">/</button>
-		<button class="tools_button_copy" copy_attr="?">?</button>
-		<button class="tools_button_copy" copy_attr="{}">{}</button>
-		<button class="tools_button_copy" copy_attr="()">()</button>
-		<button class="tools_button_copy" copy_attr="[]">[]</button>
-		<button title="mask of input structure: @[class1 → class2], class1 are basic properties, class2 are terminal properties" class="tools_button_copy" copy_attr="@">@</button>	
-		<button class="tools_button_copy" copy_attr="—">—</button>
-		<button class="tools_button_copy" title="item_n or item_m" copy_attr="|">|</button>
-	</div>
 <div class="bottom_layer_for_img_animation">
 
 	<div class="background_svg_container">

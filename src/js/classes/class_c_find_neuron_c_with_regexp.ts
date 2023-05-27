@@ -2,6 +2,8 @@ import { gEBI, dCE } from "../units/compress_f.js";
 import { send_data_ajax } from "../units/send_data_ajax.js";
 import { class_formate_c_neuron } from "./class_formate_c_neuron";
 import { class_c_neuron } from "./class_c_neuron";
+import { focus_c_neuron_x_scroll } from "../units/focus_c_neuron_x_scroll";
+import { if_c_screen_c_is_narrow_zz8_close_c_right_bar } from "../units/if_c_screen_c_is_narrow_zz8_close_c_right_bar";
 
 class class_c_find_neuron_c_with_regexp {
 
@@ -35,9 +37,9 @@ class class_c_find_neuron_c_with_regexp {
 
         this.input_c_search = gEBI("search_input_block");
         this.content_c_replacer = gEBI("replace_input_block");
-        this.input_c_search_x_value = this.input_c_search.value;
+        let new_val = this.transformate_input_value();
+        this.input_c_search_x_value = new_val;
         this.content_c_replacer_c_value = this.content_c_replacer.value;
-
 
         this.output_container = gEBI("result_block");
         this.add_unit();
@@ -52,9 +54,9 @@ class class_c_find_neuron_c_with_regexp {
                 + '<div class="">'
                     + this.synapse_c_main
                 + '</div>'
-                + '<div class="points_circle">'
-                    + this.count
-                + '</div>'
+            + '</div>'
+            + '<div class="points_circle">'
+                + this.count
             + '</div>'
             + '<div class="link_swipe_animation container_c_body_x_find_c_synapse">'
                     + '<div>〇 '
@@ -62,16 +64,10 @@ class class_c_find_neuron_c_with_regexp {
                     + '</div>'
             + '</div>'
             + '<div class="unit_c_search_c_footer">'
-                + '<br>'
-                + '<div>'
-                    + '<svg class="linear_icon_c_target icon_size_middle">'
-                        + '<use xlink:href="#sprite_c_search_icons_x_replace">'
-                        + '</use>'
-                    + '</svg>'
-                + '</div>'
-                + '<div>'
-                    + '✖'
-                + '</div>'
+                + '<svg class="linear_icon_c_target icon_size_middle">'
+                    + '<use xlink:href="#sprite_c_search_icons_x_replace">'
+                    + '</use>'
+                + '</svg>'
             + '</div>'
         let html_c_highlight = this.select_c_target_text(html);
         this.select_c_client_neurons_c_target();
@@ -117,8 +113,6 @@ class class_c_find_neuron_c_with_regexp {
                     action: 'get_c_neuron_c_with_id',
                     graph_name: this.graph_name,
                     facultative:{
-                    //amount: 20,
-                    //search_keys: "empty",
                     neuron_id: this.neuron_id,
                     }
                 };
@@ -134,7 +128,8 @@ class class_c_find_neuron_c_with_regexp {
                             is_format: true,
                         };
                         let obj = new class_c_neuron(features);
-                        obj.neuron_el.focus();
+                        focus_c_neuron_x_scroll(obj.neuron_id);
+                        if_c_screen_c_is_narrow_zz8_close_c_right_bar();
                     } else {
                         console.log("Neuron not exist. FREnd124745")
                     }
@@ -142,7 +137,8 @@ class class_c_find_neuron_c_with_regexp {
                 let error_message = "Error 123y657";
                 send_data_ajax(data, url, controller_f, true, error_message);
             } else {
-                window["tagbrain_graph"]["neurons_objs"][this.neuron_id].neuron_el.focus();
+                focus_c_neuron_x_scroll(this.neuron_id);
+                if_c_screen_c_is_narrow_zz8_close_c_right_bar();
             }
         })
     }
@@ -157,6 +153,23 @@ class class_c_find_neuron_c_with_regexp {
                 }
             }
         });
+    }
+    transformate_input_value(){
+        let patterns:any = this.input_c_search.value.split("\|").join("Zn5hfe234f").split("|");
+        if(patterns.length > 0){
+            for(let i = patterns.length-1; i >= 0; i--){
+                let pattern = patterns[i].split("Zn5hfe234f").join("");
+                let pattern_c_symb_s = [...pattern];
+                if(pattern_c_symb_s.length < 3){
+                    patterns.splice(i, 1);
+                    continue
+                } else {
+                    continue
+                }
+            }
+        }
+        return patterns.join("");
+
     }
 }
 

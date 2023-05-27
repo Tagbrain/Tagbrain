@@ -44,7 +44,12 @@ function replace_current_value() {
                 for(let i = 0; i < neuron_s_c_for_search.length; i++){
                     let neuron_class = window["tagbrain_graph"]["neurons_objs"][neuron_s_c_for_search[i]["neuron_id"]];
                     let function_variable = function(){
-                        return send_c_change_request_x_target_c_local_storage(neuron_class.neuron_el, neuron_class.neuron_id, neuron_class.neuron_shell);
+                        let options2 = {
+                            neuron_el: neuron_class.neuron_el,
+                            neuron_id: neuron_class.neuron_id,
+                            neuron_shell: neuron_class.neuron_shell,
+                        }
+                        return send_c_change_request_x_target_c_local_storage(options2);
                     };
                     let options = {
                         function_variable: function_variable,

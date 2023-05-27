@@ -4,6 +4,7 @@
 import './tagbrain_graph';
 import './all_posts_action/controller_tabs.js';
 import './all_posts_action/controller_checkers';
+import './all_posts_action/controller_c_pop_ups';
 import './all_posts_action/controller_button';
 //2
 import './click_controller.js';
@@ -18,6 +19,7 @@ import './neuron_action_controller/cellular_automata.ts';
 
 import './all_posts_action/search_controller';
 import './all_posts_action/replace_controller';
+import './all_posts_action/activation_controller';
 import './all_posts_action/post_save_controller.js';
 import './all_posts_action/controller_user_activity';
 

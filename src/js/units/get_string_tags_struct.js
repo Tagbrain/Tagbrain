@@ -25,7 +25,7 @@ export function get_string_tags_struct(tags_struct){
             finded_post_tags_string +=    
                 '<span class="item_tags_style">' 
                     + "&nbsp;".repeat(sorted_tags_struct[j]["d"] / 2)
-                    + sorted_tags_struct[j]["key"].toString()+'<br>'
+                    + sorted_tags_struct[j]["content"].toString()+'<br>'
                 +'</span>';  
             j++;
         }

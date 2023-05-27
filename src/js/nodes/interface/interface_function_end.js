@@ -1,4 +1,5 @@
 import { add_wave_animation_x_click_c_event } from "../../units/add_wave_animation_x_click_c_event";
+import { if_c_screen_c_is_narrow_zz8_close_c_right_bar } from "../../units/if_c_screen_c_is_narrow_zz8_close_c_right_bar";
 
 document.addEventListener('DOMContentLoaded',function(){
     let switch_right_bar = document.querySelector("#switch_right_bar"),
@@ -16,13 +17,6 @@ document.addEventListener('DOMContentLoaded',function(){
         }
     });
 
-    let scroll_button_bottom = document.querySelector("#scroll_button"),
-        current_tab = window["tagbrain_graph"]["current_tab"],
-        current_tab_c_obj_c_image_container = window["tagbrain_graph"]["tab_collection"][current_tab]["mental_image_container"];
-    scroll_button_bottom.addEventListener('click', () => {
-        let last_item_id =  current_tab_c_obj_c_image_container.lastElementChild.id;
-        window.location.href = "#" + last_item_id;
-    });
 
     function contains_parent_with_class(node, class_name, limit_node){
         let iterable_node = node;
@@ -45,8 +39,12 @@ document.addEventListener('DOMContentLoaded',function(){
         e = e || window.event;
         let link_search_row = e.target;
         if (contains_parent_with_class(link_search_row, "link_part", limit_node) === true){
+
             let current_hash = document.location.hash;
             let href_link = link_search_row.getAttribute("href");
+
+            if_c_screen_c_is_narrow_zz8_close_c_right_bar();
+
             if(href_link == current_hash && href_link != null){
                 true;
             } else {

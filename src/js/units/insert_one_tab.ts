@@ -1,5 +1,5 @@
 import {focus_end_element} from "./focus_end_element";
-export function insert_one_tab(focus: boolean, current_element: HTMLElement) {
+export function insert_one_tab(current_element: HTMLElement, focus: boolean,) {
     let node_text = current_element.innerText;
 
     node_text = "    " + node_text;

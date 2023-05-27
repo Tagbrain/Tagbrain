@@ -38,7 +38,23 @@ let tagbrain_graph: any = {
         neuron_element: undefined,
         outgrowth: undefined,
         depth_c_in_outgrowth: 0,
-    }
+    },
+    activation_obj: {
+        collection_c_branch_s:[],
+        tree_c_generalizated:[],
+    },
+    pop_up: {
+        context:{
+            is_activated: false,
+        }
+    },
+    ram: {
+        anemone00s:{
+            deduction:[],
+            induction:[],
+        },
+        listner00s_c_anemone00a:[],
+    },
 }
 
 window["tagbrain_graph"] = tagbrain_graph;

@@ -20,12 +20,6 @@
     .tab_container{
         padding: 0 8px;
     }
-    .tools_button_copy{
-        backdrop-filter: none;
-        opacity:70%;
-        background: var(--backgroud);
-        box-shadow:none;
-    }
 }; 
 @media screen and (max-width: 600px) {
     .tag_container{
@@ -33,8 +27,6 @@
         background: var(--backgroud);
         width: calc(100% - 8px);
         grid-template: 100px 1fr/1fr;
-        border-bottom: 1px dashed var(--text-content);
-        border-top: 1px dashed var(--text-content);
         grid-column: 1/3;
         padding: 0 16px;
 
@@ -51,6 +43,13 @@
     .logo_and_menu_buttons{
         grid-template-columns: 80px 100px 1fr;
     }
+    .header_logo_container{
+        margin-bottom: 0px;
+    }
+    .header_logo{
+        width: 40px;
+        height: 40px;
+    }
     .menu_container{
         grid-template: 1fr/30px 30px 1fr;
     }
@@ -59,13 +58,20 @@
     }
     .container_work{
         grid-template: 20px 1fr/1fr;
+        top:60px;
     }
     .tag_container_on{
         display:grid;
-        padding-top: 80px;
+        padding-top: 40px;
     }
     .icon_size_middle{
         height: 24px;
         width: 24px; 
+    }
+    .animation_er_layer_1{
+        height: 60px;
+    }
+    .animation_er_layer_2{
+        height: 60px;
     }
 }

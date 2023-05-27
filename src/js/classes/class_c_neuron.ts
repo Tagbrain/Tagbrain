@@ -2,13 +2,12 @@ import { add_to_ram } from "../units/add_to_ram.js"
 import { post_format } from "../units/formate_neuron";
 import { put_validation_events_to_neuron } from "../units/put_validation_events_to_neuron.js";
 import { gEBI, dCE } from "../units/compress_f.js";
-import { transformate_obj_to_html } from "../units/tranformate_obj_to_html";
 import { get_neuron_object_outgrowths } from "../units/get_neuron_object_outgrowths";
 import { send_data_ajax } from "../units/send_data_ajax.js";
 import { put_c_marker_c_not_save } from "../units/put_c_marker_c_not_save";
 import { validate_c_style_c_outgrowth } from "../units/validate_c_style_c_outgrowth";
-import { send_c_change_request_x_target_c_server } from "../units/send_c_change_request_x_target_c_server";
-import { send_c_change_request_x_target_c_local_storage } from "../units/send_c_change_request_x_target_c_local_storage";
+import { class_generator_c_tree_c_html } from "../classes/class_generator_c_tree_c_html";
+
 
 import { set_refractor } from "../units/set_refractor";
 
@@ -21,9 +20,12 @@ class class_c_neuron {
 
     public neuron_id: string;
     public outgrowths: any;
+
     public contenteditable: boolean;
     public add_ram_boolen: boolean;
     public is_format: boolean;
+    public neuron_is_saved: boolean;
+
     public neuron_el: HTMLElement;
     public neuron_shell: HTMLElement;
     public unix_time: string;
@@ -41,6 +43,7 @@ class class_c_neuron {
         this.contenteditable = features.contenteditable;
         this.add_ram_boolen = features.add_ram_boolen;
         this.is_format = features.is_format;
+        this.neuron_is_saved = true;
         if (features.default_tab) {
             this.default_tab = features.default_tab;
         }
@@ -161,62 +164,32 @@ class class_c_neuron {
         let neuron_element: any = this.neuron_el;
         let neuron_shell: any = this.neuron_shell;
         let neuron_id = this.neuron_id;
-        let function_variable = function () {
-            return send_c_change_request_x_target_c_server(neuron_element, neuron_id, neuron_shell);
-        };
-        if (this.neuron_c_container_c_tab == "draft") {
-            function_variable = function () {
-                return send_c_change_request_x_target_c_local_storage(neuron_element, neuron_id, neuron_shell);
-            };
-        }
-        let options = {
-            function_variable: function_variable,
-            is_instanty: false,
-            neuron_shell: this.neuron_shell,
-            neuron_el: this.neuron_el,
-            change_action: this.change_action,
-        }
-
-        this.neuron_el.addEventListener('blur', function () {
-            //focus on a non clickable element #edit
-            options.change_action(options);
-        });
-
-    }
-    change_action(options: any) {
-
-        window["tagbrain_graph"]["cursor_position"]["neuron_element"] = options.neuron_el;
+        window["tagbrain_graph"]["cursor_position"]["neuron_element"] = this.neuron_el;
         echo_c_statistic_c_to_neuron();
-        new class_formate_c_neuron(options.neuron_el, "");
-
-        let array_current_key_word = options.neuron_el.querySelectorAll("mark");
-
-        if (array_current_key_word.length == 0) {
-            new class_formate_c_neuron(options.neuron_el, "")
-        } else {
-            let arr_text_val: any = [];
-            for (var i = 0; i < array_current_key_word.length; i++) {
-                arr_text_val.push(array_current_key_word[i].innerText.trim());
-            }
-            new class_formate_c_neuron(options.neuron_el, arr_text_val.join("|"))
-        }
-
-        put_c_marker_c_not_save(options.neuron_shell);
-        validate_c_style_c_outgrowth();
-        drop_down_c_neuron_c_branche_s(options.neuron_el);
-        if (options.is_instanty == false) {
-            set_refractor(options.function_variable, 3000);
-        } else {
-            options.function_variable();
-        }
+        this.neuron_el.addEventListener('blur', function () {
+            //formate
+            put_c_marker_c_not_save(neuron_shell);
+            if(window["tagbrain_graph"]["neurons_objs"][neuron_id])
+                window["tagbrain_graph"]["neurons_objs"][neuron_id]["neuron_is_saved"] = false;
+            validate_c_style_c_outgrowth();
+            drop_down_c_neuron_c_branche_s(neuron_element);
+            //focus on a non clickable element #edit
+            //new class_formate_c_neuron(neuron_element, "");
+        });
     }
     hide_neuron() {
 
     }
     transformate_input_content(content: any) {
-        let neuron_content = "";
+        let neuron_content:any = "";
         if (Array.isArray(content)) {
-            neuron_content = transformate_obj_to_html(content);
+            let options = {
+                action: "neuron_x_tab_c_usual",
+                tree: content,
+                depth_factor: 4
+            }
+            let cl_g_html = new class_generator_c_tree_c_html(options);
+            neuron_content = cl_g_html.controller_generator();
         } else {//html
             if (content == '<div class="post_row">$Write connections of a #new neuron</div>') {
                 neuron_content = content;

@@ -1,9 +1,5 @@
 <div class="tag_container tag_container_on">
 	<div class="header_right_bar">
-
-		<span class="item_tags_style">#MAIN_POST</span>
-		<span class="item_tags_style">#tags_structure</span>
-		<br>
 		<div class="menu_container_right_bar">
 			<div>
 				<input type="radio" id="search_right_bar" name="item" checked>
@@ -84,7 +80,7 @@
 				</a>
 
 				<div class="container_search_tab_input">
-					<input id="search_input_block" class="input_tools" type="text" placeholder="⌕ Search RegExp">
+					<input id="search_input_block" autocomplete="off" class="input_tools" type="text" placeholder="⌕ Search RegExp">
 					<a id="send_search_request" class="buttons_inputs_search_tab icon_buttons_visual_effects" title="Find synapses">
 						<svg class="linear_icon_c_target icon_size_middle">
 							<use xlink:href="#sprite_c_search_icons_x_send_request"></use>
@@ -106,7 +102,7 @@
 				</div>
 
 				<div class="container_search_tab_input">
-					<input id="replace_input_block" class="input_tools" type="text" placeholder="Replace">
+					<input id="replace_input_block" autocomplete="off" class="input_tools" type="text" placeholder="Replace">
 					<a id="send_replace_request"  class="buttons_inputs_search_tab icon_buttons_visual_effects" title="Replace synapses">
 						<svg class="linear_icon_c_target icon_size_middle">
 							<use xlink:href="#sprite_c_search_icons_x_replace"></use>
@@ -136,13 +132,17 @@
 			</div>
 
 			<div class="tools_container" id="microfeatures_controller_right_bar_page">
-				<div id="donors_microfeatures_c_purpose_x_neurons_id_c_content">Donors microfeatures</div>
-				<div id="synapses_tree_c_content_x_input_field">Synapses tree</div>
-				<div id="anemones_c_content_x_input_field">Anemones:</div>
+				<div>Neurons:</div>
+			    <div>Request tree\generalizated:</div>
+				<div id="synapses_tree_x_output_field" class="synapses_tree_x_output_field"></div>
+				<button>activate</button>
+				<div>Anemones:</div>
+				<div id="donors_microfeatures_x_input_field"></div>
+				<div>Output\neural_guide:</div>
 			</div>
 
 			<div class="tools_container" id="functions_right_bar_page">
-				<a title="5 last items">open_copy_buffer()</a>
+				<a title="5 last items">Open_copy_buffer()</a>
 				<a title="The most activated synapse of the graph">get_important_synapse()</a>
 				<br>
 				<div>For developers</div>

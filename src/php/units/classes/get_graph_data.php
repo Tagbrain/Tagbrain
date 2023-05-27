@@ -19,13 +19,6 @@ class get_graph_data {
         //macrofeatures
             $this->graph_dir = $_SERVER['DOCUMENT_ROOT']."/channels/".$this->graph_name."/content_items/";
 
-        if($_SESSION["userid"]){
-            $this->user = $_SESSION["userid"];
-            $this->all_member_channels = $_SESSION["all_member_channels"];
-            $this->editors =  $_SESSION["editor"];
-            $this->creator = $_SESSION["creator"];
-        }
-
         $this->controller_getting_data();
     }
 
@@ -49,23 +42,18 @@ class get_graph_data {
             }
 
             foreach($files as $file){
+
+                if($file == ""){
+                    continue;
+                }
+
                 $neuron_data = $this->get_neuron_data($this->graph_dir, $file);  
                 array_push($neuron_data_arr, $neuron_data);
             }
             $access = $this->check_session_data($this->graph_name);
-            $response = array(
-                "status" => "success",
-                "data" => $neuron_data_arr,
-                "contenteditable" => $access["can_editing"]
-            );
-            echo json_encode($response);
-        
+            $this->send_data_c_client($access, $neuron_data_arr);
         } catch (Exception $e){
-            $response = array(
-                "status" => "fail",
-                "data" => $e
-            );
-            echo json_encode($response);
+            $this->return_fail($e);
         };
     }
 
@@ -76,21 +64,44 @@ class get_graph_data {
         try {
             $access = $this->check_session_data($this->graph_name);
             $neuron_data = $this->get_neuron_data($this->graph_dir, $this->neuron_id.".json"); 
-            $response = array(
-                "status" => "success",
-                "data" => $neuron_data,
-                "contenteditable" => $access["can_editing"]
-            );
-            echo json_encode($response);
+            $this->send_data_c_client($access, $neuron_data);
         } catch (Exception $e){
-            $response = array(
-                "status" => "fail",
-                "data" => $e
-            );
-            echo json_encode($response);
+            $this->return_fail($e);
         };
     }
 
     public function output_list_posts_variable($graph_folder){     
+   }
+
+   protected function return_fail($data){
+    $response = array(
+        "status" => "fail",
+        "data" => $data,
+        "contenteditable" => "error"
+    );
+    echo json_encode($response);
+   }
+   protected function return_success($data, $access){
+    $response = array(
+        "status" => "success",
+        "data" => $data,
+        "contenteditable" => $access["can_editing"],
+        "private" => $access["private"],
+        "channels" => $_SESSION["all_member_channels"],
+        "user" => $_SESSION["userid"],
+        "channel_is_private" => $_SESSION["channel_is_private"],
+    );
+    echo json_encode($response);
+   }
+   protected function send_data_c_client($access, $data){
+    if($access["private"] == true){
+        if($access["can_editing"] == true){
+            $this->return_success($data, $access);
+        } else {
+            $this->return_fail("The channel is private. Log in");
+        }
+    } else {
+        $this->return_success($data, $access);
+    }
    }
 }

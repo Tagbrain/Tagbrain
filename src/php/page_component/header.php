@@ -112,21 +112,22 @@
 								<use xlink:href="#sprite_whirlpool"></use>
 							</svg>
 						</a>
+						<a class="icon_buttons_visual_effects big_arrows_stl keyboard_stl" id="button_id_7">
+							<svg class="linear_icon_c_target icon_size_sl_a_middle">
+								<use xlink:href="#sprite_keyboard"></use>
+							</svg>
+						</a>
 					</div>
 				</div>
 				<div class="header_c_menu_c_right">
-					<div class="big_arrows_stl keyboard_stl" id="button_id_7">
-						<svg class="linear_icon_c_target icon_size_sl_a_middle">
-							<use xlink:href="#sprite_keyboard"></use>
-						</svg>
-					</div>
+		
 					<?php if(!$_SESSION["userid"]){
 							echo '<form method="post" action="php/sessions/sign_in/signin_inc.php" class="header_central_text" onsubmit="return validate_code_form()" id="container_post_code">'.
 									'<input type="submit" id="send_code_to_email" value="▷">'.
 									'<input name="password_code" autocomplete="current-password"  type="text" id="log_code_input" maxlength="50" class="log_code_input_style" placeholder="Email log">'.
 								'</form>';
 						} else {
-								if($access_arr["full_access"] == true){
+								if($access_arr["can_editing"] == true){
 								echo '<a id="setting_button" class="setting_button">'.
 									'<svg class="linear_icon_c_target icon_size_middle">'.
 										'<use xlink:href="#sprite_settings"></use>'.

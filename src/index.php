@@ -1,8 +1,10 @@
 <?php
+
 session_start([
 	'cookie_lifetime' => 3600000,
 ]);
-include $_SERVER['DOCUMENT_ROOT']."/php/sessions/sign_in/includes.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/php/sessions/sign_in/includes.php";
+
 if(!$_SESSION["userid"]){
 	if(count($_COOKIE) > 0) {
 		if($_COOKIE["session_user"]){
@@ -14,10 +16,13 @@ if(!$_SESSION["userid"]){
 	}
 }
 
-include $_SERVER['DOCUMENT_ROOT']."/php/engine/determinator_page_content.php";
-include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/check_session_data.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/php/engine/determinator_page_content.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/php/units/functions/check_session_data.php";
+
+$data = new load_page_vars();
 
 $channel_private = $data->is_channel_private();
+$_SESSION["channel_is_private"] = $channel_private;
 $page_state = $data->state();
 //remove first slash
 $first_letters = substr($page_state, 0, 1);
@@ -58,7 +63,6 @@ $access_arr = $header_check_session->check_session($page_state);
 		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-		<link rel="manifest" href="/site.webmanifest">
 		<title>Tagbrain</title>
 		<?php
 		if($page_state == "math"){

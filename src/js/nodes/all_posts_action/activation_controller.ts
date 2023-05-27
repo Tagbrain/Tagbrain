@@ -12,9 +12,15 @@ import { print_collection_neuron_features } from "../../units/print_collection_n
 import { collect_current_neurons_features } from "../../units/collect_current_neurons_features";
 import { is_class_of_event_target } from "../../units/is_class_of_event_target";
 import { parent_is_exist } from "../../units/parent_is_exist";
-import { get_features_outgrowth } from "../../units/get_features_outgrowth";
 import { validate_x_input_field_and_search_c_target } from "../../units/validate_x_input_field_and_search_c_target";
 import { get_c_input_field_value_c_search_word_s } from "../../units/get_c_input_field_value_c_search_word_s";
+import {get_parent_with_class} from "../../units/get_parent_with_class";
+import {get_outgrowth_features} from "../../units/get_outgrowth_features";
+import {generate_c_neuron_c_branch} from "../../units/generate_c_neuron_c_branch";
+import {class_formate_c_neuron} from "../../classes/class_formate_c_neuron";
+import {class_controller_activation} from "../../classes/class_controller_activation";
+import {class_generator_c_tree_c_html} from "../../classes/class_generator_c_tree_c_html";
+
 
 /*
 #mechanism
@@ -42,76 +48,59 @@ document.addEventListener('DOMContentLoaded', () => {
             let target = e.target;
             if (target != null) {
                 if (parent_is_exist(target, "item_input")) {
-                    let features_outgrowth = get_features_outgrowth(e.target);
-                    //let chain_fathers = get_chain_fathers_from_tag(obj_pos_in_neuron.row);
+                    let current_element = e.target as Element,
+                        neuron = get_parent_with_class(current_element, "item_input"),
+                        outgrowth = get_parent_with_class(current_element, "post_row"),
+                        event_c_row = [...neuron.children].indexOf(outgrowth),
 
-                    //add_chain_fathers_in_current_stack_activation
-                    //use it to work with all function with chain_fathers
-                    if (e.ctrlKey) {
-                        //attach_chain_fathers_in_search_tab
-                        //change_control_chains_panel
-                    } else {
-                        //change_chain_fathers_in_search_tab
-                        //change_control_chains_panel
-                    }
+                        class_neuron = new class_formate_c_neuron(neuron, ""),
+                        neuron_c_obj = class_neuron.get_public_features(),
+                        current_branch_s = generate_c_neuron_c_branch([event_c_row], neuron_c_obj.outgrowths_c_all);
+
+                        //use it to work with all function with chain_fathers
+                        let options ={
+                            action:"push_branch_s_c_event_click",
+                            event: e,
+                            current_branch_s:current_branch_s,
+                        }
+                        let class_activation = new class_controller_activation(options);
+                        let container_tree_c_synapse_s = gEBI("synapses_tree_x_output_field");
+                        container_tree_c_synapse_s.innerHTML = class_activation.response;
                     //send_search_request_of_microfeatures
 
-                    let search_button = gEBI("search_right_bar");
-
-                    let start_controller = start_search_controller(false, true);
-                    set_refractor(start_controller, 3000);
-                    if (search_button != false) {
-                        search_button.click();
+                    /*let start_controller = function(){
+                        start_search_controller();
                     }
+                    set_refractor(start_controller, 3000);*/
                 }
             }
         };
     }, false);
 
-    function start_search_controller(front_end_search: boolean, back_end_search: boolean) {
+    function start_search_controller() {
 
-        let searcher = get_c_input_field_value_c_search_word_s(),
-            is_valid = validate_x_input_field_and_search_c_target(searcher);
-
-        if (is_valid == true) {
-
-            let regexp = searcher,
-                collection_neuron_id = get_collection_neurons_ids(),
-                collection_ram_neuron_id = get_collection_ram_neuron_ids();
-            let collection_neurons_without_ram: string[] = [];
-            if (collection_ram_neuron_id != undefined) {
-                collection_neurons_without_ram = get_collection_neurons_without_ram(collection_neuron_id, collection_ram_neuron_id);
-            }
-            if (regexp != false) {
-
-                //check regexp or not regexp
-
-                if (back_end_search == true) {
-                    let data = {
-                        graph_name: window["tagbrain_graph"].graph_name,
-                        array_of_search_key: regexp,
-                        collection_neurons_without_ram: collection_neurons_without_ram,
-                        collection_ram_neuron_id: collection_ram_neuron_id,
-                    };
-                    let url = "php/neurons/search_request_c_controller.php";
-                    let controller_f = function (response_obj: any) {
-                        success_reaction(response_obj, regexp as string[]);
-                    }
-                    let error_message = "Search data not load";
-                    send_data_ajax(data, url, controller_f, false, error_message);
-                    front_end_search = false;
-                }
-
-                if (front_end_search == true) {
-                    get_front_end_search_array("association", regexp);
-                }
-
-            }
-
+        let collection_neuron_id = get_collection_neurons_ids(),
+            collection_ram_neuron_id = get_collection_ram_neuron_ids();
+        let collection_neurons_without_ram: string[] = [];
+        if (collection_ram_neuron_id != undefined) {
+            collection_neurons_without_ram = get_collection_neurons_without_ram(collection_neuron_id, collection_ram_neuron_id);
         }
+
+        let data = {
+            graph_name: window["tagbrain_graph"].graph_name,
+            collection_c_branch_s: window["tagbrain_graph"]["activation_obj"]["tree_c_generalizated"],
+            collection_neurons_without_ram: collection_neurons_without_ram,
+            collection_ram_neuron_id: collection_ram_neuron_id,
+        };
+        let url = "php/neurons/search_request_c_controller.php";
+        let controller_f = function (response_obj: any) {
+            success_reaction(response_obj);
+        }
+        let error_message = "Search data not load";
+        send_data_ajax(data, url, controller_f, false, error_message);
     }
 
-    function success_reaction(obj_search_data: any, regexp: any[]) {
+    function success_reaction(obj_search_data: any) {
         if (obj_search_data.remove_posts) {
             let arr_id_posts_for_del = obj_search_data.remove_posts;
             remove_arr_neurons_client(arr_id_posts_for_del);
@@ -122,8 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             add_arr_neurons_client(arr_objs_neurons);
         }
 
-        get_front_end_search_array("association", regexp);
+        get_front_end_search_array("association", obj_search_data.keys);
     }
-
 
 });

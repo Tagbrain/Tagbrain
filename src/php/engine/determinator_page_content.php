@@ -1,12 +1,16 @@
 <?php
 
-include "php/database/dbh.classes.php";
-include "php/units/functions/state_trait.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/php/database/dbh.classes.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/php/units/functions/state_trait.php";
 
 class load_page_vars {
     use dbh;
     //get url variables
     use page_state;
+
+    function __construct() {
+        $this->table = $this->get_channel_data();
+    }
 
     //return name page appropriate s_t_a_t_e
     public function get_channel_data(){
@@ -16,24 +20,24 @@ class load_page_vars {
         return $this->channels_data;
     }
 
-    function title($table){
-        $table = $this->get_channel_data();
+    function title(){
+        $this->table;
         $i=0;
-        foreach($table as $row => $value){  
-            if("./".$table[$i]["link"] == ".".$this->state()){
-                return $table[$i]["name"];
+        foreach($this->table as $row => $value){  
+            if("./".$this->table[$i]["link"] == ".".$this->state()){
+                return $this->table[$i]["name"];
             }
             $i++;
         }
 
     }
     function is_channel_private(){
-        $table = $this->get_channel_data();
+        $this->table;
         $channel_private = true;
         $i=0;
-        foreach($table as $row => $value){ 
-            if("./".$table[$i]["link"] == ".".$this->state()){
-                if($table[$i]["private"] == "0"){
+        foreach($this->table as $row => $value){ 
+            if("./".$this->table[$i]["link"] == ".".$this->state()){
+                if($this->table[$i]["private"] == "0"){
                     $channel_private = false; 
                 } 
             }
@@ -43,20 +47,20 @@ class load_page_vars {
     }
 
     function get_channel_properties_array(){
-        $table = $this->get_channel_data();
+        $this->table;
         $i=0;
         $exist = false;
         $access = false;
 
         $channel_title = "Project";
-        foreach($table as $row => $value){ 
+        foreach($this->table as $row => $value){ 
             //exist 
-            if("./".$table[$i]["link"] == ".".$this->state()){
+            if("./".$this->table[$i]["link"] == ".".$this->state()){
                 $exist = true;
             }
             //private
-            if("./".$table[$i]["link"] == ".".$this->state()){
-                if($table[$i]["private"] == "0"){
+            if("./".$this->table[$i]["link"] == ".".$this->state()){
+                if($this->table[$i]["private"] == "0"){
                     $access = true; 
                 } else {
                     if($_SESSION["all_member_channels"]){
@@ -69,8 +73,8 @@ class load_page_vars {
                 }
             }
             //name
-            if("./".$table[$i]["link"] == ".".$this->state()){
-                $channel_title = $table[$i]["name"];
+            if("./".$this->table[$i]["link"] == ".".$this->state()){
+                $channel_title = $this->table[$i]["name"];
             }
             $i++;
         }
@@ -155,5 +159,4 @@ class load_page_vars {
    }
 }
 
-$data = new load_page_vars();
 ?>

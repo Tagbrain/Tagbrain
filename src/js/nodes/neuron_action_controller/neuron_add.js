@@ -1,5 +1,4 @@
 import {gEBI, dCE} from "../../units/compress_f.js";
-import {toggle_pop_up} from '../interface/settings_pop_up_end.js';
 let Loader = require('../../units/tehnic/async_loader_end.js');
 import {send_data_ajax} from "../../units/send_data_ajax.js";
 import {get_selection_neuron_outgrowths} from "../../units/get_selection_neuron_outgrowths";
@@ -34,6 +33,11 @@ function add_form_for_creating_new_channel(){
    let error_message = "Search data not load";
    send_data_ajax(data, url, controller_f, true, error_message);
 }
+function toggle_pop_up(remove_class, add_class, el_cls, back_layer_element, pointer_e_stl){
+   el_cls.remove(remove_class);
+   back_layer_element.style.pointerEvents = pointer_e_stl;
+   el_cls.add(add_class);
+}
 function add_new_neuron_from_selection(outgrowths){
    if(gEBI("logout_a")){
       let neuron_features = {
@@ -46,7 +50,7 @@ function add_new_neuron_from_selection(outgrowths){
       let neuron_c_new_x_class = new class_c_neuron(neuron_features);
    }
    let upper_layer_for_animation = document.querySelector(".upper_layer_for_animation"),
-   neuron_pop_up_menu = gEBI("neuron_pop_up_menu"),
+   neuron_pop_up_menu = gEBI("id_c_pop_up_c_context"),
    classes = neuron_pop_up_menu.classList;
    toggle_pop_up('neuron_pop_up_show', 'neuron_pop_up_hide', classes, upper_layer_for_animation, 'none');
 }
@@ -64,7 +68,8 @@ function add_new_neuron_from_selection(outgrowths){
                add_ram_boolen: true,
                is_format: true,
             }
-            let neuron_c_new_x_class = new class_c_neuron(neuron_features)
+            let neuron_c_new_x_class = new class_c_neuron(neuron_features);
+            window.location.href = "#" + neuron_c_new_x_class.neuron_id;
          });
       };
 

@@ -1,5 +1,3 @@
-import {patterns} from "../../units/declare_patterns";
-import {escape_text} from "../../units/escape_text";
 import {get_depth_outgrowth} from "../../units/get_depth_outgrowth";
 import {drop_down_c_neuron_c_branche_s} from "../../units/drop_down_c_neuron_c_branche_s";
 import {get_row_caret_position} from "../../units/get_row_caret_position";
@@ -29,55 +27,11 @@ export let functions = {
                }
           }
      },
-     get_current_line_spaces(current_node: Element) {
-          let outgrowth_text = current_node.textContent;
-          let obj_space = get_depth_outgrowth(outgrowth_text);
-          return obj_space.depth;
-     },
-     transfer_line(tab_index: string) {
-          let current_node = get_current_line_div("start"),
-               current_node_content:string = current_node.textContent,
-               amount_tabs = this.get_current_line_spaces(current_node),
-               caret_position = get_row_caret_position(),
-               first_part_content = current_node_content.slice(0, caret_position),
-               second_part_content: string = current_node_content.slice(caret_position),
-               obj_second_line_spaces = get_depth_outgrowth(second_part_content);
-
-
-          tab_index == "enter" ? amount_tabs = 0 : true;
-          
-          if (obj_second_line_spaces.text_exist == false) {
-               second_part_content = "";
-               console.log("transfer_line")
-               //second_part_content = obj_second_line_spaces.content;
-          };
-
-          current_node.textContent = first_part_content;
-
-          let new_line_div;
-          if (amount_tabs > 0) {
-               let content = " ".repeat(4 * amount_tabs) + second_part_content;
-               new_line_div = create_new_row(content, false);
-               drop_down_c_neuron_c_branche_s(window["tagbrain_graph"]["cursor_position"]["neuron_element"]);
-               current_node.after(new_line_div);
-               let new_div_lastchild = new_line_div.lastChild;
-               this.validate_row_formate(current_node, false);
-               focus_end_element(new_div_lastchild);
-          } else {
-               let content = second_part_content;
-               new_line_div = create_new_row(content, true);
-               drop_down_c_neuron_c_branche_s(window["tagbrain_graph"]["cursor_position"]["neuron_element"]);
-               current_node.after(new_line_div);
-               let new_div_lastchild = new_line_div.lastChild;
-               this.validate_row_formate(current_node, false);
-               focus_end_element(new_div_lastchild);
-          }
-     },
      paste_formatting(paste: string) {
           let this_post: any = window["tagbrain_graph"]["cursor_position"]["neuron_element"],
               obj_caret:any = get_sel_range(),
               current_node = get_current_line_div(""),
-              current_node_tabs = this.get_current_line_spaces(current_node),
+              obj_space = get_depth_outgrowth(current_node.textContent),
               paste_rows: string[] = [];
               paste_rows = paste.split(/\r?\n|\,|\;|\:/);
           //check count selectnodes
@@ -98,7 +52,7 @@ export let functions = {
 
                     //get value, append new value to node
                     if (/[\p{L}]*/.test(this_post.childNodes[start_sel_block + 1].textContent) == true) {
-                         let tabs_previus_line_n = this.get_current_line_spaces(this_post.childNodes[start_sel_block]);
+                         let tabs_previus_line_n = get_depth_outgrowth(this_post.childNodes[start_sel_block].textContent).depth;
                          let content_second_line = this_post.childNodes[start_sel_block + 1].textContent;
                          this_post.childNodes[start_sel_block + 1].textContent = " ".repeat(tabs_previus_line_n * 4) + content_second_line;
                     } else { //remove zero line
@@ -129,7 +83,7 @@ export let functions = {
 
           } else {
                for (let i = 0; i < paste_rows.length; i++) {
-                    let content = " ".repeat(current_node_tabs * 4) + paste_rows[i];
+                    let content = " ".repeat(obj_space.depth * 4) + paste_rows[i];
                     let paste_line = create_new_row(content, false);
                     drop_down_c_neuron_c_branche_s(window["tagbrain_graph"]["cursor_position"]["neuron_element"]);
                     obj_caret.sel.deleteFromDocument();
@@ -148,26 +102,6 @@ export let functions = {
                //put caret
           }
           //divides lines by comma separator
-     },
-     deleteTab(target_block: HTMLElement, focus: boolean) {
-          let content = target_block.innerText;
-          if(content != null){
-               content = content.replace("\t", "    ");
-               content.search(/\s\s\s\s/i);
-               if (content.search(/\s\s\s\s/i) == 0) {
-                    content = content.substring(4);
-               } else if (content.search(/\s\s\s/i) == 0) {
-                    content = content.substring(3);
-               } else if (content.search(/\s\s/i) == 0) {
-                    content = content.substring(2);
-               } else if (content.search(/\s/i) == 0) {
-                    content = content.substring(1);
-               };
-               target_block.innerText = content;
-          }
-
-          if (focus)
-               focus_end_element(target_block);
      },
      get_selection_obj() {
           let limit_sel_div1:any = get_current_div_n("start"),
@@ -223,9 +157,6 @@ export let functions = {
                node_end_pos: end_sel_node_pos,
           }
      },
-     get_pos_activation(){
-
-     },
      destruct_shape_activation_number(str_num: string){
 
           let array_pos: number[] = [];
@@ -253,20 +184,6 @@ export let functions = {
           }
 
           return array_pos;
-     },
-     validate_row_formate(node: HTMLElement, caret_pos: number){
-          
-          let text_row = node.textContent;
-          let escaped_itext_row = escape_text(text_row);
-
-          let regexp = new RegExp(patterns.pattern_tag, 'gmu');
-               
-          let text_with_symbols_tags = escaped_itext_row.replace(regexp, function (search_key:string) {
-               search_key = "<span class='item_tags_style'>" + search_key + "</span>";
-               return search_key;
-          });
-          //put current caret
-          node.innerHTML = text_with_symbols_tags;
-     },
+     }
      //
 }

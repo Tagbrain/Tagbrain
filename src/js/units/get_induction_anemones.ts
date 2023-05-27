@@ -1,46 +1,63 @@
-import {collapse_by_truncus} from "./collapse_by_truncus";
-import {collapse_similar_outgrowths} from "./collapse_similar_outgrowths";
-
-type arr_branches = {
-    depth: number,
-    is_key_row: boolean,
-    key: string,
-    escape: boolean
-}[];
-type outgrowth = {child: string, v_index: number};
-type anemone = { [parent: string]: outgrowth[] };
+type outgrowth = {content: string, v_index: number};
+type anemone = outgrowth[];
 type anemones_collection = anemone[];
 
+export function get_induction_anemones(anemone00s_c_deduction: anemones_collection) {
+    let anemone00s_induction: anemones_collection = [] as anemones_collection;
+    let len = anemone00s_c_deduction.length;
 
-//get from arr_branches => [[{parent:[child, ...]},[], ...],[], ...]
-export function get_induction_anemones(arr_branches: arr_branches[]){
-    let collection_anemones = convert_branches_to_anemones(arr_branches);
-    collection_anemones = collapse_by_truncus(collection_anemones);
-    let anemones_induction = collapse_similar_outgrowths(collection_anemones);
-    return anemones_induction;
-}
-
-function convert_branches_to_anemones(arr_branches: arr_branches[]){
-    let anemones_collection: anemones_collection = [] as anemones_collection;
-    for (let i = 0; i < arr_branches.length; i++){
-        let branch = arr_branches[i];
-        for (let j = 0; j < branch.length; j++){
-            let outgrowth_current = branch[j]["key"];
-            let anemone: anemone = {} as anemone;
-            anemone[outgrowth_current] = [];
-            let current_depth = branch[j]["depth"];
-            for (let z = j + 1; z < branch.length; z++){
-                let diff = branch[j]["depth"] - current_depth;
-                if(diff == 1){
-                    anemone[branch[j]["key"]].push({child: branch[z]["key"], v_index: 1});
-                } else if(diff > 1){
-                    anemone[branch[j]["key"]].push({child: branch[z]["key"], v_index: 0});
-                } else if(diff == 0){
-                    console.log("Error: 5732566e")
+    //get_c_anemone_c_deduction
+    for (let i = 0; i < len; i++) {
+        let anemone = anemone00s_c_deduction[i];
+        let truncus = anemone[0];
+        for (let j = 1; j < anemone.length; j++) { 
+            let og = anemone[j];
+            truncus.v_index = og.v_index;
+            let is_exist_c_main_stream = false
+            //check_exist_c_target_c_anemone00s_induction
+            for (let a = 0; a < anemone00s_induction.length; a++) {
+                let main_stream = anemone00s_induction[a][0];
+                if(main_stream.content == og.content){
+                    is_exist_c_main_stream = true
+                    //main_stream_c_exist
+                        //check_exist_truncus_in_feeder_stream
+                        if(is_exist_truncus_in_feeder_stream00s(truncus, anemone00s_induction[a])){//exist
+                            continue
+                        } else {//not_exist
+                            anemone00s_induction[a].push(truncus)
+                        }
+                } else {
+                    continue
                 }
             }
-            anemones_collection.push(anemone)
+            if(!is_exist_c_main_stream){
+                //main_stream_c_not_exist
+                let anemone_induction = [og, truncus];
+                anemone00s_induction.push(anemone_induction)
+            }
+
         }
     }
-    return anemones_collection;
+    anemone00s_induction = filterShortArrays(anemone00s_induction);
+    return anemone00s_induction;
 }
+function is_exist_truncus_in_feeder_stream00s(
+    truncus: outgrowth,
+    anemone00s_induction:outgrowth[]
+){
+    for (let i = 1; i < anemone00s_induction.length; i++) {
+        if(anemone00s_induction[i] == truncus){
+            return true
+        }
+    }
+    return false;
+}
+function filterShortArrays(arrays:anemone[]) {
+    return arrays.filter(array => array.length > 2);
+}
+
+
+
+
+
+

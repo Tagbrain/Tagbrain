@@ -77,6 +77,8 @@ function success_controller(server_data: any, input_keys: any){
      for(var i = 0; i < list_c_graphs.length; i++){
           let graph_name = list_c_graphs[i];
           let neurons = server_data[graph_name];
+          neurons.sort((a:any, b:any) =>  b.key_rows.length - a.key_rows.length);
+
           for(var j = 0; j < neurons.length; j++){
                let object = neurons[j];
                object["graph_name"] = graph_name;

@@ -1,4 +1,9 @@
 import {gEBI, dCE } from "../../units/compress_f.js";
+import { send_c_change_request_x_target_c_server } from "../../units/send_c_change_request_x_target_c_server";
+import { send_c_change_request_x_target_c_local_storage } from "../../units/send_c_change_request_x_target_c_local_storage";
+import { class_formate_c_neuron } from "../../classes/class_formate_c_neuron";
+
+
 setInterval(function(){ 
     refresh_automate();
 }, 9000);
@@ -33,51 +38,40 @@ function refresh_automate(){
     let part3 = str_boolean.substr(12, 6);
 
     cellular_automata.innerHTML = '<tspan x="580">'+part1+'</tspan>'+'<tspan x="580" dy="15">'+part2+'</tspan>'+'<tspan x="580" dy="15">'+part3+'</tspan>';
-
+    save_edited_neurons();
 }
 
-/*
-let current_state: any;
-    let object_units : any, new_units;
-    if(cellular_automata!= null){
-        if(cellular_automata.textContent.trim() == ""){
-            cellular_automata.innerText = "1 1 1 1 1 \n 0 0 0 1 1 \n 1 0 1 1 1";
-        }
-        current_state = cellular_automata.innerText;
-    }
-
-    let rows: string[] = current_state.split("\n");
-    let return_row : string[][] = [];
-
-    for(let i = 0; i < rows.length; i++){
-        let array_row_symbols: RegExpMatchArray;
-        array_row_symbols = rows[i].match(/[0-9]/g); // array symbols of row
-
-        let new_row: any = [];
-        for(let j = 0; j < array_row_symbols.length; j++){
-                if(array_row_symbols[j] == "0"){
-                    if(j-1 < 0){//previous
-                        if(array_row_symbols[j-1] != "1" && array_row_symbols[j+1] != "1")
-                            if(array_row_symbols[j+3])
-                                if(array_row_symbols[j+2] == "1" && array_row_symbols[j+3]== "1"){
-                                    new_row.push("0");
-                                } else {
-                                    new_row.push("1");
-                                }
-                    } else {//previous
-                        j = array_row_symbols.length - 1;
+function save_edited_neurons(){
+    let collection_neurons_c_obj = window["tagbrain_graph"]["neurons_objs"];
+    let current_neuron = window["tagbrain_graph"]["neurons_objs"]["neurons_objs"];
+    
+    for (var id in collection_neurons_c_obj) {
+        let obj = collection_neurons_c_obj[id];
+        if(obj.neuron_is_saved == false){
+            if(obj.neuron_el != document.activeElement){
+                if(obj.neuron_c_container_c_tab == "neurons"){
+                    send_c_change_request_x_target_c_server(obj.neuron_el, obj.neuron_id, obj.neuron_shell);
+                } else if(obj.neuron_c_container_c_tab == "draft") {
+                    let options = {
+                        neuron_el: obj.neuron_el,
+                        neuron_id: obj.neuron_id,
+                        neuron_shell: obj.neuron_shell,
                     }
+                    send_c_change_request_x_target_c_local_storage(options);
                 }
-                if(array_row_symbols[j] == "1"){
-                    if(array_row_symbols[j+1])
-                        if(array_row_symbols[j+1] == "0"){
-                            new_row.push("0");
-                        } else {
-                            new_row.push("1");
-                        }
-                }
-        }     
-        return_row.push(new_row);
 
-    } 
-*/ 
+                let array_current_key_word = obj.neuron_el.querySelectorAll("mark");
+                if (array_current_key_word.length == 0) {
+                    new class_formate_c_neuron(obj.neuron_el, "");
+                } else {
+                    let arr_text_val: any = [];
+                    for (var i = 0; i < array_current_key_word.length; i++) {
+                        arr_text_val.push(array_current_key_word[i].innerText.trim());
+                    }
+                    new class_formate_c_neuron(obj.neuron_el, arr_text_val.join("|"));
+                }
+            }
+        }
+    }
+}
+
