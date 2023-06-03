@@ -5,6 +5,8 @@ import { get_child00s_c_from_floor00s } from "./get_child00s_c_from_floor00s";
 import { is_exist_c_location_c_global_z_target_c_microfeature } from "./is_exist_c_location_c_global_z_target_c_microfeature";
 import { generate_c_neuron_c_branch } from "../units/generate_c_neuron_c_branch";
 import { collect_c_hierarchy_c_truncus00a } from "./collect_c_hierarchy_c_truncus00a";
+import { is_exist_c_in_interval } from "../units/is_exist_c_in_interval";
+import { is_exist_c_anemone_c_in_listner00s } from "./is_exist_c_anemone_c_in_listner00s";
 
 //og - outgrowth
 
@@ -191,8 +193,8 @@ function get_c_twin00s_c_obj(
     let parent_c_obj = get_c_parent_truncus_c_outgrowth(tree, acceptor_c_i);
     if(parent_c_obj != false){
 
+        //find_c_twin_c_in_inner_circle
         for (let i = parent_c_obj.index + 1; i < tree.length; i++) {
-
             if(tree[i].content == og_donor.content){
                 //equal
                 if(acceptor_c_i != i){
@@ -200,6 +202,17 @@ function get_c_twin00s_c_obj(
                 }
             }
         }
+        for (let i = 0; i < tree.length; i++) {
+            if(tree[i].v_index){
+                if(tree[i].content == og_donor.content){
+                    //is_equal
+                    if(acceptor_c_i != i){
+                        twins.push(get_twin(tree, i));
+                    }
+                }
+            }
+        }
+
     } else {
         //parent not exist
         for (let i = 0; i < tree.length; i++) {
@@ -209,8 +222,8 @@ function get_c_twin00s_c_obj(
                     twins.push(get_twin(tree, i));
                 }
             }
-        }
-        
+        }  
+        //#check working
     }
     return twins;
 }
@@ -229,25 +242,16 @@ function is_exist_c_location_c_og_c_acc_c_child00s_zzz_target_c_twin(
     acc_i: number,
     twin: twin,
 ){
-
     let acc_c_child00s = get_c_og_c_child00s(tree, acc_i);
     if(acc_c_child00s.outgrowth_s.length == 0){
         return false;
     } else {
         //put_c_marker_c_check
-        if(twin.i >= acc_c_child00s.first_index){
-            if(twin.i <= acc_c_child00s.last_index){
-                //twin exist in interval childs
-                return true;
-            } else {
-                //twin not exist in interval childs
-                return false;
-            }
-        } else {
-            //twin not exist in interval childs
-            console.log("false");
-            return false
-        }
+        return is_exist_c_in_interval(
+            tree,
+            acc_i,
+            [acc_c_child00s.first_index, acc_c_child00s.last_index]
+        )
     }
 }
 function is_valid_c_twin_x_ancestor_c_current(
@@ -298,26 +302,6 @@ function is_valid_c_twin_x_ancestor_c_current(
 
     return true
 }
-function is_exist_c_in_listner00s_anemone00s(outgrowth:outgrowth_short){
-    let listner00s_c_anemone00a = window["tagbrain_graph"].ram.listner00s_c_anemone00a;
-        let og_c_donor = outgrowth;
-        for (let lst_i = 0; lst_i < listner00s_c_anemone00a.length; lst_i++) {
-            let listner_c_anemone00a = listner00s_c_anemone00a[lst_i];
-            let truncus = listner_c_anemone00a[0];
-            if(og_c_donor.content == truncus.content){
-                //extend anemone_c_donor
-                return {
-                    is_exist: true,
-                    anemone: listner00s_c_anemone00a[lst_i],
-                }
-            }
-        }
-    return {
-        is_exist: false,
-        anemone: [],
-    }
-    
-}
 function diff_og00s(
     target_anemone:any[],
     parent_anemone:any[],
@@ -343,7 +327,11 @@ function extend_target_c_tree_z_origin_c_listner_anemone(
     //filtration a1_og00s
     let parent_c_obj = get_c_parent_truncus_c_outgrowth(tree.tree, cur_i);
     if(parent_c_obj != false){
-        let obj_lst = is_exist_c_in_listner00s_anemone00s(parent_c_obj.outgrowth_c_parent);
+        let obj_lst = is_exist_c_anemone_c_in_listner00s(
+            parent_c_obj.outgrowth_c_parent,
+            false,
+            false
+        );
         if(obj_lst.is_exist == true){
             og00s_c_intersection00a = diff_og00s(lst_anemone, obj_lst.anemone);
         }
@@ -366,7 +354,7 @@ function extend_target_c_tree_z_origin_c_listner_anemone(
 export function connect_c_truncus_to_outgrowth(
     tree: {tree: branch}, 
     truncus:string, 
-    outgrowth00s:outgrowth_short[], 
+    outgrowth00s:outgrowth_short[]|outgrowth_c_usual[], 
     pos:{
         start:number,
         count: string, //"limitless" or "one"
@@ -482,8 +470,12 @@ export function connect_c_truncus_to_outgrowth(
                             } else {
                                 //twin_c_vi > 0
                                 if(is_exist_c_location_c_global_z_target_c_microfeature(truncus, tree_c_og_c_donor.content)){
-
-                                    let obj_lst0 = is_exist_c_in_listner00s_anemone00s(outgrowth00s[o_s]);
+                                    
+                                    let obj_lst0 = is_exist_c_anemone_c_in_listner00s(
+                                        outgrowth00s[o_s],
+                                        false,
+                                        false
+                                    );
                                     if(obj_lst0.is_exist){
                                         //extend_c_addition_c_origin_internal_listner
                                             //feature_c_not_exist

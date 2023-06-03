@@ -66,9 +66,9 @@ Screenshots
     + Description: combine several branches of outgrowths. Uses #anemone_induction~s and #anemone_deduction~s
 
 #anemone_induction~s
-One level radial structure.Inward direction. 
+One level radial structure. Inward direction. Contains one feeder_stream and one or more main_stream. Feeader_stream is category which is smaller than categories of main_stream.
 #anemone_deduction~s
-One level radial structure.Exward direction. 
+One level radial structure. Exward direction. Contains one truncus and one or more outgrowthes. Truncus is category which is bigger than categories of outgrowths.
 
 + Learning
     + Task: get more complete object properties when querying the graph
