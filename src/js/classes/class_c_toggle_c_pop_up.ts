@@ -16,12 +16,9 @@ class class_c_toggle_c_pop_up {
         this.upper_layer_for_animation = document.querySelector(".upper_layer_for_animation") as HTMLElement;
         let shadow_container = document.querySelector(".shadow_background_container_pos");
 
-        if(this.upper_layer_for_animation != null)
         this.upper_layer_for_animation.addEventListener("click", (e:any) => {
                 if(window["tagbrain_graph"].pop_up.context.is_activated){
                     this.close();
-                } else {
-                    this.show(e);
                 }
             })
 
@@ -32,9 +29,6 @@ class class_c_toggle_c_pop_up {
             } else {
                 this.show(e);
             }
-            //e = e || window.event;
-            //let neuron = e.target;
-            //obj_node = is_inside_c_node_c_in_block(neuron, "item"),
         })
     }
     show(e:any){

@@ -20,8 +20,8 @@ work_mode_button.addEventListener('click', function(){
     } 
   } else {
     openFullscreen();
-    if(document.querySelector(".animation_erythrocytes")){
-      //document.querySelector(".animation_erythrocytes").remove();
+    if(document.querySelector(".animation_c_header")){
+      //document.querySelector(".animation_c_header").remove();
     }
     //if(document.querySelector(".background_svg")){
       //document.querySelector(".background_svg").remove();

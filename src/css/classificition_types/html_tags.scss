@@ -39,6 +39,7 @@ html {
   
   a {
     color: var(--text-content); 
+    transition: 1s;
   }
   a:hover{
     color: var(--tags-color); 

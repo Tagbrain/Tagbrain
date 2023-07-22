@@ -1,8 +1,8 @@
 <?php
 session_start();
 include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/check_session_data.php";
-include "../general_units/collect_all_connection.php";
-include "../general_units/get_channel_connection_count.php";
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/collect_all_connection.php";
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/get_channel_connection_count.php";
 
 class chanell_data_collector{
     use check_session_data;
@@ -21,13 +21,11 @@ class chanell_data_collector{
         $relative_performance = round($brain_connection / $array_brain_tags["brain_tags_count"], 2);
         $brain_density = round($brain_connection / $neuron_count, 2);
 
-        $brain_data = array(
-            "Neurons" => $neuron_count,
-            "Tags" => $array_brain_tags["brain_tags_count"],
-            "Synapses" => $brain_connection,
-            "Relative performance" => $relative_performance,
-            "Brain density" => $brain_density
-        );
+        $brain_data = '<div class="post_row">Neurons: '.$neuron_count.'</div>'.
+            '<div class="post_row">Tags: '.$array_brain_tags["brain_tags_count"].'</div>'.
+            '<div class="post_row">Synapses: '.$brain_connection.'</div>'.
+            '<div class="post_row">Relative performance:'.$relative_performance.'</div>'.
+            '<div class="post_row">Brain density: '.$brain_density.'</div>';
     
         $response_arr = array(
             "status" => "success",

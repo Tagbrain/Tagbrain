@@ -1,5 +1,5 @@
 import { add_wave_animation_x_click_c_event } from "../../units/add_wave_animation_x_click_c_event";
-import { if_c_screen_c_is_narrow_zz8_close_c_right_bar } from "../../units/if_c_screen_c_is_narrow_zz8_close_c_right_bar";
+import { if_c_screen_c_is_narrow_zz_close_c_right_bar } from "../../units/if_c_screen_c_is_narrow_zz_close_c_right_bar";
 
 document.addEventListener('DOMContentLoaded',function(){
     let switch_right_bar = document.querySelector("#switch_right_bar"),
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded',function(){
             let current_hash = document.location.hash;
             let href_link = link_search_row.getAttribute("href");
 
-            if_c_screen_c_is_narrow_zz8_close_c_right_bar();
+            if_c_screen_c_is_narrow_zz_close_c_right_bar();
 
             if(href_link == current_hash && href_link != null){
                 true;

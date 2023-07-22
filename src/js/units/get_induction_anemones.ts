@@ -1,4 +1,4 @@
-type outgrowth = {content: string, v_index: number};
+type outgrowth = {content: string, v_index: number, depth: number};
 type anemone = outgrowth[];
 type anemones_collection = anemone[];
 

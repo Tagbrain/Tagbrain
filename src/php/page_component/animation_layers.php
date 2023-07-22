@@ -42,6 +42,12 @@
 							echo '<form  method="post" action="php/sessions/logout.inc.php" id="container_post_code">'.
 								' <input type="submit" title="'.$_SESSION["userid"].'" id="logout_a" value="logout">'.
 							'</form>';
+						} else {
+							echo '<form method="post" action="php/sessions/sign_in/signin_inc.php" class="header_central_text" onsubmit="return validate_code_form()" id="container_post_code">'.
+								'<input type="submit" id="send_code_to_email" value="▷">'.
+								'<input name="password_code" autocomplete="current-password"  type="text" id="log_code_input" maxlength="50" class="log_code_input_style" placeholder="Email log">'.
+							'</form>'.
+							'<a class="a_cl" id="log_up">Log up</a>';
 						}
 						?>
 					</a>
@@ -52,7 +58,7 @@
 					<a class="a_cl">Change channel name</a><br>
 					<a class="a_cl">Change channel editors</a><br>
 					<br>
-					<button id="get_channel_data">Get channel data</button>
+					<button id="button_id_14_c_get_c_data_c_channel">Get channel data</button>
 					<br>
 					<div>Date of measurement</div><br>
 						<div>Total tags:</div>
@@ -87,7 +93,7 @@
 		</div>
 	</div>
 	<div id="id_c_pop_up_c_context" class="pop_up neuron_pop_up_hide">
-		<a class="a_cl" id="button_create_from_selection">Create a new post from the selection</a><br>
+		<a class="a_cl" id="button_id_17_c_create_c_neuron_c_from_selection">Create a new post from the selection</a><br>
 		<a class="a_cl" id="paste_text">Paste</a><br>
 		<a class="a_cl" id="export_content">Export the selection → other channel</a><br>
 		<a class="a_cl" id="post_parsing">Post parsing</a>

@@ -23,15 +23,15 @@ type outgrowth = {
 };
 
 class class_formate_c_neuron {
-    public generalizated_tree:any;
     public neuron_activation: any;
     public outrgowths_architecture: string;
-    public tree_c_tags:any;
-    public tree_c_tags_c_action: any;
+
     public outgrowths_c_all:outgrowth[];
     public outgrowths_c_current:number[];
+    public tagbrain_graph_c_neuron_c_tree:any;
 
-    protected neuron:HTMLElement;
+    protected neuron_c_el:HTMLElement;
+    protected neuron_c_id: string;
     protected outgrowths:any;
     protected input_data:any;
 
@@ -40,25 +40,33 @@ class class_formate_c_neuron {
 
     //stack_c_timing
     protected outgrowth_c_depth_c_memory_x_current_iteration: number;
-    protected glob_ind:number;
     protected synapse_c_features:outgrowth;
 
-    constructor(neuron: HTMLElement, input_data: any) {
-        this.neuron = neuron;
-        this.outgrowths = neuron.children;
+    constructor(
+        neuron_c_id: string, 
+        input_data: any,
+        neuron_c_el: HTMLElement | false
+    ) {
+        this.neuron_c_id = neuron_c_id;
+
+        if(neuron_c_el == false){
+            this.neuron_c_el = window["tagbrain_graph"]["neuron00s_obj00s"][this.neuron_c_id].neuron_el;
+        } else {
+            this.neuron_c_el = neuron_c_el;
+        }
+        this.outgrowths = this.neuron_c_el.children;
 
         this.is_zero_activation = false;
         this.input_data = input_data;
 
         this.outgrowth_c_depth_c_memory_x_current_iteration = 0;
+        this.tagbrain_graph_c_neuron_c_tree = [];
 
         this.input_data_c_modifier_c_is_correct = true;
         if(this.input_data == ""){
             this.input_data_c_modifier_c_is_correct = false;
             this.input_data = "za92jr4njFrjv"
         }
-        this.tree_c_tags = [];
-        this.tree_c_tags_c_action = [];
 
         this.controller_formatting();
     }
@@ -67,7 +75,6 @@ class class_formate_c_neuron {
         let outgrowths_c_current:number[] = [];
 
         for (let i = 0; i < this.outgrowths.length ; i++) {
-            this.glob_ind = i;
             let fix_obj:any = {};
             if(this.synapse_c_features != undefined){
                 if(this.synapse_c_features.escape){
@@ -83,7 +90,11 @@ class class_formate_c_neuron {
                 }
             }
 
-            let response_c_g_o_f: response_c_get_outgrowth_features = get_outgrowth_features(this.outgrowths[i],this.glob_ind, fix_obj);
+            let response_c_g_o_f: response_c_get_outgrowth_features = get_outgrowth_features(
+                this.outgrowths[i],
+                i, 
+                fix_obj
+            );
             this.outgrowth_c_depth_c_memory_x_current_iteration = response_c_g_o_f.new_depth;
             this.synapse_c_features = this.reduct_obj(response_c_g_o_f);
 
@@ -97,14 +108,15 @@ class class_formate_c_neuron {
                 if(this.input_data_c_modifier_c_is_correct){
                     regexp = new RegExp(this.input_data + '|' + patterns.pattern_tag + '|' + patterns.pattern_verb, 'gmu');
                     obj_features = this.main_formatter(regexp, content_c_escaped, this);
-                    this.tree_c_tags.push(...obj_features.tree_c_tags);
-                    this.tree_c_tags_c_action.push(...obj_features.tree_c_tags_c_action);
                 } else {
                     regexp = new RegExp(patterns.pattern_tag + '|' + patterns.pattern_verb, 'gmu');
                     obj_features = this.main_formatter(regexp, content_c_escaped, this);
-                    this.tree_c_tags.push(...obj_features.tree_c_tags);
-                    this.tree_c_tags_c_action.push(...obj_features.tree_c_tags_c_action);
                 }
+                this.tagbrain_graph_c_neuron_c_tree.push({ 
+                    k: response_c_g_o_f.content, 
+                    i: i, 
+                    d: this.outgrowth_c_depth_c_memory_x_current_iteration 
+                });
             }
 
             this.outgrowths[i].innerHTML = obj_features.content;
@@ -117,19 +129,13 @@ class class_formate_c_neuron {
 
         }
 
-            if (outgrowths_c_current.length > 0) {
-                this.generalizated_tree = "generalizated_tree";
-            } else {
-                this.generalizated_tree = "Developing";
-            }
-            let obj_st_acitvations = generate_struct_activ_num(outgrowths_c_all);
+        let obj_st_acitvations = generate_struct_activ_num(outgrowths_c_all);
 
-            this.outgrowths_c_all = outgrowths_c_all;
-            this.outgrowths_c_current = outgrowths_c_current;
-            this.neuron_activation = obj_st_acitvations.general_activation;
-            this.outrgowths_architecture = obj_st_acitvations.number;
+        this.outgrowths_c_all = outgrowths_c_all;
+        this.outgrowths_c_current = outgrowths_c_current;
+        this.neuron_activation = obj_st_acitvations.general_activation;
+        this.outrgowths_architecture = obj_st_acitvations.number;
 
-        return this.get_public_features();
     }
     reduct_obj(obj:any){
         const { new_depth, ...otherProps} = obj;
@@ -137,11 +143,6 @@ class class_formate_c_neuron {
     }
     main_formatter(regexp: RegExp, content_c_escaped:string, this_obj:any){
         let is_key_row = false;
-        let tree_c_tags:any = [];
-        let tree_c_tags_c_action: any = [];
-
-        let glob_ind = this_obj.glob_ind;
-        let outgrowth_c_depth_c_memory_x_current_iteration = this_obj.outgrowth_c_depth_c_memory_x_current_iteration;
 
         let reg_verb = new RegExp(patterns.pattern_verb, 'iu'),
             reg_tag = new RegExp(patterns.pattern_tag, 'iu'),
@@ -155,42 +156,46 @@ class class_formate_c_neuron {
             if(is_exist_finding_word){
                 is_key_row = true;
                 if (is_exist_tags) {
-                    tree_c_tags.push({ content: content_c_unit, c: glob_ind, d: outgrowth_c_depth_c_memory_x_current_iteration });
-                    content_c_unit = "<span class='item_tags_style'><mark>" + content_c_unit + "</mark></span>";
+
+                    content_c_unit = 
+                        "<span class='item_tags_style'><mark>" 
+                            + content_c_unit 
+                        + "</mark></span>";
+
                 } else if (is_exist_tags_action) {
-                    tree_c_tags_c_action.push({ content: content_c_unit, c: glob_ind, d: outgrowth_c_depth_c_memory_x_current_iteration });
-                    content_c_unit = "<span class='special_symbols_style'><mark>" + content_c_unit + "</mark></span>";
+
+                    content_c_unit = 
+                        "<span class='special_symbols_style'><mark>" 
+                            + content_c_unit 
+                        + "</mark></span>";
+
                 } else {
-                    content_c_unit = "<mark>" + content_c_unit + "</mark>";
+                    content_c_unit = 
+                        "<mark>" 
+                            + content_c_unit 
+                        + "</mark>";
                 }
             } else {
                 if (is_exist_tags) {
-                    tree_c_tags.push({ content: content_c_unit, c: glob_ind, d: outgrowth_c_depth_c_memory_x_current_iteration });
-                    content_c_unit = "<span class='item_tags_style'>" + content_c_unit + "</span>";
+                    content_c_unit = 
+                        "<span class='item_tags_style'>" 
+                            + content_c_unit 
+                        + "</span>";
                 } else if (is_exist_tags_action) {
-                    tree_c_tags_c_action.push({ content: content_c_unit, c: glob_ind, d: outgrowth_c_depth_c_memory_x_current_iteration });
-                    content_c_unit = "<span class='special_symbols_style'>" + content_c_unit + "</span>";
+  
+                    content_c_unit = 
+                        "<span class='special_symbols_style'>" 
+                            + content_c_unit 
+                        + "</span>";
                 }
             }
 
             return content_c_unit
         });
+
         return {
             content: text_c_terminal,
             is_key_row: is_key_row,
-            tree_c_tags:tree_c_tags,
-            tree_c_tags_c_action:tree_c_tags_c_action
-        }
-    }
-    get_public_features(){
-        return {
-            generalizated_tree:this.generalizated_tree,
-            neuron_activation: this.neuron_activation,
-            outrgowths_architecture: this.outrgowths_architecture,
-            tree_c_tags:this.tree_c_tags,
-            tree_c_tags_c_action: this.tree_c_tags_c_action,
-            outgrowths_c_all: this.outgrowths_c_all,
-            outgrowths_c_current:this.outgrowths_c_current,
         }
     }
 }

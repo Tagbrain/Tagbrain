@@ -1,12 +1,12 @@
 
-type anemone = { [parent: string]: outgrowth_short[] };
+
 type branch = outgrowth_c_usual[];
 type outgrowth_c_usual = {
     content: string,
     depth: number,
     v_index: number,
 }
-type outgrowth_short = { content: string, v_index: number };
+
 
 export function collect_c_hierarchy_c_truncus00a(
     tree: branch, 

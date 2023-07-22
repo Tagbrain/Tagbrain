@@ -5,6 +5,9 @@ let checkers_objs = [
     {
         change_target:'checker_id_1',
         value: 'read_mode',
+        event: function(){
+            //change_c_all_c_contenteditable_c_false
+        }
     },
     {
         change_target:'checker_id_3',

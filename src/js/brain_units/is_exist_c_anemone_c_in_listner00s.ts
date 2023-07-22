@@ -5,10 +5,10 @@ type outgrowth_c_usual = {
     depth: number,
     v_index: number,
 }
-type outgrowth_short = { content: string, v_index: number };
+
 export function is_exist_c_anemone_c_in_listner00s(
-    truncus_c_ex: outgrowth_short,
-    og_c_obligatory: outgrowth_short|false,
+    truncus_c_ex: outgrowth_c_usual,
+    og_c_obligatory: outgrowth_c_usual|false,
     is_high_c_affinity: boolean
 ){
     let listner00s_c_anemone00a = window["tagbrain_graph"].ram.listner00s_c_anemone00a;

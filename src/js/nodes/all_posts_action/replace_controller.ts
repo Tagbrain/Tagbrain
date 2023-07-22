@@ -42,7 +42,7 @@ function replace_current_value() {
                 front_end_controller(replacement, tab);
                 let neuron_s_c_for_search = window["tagbrain_graph"]["neuron_collections_c_current"]["search_c_last_finded"];
                 for(let i = 0; i < neuron_s_c_for_search.length; i++){
-                    let neuron_class = window["tagbrain_graph"]["neurons_objs"][neuron_s_c_for_search[i]["neuron_id"]];
+                    let neuron_class = window["tagbrain_graph"]["neuron00s_obj00s"][neuron_s_c_for_search[i]["neuron_id"]];
                     let function_variable = function(){
                         let options2 = {
                             neuron_el: neuron_class.neuron_el,

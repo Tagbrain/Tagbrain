@@ -1,6 +1,6 @@
 import { get_c_og_c_child00s } from "../brain_units/get_c_og_c_child00s";
-import {get_c_parent_truncus_c_outgrowth} from "../brain_units/get_c_parent_truncus_c_outgrowth";
-import {connect_c_truncus_to_outgrowth} from "../brain_units/connect_c_truncus_to_outgrowth";
+import {get_c_truncus_c_target_c_outgrowth} from "../brain_units/get_c_truncus_c_target_c_outgrowth";
+import {connect_c_anemone_x_target_c_tree} from "../brain_units/connect_c_anemone_x_target_c_tree";
 import { is_exist_c_anemone_c_in_listner00s } from "./is_exist_c_anemone_c_in_listner00s";
 import { is_exist_c_in_interval } from "../units/is_exist_c_in_interval";
 
@@ -11,7 +11,6 @@ type outgrowth_c_usual = {
     depth: number,
     v_index: number,
 }
-type outgrowth_short = { content: string, v_index: number };
 
 export function extend_c_tree_c_chain(
     tree: {tree: branch}
@@ -21,7 +20,7 @@ export function extend_c_tree_c_chain(
         if(og.v_index == 0){
             let anemone00s_induction = window["tagbrain_graph"].ram.anemone00s.induction;
             //get_c_target_c_parent_c_with_child_c_current_outgrowth
-            let parent_c_obj = get_c_parent_truncus_c_outgrowth(tree.tree, i);
+            let parent_c_obj = get_c_truncus_c_target_c_outgrowth(tree.tree, i);
             if(parent_c_obj != false){
 
                 let parent_i = parent_c_obj.index;
@@ -51,7 +50,8 @@ export function extend_c_tree_c_chain(
                                 og,
                                 true
                             ).is_exist){
-                                let obj6 = connect_c_truncus_to_outgrowth(
+
+                                let obj6 = connect_c_anemone_x_target_c_tree(
                                     tree, 
                                     some_child.content, //truncus
                                     [og], //outgrowth
@@ -61,6 +61,7 @@ export function extend_c_tree_c_chain(
                                     }, 
                                     false
                                 );
+
                             } 
                         } 
                     }

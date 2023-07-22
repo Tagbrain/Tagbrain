@@ -13,8 +13,8 @@
 				</label>
 			</div>
 			<div>
-				<input type="radio" id="microfeatures_controller_right_bar" name="item">
-				<label class="menu_item_right_bar" for="microfeatures_controller_right_bar" title="Generalization controller">
+				<input type="radio" id="fractal_controller_right_bar" name="item">
+				<label class="menu_item_right_bar" for="fractal_controller_right_bar" title="Tree Fractal controller">
 					<svg class="linear_icon_c_target icon_size_big right_menu_icon">
 						<use xlink:href="#sprite_neural_f"></use>
 					</svg>
@@ -128,42 +128,78 @@
 				<a>Save</a> 
 				<a> Clean</a>
 				<a>Save_in_cookie</a>
+				<a>Collapse items</a>
 				<div id="last_posts_lists" class="output_block"></div>
 			</div>
 
-			<div class="tools_container" id="microfeatures_controller_right_bar_page">
-				<div>Neurons:</div>
-			    <div>Request tree\generalizated:</div>
-				<div id="synapses_tree_x_output_field" class="synapses_tree_x_output_field"></div>
-				<button>activate</button>
+			<div class="tools_container" id="fractal_controller_right_bar_page">
+				<span id="container_c_neuron_id00s" class="container_c_neuron_id00s"></span>
+				<div class="container_layer00s_tree">
+					<div class="summary_tree_c_header">
+						<a title="Add a parent for selected">
+							<svg class="linear_icon_c_target icon_size_sl_a_middle" id="button_id_8">
+								<use xlink:href="#sprite_add_c_parent"></use>
+							</svg>
+						</a>
+						<a title="Add a child for selected">
+							<svg class="linear_icon_c_target icon_size_sl_a_middle" id="button_id_9">
+								<use xlink:href="#sprite_add_c_child"></use>
+							</svg>
+						</a>
+						<a title="Cut selected outgrowths">
+							<svg class="linear_icon_c_target icon_size_sl_a_middle" id="button_id_12" style="transform: rotate(-45deg);">
+								<use xlink:href="#sprite_button_c_cut"></use>
+							</svg>
+						</a>
+						<a title="Copy the tree">
+							<svg class="linear_icon_c_target icon_size_sl_a_middle" id="button_id_10">
+								<use xlink:href="#sprite_button_c_copy"></use>
+							</svg>
+						</a>
+						<a title="Edit selected outgrowths">
+							<svg class="linear_icon_c_target icon_size_sl_a_middle" id="button_id_11">
+								<use xlink:href="#sprite_button_c_edit"></use>
+							</svg>
+						</a>
+
+					</div>
+					<div id="contrainer_c_synapses_c_tree" class="contrainer_c_synapses_c_tree">
+						<div id="synapses_tree_x_output_field" class="synapses_tree_x_output_field"></div>
+						<div id="container_c_fantom_c_tree" class="container_c_fantom_c_tree"></div>
+					</div>
+					<div class="summary_tree_c_footer">
+						<a id="send_request_c_activate_c_graph" class="buttons_inputs_search_tab icon_buttons_visual_effects" title="Activate the graph">
+							<svg class="linear_icon_c_target icon_size_middle">
+								<use xlink:href="#sprite_c_search_icons_x_send_request"></use>
+							</svg>
+						</a>
+					</div>
+				</div>
+				<div>Sum:</div><span id="gen_c_summarization"></span>
 				<div>Anemones:</div>
 				<div id="donors_microfeatures_x_input_field"></div>
-				<div>Output\neural_guide:</div>
+				<div>
+					<span>Neural guide:</span><span id="output_c_neural_c_guide_c_count"></span>
+				</div>
+				<div id="output_c_neural_guide" class="output_c_neural_guide"></div>
 			</div>
 
 			<div class="tools_container" id="functions_right_bar_page">
-				<a title="5 last items">Open_copy_buffer()</a>
-				<a title="The most activated synapse of the graph">get_important_synapse()</a>
+				<a title="5 last items">open_c_copy_buffer()</a>
+				<a title="The most activated synapse of the graph">get_с_main_c_synapse00s()</a>
 				<br>
-				<div>For developers</div>
+				<a title="Use this graph syntax">load_c_graph_c_syntax()</a>
 				<br>
-				<a title="Use this graph syntax">show_str_graph_syntax()</a>
-				<br><br>
 				<button title="upper/lower case">AA<->aa</button>
 				<br><br>
 			</div>
 
 			<div class="tools_container" id="channels_map_right_bar_page">
-				<?php 
-				if($_SESSION["userid"]){
-					echo '<div class="channels_user_container">';
-					foreach($_SESSION["all_member_channels"] as $access_channels){
-						echo "<a id="."channel_".$access_channels." href=".$access_channels.">".$access_channels."</a><br>";
-					};
-					echo '</div>'.
-							'<a title="Create new channel" id="create_new_channel_button">(+)</a>';
-				};
-				?>
+				<div id="graph00s_c_link00s" class="channels_user_container">
+				</div>
+				<a title="Create new channel" id="button_id_15_c_create_c_channel">
+					(+)
+				</a>
 			</div>
 
 			<div class="tools_container" id="smart_tips_right_bar_page">

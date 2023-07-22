@@ -20,13 +20,13 @@ trait get_neuron_data {
  
         $neuron_id = substr($neuron_name, 0, strrpos($neuron_name, '.'));
         $unix_timestamp = filemtime($new_neuron_path);
-        $time_last_change = date("d|m|Y", $unix_timestamp);
+        //$time_last_change = date("d|m|Y", $unix_timestamp); #remove
         $neuron_tree_json = $this->load_neuron_tree($new_neuron_path, true);
 
         //PATH WAS CHANGED
         $neuron_data = array(
             "neuron_id" => $neuron_id,
-            "time_last_change" => $time_last_change,
+            "time_c_last_edit" => $unix_timestamp,
             "neuron_tree_json" => $neuron_tree_json,
          );
          return $neuron_data;

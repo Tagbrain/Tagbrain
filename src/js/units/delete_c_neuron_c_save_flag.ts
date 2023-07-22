@@ -8,5 +8,5 @@ export function delete_c_neuron_c_save_flag(neuron_shell:HTMLElement, neuron_id:
         if (gEBI("search_" + neuron_id))
             gEBI("search_" + neuron_id).querySelector(".activation_container ").className = "activation_container saved_neuron";
     }
-    window["tagbrain_graph"]["neurons_objs"][neuron_id].neuron_is_saved = true;
+    window["tagbrain_graph"]["neuron00s_obj00s"][neuron_id].neuron_is_saved = true;
 }

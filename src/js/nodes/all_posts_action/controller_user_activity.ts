@@ -1,13 +1,9 @@
 import {gEBI, dCE} from "../../units/compress_f.js";
-import {generate_random_neuron_image} from "./load_random_neurons";
+import {generate_c_graph_c_environment} from "./generate_c_graph_c_environment";
 
 document.addEventListener('DOMContentLoaded',function(){
-    if(gEBI("loading_flag_random_neurons") != false){
-        generate_random_neuron_image();
-    }
-    if(gEBI("loading_flag_cookies_neurons") != false){
-        //gEBI("loading_flag_cookies_neurons").remove();
-    }
+    let graph_name = document.location.pathname.split("/")[1];
+    generate_c_graph_c_environment(graph_name);
 });
 //content volume
     //get posts

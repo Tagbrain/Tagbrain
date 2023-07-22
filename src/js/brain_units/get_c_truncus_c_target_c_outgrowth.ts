@@ -9,7 +9,7 @@ type microfeature = {
     parent: string,
     child: string,
 }
-export function get_c_parent_truncus_c_outgrowth(tree: branch, ind:number){
+export function get_c_truncus_c_target_c_outgrowth(tree: branch, ind:number){
 
     let index = 0;
     let parent_is_exist = false;

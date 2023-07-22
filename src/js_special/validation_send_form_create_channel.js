@@ -94,7 +94,11 @@ function output_result_ajax_create_channel(result_creating, channel_name){
     const loc = document.location;
     location.replace('https://' + loc.hostname + '/' + channel_name);
 }
-async function send_new_channel_data(channel_name, editors_channel, is_private){
+async function send_new_channel_data(
+    channel_name, 
+    editors_channel, 
+    is_private
+){
     let response = await fetch('php/channels_function/add_channel/add_new_channel_exporter.php', {
         method: 'POST',
         headers: {

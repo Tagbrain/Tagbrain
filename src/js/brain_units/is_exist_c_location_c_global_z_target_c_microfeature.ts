@@ -6,19 +6,29 @@ type anemones_collection = anemone[];
 export function is_exist_c_location_c_global_z_target_c_microfeature(
     og_c_truncus00a: string,
     og_c_child00a: string,
+    is_high_c_affinity: boolean,
 ){
-    let a_s_deduction = window["tagbrain_graph"].ram.anemone00s.deduction;
-    for (let i = 0; i < a_s_deduction.length; i++) {
-        let anemone:anemone = a_s_deduction[i],
-        truncus: string = anemone[0].content;
-        if(truncus == og_c_truncus00a){
-            for (let j = 1; j < anemone.length; j++) {
-                if(og_c_child00a == anemone[j]["content"]){
-                    return true;
+    let anemone00s_deduction = window["tagbrain_graph"].ram.anemone00s.deduction;
+    for (let i = 0; i < anemone00s_deduction.length; i++) {
+        //take_c_one_anemone
+        let anemone_c_deduction = anemone00s_deduction[i];
+        //compare_c_with_listner_c_truncus
+        if(og_c_truncus00a == anemone_c_deduction[0].content){
+            for (let og_i = 1; og_i < anemone_c_deduction.length; og_i++) {
+                if(anemone_c_deduction[og_i].content == og_c_child00a){
+                    if(is_high_c_affinity == true){
+                        if(anemone_c_deduction[og_i].v_index > 0){
+                            return true
+                        } else {
+                            return false
+                        }
+                    } else {
+                        return true
+                    }
+                } else {
+                    continue
                 }
             }
-        } else {
-            continue;
         }
     }
     return false;

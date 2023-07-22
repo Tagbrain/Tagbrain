@@ -34,12 +34,17 @@ Screenshots
 ### Terminology v 0.1
 
 + Basic variables 
-    + <a href="">#neuron</a> is a file that contains a tree structure of words (ordinary(weak synapses) and synapses)
-    + #synapse is a word with a hash tag that is found in the tree structure of a neuron. If different neurons have the same synapses, then they form connections between these neurons.
-    + #connection is a fibers of different weigth that connect synapses with the same values. The fibers thicknesses are determined by row number, row depth (tabulation), components selective activation and weight index.
-    + #microfeature is a part of the chain_of_fathers from 2 or more fathers (features).
-    + #chain_of_fathers is parents hierarchy of the target synapse. It's contain a lot of microfeatures.
-
+    + <a href="">#neuron</a> is a file that contains a tree structure of words (synapses and description)
+    + <a href="">#synapse</a> is a word with a hash tag that is found in the tree structure of a neuron. If different neurons have the same synapses, then they form connections between these neurons.
+    + <a href="">#connection</a> is a fibers of different weigth that connect synapses with the same values. The fibers thicknesses are determined by row number, row depth (tabulation), components selective activation and weight index.
+    + <a href="">#microfeature</a> is a part of the chain_of_fathers from 2 or more fathers (features).
+    + <a href="">#chain_of_fathers</a> is parents hierarchy of the target synapse. It's contain a lot of microfeatures.
+    + <a href="">#anemone</a>
+        + One level radial structure
+        + #anemone_induction00s
+            + Inward direction. Contains one feeder_stream and one or more main_stream. Feeader_stream is category which is smaller than categories of main_stream.
+        + #anemone_deduction00s
+            + Exward direction. Contains one truncus and one or more <a href="">#outgrowths</a>. <a href="">#truncus</a> is category which is bigger than categories of outgrowths.
 + #neural_activity
     + #neural_activation
         Number index is characterized the significance of summarizing activations of target synapses. In many causes the index is 0 because the neuron has no target synapses.
@@ -49,26 +54,22 @@ Screenshots
     + #mental_image is a combination of several tangles.
 
 + #components_selective_activation
-    + #dendrites_outgrowth~s are dead-end superstructures over synapses that are formed with each neuron activation. 
+    + #dendrites_outgrowth00s are dead-end superstructures over synapses that are formed with each neuron activation. 
         And they are destroyed if other neurons except the target one are activated. 
         Needed to store information about recent activations. 
         Dendrites outgrowths allow the system to dynamically adapt to the most frequent activations of recent times, increasing their significance.
-    + #receptor~s of the synapses
+    + #receptor00s of the synapses
         These are functional components of a synapse that affect on the activation of the neuron at the synapse.
         The distribution of receptors in synapses is different, which allows us to create another meta-graph of the distribution of dynamic-activations.
         Each synapse has its own combination of receptors with difference weight of activation.
         We can secrete neurotransmitters that will instantly turn off or turn on groups of synapses from the search.
             example receptors names: AA, BBB, ABA, AVF ... 
-    + #neurotransmitter~s is different instanses for activation one receptor or them functional group. 
+    + #neurotransmitter00s is different instanses for activation one receptor or them functional group. 
         #cluster_neurotransmission is summarizing index of the weights all receptors of the neuron. For learning tagsystem
     
 + #generalization_function
-    + Description: combine several branches of outgrowths. Uses #anemone_induction~s and #anemone_deduction~s
+    + Description: combine several branches of outgrowths. Uses #anemone_induction00s and #anemone_deduction00s
 
-#anemone_induction~s
-One level radial structure. Inward direction. Contains one feeder_stream and one or more main_stream. Feeader_stream is category which is smaller than categories of main_stream.
-#anemone_deduction~s
-One level radial structure. Exward direction. Contains one truncus and one or more outgrowthes. Truncus is category which is bigger than categories of outgrowths.
 
 + Learning
     + Task: get more complete object properties when querying the graph
@@ -95,14 +96,14 @@ One level radial structure. Exward direction. Contains one truncus and one or mo
             support
     #transhumanism channel
         [↑] compatibility similar words 
-        → [↑] amount #connection~s
+        → [↑] amount #connection00s
     #statistic
         $add the function 
             $get_channel_data
                 #connection
                 tags
                 density
-                neuron~s
+                neuron00s
     #syntax 
         induction and deduction
             example
@@ -120,9 +121,9 @@ One level radial structure. Exward direction. Contains one truncus and one or mo
     #search
         #front_end
             mobile adaptation
-    #opitmization #function~s
-        [↑] creation speed of new #neuron~s
-    #bug~s
+    #opitmization #function00s
+        [↑] creation speed of new #neuron00s
+    #bug00s
         #interface 
             #right_bar
         $fix
@@ -142,18 +143,18 @@ One level radial structure. Exward direction. Contains one truncus and one or mo
                     fixed tabs menu 
                         no scroll
             mobile adaptation
-            button~s position
+            button00s position
             #animation
                 event
                     click 
-                flow #tip~s
+                flow #tip00s
                     text
             #right_bar
                 #RAM
                     two column of #RAM results
-            #icon~s
+            #icon00s
                 settings
-                arrows style~s $update
+                arrows style00s $update
             [↑] #menu adaptivity
             [↑] stability
                 $delete #neuron
@@ -161,7 +162,7 @@ One level radial structure. Exward direction. Contains one truncus and one or mo
                 svg img
     #for_developers
         new units 
-            for ajax_request~s
+            for ajax_request00s
         terminology
             now we will use "#neuron" instead of "post"
             #neuron is the elementary unit of a #graph

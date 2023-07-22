@@ -496,7 +496,6 @@
 
 	</symbol>
 
-
 	<symbol id="sprite_settings" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'>
 		<line x1="180.92" y1="3.65" x2="220.5" y2="97.89"/>
 		<line x1="386.83" y1="493.97" x2="426.41" y2="588.21"/>
@@ -508,6 +507,51 @@
 		<line x1="386.83" y1="97.89" x2="426.41" y2="3.65"/>
 		<circle cx="304.14" cy="300.6" r="206.69"/>
 	</symbol>
+
+	<symbol id="sprite_c_log_in" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'>
+		<line x1="198.51" y1="300.66" x2="401.25" y2="300.66"/>
+		<polyline points="359.15,252.14 407.61,300.6 359.15,349.07 	"/>
+	</symbol>
+
+	<symbol id="sprite_add_c_parent" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'>
+		<circle class="dashed" cx="416.37" cy="416.79" r="136.51"/> 
+		<circle cx="184.11" cy="184.53" r="136.51"/>
+		<line x1="184.11" y1="115.71" x2="184.11" y2="256.88"/>
+		<line x1="254.7" y1="184.88" x2="113.53" y2="184.88"/>
+	</symbol>
+
+	<symbol id="sprite_add_c_child" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'>
+		<circle cx="416.13" cy="416.13" r="136.51"/>
+		<circle class="dashed" cx="183.87" cy="183.87" r="136.51"/>
+		<line x1="415.89" y1="345.64" x2="415.89" y2="486.82"/>
+		<line x1="486.47" y1="415.82" x2="345.3" y2="415.82"/>
+	</symbol>
+
+	<symbol id="sprite_button_c_copy" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'>
+		<path d="M420.57,526.16c81.84-42.52,137.76-128.06,137.76-226.67S502.41,115.36,420.57,72.83"/>
+		<path d="M185.51,73.33C103.67,115.86,47.75,201.39,47.75,300s55.91,184.14,137.76,226.67"/>
+		<line x1="189.51" y1="173.59" x2="357" y2="173.59"/>
+		<line x1="190.24" y1="414.53" x2="425.29" y2="414.53"/>
+		<line x1="189.51" y1="294.06" x2="424.57" y2="294.06"/>
+	</symbol>
+
+	<symbol id="sprite_button_c_edit" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'>
+		<path class="dashed" d="M53.27,246.47C76.14,138.21,167.62,55.26,280.08,45.23"/>
+		<path d="M303.04,44.21c140.99,0,255.28,114.29,255.28,255.28S444.03,554.78,303.04,554.78S47.75,440.49,47.75,299.5"/>
+		<path d="M-0.82,233.82c4.24-24.29,20.18-97.33,85.06-159.18C147.7,14.15,219.46,1.08,244.12-2.29"/>
+	</symbol>
+
+	<symbol id="sprite_button_c_cut" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'>
+		<circle cx="427.29" cy="197.94" r="85.24"/>
+		<circle cx="427.29" cy="421.35" r="85.24"/>
+		<path d="M341.7,207.97c-3.31,25.14-12.64,65.72-41.98,104.01c-74,96.55-205.29,87.24-217.37,86.19"/>
+		<path d="M341.7,398.89c-3.31-25.14-12.64-65.72-41.98-104.01c-74-96.55-205.29-87.24-217.37-86.19"/>
+	</symbol>
+
+	<symbol id="sprite_button_c_holder" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'>
+		<circle class="dashed" cx="303.04" cy="299.5" r="255.28"/>
+	</symbol>
+
 
 	<symbol id="sprite_whirlpool" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'>
 		<circle cx="305.14" cy="300.8" r="263.11"/>

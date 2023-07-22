@@ -12,12 +12,19 @@ setInterval(function(){
 //if zero
 //if one
 //function change_one(lenght: number, current_position: number){}
+let graph_c_name = window["tagbrain_graph"]["graph_name"];
 
 function getRandomInt(min:number, max:number) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+document.addEventListener('keydown', function(event) {
+    if(event.ctrlKey == true && event.keyCode == 83) {
+        event.preventDefault();
+        save_edited_neurons();
+    }
+  });
 
 function refresh_automate(){
     let cellular_automata: HTMLElement = gEBI("cellural_automaton");
@@ -42,15 +49,19 @@ function refresh_automate(){
 }
 
 function save_edited_neurons(){
-    let collection_neurons_c_obj = window["tagbrain_graph"]["neurons_objs"];
-    let current_neuron = window["tagbrain_graph"]["neurons_objs"]["neurons_objs"];
+    let collection_neurons_c_obj = window["tagbrain_graph"]["neuron00s_obj00s"];
+    let current_neuron = window["tagbrain_graph"]["neuron00s_obj00s"];
     
     for (var id in collection_neurons_c_obj) {
         let obj = collection_neurons_c_obj[id];
         if(obj.neuron_is_saved == false){
             if(obj.neuron_el != document.activeElement){
                 if(obj.neuron_c_container_c_tab == "neurons"){
-                    send_c_change_request_x_target_c_server(obj.neuron_el, obj.neuron_id, obj.neuron_shell);
+                    send_c_change_request_x_target_c_server(
+                        obj.neuron_el, 
+                        obj.neuron_id, 
+                        obj.neuron_shell
+                    );
                 } else if(obj.neuron_c_container_c_tab == "draft") {
                     let options = {
                         neuron_el: obj.neuron_el,
@@ -62,16 +73,25 @@ function save_edited_neurons(){
 
                 let array_current_key_word = obj.neuron_el.querySelectorAll("mark");
                 if (array_current_key_word.length == 0) {
-                    new class_formate_c_neuron(obj.neuron_el, "");
+                    new class_formate_c_neuron(
+                        obj.neuron_id, 
+                        "",
+                        false
+                    );
                 } else {
                     let arr_text_val: any = [];
                     for (var i = 0; i < array_current_key_word.length; i++) {
                         arr_text_val.push(array_current_key_word[i].innerText.trim());
                     }
-                    new class_formate_c_neuron(obj.neuron_el, arr_text_val.join("|"));
+                    new class_formate_c_neuron(
+                        obj.neuron_id, 
+                        arr_text_val.join("|"),
+                        false
+                    );
                 }
             }
         }
+        document.title = document.title = "→ " + graph_c_name + " [ ✓ ]";
     }
 }
 

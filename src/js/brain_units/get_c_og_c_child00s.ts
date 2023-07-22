@@ -31,7 +31,6 @@ export function get_c_og_c_child00s(
         }
 
     }
-
     let selected:branch = [];
     //reduct key parent
     if(last_index == parent_i){//one child or more

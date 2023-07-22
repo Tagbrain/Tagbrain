@@ -1,27 +1,21 @@
 // object of additon window properties
 import {gEBI, dCE} from "../units/compress_f.js";
-
 let tagbrain_graph: any = {
     refractor_neurons_is_activated: false,
     refractor_neurons_stack: [],
     neuron_collection: {},
-    ram_collection: {},
-    tabs_collection: {},
-    search_collection: {},
-    tips_collection: {},
-    //tips for writing
-    attachments_collection: {},
     last_selection: {
         neuron_id: "",
         start_pos: {},
         end_pos: {},
     },
     current_neuron_element: 0,
-    graph_name: gEBI("page_tag_map_name").textContent.trim(),
+    graph_name: document.location.pathname.split("/")[1],
+    graph00s_c_user: [],
     cellular_automata:[],
     keeper_last_data:[],
     tab_collection: {},
-    neurons_objs: {},
+    neuron00s_obj00s: {},
     current_tab: "neurons",
     checker_collection: [],
     current_outgrowth: 0,
@@ -39,22 +33,23 @@ let tagbrain_graph: any = {
         outgrowth: undefined,
         depth_c_in_outgrowth: 0,
     },
-    activation_obj: {
-        collection_c_branch_s:[],
-        tree_c_generalizated:[],
-    },
     pop_up: {
         context:{
             is_activated: false,
         }
     },
     ram: {
-        anemone00s:{
+        generalizated_c_neuron00s: [],
+        branch_c_current: [],
+        synapse00s_c_key: [],
+        tree_c_generalizated:[],
+        anemone00s: {
             deduction:[],
             induction:[],
         },
         listner00s_c_anemone00a:[],
+        ram_c_unit00s: [],
+        neuron00s_c_activated: []
     },
 }
-
-window["tagbrain_graph"] = tagbrain_graph;
+export {tagbrain_graph};

@@ -7,12 +7,13 @@ type neuron_obj = {
     activation: number | undefined, 
     is_saved:boolean | undefined,
     time: string | undefined, 
-    chain_fathers: string | undefined,
-    count_tags: number | undefined,
-    tags: string[] | undefined,
+    count_c_string_c_og00s: number | undefined,
+    tree_c_string: string[] | undefined,
 };
 
-export function get_compress_html_set(neuron_data:neuron_obj){
+export function get_compress_html_set(
+    neuron_data:neuron_obj
+){
     let controller_output:string;
     let save_index:string;
 
@@ -46,7 +47,7 @@ export function get_compress_html_set(neuron_data:neuron_obj){
         activation_class = "special_symbols_style";
     }
     let html = '<div class="search_row" id="'+controller_output+neuron_data.id+'">' 
-                + '<a class="link_part" href="#' + neuron_data.id + '">'
+                + '<div class="link_part">'
                     + '<span class="'+marker_class+'" id="'+save_index+'">'
                         + '<span class="'+activation_class+'" title="Activation">'
                                 + activation
@@ -59,18 +60,17 @@ export function get_compress_html_set(neuron_data:neuron_obj){
                         + neuron_data.time 
                     + ' </span>'
                     + '<span class="first_words_search_row">' 
-                        + neuron_data.words + '<br>'
-                        + neuron_data.chain_fathers
+                        + neuron_data.words
                     + '</span>'  
-                + '</a>' 
+                + '</div>' 
                 + '<div class="search_row_body">'
                     + '<span>'
                         + '<span> '
-                                + neuron_data.count_tags
+                                + neuron_data.count_c_string_c_og00s
                         + ' </span>'
                         + '<span class="search_toggle toggle_turned_off"> + </span>'
                         + '<span class="toggle_content hide_cl"> [ '
-                                + neuron_data.tags
+                                + neuron_data.tree_c_string
                         + ']</span>'
                     + '</span>'
                     + '<a class="search_row_delete">✖</a>'

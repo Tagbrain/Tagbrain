@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
     function code_and_send_data(neuron_id){
 
-        let graph_name = gEBI("page_tag_map_name").textContent.trim(),
+        let graph_name = document.location.pathname.split("/")[1],
             time = Math.round(new Date().getTime() / 1000).toString();
     
         let data = {

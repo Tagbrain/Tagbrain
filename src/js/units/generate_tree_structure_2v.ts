@@ -1,5 +1,4 @@
-import {connect_c_outgrowth_to_truncus} from "./connect_c_outgrowth_to_truncus";
-import {connect_c_truncus_to_outgrowth} from "../brain_units/connect_c_truncus_to_outgrowth";
+import {connect_c_anemone_x_target_c_tree} from "../brain_units/connect_c_anemone_x_target_c_tree";
 import {extend_c_tree_c_chain} from "../brain_units/extend_c_tree_c_chain";
 
 type a_outgrowth = { content: string, v_index: number };
@@ -40,7 +39,19 @@ class class_generator_tree_structure {
 
     generate_tree_structures() {
         let structures: any = [];
+        let trigger_stop:boolean = false as boolean;
+        let promise_break  = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve("finished");
+              }, 2000);
+        });
+        promise_break.then(
+            result => trigger_stop = true,
+        );
         for (let i = 0; i < this.deduction_a.length; i++) {
+            
+            if(trigger_stop == true)
+                break;
 
             let deduction_a:any = [...this.deduction_a];
             let current_anemone: anemone = deduction_a[i];
@@ -85,7 +96,7 @@ class class_generator_tree_structure {
         //induction generalization
         for (let i = 0; i < unused_s.length; i++) {
             let a_unused_c_obj = this.get_c_anemone_obj(unused_s[i]);
-            let obj_c_truncus_to_outgrowth = connect_c_truncus_to_outgrowth(
+            let obj_c_truncus_to_outgrowth = connect_c_anemone_x_target_c_tree(
                 obj_c_tree,
                 a_unused_c_obj.truncus, 
                 a_unused_c_obj.outgrowth_s, 
@@ -96,21 +107,20 @@ class class_generator_tree_structure {
                 true
             );
             if(obj_c_truncus_to_outgrowth.is_connected){
-                unused_s.splice(i, 1);
-                i = i - 1;
-            } else {
-                /*
-                let options_c_f_outgrowth_to_truncus = {
-                    tree: obj_c_tree, 
-                    donor_a_c_truncus: a_unused_c_obj.truncus, 
-                    donor_c_a_outgrowth_s: a_unused_c_obj.outgrowth_s,
-                }
-                let obj_c_outgrowth_to_truncus = connect_c_outgrowth_to_truncus(options_c_f_outgrowth_to_truncus);
-                if(obj_c_outgrowth_to_truncus.is_connected){
+                if(a_unused_c_obj.outgrowth_s.length > 0){
+                    unused_s[i] = [
+                        {
+                            depth: 0,
+                            v_index: 0,
+                            content: a_unused_c_obj.truncus
+                        },
+                        ...a_unused_c_obj.outgrowth_s]; 
+                    //unused_s.splice(i, 1);
+                    //i = i - 1;
+                } else {
                     unused_s.splice(i, 1);
                     i = i - 1;
                 }
-                */
             }
         }
         if(unused_s.length > 0){
@@ -122,11 +132,12 @@ class class_generator_tree_structure {
                 }
                 return this.start_x_anemonization_cycle({tree:obj_c_tree.tree}, remain_anemones);
             } 
-        }
-        //remove_c_og_c_vi_c_0
+        } else {
+            //remove_c_og_c_vi_c_0
             extend_c_tree_c_chain(
                 obj_c_tree
             );
+        }
     }
     get_c_anemone_obj(anemone:any){
         let truncus: string = anemone[0].content,

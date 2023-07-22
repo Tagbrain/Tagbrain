@@ -1,10 +1,5 @@
 <header class="header">
-			<div class="animation_erythrocytes">
-			<?php 
-				if(file_exists('channels/'.$page_state.'/header_animation.php')){
-					include('channels/'.$page_state.'/header_animation.php');
-				};
-			?>
+			<div class="animation_c_header" id="animation_c_header">
 			</div>
 			<div class="logo_and_menu_buttons">
 				<a href="https://tagbrain.org/project" class="header_logo_container">
@@ -72,24 +67,8 @@
 				</a>
 				<div class="menu_container">
 					<div class="header_channel_data">
-						<a href="#" class="a_cl">TAGBRAIN</a>
-						<span id="page_tag_map_name"><?php 
-							if($page_state == "/"){
-								echo "/project";
-							} else {
-								echo $page_state; 
-							}
-							?>
-						</span>
-						<span class="public_private_index">
-							<?php 
-							if($channel_private == true){
-								echo "private";
-							} else {
-								echo "public"; 
-							}
-							?>
-						</span>
+						<span id="page_tag_map_name"></span>
+						<span class="public_private_index" id="public_private_index"></span>
 					</div>
 					<div class="menu_button_panel">
 						<a title="Read mode toggle">
@@ -112,6 +91,11 @@
 								<use xlink:href="#sprite_whirlpool"></use>
 							</svg>
 						</a>
+						<a class="icon_buttons_visual_effects big_arrows_stl keyboard_stl" id="button_id_13">
+							<svg class="linear_icon_c_target icon_size_sl_a_middle icon_c_dashed">
+								<use xlink:href="#sprite_button_c_holder"></use>
+							</svg>
+						</a>
 						<a class="icon_buttons_visual_effects big_arrows_stl keyboard_stl" id="button_id_7">
 							<svg class="linear_icon_c_target icon_size_sl_a_middle">
 								<use xlink:href="#sprite_keyboard"></use>
@@ -120,22 +104,19 @@
 					</div>
 				</div>
 				<div class="header_c_menu_c_right">
-		
 					<?php if(!$_SESSION["userid"]){
-							echo '<form method="post" action="php/sessions/sign_in/signin_inc.php" class="header_central_text" onsubmit="return validate_code_form()" id="container_post_code">'.
-									'<input type="submit" id="send_code_to_email" value="▷">'.
-									'<input name="password_code" autocomplete="current-password"  type="text" id="log_code_input" maxlength="50" class="log_code_input_style" placeholder="Email log">'.
-								'</form>';
-						} else {
-								if($access_arr["can_editing"] == true){
-								echo '<a id="setting_button" class="setting_button">'.
-									'<svg class="linear_icon_c_target icon_size_middle">'.
-										'<use xlink:href="#sprite_settings"></use>'.
-									'</svg>'.
-								'</a>';
-								}
-						}			
+							echo '<a class="sprite_c_log_in">'.
+								'<svg class="linear_icon_c_target icon_size_middle">'.
+									'<use xlink:href="#sprite_c_log_in"></use>'.
+								'</svg>'.
+							'</a>';
+						}
 					?>
+					<a id="setting_button" class="setting_button">
+						<svg class="linear_icon_c_target icon_size_middle">
+							<use xlink:href="#sprite_settings"></use>
+						</svg>
+					</a>
 				</div>
 			</div>
 		</header>

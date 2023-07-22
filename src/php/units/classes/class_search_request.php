@@ -9,7 +9,12 @@ class search_controller {
     use get_c_neuron_c_synapses_c_complementarity_c_regexp;
     use check_session_data;
 
-    function __construct($graph_name, $request_data, $regexp_is_activated, $is_all_graphes_activated){
+    function __construct(
+        $graph_name, 
+        $request_data, 
+        $regexp_is_activated, 
+        $is_all_graphes_activated
+    ){
         $this->graph_name = $graph_name;
         $this->is_all_graphes_activated = $is_all_graphes_activated;
         $this->request_data = $request_data;

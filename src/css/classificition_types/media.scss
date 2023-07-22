@@ -41,7 +41,7 @@
         grid-template:1fr / 0px 1fr 0px;
     }
     .logo_and_menu_buttons{
-        grid-template-columns: 80px 100px 1fr;
+        grid-template-columns: 80px 1fr 40px;
     }
     .header_logo_container{
         margin-bottom: 0px;
@@ -51,7 +51,7 @@
         height: 40px;
     }
     .menu_container{
-        grid-template: 1fr/30px 30px 1fr;
+        grid-template: 1fr/30px 1fr;
     }
     .header_channel_data{
         display:none;

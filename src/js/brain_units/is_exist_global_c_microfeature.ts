@@ -1,4 +1,4 @@
-import { get_c_parent_truncus_c_outgrowth } from "./get_c_parent_truncus_c_outgrowth";
+import { get_c_truncus_c_target_c_outgrowth } from "./get_c_truncus_c_target_c_outgrowth";
 
 type a_outgrowth = { content: string, v_index: number };
 type anemone = a_outgrowth[];
@@ -10,7 +10,7 @@ export function is_exist_global_c_microfeature(
     i: number,
 ){
     let a_s_deduction = window["tagbrain_graph"].ram.anemone00s.deduction;
-    let parent_c_connector_c_obj = get_c_parent_truncus_c_outgrowth(tree, i);
+    let parent_c_connector_c_obj = get_c_truncus_c_target_c_outgrowth(tree, i);
 
     if(parent_c_connector_c_obj != false){
 

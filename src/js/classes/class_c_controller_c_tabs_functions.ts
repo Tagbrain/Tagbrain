@@ -25,7 +25,10 @@ class class_c_controller_c_tabs_functions {
     remove_tab(){
         this.tab_button.remove();
         this.mental_image_container.remove();
-        delete window["tagbrain_graph"]["tab_collection"][this.id_name];
+
+        let index = window["tagbrain_graph"]["tab_collection"].indexOf(this.id_name);
+        window["tagbrain_graph"]["tab_collection"].splice(index, 1);
+
         if(window["tagbrain_graph"]["current_tab"] == this.id_name){
             window["tagbrain_graph"]["tab_collection"]["neurons"].open_tab()
         }

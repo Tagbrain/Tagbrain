@@ -12,7 +12,12 @@ $data = json_decode(htmlspecialchars_decode($_POST["data"]));
 //init_controller  
 if($_POST["data"]){  
     if(isset($graph_name, $request_data)){
-        $search_controller = new search_controller($graph_name, $request_data, $regexp_is_activated, $is_all_graphes_activated);
+        $search_controller = new search_controller(
+            $graph_name, 
+            $request_data, 
+            $regexp_is_activated, 
+            $is_all_graphes_activated
+        );
         $search_controller->start_search_controller();
     } else {
         $array_response = array(

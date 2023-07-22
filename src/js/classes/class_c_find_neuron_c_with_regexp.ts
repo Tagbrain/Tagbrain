@@ -3,7 +3,7 @@ import { send_data_ajax } from "../units/send_data_ajax.js";
 import { class_formate_c_neuron } from "./class_formate_c_neuron";
 import { class_c_neuron } from "./class_c_neuron";
 import { focus_c_neuron_x_scroll } from "../units/focus_c_neuron_x_scroll";
-import { if_c_screen_c_is_narrow_zz8_close_c_right_bar } from "../units/if_c_screen_c_is_narrow_zz8_close_c_right_bar";
+import { if_c_screen_c_is_narrow_zz_close_c_right_bar } from "../units/if_c_screen_c_is_narrow_zz_close_c_right_bar";
 
 class class_c_find_neuron_c_with_regexp {
 
@@ -46,7 +46,10 @@ class class_c_find_neuron_c_with_regexp {
         this.add_c_tagbrain_obj();
     }
     add_c_tagbrain_obj(){
-        window["tagbrain_graph"]["neuron_collections_c_current"]["search_c_last_finded"].push({neuron_id: this.neuron_id, key_rows: this.key_rows });
+        window["tagbrain_graph"]["neuron_collections_c_current"]["search_c_last_finded"].push({
+            neuron_id: this.neuron_id,
+            key_rows: this.key_rows 
+        });
     }
     add_unit() {
         let html = 
@@ -95,9 +98,12 @@ class class_c_find_neuron_c_with_regexp {
         return html_new;
     }
     select_c_client_neurons_c_target() {
-        if(window["tagbrain_graph"]["neurons_objs"].hasOwnProperty(this.neuron_id)){
-            let neuron_c_el = window["tagbrain_graph"]["neurons_objs"][this.neuron_id].neuron_el;
-            let class_c_formater = new class_formate_c_neuron(neuron_c_el, this.input_c_search_x_value);
+        if(window["tagbrain_graph"]["neuron00s_obj00s"].hasOwnProperty(this.neuron_id)){
+            new class_formate_c_neuron(
+                this.neuron_id, 
+                this.input_c_search_x_value,
+                false
+            );
         }
     }
     create_element(html: string) {
@@ -108,7 +114,7 @@ class class_c_find_neuron_c_with_regexp {
     }
     set_c_listener_c_load_neuron() {
         this.class_c_unit_el.addEventListener("click", (e:any)=>{
-            if(!window["tagbrain_graph"]["neurons_objs"].hasOwnProperty(this.neuron_id)){
+            if(!window["tagbrain_graph"]["neuron00s_obj00s"].hasOwnProperty(this.neuron_id)){
                 let data = {
                     action: 'get_c_neuron_c_with_id',
                     graph_name: this.graph_name,
@@ -122,14 +128,16 @@ class class_c_find_neuron_c_with_regexp {
                         console.log(response_obj)
                         let features = {
                             neuron_id: response_obj.data.neuron_id,
-                            outgrowths: response_obj.data.neuron_tree_json,
+                            is_outgrowth00s: true,
+                            content: response_obj.data.neuron_tree_json,
                             contenteditable: response_obj.contenteditable,
+                            time_c_last_edit: response_obj.time_c_last_edit,
                             add_ram_boolen: false,
                             is_format: true,
                         };
                         let obj = new class_c_neuron(features);
                         focus_c_neuron_x_scroll(obj.neuron_id);
-                        if_c_screen_c_is_narrow_zz8_close_c_right_bar();
+                        if_c_screen_c_is_narrow_zz_close_c_right_bar();
                     } else {
                         console.log("Neuron not exist. FREnd124745")
                     }
@@ -138,7 +146,7 @@ class class_c_find_neuron_c_with_regexp {
                 send_data_ajax(data, url, controller_f, true, error_message);
             } else {
                 focus_c_neuron_x_scroll(this.neuron_id);
-                if_c_screen_c_is_narrow_zz8_close_c_right_bar();
+                if_c_screen_c_is_narrow_zz_close_c_right_bar();
             }
         })
     }

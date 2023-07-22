@@ -4,11 +4,7 @@ document.addEventListener('DOMContentLoaded',function(){
         e = e || window.event;
         var targetEl = e.target;
         let targetEl_cl = targetEl.classList
-        if (targetEl_cl.contains("search_row_delete")){
-            targetEl.parentNode.parentNode.remove();
-        } else if (targetEl_cl.contains("ram_row_delete")){
-            targetEl.parentNode.parentNode.remove();
-        } else if (targetEl_cl.contains("search_toggle")){
+        if (targetEl_cl.contains("search_toggle")){
             if(targetEl_cl.contains("toggle_turned_on")){
                 targetEl_cl.remove("toggle_turned_on");
                 targetEl_cl.add("toggle_turned_off");

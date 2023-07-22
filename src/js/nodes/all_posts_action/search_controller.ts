@@ -61,7 +61,11 @@ function start_search_controller(front_end_search:boolean, back_end_search:boole
           let collection_c_neuron_s_c_target = get_c_collection_c_neuron_s(tab_c_current);
           for(var i = 0; i < collection_c_neuron_s_c_target.length; i++){
                let neuron_obj = collection_c_neuron_s_c_target[i];
-               let neuron_features = new class_formate_c_neuron(neuron_obj["element"], searcher);
+               let neuron_features = new class_formate_c_neuron(
+                    neuron_obj.id, 
+                    searcher,
+                    false
+               );
                if(neuron_features.neuron_activation > 0){
                     window["tagbrain_graph"]["neuron_collections_c_current"]["search_c_last_finded"].push({neuron_id: neuron_obj["id"]});
                }

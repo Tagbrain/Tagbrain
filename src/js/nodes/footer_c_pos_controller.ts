@@ -14,7 +14,7 @@ function viewportHandler() {
         // You could also do this by setting style.left and style.top if you
         // use width: 100% instead.
         bottom_bar.style.transform = `translate(${offsetLeft}px, ${offsetTop}px) scale(${1 / viewport.scale})`;
-        container_work.style.height = `${container_work.getBoundingClientRect().height - keyboard_height}px`;
+        //container_work.style.height = `${container_work.getBoundingClientRect().height - keyboard_height}px`;#remove
     }
 }
 if(window.visualViewport){
