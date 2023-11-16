@@ -6,12 +6,10 @@ type arr_chain = {
 }[];
 type arr_outgrowth = {
     depth: number,
-    row: number,
     content: string
 }[]
 type current_outgrowth = {
     depth: number,
-    row: number,
     content: string,
     is_key_row: boolean
 }[];

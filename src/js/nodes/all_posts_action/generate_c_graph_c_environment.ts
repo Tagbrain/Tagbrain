@@ -1,6 +1,6 @@
 import { gEBI, dCE } from "../../units/compress_f.js";
 import { send_data_ajax } from "../../units/send_data_ajax.js";
-import { class_c_neuron } from "../../classes/class_c_neuron";
+import { class_L_neuron } from "../../classes/class_L_neuron";
 import { class_c_graph_c_controller } from "../../classes/class_c_graph_c_controller";
 import { get_c_draft_c_neuron00s_z_parse_c_neuron00s } from "../../units/get_c_draft_c_neuron00s_z_parse_c_neuron00s";
 import { refresh_c_app_c_environment } from "../../units/refresh_c_app_c_environment";
@@ -15,15 +15,20 @@ export function generate_c_graph_c_environment(graph_c_name: string) {
   refresh_c_app_c_environment(graph_c_name);
   get_c_neuron00s_z_parse_c_neuron00s();
   get_c_draft_c_neuron00s_z_parse_c_neuron00s();
-  document.title = "→ " + graph_c_name + " [ ✓ ]";
+  document.title = graph_c_name;
 }
 
 function get_c_neuron00s_z_parse_c_neuron00s() {
+  let graph_c_name = window["tagbrain_graph"]["graph_name"];
+  if(graph_c_name == ""){
+    window["tagbrain_graph"]["graph_name"] = "project";
+    graph_c_name = "project";
+  }
   let data = {
     action: 'get_random_neurons',
-    graph_name: window["tagbrain_graph"]["graph_name"],
+    graph_name: graph_c_name,
     facultative: {
-      amount: 20,
+      amount: 12,
       search_keys: "empty",
       //neuron_id #remove
     }
@@ -35,7 +40,8 @@ function get_c_neuron00s_z_parse_c_neuron00s() {
         parse_c_neuron00s(
           response_obj["data"],
           response_obj["contenteditable"]
-        )
+        );
+        window["tagbrain_graph"]["neuron00s_c_access"] = response_obj["contenteditable"];
 
         let public_private_c_element = gEBI("public_private_index");
         if (response_obj["channel_is_private"] == true) {
@@ -55,10 +61,19 @@ function get_c_neuron00s_z_parse_c_neuron00s() {
         gEBI("animation_c_header").innerHTML = response_obj["channel_c_header_c_animation"];
       }
 
-      for (let i = 0; i < response_obj["graph00s_c_name00s"].length; i++) {
-        let graph_name = response_obj["graph00s_c_name00s"][i];
-        new class_c_graph_c_controller(graph_name);
+      //clean_L_container_L_graph00s_L_button00s
+      window["tagbrain_graph"]["graph00s_c_user"] = [];
+      let container_L_graph00s_L_button00s = gEBI("graph00s_c_link00s");
+      container_L_graph00s_L_button00s.innerHTML = "";
+
+      if(response_obj["graph00s_c_name00s"] != null){//session_L_exist
+        for (let i = 0; i < response_obj["graph00s_c_name00s"].length; i++) {
+          let graph_name = response_obj["graph00s_c_name00s"][i];
+          new class_c_graph_c_controller(graph_name);
+        }
       }
+
+      gEBI("exit_button").click();
 
     } else {
       console.log("Error 3454");
@@ -83,7 +98,7 @@ function refresh_c_theme(theme_css: string | false) {
 function parse_c_neuron00s(data: any, contenteditable: any) {
   for (let i = 0; i < data.length; i++) {
     let neuron_id: string = data[i]["neuron_id"];
-    let time: string = data[i]["time_c_last_edit"];
+    let time: string = data[i]["time_L_last_edit"];
     let content = data[i]["neuron_tree_json"];
     let neuron_features = {
       neuron_id: neuron_id,
@@ -92,9 +107,10 @@ function parse_c_neuron00s(data: any, contenteditable: any) {
       contenteditable: contenteditable,
       add_ram_boolen: false,
       is_format: true,
-      time_c_last_edit: time
+      time_L_last_edit: time,
+      default_tab: "neurons"
     }
-    new class_c_neuron(neuron_features);
+    new class_L_neuron(neuron_features);
   }
 }
 

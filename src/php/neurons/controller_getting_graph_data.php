@@ -11,7 +11,11 @@ $data = json_decode(htmlspecialchars_decode($_POST["data"]));
 
 if(isset($action, $graph_name)){
 
-    $get_graph_class = new get_graph_data($action, $graph_name, $facultative);
+    $get_graph_class = new get_graph_data(
+        $action, 
+        $graph_name, 
+        $facultative
+    );
 
 } else {
     $array_response = array(

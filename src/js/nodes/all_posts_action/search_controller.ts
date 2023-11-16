@@ -5,37 +5,26 @@ import { set_refractor } from "../../units/set_refractor";
 import { get_c_collection_c_neuron_s } from "../../units/get_c_collection_c_neuron_s";
 import { validate_x_input_field_and_search_c_target } from "../../units/validate_x_input_field_and_search_c_target";
 import { get_c_replace_pattern } from "../../units/get_c_replace_pattern";
-import { class_c_find_neuron_c_with_regexp } from "../../classes/class_c_find_neuron_c_with_regexp";
 import { clean_c_element_c_with_id } from "../../units/clean_c_element_c_with_id";
 import { class_formate_c_neuron } from "../../classes/class_formate_c_neuron";
-import { get_c_input_field_value_c_search_word_s } from "../../units/get_c_input_field_value_c_search_word_s";
-/*
-#mechanism
-     #listner
-          event
-               $keydown
-                    #target
-                         #input_field
-               $click
-                    #target
-                         #button
-          -> #action
-               $start
-                    #controller_getting_synapse_rows
-     -> #controller_getting_synapse_rows
-          $get_search_data
-          -> $check_search_data
-          -> 
-        #target
-            #synapse
-        #answer
+import { class_L_unit_L_neuron_X_condense } from "../../classes/class_c_unit_L_neuron_X_condense";
 
-
-*/
+type neuron_L_unit_L_options = {
+     tab_L_unit_X_name: string,
+     output_container_L_name: string,
+     unit_L_neuron_L_id: string,
+     unit_L_description_L_short: string,
+     unit_L_rank: number,
+     unit_L_time: string,
+     unit_L_neuron_L_is_special: boolean
+ }
 
 //CONTROLLER
-function start_search_controller(front_end_search:boolean, back_end_search:boolean) {
-     let searcher = get_c_input_field_value_c_search_word_s();
+function start_search_controller(
+     front_end_search:boolean, 
+     back_end_search:boolean
+) {
+     let searcher = gEBI('search_input_block').value;
 
      let is_all_graphes_activated = window["tagbrain_graph"]["checker_collection"]["activate_all_graphes"]["is_activated"];
      //current_graph
@@ -53,9 +42,10 @@ function start_search_controller(front_end_search:boolean, back_end_search:boole
           }
           let error_message = "Search data not load";
           send_data_ajax(data, url, controller_f, true, error_message);
+
      } else if(front_end_search == true){
           clean_c_element_c_with_id("result_block");
-          window["tagbrain_graph"]["neuron_collections_c_current"]["search_c_last_finded"] = [];
+          window["tagbrain_graph"]["ram"]["unit00s_L_search"] = [];
 
           let tab_c_current = window["tagbrain_graph"]["current_tab"];
           let collection_c_neuron_s_c_target = get_c_collection_c_neuron_s(tab_c_current);
@@ -67,7 +57,9 @@ function start_search_controller(front_end_search:boolean, back_end_search:boole
                     false
                );
                if(neuron_features.neuron_activation > 0){
-                    window["tagbrain_graph"]["neuron_collections_c_current"]["search_c_last_finded"].push({neuron_id: neuron_obj["id"]});
+                    window["tagbrain_graph"]["ram"]["unit00s_L_search"].push({
+                         neuron_id: neuron_obj["id"]
+                    });
                }
           }
      }
@@ -75,7 +67,7 @@ function start_search_controller(front_end_search:boolean, back_end_search:boole
 
 function success_controller(server_data: any, input_keys: any){
      clean_c_element_c_with_id("result_block");
-     window["tagbrain_graph"]["neuron_collections_c_current"]["search_c_last_finded"] = [];//clean_c_
+     window["tagbrain_graph"]["ram"]["unit00s_L_search"] = [];//clean_c_
 
      let list_c_graphs: string[] = Object.keys(server_data);
      for(var i = 0; i < list_c_graphs.length; i++){
@@ -85,10 +77,19 @@ function success_controller(server_data: any, input_keys: any){
 
           for(var j = 0; j < neurons.length; j++){
                let object = neurons[j];
-               object["graph_name"] = graph_name;
-               object["input_keys"] = input_keys;
-               new class_c_find_neuron_c_with_regexp(object);
+               let unit_x_obj: neuron_L_unit_L_options = {
+                    tab_L_unit_X_name: "search",
+                    output_container_L_name: "result_block",
+                    unit_L_neuron_L_id: object["neuron_id"],
+                    unit_L_description_L_short: object["tree_L_microfeature00s"],
+                    unit_L_rank: object["count"],
+                    unit_L_time: object["time_L_last_edit"],
+                    unit_L_neuron_L_is_special: false
+               }
+
+               new class_L_unit_L_neuron_X_condense(unit_x_obj)
           }
+
      }
 
 }

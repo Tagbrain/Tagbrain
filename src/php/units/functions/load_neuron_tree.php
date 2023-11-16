@@ -11,6 +11,5 @@ trait load_neuron_tree{
 /*
 outgrowths
    content
-   row
    depth
 */ 

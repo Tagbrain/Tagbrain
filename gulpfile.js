@@ -22,7 +22,7 @@ let path = {
     src:{
         index_php: source_folder + "/*.php",
         php: source_folder + "/php/**/*.php",
-        js_special: source_folder + "/js_special/*.js",
+        js_special: source_folder + "/js_special/",
         js: source_folder + "/js/",
         css: [source_folder + "/css/collector.scss"],
         img: source_folder + "/img/**/*.{jpg,png,svg,webp,php}",
@@ -41,7 +41,7 @@ let path = {
         index_php: source_folder + "/index.php",
         php: source_folder + "/php/",
         js: source_folder + "/js/**/*.{js,ts}",
-        js_special: source_folder + "/js_special/*.{js, ts}",
+        js_special: source_folder + "/js_special/**/*.{js,ts}",
         css: source_folder + "/css/**/*.{css,scss}",
         img: source_folder + "/img/**/*.{jpg,png,svg,webp,php}",
         icons_c_root: source_folder + "/*.{jpg,png,svg,webp,php}",
@@ -55,18 +55,19 @@ let path = {
 }
 
 let {src, dest} = require('gulp'),
-gulp = require('gulp'),
-del = require('del'),
-scss = require("gulp-sass")(require("sass")),
-group_media = require('gulp-group-css-media-queries'),
-clean_css = require("gulp-clean-css"),
-htmlmin = require('gulp-htmlmin'),
-webpack = require('webpack-stream'),
-walk    = require('walk'),
-browserify = require('browserify'),
-fs = require('fs'),
-uglify = require('gulp-uglify'),
-path1 = require('path');
+    gulp = require('gulp'),
+    del = require('del'),
+    scss = require("gulp-sass")(require("sass")),
+    group_media = require('gulp-group-css-media-queries'),
+    clean_css = require("gulp-clean-css"),
+    htmlmin = require('gulp-htmlmin'),
+    webpack = require('webpack-stream'),
+    walk    = require('walk'),
+    browserify = require('browserify'),
+    fs = require('fs'),
+    uglify = require('gulp-uglify'),
+    path1 = require('path'),
+    glob = require('glob');
 
 
 let webConfig = {
@@ -90,6 +91,38 @@ let webConfig = {
         path: path1.resolve(__dirname, 'js/dist'),
     },
 };
+
+let js_special_E_configuration = {
+    target: "node",
+    mode: 'development',
+    entry: glob.sync('./src/js_special/*.{ts, js}').reduce((name00s, entry) => {
+        console.log(entry);
+        const name = entry.slice(
+            entry.lastIndexOf('\\') + 1, 
+            entry.lastIndexOf('.')
+        );
+        name00s[name] = "./" + entry;
+        console.log(JSON.stringify(name00s));
+        return name00s;
+    }, {}),
+    output: {
+      path: path1.resolve(__dirname, 'dist/js'),
+      filename: '[name].js',
+    },
+    module: {
+      rules: [
+        {
+          test: /\.ts$/,
+          use: 'ts-loader',
+          exclude: /node_modules/,
+        },
+      ],
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
+    },
+  };
+
 function index_php(){
     return src(path.src.index_php)
         .pipe(dest(path.build.index_php))
@@ -142,7 +175,9 @@ function get_js_uglify(files_dir){
 }
 function js_special(){
     return src(path.src.js_special)
+        .pipe(webpack(js_special_E_configuration))
         .pipe(dest(path.build.js_special))
+        //.pipe(get_js_uglify(path.build.js))
 }
 function css(){
     return src(path.src.css)
@@ -187,7 +222,6 @@ function htaccess(){
     return src(path.src.htaccess)
         .pipe(dest(path.build.htaccess))
 }
-
 function txt_root(){
     return src(path.src.txt_root)
         .pipe(dest(path.build.txt_root))

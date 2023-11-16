@@ -5,7 +5,7 @@ export function get_c_neuron00s_id00s(){
     let neuron00s_c_id00s = Object.keys(obj00s);
     let response_neuron00s_c_id00s: any[] = [];
     for (let i = 0; i < neuron00s_c_id00s.length; i++) {
-        if(obj00s[neuron00s_c_id00s[i]].neuron_c_container_c_tab == "neurons"){
+        if(obj00s[neuron00s_c_id00s[i]].tab_L_neuron == "neurons"){
             response_neuron00s_c_id00s.push(neuron00s_c_id00s[i])
         }
     }

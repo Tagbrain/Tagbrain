@@ -34,16 +34,28 @@ class search_controller {
                 foreach($neurons as $neuron){
                     $obj_c_search_words = array();
                     if($this->regexp_is_activated){
-                        $obj_c_search_words = $this->get_c_neuron_c_synapses_c_complementarity_c_regexp($this->graph_path."/".$neuron, $neuron, $this->request_data);
+                        $obj_c_search_words = $this->get_c_neuron_c_synapses_c_complementarity_c_regexp(
+                            $this->graph_path."/".$neuron, 
+                            $neuron, 
+                            $this->request_data
+                        );
                         if($obj_c_search_words == false) continue;
                     } else {
-                        $obj_c_search_words = $this->get_c_neuron_c_synapses_c_complementarity_c_target_request($some_graph_c_path."/".$neuron, $neuron, $this->request_data);
+                        $obj_c_search_words = $this->get_c_neuron_c_synapses_c_complementarity_c_target_request(
+                            $some_graph_c_path."/".$neuron, 
+                            $neuron, 
+                            $this->request_data);
                         if($obj_c_search_words == false) continue;
                     }
                     if(count($obj_c_search_words) > 0){//if exist target words
-                        if(array_key_exists($some_graph, $obj_c_search_words_x_general)){
-                            array_push($obj_c_search_words_x_general[$some_graph], $obj_c_search_words);
-                        } else {
+                        if(array_key_exists($some_graph, $obj_c_search_words_x_general)){//attach_L_main_array
+                            $obj_c_search_words["time_L_last_edit"] = filemtime($some_graph_c_path."/".$neuron);
+                            array_push(
+                                $obj_c_search_words_x_general[$some_graph], 
+                                $obj_c_search_words
+                            );
+                        } else {//create_L_main_array
+                            $obj_c_search_words["time_L_last_edit"] = filemtime($some_graph_c_path."/".$neuron);
                             $obj_c_search_words_x_general[$some_graph] = array($obj_c_search_words);
                         }
                     }
@@ -55,17 +67,26 @@ class search_controller {
 
             foreach($neurons as $neuron){
                 $obj_c_search_words = array();
-                if($this->regexp_is_activated){
-                    $obj_c_search_words = $this->get_c_neuron_c_synapses_c_complementarity_c_regexp($this->graph_path."/".$neuron, $neuron, $this->request_data);
+                if($this->regexp_is_activated){//true
+                    $obj_c_search_words = $this->get_c_neuron_c_synapses_c_complementarity_c_regexp(
+                        $this->graph_path."/".$neuron, 
+                        $neuron, 
+                        $this->request_data
+                    );
                     if($obj_c_search_words == false) continue;
-                } else {
-                    $obj_c_search_words = $this->get_c_neuron_c_synapses_c_complementarity_c_target_request($this->graph_path."/".$neuron, $neuron, $this->request_data);
+                } else {//false
+                    $obj_c_search_words = $this->get_c_neuron_c_synapses_c_complementarity_c_target_request(
+                        $this->graph_path."/".$neuron, 
+                        $neuron, 
+                        $this->request_data);
                     if($obj_c_search_words == false) continue;
                 }
                 if(count($obj_c_search_words) > 0){//if exist target words
                     if(array_key_exists($this->graph_name, $obj_c_search_words_x_general)){
+                        $obj_c_search_words["time_L_last_edit"] = filemtime($this->graph_path."/".$neuron);
                         array_push($obj_c_search_words_x_general[$this->graph_name], $obj_c_search_words);
                     } else {
+                        $obj_c_search_words["time_L_last_edit"] = filemtime($this->graph_path."/".$neuron);
                         $obj_c_search_words_x_general[$this->graph_name] = array($obj_c_search_words);
                     }
                 }

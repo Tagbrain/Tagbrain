@@ -54,7 +54,7 @@ export function generate_struct_activ_num(obj_allrow: any[]){
          let activation_octal = "0";
          
          if(obj_allrow[i]["is_key_row"] == true){
-               let row_activ = get_row_score(obj_allrow[i]["row"]),
+               let row_activ = get_row_score(i),
                    depth_activ = get_depth_score(obj_allrow[i]["depth"]),
                    activation = row_activ * depth_activ;
                general_activation += activation;

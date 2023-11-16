@@ -2,8 +2,6 @@
 import { send_data_ajax } from "../../units/send_data_ajax.js";
 import { set_refractor } from "../../units/set_refractor";
 import { gEBI, dCE } from "../../units/compress_f.js";
-import { class_c_find_neuron_c_with_regexp } from "../../classes/class_c_find_neuron_c_with_regexp";
-import { get_c_input_field_value_c_search_word_s } from "../../units/get_c_input_field_value_c_search_word_s";
 import { get_c_input_field_value_c_replace_word_s } from "../../units/get_c_input_field_value_c_replace_word_s";
 import {send_c_change_request_x_target_c_local_storage} from "../../units/send_c_change_request_x_target_c_local_storage";
 
@@ -11,7 +9,7 @@ import {send_c_change_request_x_target_c_local_storage} from "../../units/send_c
 //CONTROLLER
 function replace_current_value() {
 
-    let searcher = get_c_input_field_value_c_search_word_s();
+    let searcher = gEBI('search_input_block').value;
     if(searcher == false){
         console.log("searcher is not correct");
     } else {
@@ -40,7 +38,7 @@ function replace_current_value() {
                 send_data_ajax(data, url, controller_f, true, error_message);
             }  else if (tab == "draft"){
                 front_end_controller(replacement, tab);
-                let neuron_s_c_for_search = window["tagbrain_graph"]["neuron_collections_c_current"]["search_c_last_finded"];
+                let neuron_s_c_for_search = window["tagbrain_graph"]["ram"]["unit00s_L_search"];
                 for(let i = 0; i < neuron_s_c_for_search.length; i++){
                     let neuron_class = window["tagbrain_graph"]["neuron00s_obj00s"][neuron_s_c_for_search[i]["neuron_id"]];
                     let function_variable = function(){
@@ -80,7 +78,7 @@ function front_end_controller(replacement: string, tab: string){
 }
 
 function collect_c_neuron_s_c_finded(){
-    let collection_finded_units = window["tagbrain_graph"]["neuron_collections_c_current"]["search_c_last_finded"];
+    let collection_finded_units = window["tagbrain_graph"]["ram"]["unit00s_L_search"];
     let neuron_s_c_finded:any = [];
     if(collection_finded_units.length > 0){
         for(let i = 0; i < collection_finded_units.length; i++){

@@ -32,7 +32,7 @@ trait complete_c_tangle_c_activation {
         $neuron_id = str_replace(".json", "", $neuron);
         $tags_array = array(); // tag // the most depth space 
         
-        $neuron_c_activation = 0;
+        $neuron_L_activation = 0;
 
         $parent00s_c_activation = 0;
         $child00s_c_activation = 0;
@@ -45,20 +45,24 @@ trait complete_c_tangle_c_activation {
             $content = $og["content"];
 
             for ($i = 0; $i < count($tangle_c_activation); $i++) { 
-                
                 $synapse_c_key = $tangle_c_activation[$i]["synapse"];
+                
+                $reg_c_synapse_c_key = '/'.$synapse_c_key.'/iu';
                 $reg_c_child00s = '/'.join("|", $tangle_c_activation[$i]["child00s"]).'/iu';
                 $reg_c_neighbor00s = '/'.join("|", $tangle_c_activation[$i]["neighbor00s"]).'/iu';
                 $reg_c_parent00s = '/'.join("|", $tangle_c_activation[$i]["parent00s"]).'/iu';
 
                 if($synapse_c_key != ""){
-                    if (strpos($content, $synapse_c_key) !== false) {//synapse_c_key
-                        //synapse_c_key
+                    if(preg_match(
+                        $reg_c_synapse_c_key,
+                        $content,
+                        $finded
+                    ) != false){//synapse_c_key
                             $activation_key = $this->get_key_activation(           
                                 $content, 
                                 $row_num
                             );
-                            $neuron_c_activation += $activation_key;
+                            $neuron_L_activation += $activation_key;
                             $tangle_c_activation[$i] = $this->extend_c_tangle_c_activation(
                                 $tree,
                                 $row_num,
@@ -97,20 +101,21 @@ trait complete_c_tangle_c_activation {
 
         $sum = $parent00s_c_activation + $neighbor00s_c_activation + $child00s_c_activation;
         if($sum > 30){
-            if($neuron_c_activation < 5){
-                $neuron_c_activation += 10;
+            if($neuron_L_activation < 5){
+                $neuron_L_activation += 10;
             } else {
-                $neuron_c_activation += 30;
+                $neuron_L_activation += 30;
             }
         } else {
-            $neuron_c_activation += $sum;
+            $neuron_L_activation += $sum;
         }
 
-        if($neuron_c_activation > 0){
+        if($neuron_L_activation > 0){
             $response = array(
                 "neuron" => array(
-                    "neuron_c_activation" => $neuron_c_activation, 
-                    "neuron_c_id" => $neuron_id
+                    "neuron_L_activation" => $neuron_L_activation, 
+                    "neuron_c_id" => $neuron_id,
+                    "time_L_last_edit" => filemtime($graph.$neuron)
                 ),
                 "tangle" => $tangle_c_activation
                 //"tangle_c_activation" => $tangle_c_activation #remove

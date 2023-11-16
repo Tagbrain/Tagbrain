@@ -17,12 +17,15 @@ class get_graph_data {
                 $this->graph_name = $graph_name;
             }
         //facultative
-            $this->amount = $facultative->amount;
+            $this->amount_L_neuron00s = $facultative->amount;
             $this->search_keys = $facultative->search_keys;
-            $this->neuron_id = $facultative->neuron_id;
+            if(property_exists($facultative, "neuron_id"))
+                $this->neuron_id = $facultative->neuron_id;
         //macrofeatures
             $this->graph_dir = $_SERVER['DOCUMENT_ROOT']."/channels/".$this->graph_name."/content_items/";
-
+            if (!file_exists($this->graph_dir)) {
+                mkdir($this->graph_dir, 0777, true);
+            }
         $this->controller_getting_data();
     }
 
@@ -35,7 +38,7 @@ class get_graph_data {
             $this->get_current_neuron();
         }
     }
-    protected function collect_c_file00s_c_by_last_modified($file00s, $amount): array {
+    protected function collect_c_file00s_c_by_last_modified($file00s, $amount_L_neuron00s): array {
         $file_info = [];
         foreach ($file00s as $file) {
             $file_info[$file] = filemtime($this->graph_dir.$file);
@@ -46,7 +49,7 @@ class get_graph_data {
         $i = 0;
         foreach ($file_info as $file => $time) {
             $i++;
-            if($i < $amount){
+            if($i < $amount_L_neuron00s){
                 $file00s_c_sorted[] = $file;
             } else {
                 $file00s_c_other[] = $file;
@@ -63,10 +66,10 @@ class get_graph_data {
             $files = array_diff(scandir($this->graph_dir), array('..', '.'));
             $neuron_data_arr = array(); 
 
-            $obj_file00s = $this->collect_c_file00s_c_by_last_modified($files, 11);
+            $obj_file00s = $this->collect_c_file00s_c_by_last_modified($files, $this->amount_L_neuron00s + 1);
 
-            if(count($obj_file00s["other"]) > 10){
-                $obj_file00s["other"] = $this->collect_random_array($obj_file00s["other"], 10);
+            if(count($obj_file00s["other"]) > 20){
+                $obj_file00s["other"] = $this->collect_random_array($obj_file00s["other"], $this->amount_L_neuron00s);
             }
 
             $file00s_c_target = $obj_file00s["last_c_modified"] + $obj_file00s["other"];

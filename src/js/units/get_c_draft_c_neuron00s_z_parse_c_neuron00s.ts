@@ -1,4 +1,4 @@
-import { class_c_neuron } from "../classes/class_c_neuron";
+import { class_L_neuron } from "../classes/class_L_neuron";
 import { gEBI } from "./compress_f.js";
 
 export function get_c_draft_c_neuron00s_z_parse_c_neuron00s() {
@@ -9,8 +9,8 @@ export function get_c_draft_c_neuron00s_z_parse_c_neuron00s() {
       neuron_features["is_format"] = true;
       neuron_features["is_outgrowth00s"] = true;
       neuron_features["default_tab"] = "draft";
-      neuron_features["time_c_last_edit"] = "";
-      new class_c_neuron(neuron_features);
+      neuron_features["time_L_last_edit"] = "";
+      new class_L_neuron(neuron_features);
     }
   }
   function get_c_local_storage_c_neuron00s() {

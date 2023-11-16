@@ -2,7 +2,7 @@ import { gEBI } from "./compress_f";
 
 export function focus_c_neuron_x_scroll(neuron_id:string){
     let neuron_obj = window["tagbrain_graph"]["neuron00s_obj00s"][neuron_id];
-    let name_tab = neuron_obj.neuron_c_container_c_tab;
+    let name_tab = neuron_obj.tab_L_neuron;
     let neuron_container = window["tagbrain_graph"]["tab_collection"][name_tab]["mental_image_container"];
     let neuron_element = neuron_obj.neuron_el;    
     let offset:number = neuron_element.offsetTop;

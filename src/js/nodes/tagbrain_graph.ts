@@ -49,7 +49,9 @@ let tagbrain_graph: any = {
         },
         listner00s_c_anemone00a:[],
         ram_c_unit00s: [],
-        neuron00s_c_activated: []
+        neuron00s_c_activated: [],
+        unit00s_L_search: [],
     },
+    neuron00s_c_access: "",
 }
 export {tagbrain_graph};

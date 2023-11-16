@@ -72,7 +72,7 @@ class controller_c_activate_c_graph {
             if ($a == $b) {
                 return 0;
             }
-            return ($a["neuron_c_activation"] > $b["neuron_c_activation"]) ? -1 : 1;
+            return ($a["neuron_L_activation"] > $b["neuron_L_activation"]) ? -1 : 1;
         }
         usort($neuron00s_c_obj00s, "cmp");
 
@@ -106,9 +106,12 @@ class controller_c_activate_c_graph {
         
         //get_c_neuron00s_c_not_exist
         for($i=0; $i < count($neuron00s_c_client_x_not_exist); $i++){
-            $neuron_data = $this->get_neuron_data($this->graph_dir."/", $neuron00s_c_client_x_not_exist[$i]["neuron_c_id"].".json");
+            $neuron_data = $this->get_neuron_data(
+                $this->graph_dir."/", 
+                $neuron00s_c_client_x_not_exist[$i]["neuron_c_id"].".json"
+            );
             $neuron00s_c_client_x_not_exist[$i]["content"] = $neuron_data["neuron_tree_json"]; 
-            $neuron00s_c_client_x_not_exist[$i]["time_c_last_edit"] = $neuron_data["time_c_last_edit"];
+            $neuron00s_c_client_x_not_exist[$i]["time_L_last_edit"] = $neuron_data["time_L_last_edit"];
         }
 
         $response = array(

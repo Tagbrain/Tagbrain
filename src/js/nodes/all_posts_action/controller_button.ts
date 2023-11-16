@@ -1,6 +1,6 @@
 import { class_c_create_c_neuron_c_secondary_x_temporary } from "../../classes/class_c_create_c_neuron_c_secondary_x_temporary";
 import { class_c_icon_c_button } from "../../classes/class_c_icon_c_button";
-import { class_c_neuron } from "../../classes/class_c_neuron";
+import { class_L_neuron } from "../../classes/class_L_neuron";
 import { gEBI, dCE } from "../../units/compress_f.js";
 import { focus_c_neuron_x_scroll } from "../../units/focus_c_neuron_x_scroll";
 import { get_selection_neuron_outgrowths } from "../../units/get_selection_neuron_outgrowths";
@@ -8,7 +8,7 @@ import { add_c_neuron_c_secondary_z_purpose_c_create_c_new_channel } from "../ne
 import { export_c_graph_s_c_zip } from "./export_c_graph_s_c_zip";
 
 let buttons_objs = [
-    {
+    {//graph_c_zip
         change_target:'button_id_2',
         value: 'export_graph',
         click_contextmenu:"export",
@@ -97,7 +97,7 @@ let buttons_objs = [
             new class_c_create_c_neuron_c_secondary_x_temporary();
         }
     },
-    {
+    {//create_new_channel
         change_target: 'button_id_15_c_create_c_channel',
         value: 'create_c_new_c_channel',
         click_contextmenu: "Trying to create a channel",
@@ -113,7 +113,6 @@ let buttons_objs = [
             let outgrowths = [{
                 content: '<div class="post_row">$Write connections of a #new neuron</div>', 
                 depth: 0, 
-                row: 0
              }];
              let neuron_features = {
                 neuron_id: "",
@@ -122,13 +121,14 @@ let buttons_objs = [
                 contenteditable: true,
                 add_ram_boolen: true,
                 is_format: true,
-                time_c_last_edit: ""
+                time_L_last_edit: "",
+                default_tab: false
              }
-             let neuron_c_new_x_class = new class_c_neuron(neuron_features);
+             let neuron_c_new_x_class = new class_L_neuron(neuron_features);
              focus_c_neuron_x_scroll(neuron_c_new_x_class.neuron_id); 
         }
     },
-    {
+    {//create_c_new_c_neuron_c_from_c_selection
         change_target: 'button_id_17_c_create_c_neuron_c_from_selection',
         value: 'create_c_new_c_neuron_c_from_c_selection',
         click_contextmenu: "Create a neuron from selection",
@@ -139,16 +139,16 @@ let buttons_objs = [
                 add_class: string, 
                 el_cls: any, 
                 back_layer_element: any, 
-                pointer_e_stl: any
+                pointer_L_stl: any
             ){
                 el_cls.remove(remove_class);
-                back_layer_element.style.pointerEvents = pointer_e_stl;
+                back_layer_element.style.pointerEvents = pointer_L_stl;
                 el_cls.add(add_class);
             }
             function add_new_neuron_from_selection(
                 outgrowths: any
             ){
-                if(gEBI("logout_a")){
+                if(window["tagbrain_graph"]["neuron00s_c_access"]){//check_c_session_c_access
                    let neuron_features = {
                       neuron_id:"",
                       content: outgrowths,
@@ -156,9 +156,10 @@ let buttons_objs = [
                       contenteditable: true,
                       add_ram_boolen: true,
                       is_format: true,
-                      time_c_last_edit: "",
+                      time_L_last_edit: "",
+                      default_tab: "neurons"
                    }
-                   let neuron_c_new_x_class = new class_c_neuron(neuron_features);
+                   let neuron_c_new_x_class = new class_L_neuron(neuron_features);
                 }
                 let upper_layer_for_animation = document.querySelector(".upper_layer_for_animation"),
                 neuron_pop_up_menu = gEBI("id_c_pop_up_c_context"),

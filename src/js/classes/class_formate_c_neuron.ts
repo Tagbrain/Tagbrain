@@ -9,14 +9,12 @@ import {get_outgrowth_features} from "../units/get_outgrowth_features";
 
 type response_c_get_outgrowth_features = {
     content: string, 
-    row: number, 
     depth: number, 
     escape: boolean,
     new_depth: number,
 };
 type outgrowth = {
     content: string, 
-    row: number, 
     depth: number, 
     is_key_row: boolean,
     escape: boolean

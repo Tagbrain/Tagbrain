@@ -26,7 +26,7 @@ trait get_neuron_data {
         //PATH WAS CHANGED
         $neuron_data = array(
             "neuron_id" => $neuron_id,
-            "time_c_last_edit" => $unix_timestamp,
+            "time_L_last_edit" => $unix_timestamp,
             "neuron_tree_json" => $neuron_tree_json,
          );
          return $neuron_data;

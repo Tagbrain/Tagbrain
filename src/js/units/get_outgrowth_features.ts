@@ -3,7 +3,6 @@ import {get_depth_outgrowth} from "./get_depth_outgrowth";
 
 type outgrowth_features = {
     content: string, 
-    row: number, 
     depth: number, 
     escape: boolean,
     new_depth: number,
@@ -13,10 +12,13 @@ type fix_type = {
     is_fix: boolean,
 }
 
-export function get_outgrowth_features(synapse_el: Element, ind: number, depth_c_fix:fix_type){
+export function get_outgrowth_features(
+    synapse_el: Element, 
+    ind: number, 
+    depth_c_fix:fix_type
+){
     let features: outgrowth_features = {
         content: "", 
-        row: 0, 
         depth: 0, 
         escape: false,
         new_depth:0,
@@ -28,7 +30,6 @@ export function get_outgrowth_features(synapse_el: Element, ind: number, depth_c
             features["escape"] = true;
             features["depth"] = 0;
             features["content"] = text_row;
-            features["row"] = ind;
         } else {
             let space_obj = get_depth_outgrowth(text_row);
             if(depth_c_fix.is_fix == true){
@@ -39,7 +40,6 @@ export function get_outgrowth_features(synapse_el: Element, ind: number, depth_c
             }
             features["depth"] = space_obj.depth;
             features["content"] = text_row.trim();
-            features["row"] = ind;
         }
     }
     return features;

@@ -125,11 +125,9 @@
 			</div>
 
 			<div class="tools_container" id="RAM_right_bar_page">
-				<a>Save</a> 
-				<a> Clean</a>
-				<a>Save_in_cookie</a>
+				<a> Clean All</a>
 				<a>Collapse items</a>
-				<div id="last_posts_lists" class="output_block"></div>
+				<div id="neuron00s_L_RAM" class="output_block"></div>
 			</div>
 
 			<div class="tools_container" id="fractal_controller_right_bar_page">

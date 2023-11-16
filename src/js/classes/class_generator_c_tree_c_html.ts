@@ -15,6 +15,8 @@ class class_generator_c_tree_c_html {
     protected action: string;
     protected regexp: any;
 
+
+
     constructor(options: any) {
         //containers
             //response
@@ -28,7 +30,11 @@ class class_generator_c_tree_c_html {
         if(options.fantom_layer_c_category00s_margin00s){
             this.fantom_layer_c_category00s_margin00s = options.fantom_layer_c_category00s_margin00s;
         }
-
+        if(Array.isArray(this.synapse00s_c_key)){
+            this.regexp = new RegExp(this.synapse00s_c_key.join("|"), "gi");
+        } else {
+            this.regexp = new RegExp(this.synapse00s_c_key, "gi");
+        }
     }
 
     controller_generator(){
@@ -38,8 +44,8 @@ class class_generator_c_tree_c_html {
                 let depth:number = this.tree[i]["depth"];
                 let content:string = this.tree[i]["content"];
                 if(this.synapse00s_c_key != undefined){
-                    let regexp = new RegExp(this.synapse00s_c_key.join("|"), "gi");
-                    let is_exist_synapse = regexp.test(content);
+                    let is_exist_synapse = this.regexp.test(content);
+                    let regexp = this.regexp;
                     if(is_exist_synapse){
                         content = content.replace(regexp, function (finded: string) {
                             let changed = "<span class='special_symbols_style'>" + finded + "</span>";

@@ -3,13 +3,13 @@
 session_start([
 	'cookie_lifetime' => 3600000,
 ]);
-include_once $_SERVER['DOCUMENT_ROOT']."/php/sessions/sign_in/includes.php";
 
 if(!$_SESSION["userid"]){
 	if(count($_COOKIE) > 0) {
 		if($_COOKIE["session_user"]){
 			//refresh session
-			set_sign_controller($_COOKIE["session_user"].":".$_COOKIE["password"]);
+			include_once $_SERVER['DOCUMENT_ROOT']."/php/sessions/sign_in/controller_L_sign_in.php";  
+			new controller_L_sign_in($_COOKIE["session_user"].":".$_COOKIE["password"]);
 		}
 	} else {
 		//Cookies are disabled
@@ -59,7 +59,7 @@ if($first_letters == "/"){
 		<div class="site_template">
 				<?php include("php/page_component/header.php"); ?>
 			<div class="container_work">
-				<div id="tab_container" class="tab_container"></div>
+				<div id="tab00s_container" class="tab00s_container"></div>
 				<div id="mental_image_c_container" class="mental_image_c_container">
 						<!-- mental_images_c_js_injection_c_action-->
 				</div>
@@ -71,8 +71,6 @@ if($first_letters == "/"){
 		</div>
 		<div id="layoutViewport"></div>
 		<script src="js/bundle.js"></script>
-		<script src="js/generator.js"></script>
-		<script src="js/history.js"></script>
 	</body>
 </html>
 <?php include "img/svg_sprite.php"; ?>

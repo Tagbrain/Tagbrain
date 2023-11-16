@@ -11,13 +11,10 @@ class class_c_graph_c_controller {
         this.graph_name = graph_name;
         this.container_graph00s_c_link00s = gEBI("graph00s_c_link00s");
         let graph00s_c_user = window["tagbrain_graph"]["graph00s_c_user"];
-        if(graph00s_c_user.includes(this.graph_name)){
-            //next
-        } else {
-            this.put_c_to_interface_c_link();
-            this.set_c_link_c_listner();
-            window["tagbrain_graph"]["graph00s_c_user"].push(this.graph_name);
-        }
+        this.put_c_to_interface_c_link();
+        this.set_c_link_c_listner();
+        window["tagbrain_graph"]["graph00s_c_user"].push(this.graph_name);
+        
     }
     put_c_to_interface_c_link(){
         let html = 
@@ -34,7 +31,7 @@ class class_c_graph_c_controller {
 
             history.pushState({}, '', '/'+ this.graph_name);
             generate_c_graph_c_environment(this.graph_name);
-            //history.replaceState( {} , '', '/'+this.graph_name );
+
         })
     }
 

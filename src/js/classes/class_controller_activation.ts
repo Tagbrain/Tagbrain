@@ -34,10 +34,29 @@ class class_controller_activation {
         }
 
     }
-    get_anemone00s_c_from_branche00s(){
+    get_anemone00s_c_from_branche00s(): {
+        induction_a:any[],
+        deduction_a:any[]
+    }{
+        let len = this.branch00s_c_current.length;
+        if(len != 0){//branche00s_L_exist
+            return this.get_L_a_L_induction_X_deduction()
+        } else {//branche00s_L_not_exist
+            return {
+                induction_a:[],
+                deduction_a:[],
+            };
+        }
+    }
+    get_L_a_L_induction_X_deduction(){
+        let induction_a: anemone[] = [];
         let deduction_a: anemone[] = get_deduction_anemones(this.branch00s_c_current);
         //let deduction_un_a = get_unreliable_anemones(deduction_a);
-        let induction_a: anemone[] = get_induction_anemones(deduction_a);
+        if(deduction_a.length > 1){
+            induction_a = get_induction_anemones(deduction_a);
+        } else {
+            induction_a = [];
+        }
         //push_c_in_global
         window["tagbrain_graph"].ram.anemone00s.deduction = deduction_a;
         window["tagbrain_graph"].ram.anemone00s.induction = induction_a;
@@ -49,7 +68,9 @@ class class_controller_activation {
     }
     collect_generalizated_tree(){
 
-        let tree00s = new class_generator_tree_structure(this.get_anemone00s_c_from_branche00s());
+        let tree00s = new class_generator_tree_structure(
+            this.get_anemone00s_c_from_branche00s()
+        );
         //choose_c_best_structure()
         window["tagbrain_graph"]["ram"]["tree_c_generalizated"] = tree00s[0];
         let features = {

@@ -41,11 +41,12 @@
 						if($_SESSION["userid"]){
 							echo '<form  method="post" action="php/sessions/logout.inc.php" id="container_post_code">'.
 								' <input type="submit" title="'.$_SESSION["userid"].'" id="logout_a" value="logout">'.
-							'</form>';
+							'</form>'.
+							'<div id="logout_c_input_c_guide"></div>';
 						} else {
-							echo '<form method="post" action="php/sessions/sign_in/signin_inc.php" class="header_central_text" onsubmit="return validate_code_form()" id="container_post_code">'.
+							echo '<form method="post" action="php/sessions/sign_in/signin_inc.php" class="header_central_text" id="container_post_code">'.
 								'<input type="submit" id="send_code_to_email" value="▷">'.
-								'<input name="password_code" autocomplete="current-password"  type="text" id="log_code_input" maxlength="50" class="log_code_input_style" placeholder="Email log">'.
+								'<input name="name_X_password" autocomplete="current-password"  type="text" id="log_code_input" maxlength="50" class="log_code_input_style" placeholder="name:password">'.
 							'</form>'.
 							'<a class="a_cl" id="log_up">Log up</a>';
 						}

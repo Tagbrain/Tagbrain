@@ -23,11 +23,16 @@ class class_c_toggle_c_pop_up {
             })
 
         document.addEventListener("contextmenu", (e) => {
-            e.preventDefault();
             if(window["tagbrain_graph"].pop_up.context.is_activated){
+                e.preventDefault();
                 this.close();
             } else {
-                this.show(e);
+                if(!window["tagbrain_graph"]["checker_collection"]["read_mode"].is_activated){
+                    e.preventDefault();
+                    this.show(e);
+                } else {//no_preventDefault
+
+                }
             }
         })
     }

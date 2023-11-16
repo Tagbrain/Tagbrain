@@ -11,15 +11,12 @@ import { get_neuron00s_c_id00s_c_without_ram } from "../../units/get_neuron00s_c
 import { is_class_of_event_target } from "../../units/is_class_of_event_target";
 import { parent_is_exist } from "../../units/parent_is_exist";
 import {get_parent_with_class} from "../../units/get_parent_with_class";
-import {get_outgrowth_features} from "../../units/get_outgrowth_features";
 import {generate_c_neuron_c_branch} from "../../units/generate_c_neuron_c_branch";
 import {class_formate_c_neuron} from "../../classes/class_formate_c_neuron";
-import {class_controller_activation} from "../../classes/class_controller_activation";
-import {class_generator_c_tree_c_html} from "../../classes/class_generator_c_tree_c_html";
 import { get_c_neuron_c_by_neuron_nucleus_c_og00s } from "../../units/get_c_neuron_c_by_neuron_nucleus_c_og00s";
 import { class_c_attach_c_summarization_tree } from "../../classes/class_c_attach_c_summarization_tree";
 import { collect_c_blank_c_tangle_c_activation } from "../../brain_units/collect_c_blank_c_tangle_c_activation";
-import { class_c_unit_c_activation } from "../../classes/class_c_unit_c_activation";
+import { class_L_unit_L_neuron_X_condense } from "../../classes/class_c_unit_L_neuron_X_condense";
 
 
 /*
@@ -31,10 +28,18 @@ import { class_c_unit_c_activation } from "../../classes/class_c_unit_c_activati
                     #synapse
                 #answer
 */
-
-
 //NODE
 //#listner
+
+type neuron_L_unit_L_options = {
+    tab_L_unit_X_name: string,
+    output_container_L_name: string,
+    unit_L_neuron_L_id: string,
+    unit_L_description_L_short: string,
+    unit_L_rank: number,
+    unit_L_time: string,
+    unit_L_neuron_L_is_special: boolean
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('dblclick', function (e:any) {
@@ -137,9 +142,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (neuron00s_c_client_x_not_exist) {
                 load_c_neuron00s_x_from_array_x_location_c_client(neuron00s_c_client_x_not_exist);
                 let neuron00s_best = neuron00s_c_client_x_not_exist.concat(neuron00s_c_client_x_exist_c_obj00s);
-                neuron00s_best.sort(function(a:number, b:number) {
-                    return b - a;
-                });
+                neuron00s_best = neuron00s_best.sort((b:any, a:any) => a.neuron_L_activation - b.neuron_L_activation);
+
                 resolve(neuron00s_best);
             } else {
                 reject(new Error("not_loaded"));
@@ -149,12 +153,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         promise.then(
             function(neuron00s_best: any){
-                for (let j = 0; j < neuron00s_best.length; j++) {
-                    let unit_x_obj = neuron00s_best[j];
-                    unit_x_obj["action"] = "add_c_unit";
-                    new class_c_unit_c_activation(unit_x_obj);
-                }
+                //clear_L_container
                 let output_counter = gEBI("output_c_neural_c_guide_c_count");
+                output_counter.innerHTML = "";
+                //create_L_units_L_new
+                for (let j = 0; j < neuron00s_best.length; j++) {
+                    let unit_x_obj: neuron_L_unit_L_options = {
+                        tab_L_unit_X_name: "activation",
+                        output_container_L_name: "output_c_neural_guide",
+                        unit_L_neuron_L_id: neuron00s_best[j]["neuron_c_id"],
+                        unit_L_description_L_short: "",
+                        unit_L_rank: neuron00s_best[j]["neuron_L_activation"],
+                        unit_L_time: neuron00s_best[j]["time_L_last_edit"],
+                        unit_L_neuron_L_is_special: false
+                    }
+
+                    new class_L_unit_L_neuron_X_condense(unit_x_obj)
+                }
                 output_counter.textContent = gEBI("output_c_neural_guide").children.length;
             },
             function(error){

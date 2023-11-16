@@ -2,12 +2,20 @@
 
 //UNITS
 
-import { gEBI } from "../units/compress_f";
-import { focus_c_neuron_x_scroll } from "../units/focus_c_neuron_x_scroll";
-import { if_c_screen_c_is_narrow_zz_close_c_right_bar } from "../units/if_c_screen_c_is_narrow_zz_close_c_right_bar";
+import { focus_c_neuron_c_target_c_tab } from "../units/focus_c_neuron_c_target_c_tab";
 import { send_data_ajax } from "../units/send_data_ajax";
-import { class_c_controller_c_tab_c_ram_c_unit00s } from "./class_c_controller_c_tab_c_ram_c_unit00s";
-import { class_c_neuron } from "./class_c_neuron";
+import { class_L_unit_L_neuron_X_condense } from "./class_c_unit_L_neuron_X_condense";
+import { class_L_neuron } from "./class_L_neuron";
+
+type neuron_L_unit_L_options = {
+    tab_L_unit_X_name: string,
+    output_container_L_name: string,
+    unit_L_neuron_L_id: string,
+    unit_L_description_L_short: string,
+    unit_L_rank: number,
+    unit_L_time: string,
+    unit_L_neuron_L_is_special: boolean
+}
 
 class class_c_create_c_neuron_c_secondary_x_temporary {
     constructor(){
@@ -35,21 +43,23 @@ class class_c_create_c_neuron_c_secondary_x_temporary {
                     contenteditable: "false",
                     add_ram_boolen: false,
                     is_format: false,
-                    time_c_last_edit: ""
+                    time_L_last_edit: "",
+                    default_tab: "settings"
                 }
     
-                let neuron_c_new_x_class = new class_c_neuron(neuron_features);
-                focus_c_neuron_x_scroll("brain_data");
-                if_c_screen_c_is_narrow_zz_close_c_right_bar();
+                new class_L_neuron(neuron_features);
+                focus_c_neuron_c_target_c_tab("brain_data", "settings");
 
-                let option00s = {
-                    neuron_c_el: neuron_c_new_x_class.neuron_shell,
-                    neuron_c_id: "brain_data",
-                    is_special_neuron: true,
-                    action: "add_to_ram",
-                    unix_time: ""
+                let unit_x_option00s: neuron_L_unit_L_options = {
+                    tab_L_unit_X_name: "ram",
+                    output_container_L_name: "neuron00s_L_RAM",
+                    unit_L_neuron_L_id: "brain_data",
+                    unit_L_description_L_short: "",
+                    unit_L_rank: 1,
+                    unit_L_time: "",
+                    unit_L_neuron_L_is_special: true
                 }
-                new class_c_controller_c_tab_c_ram_c_unit00s(option00s);
+                new class_L_unit_L_neuron_X_condense(unit_x_option00s)
             }
         };
         send_data_ajax(data, url, controller_f, false, error_message);

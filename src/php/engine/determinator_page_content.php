@@ -32,7 +32,7 @@ class load_page_vars {
 
     }
     function is_channel_private(){
-        $this->table;
+
         $channel_private = true;
         $i=0;
         foreach($this->table as $row => $value){ 
@@ -42,6 +42,10 @@ class load_page_vars {
                 } 
             }
             $i++;
+        }
+        //if_L_home_page
+        if($this->state() == "/" || $this->state() == "/project"){
+            $channel_private = false; 
         }
         return $channel_private;
     }
@@ -81,10 +85,10 @@ class load_page_vars {
         return [$channel_title, $exist, $access];
     }
 
-    function content($page, $get_channel_properties_array, $can_editing){
+    function content($page, $channel_properties_array, $can_editing){
         //access page  
-        $exist = $get_channel_properties_array[1];
-        $access = $get_channel_properties_array[2];
+        $exist = $channel_properties_array[1];
+        $access = $channel_properties_array[2];
          
         //if home page
         if($this->state() == "/" || $this->state() == "/project"){
@@ -94,7 +98,7 @@ class load_page_vars {
         }
         if($access == true){
             if($exist == true){
-                $page_name = $get_channel_properties_array[0];
+                $page_name = $channel_properties_array[0];
                 $post = array(
                     'page' => $page,
                     'name' => $page_name,

@@ -1,0 +1,18 @@
+.selection_L_area {
+    border-top: 1px dashed var(--text-content);
+    border-bottom: 1px dashed var(--text-content);
+}
+.selection_L_area_L_container{
+    z-index: 5;
+}
+.container {
+    user-select: none;
+}
+.selected123 {
+    color: var(--tags-color);
+    background: var(--background-pop-up-blocks);
+    border-left: 1px dashed var(--shiny-light);
+    user-select: none; 
+    padding-left: 4px;
+    transition: 1s;
+}

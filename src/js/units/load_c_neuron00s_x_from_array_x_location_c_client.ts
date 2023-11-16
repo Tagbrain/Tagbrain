@@ -1,4 +1,4 @@
-import {class_c_neuron} from "../classes/class_c_neuron";
+import {class_L_neuron} from "../classes/class_L_neuron";
 export function load_c_neuron00s_x_from_array_x_location_c_client(
     neuron00s: any[]
 ){
@@ -12,9 +12,10 @@ export function load_c_neuron00s_x_from_array_x_location_c_client(
                 contenteditable: "true",
                 add_ram_boolen: false,
                 is_format: true,
-                time_c_last_edit: neuron00s[i].time_c_last_edit
+                time_L_last_edit: neuron00s[i].time_L_last_edit,
+                default_tab: "neurons"
             }
-            let neuron_c_new_x_class = new class_c_neuron(neuron_features);
+            let neuron_c_new_x_class = new class_L_neuron(neuron_features);
         }
     }
 }

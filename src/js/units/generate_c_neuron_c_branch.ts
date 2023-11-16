@@ -9,7 +9,6 @@ type arr_chain = {
 
 type current_outgrowth = {
     depth: number,
-    row: number,
     content: string,
     is_key_row: boolean,
     escape: boolean,

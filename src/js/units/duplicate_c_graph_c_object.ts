@@ -1,3 +1,5 @@
+import { class_c_controller_c_tabs_functions } from "../classes/class_c_controller_c_tabs_functions";
+import { upload_L_tabs_L_environment } from "../nodes/all_posts_action/controller_tabs";
 import {tagbrain_graph} from "../nodes/tagbrain_graph";
 import { gEBI } from "./compress_f";
 export function duplicate_c_graph_c_object(){
@@ -12,6 +14,7 @@ export function duplicate_c_graph_c_object(){
         tagbrain_graph_c_new[feature00s_c_clone00s[i]] = tagbrain_graph[feature00s_c_clone00s[i]];
     }
     window["tagbrain_graph"] = tagbrain_graph_c_new;
+    upload_L_tabs_L_environment();
 
     gEBI("page_tag_map_name").innerHTML = document.location.pathname.split("/")[1];
 }
