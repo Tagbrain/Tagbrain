@@ -2,7 +2,7 @@
 include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/state_trait.php";
 /* 
 json
-    [row, depth, content],
+    [depth, content],
     ...
 */
 trait transformate_txt_tree_to_json {
@@ -30,7 +30,6 @@ trait transformate_txt_tree_to_json {
     protected function transformate_neuron_content($neuron_path){
         //check_node
         $json_tree = array();
-        $row = 0;
         $reading = fopen($neuron_path, 'r');
         while(!feof($reading)){
             $line = fgets($reading);
@@ -57,10 +56,7 @@ trait transformate_txt_tree_to_json {
                 $i++;
             }
 
-            $array_part_tree["row"] = $row;
-
             array_push($json_tree, $array_part_tree);
-            $row++;
         }
         fclose($reading);
 
