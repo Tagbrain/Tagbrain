@@ -16,9 +16,9 @@
 
 Screenshots
 <h3 style="display:grid;grid-template: 1fr/repeat(auto-fit,minmax(300px,1fr));">
-    <img alt="transhumanism1" style="grid-column: 1/2; padding: 4px;" src="https://github.com/Tagbrain/Tagbrain/blob/main/transhumanism1.png"/>
-    <img alt="transhumanism1" style="padding: 4px;" src="https://github.com/Tagbrain/Tagbrain/blob/main/transhumanism2.png"/>
-</h3>
+    <img alt="transhumanism1" style="grid-column: 1/2; padding: 4px;" src="https://github.com/Tagbrain/Tagbrain/blob/main/tagbrain_L_img1.png"/>
+    <img alt="transhumanism1" style="padding: 4px;" src="https://github.com/Tagbrain/Tagbrain/blob/main/tagbrain_L_img2.png"/>
+</h3> 
 
 ### Terminology v 0.1
 
