@@ -34,11 +34,18 @@
 }
 #neuron00s_L_RAM{
   display: grid;
-  grid-template: repeat(auto-fit, minmax(100px, 1fr))/repeat(auto-fit, minmax(240px, 1fr));
+  grid-template: repeat(auto-fit, minmax(80px, 1fr))/repeat(auto-fit, minmax(240px, 1fr));
   font-size: 12px;
-  padding: 16px 8px;
+  padding: 12px 4px;
   transition: .5s;
 }
+.unit_L_element {
+  border-bottom: 1px dashed var(--text-content);
+}
+.unit_L_element:last-child{
+  border-bottom: none;
+}
+
 .pop_up{
   position: absolute;
   transition: .5s;

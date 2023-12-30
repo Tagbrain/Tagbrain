@@ -1,10 +1,4 @@
 # Tagbrain
-<style>
-.class_synapse{
-    font-color:yellow;
-}
-
-</style>
 <h3 align="center">
     <img alt="Logo" src="https://github.com/Tagbrain/Tagbrain/blob/main/Tagbrain_logo.png" width="400"/>
 </h3>

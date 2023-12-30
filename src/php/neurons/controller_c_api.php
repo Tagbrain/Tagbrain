@@ -22,6 +22,63 @@ if($_POST["data"]){//init_controller
             );
             echo json_encode($array_response);
         }
+    } else if ($action == "change_L_neuron"){
+        include $_SERVER['DOCUMENT_ROOT']."/php/units/classes/neuron_changing.php";
+
+        if($_SESSION["userid"]){
+            if(isset($data["neuron_id"], $data["graph_name"])){
+
+                new neuron_changing(
+                    $data["parameter"], 
+                    $data["graph_name"], 
+                    $data["neuron_tree"], 
+                    $data["neuron_id"], 
+                    $data["unix_time"],
+                    $data["neuron00s_L_ram_X_id"]
+                );
+
+            } else {
+                $array_response = array(
+                    "status" => "fail",
+                    "body"=> "Data is not complete"
+                );
+                echo json_encode($array_response);
+            }
+        } else {
+
+            $array_response = array("status" => "No session");
+            echo json_encode($array_response); 
+            
+        }
+    } else if ($action == "load_L_attachment00s_X_if_exist"){
+        $graph_L_name = $data["graph_name"];
+        if(isset($graph_L_name)){
+            include $_SERVER['DOCUMENT_ROOT']."/php/units/classes/class_L_get_L_attachment00s.php";
+            new class_L_get_L_attachment00s(
+                $graph_L_name,
+                $data["attachment00s_L_name00s"],
+                $data["neuron_L_id"]
+            );
+        } else {
+            $array_response = array(
+                "status" => "fail",
+                "body" => "Data is not received ER000003"
+            );
+            echo json_encode($array_response);
+        }
+    } else if ($action == "change_L_attachment"){
+        $graph_L_name = $data["graph_L_name"];
+        if(isset($graph_L_name)){
+            include $_SERVER['DOCUMENT_ROOT']."/php/units/classes/class_L_creator_L_attachment.php";
+            new class_L_creator_L_attachment(
+                $graph_L_name,
+                $data["type"],
+                $data["direction_L_name"],
+                $data["attachment_L_key"],
+                $data["attachment_L_value"],
+                $data["neuron_L_id"]
+            );
+        }
     } else if ($action == "create_c_channel") {
             $content = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/php/neuron00s_c_special_x_html/creator_c_channel.php');
             $array_response = array(
@@ -68,6 +125,19 @@ if($_POST["data"]){//init_controller
         new remove_channel_controller(
             $graph_L_name_L_for_remove 
         );
+    } else if ($action == "load_L_theme_css"){
+        $graph_L_name = $data["graph_L_name"];
+        include $_SERVER['DOCUMENT_ROOT']."/php/units/classes/loader_L_theme.php";
+        $class_L_theme_L_css = new loader_L_theme(
+            $data["theme_L_name"],
+            $graph_L_name
+        );
+        $array_response = array(
+            "status" => "success",
+            "theme_L_css" => $class_L_theme_L_css->response
+        );
+        $json = json_encode($array_response);
+        echo $json;
     }
 } else {
     $array_response = array(

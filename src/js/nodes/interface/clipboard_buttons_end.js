@@ -1,4 +1,5 @@
 import {paste_c_symbol_x_current_position} from "../../units/paste_c_symbol_x_current_position";
+import { turn_L_toggle_L_fullscreen } from "../../units/turn_L_toggle_L_fullscreen";
 
 let copy_symbol_button = document.querySelectorAll(".tools_button_copy");
 for(let i = 0; i < copy_symbol_button.length; i++){
@@ -7,51 +8,9 @@ for(let i = 0; i < copy_symbol_button.length; i++){
     paste_c_symbol_x_current_position(value_copy_button);
   })
 }
-
 const work_mode_button = document.querySelector("#work_mode_button"),
       page_element = document.documentElement;
 work_mode_button.addEventListener('click', function(){ 
-  let container_work = document.querySelector(".container_work");
-  let CW_CL = container_work.classList;
-  if( window.innerHeight == screen.height) {
-    closeFullscreen();
-    if(CW_CL.contains('container_work_mode_power')){
-      CW_CL.remove('container_work_mode_power');
-    } 
-  } else {
-    openFullscreen();
-    if(document.querySelector(".animation_c_header")){
-      //document.querySelector(".animation_c_header").remove();
-    }
-    //if(document.querySelector(".background_svg")){
-      //document.querySelector(".background_svg").remove();
-    //}
-    if(CW_CL.contains('container_work_mode_power')){
-      CW_CL.remove('container_work_mode_power');
-    } else {
-      CW_CL.add('container_work_mode_power');
-    }
-    //change size items
-  }
+  turn_L_toggle_L_fullscreen(false);
 }) 
 
-function openFullscreen(){
-if (page_element.requestFullscreen) {
-    page_element.requestFullscreen();
-  } else if (page_element.mozRequestFullScreen) {
-    page_element.mozRequestFullScreen();
-  } else if (page_element.webkitRequestFullscreen) { 
-    page_element.webkitRequestFullscreen();
-  } else if (page_element.msRequestFullscreen) {
-    page_element.msRequestFullscreen();
-  }
-}
-function closeFullscreen() {
-  if (document.mozCancelFullScreen) {
-    document.mozCancelFullScreen();
-  } else if (document.webkitExitFullscreen) { 
-    document.webkitExitFullscreen();
-  } else {
-    document.exitFullscreen();
-  }
-}

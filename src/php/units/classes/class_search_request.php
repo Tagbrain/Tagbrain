@@ -35,7 +35,7 @@ class search_controller {
                     $obj_c_search_words = array();
                     if($this->regexp_is_activated){
                         $obj_c_search_words = $this->get_c_neuron_c_synapses_c_complementarity_c_regexp(
-                            $this->graph_path."/".$neuron, 
+                            $this->graph_path.$neuron, 
                             $neuron, 
                             $this->request_data
                         );
@@ -69,24 +69,24 @@ class search_controller {
                 $obj_c_search_words = array();
                 if($this->regexp_is_activated){//true
                     $obj_c_search_words = $this->get_c_neuron_c_synapses_c_complementarity_c_regexp(
-                        $this->graph_path."/".$neuron, 
+                        $this->graph_path.$neuron, 
                         $neuron, 
                         $this->request_data
                     );
                     if($obj_c_search_words == false) continue;
                 } else {//false
                     $obj_c_search_words = $this->get_c_neuron_c_synapses_c_complementarity_c_target_request(
-                        $this->graph_path."/".$neuron, 
+                        $this->graph_path.$neuron, 
                         $neuron, 
                         $this->request_data);
                     if($obj_c_search_words == false) continue;
                 }
                 if(count($obj_c_search_words) > 0){//if exist target words
                     if(array_key_exists($this->graph_name, $obj_c_search_words_x_general)){
-                        $obj_c_search_words["time_L_last_edit"] = filemtime($this->graph_path."/".$neuron);
+                        $obj_c_search_words["time_L_last_edit"] = filemtime($this->graph_path.$neuron);
                         array_push($obj_c_search_words_x_general[$this->graph_name], $obj_c_search_words);
                     } else {
-                        $obj_c_search_words["time_L_last_edit"] = filemtime($this->graph_path."/".$neuron);
+                        $obj_c_search_words["time_L_last_edit"] = filemtime($this->graph_path.$neuron);
                         $obj_c_search_words_x_general[$this->graph_name] = array($obj_c_search_words);
                     }
                 }
@@ -97,7 +97,14 @@ class search_controller {
             usort($objs_c_graph, array($this, "sort_c_search_obj"));
         }
 
-        $this->return_success($obj_c_search_words_x_general);
+        $obj00s_L_neuron_X_search = array();
+        if(count($obj_c_search_words_x_general ) > 20){
+            $obj00s_L_neuron_X_search = array_splice($obj_c_search_words_x_general, 0, 20);
+        } else if (count($obj_c_search_words_x_general) <= 20){
+            $obj00s_L_neuron_X_search = $obj_c_search_words_x_general;
+        }
+
+        $this->return_success($obj00s_L_neuron_X_search);
 
     }
     protected function sort_c_search_obj($a, $b){

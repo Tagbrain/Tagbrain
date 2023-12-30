@@ -1,7 +1,6 @@
 import {gEBI, dCE } from "../../units/compress_f.js";
-import { send_c_change_request_x_target_c_server } from "../../units/send_c_change_request_x_target_c_server";
-import { send_c_change_request_x_target_c_local_storage } from "../../units/send_c_change_request_x_target_c_local_storage";
-import { class_formate_c_neuron } from "../../classes/class_formate_c_neuron";
+import { turn_L_toggle_L_fullscreen } from "../../units/turn_L_toggle_L_fullscreen";
+import { save_L_neuron00s_L_edited } from "../../units/save_L_neuron00s_L_edited";
 
 
 setInterval(function(){ 
@@ -23,7 +22,7 @@ document.addEventListener('keydown', function(event) {
         event.preventDefault();
         //unfocus_c_neuron00s
         gEBI("layoutViewport").click();
-        save_edited_neurons();
+        save_L_neuron00s_L_edited();
     }
   });
 
@@ -46,53 +45,12 @@ function refresh_automate(){
     let part3 = str_boolean.substr(12, 6);
 
     cellular_automata.innerHTML = '<tspan x="580">'+part1+'</tspan>'+'<tspan x="580" dy="15">'+part2+'</tspan>'+'<tspan x="580" dy="15">'+part3+'</tspan>';
-    save_edited_neurons();
-}
-
-function save_edited_neurons(){
-    let collection_neurons_c_obj = window["tagbrain_graph"]["neuron00s_obj00s"];
-    
-    for (var id in collection_neurons_c_obj) {
-        let obj = collection_neurons_c_obj[id];
-        if(obj.neuron_is_saved == false){
-            if(obj.neuron_el != document.activeElement){
-
-                let array_current_key_word = obj.neuron_el.querySelectorAll("mark");
-
-                if(obj.tab_L_neuron == "neurons"){
-                    send_c_change_request_x_target_c_server(
-                        obj.neuron_el, 
-                        obj.neuron_id, 
-                        obj.neuron_shell
-                    );
-                } else if(obj.tab_L_neuron == "draft") {
-                    let options = {
-                        neuron_el: obj.neuron_el,
-                        neuron_id: obj.neuron_id,
-                        neuron_shell: obj.neuron_shell,
-                    }
-                    send_c_change_request_x_target_c_local_storage(options);
-                }
-                if (array_current_key_word.length == 0) {
-                    new class_formate_c_neuron(
-                        obj.neuron_id, 
-                        "",
-                        false
-                    );
-                } else {
-                    let arr_text_val: any = [];
-                    for (var i = 0; i < array_current_key_word.length; i++) {
-                        arr_text_val.push(array_current_key_word[i].innerText.trim());
-                    }
-                    new class_formate_c_neuron(
-                        obj.neuron_id, 
-                        arr_text_val.join("|"),
-                        false
-                    );
-                }
-            }
+    if(window["tagbrain_graph"]["checker_collection"]["power_mode"].is_activated == true){
+        if(!document.fullscreenElement) {
+            turn_L_toggle_L_fullscreen("turn_off");
         }
-        document.title = document.title = window["tagbrain_graph"]["graph_name"];
     }
 }
+
+
 

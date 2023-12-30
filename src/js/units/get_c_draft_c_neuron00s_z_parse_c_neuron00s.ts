@@ -17,12 +17,12 @@ export function get_c_draft_c_neuron00s_z_parse_c_neuron00s() {
     let response: any[] = [];
     let key_s_c_local = Object.keys(localStorage);
     for (var i = 0; i < key_s_c_local.length; i++) {
-      if (/neuron_c_dr/.test(key_s_c_local[i])) {
-        let reg_id = new RegExp("neuron_c_dr\\[(?<id>[0-9]{10})\\]", "g");
+      if (/neuron_L_draft/.test(key_s_c_local[i])) {
+        let reg_id = new RegExp("neuron_L_draft\\[(?<id>[0-9]{10})\\]", "g");
         let arr_c_number: any = key_s_c_local[i].matchAll(reg_id);
         for (let number of arr_c_number) {
           let { id } = number.groups;
-          let content: any = localStorage.getItem("neuron_c_dr[" + id + "]");
+          let content: any = localStorage.getItem("neuron_L_draft[" + id + "]");
           response.push({ 
             neuron_id: id, 
             content: JSON.parse(urldecode(content)) 

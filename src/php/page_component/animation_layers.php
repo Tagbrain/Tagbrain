@@ -88,7 +88,11 @@
 
 			</div>
 			<div class="settings_pop_up_footer">
-					<a class="a_cl">Night mode</a>
+					<a class="a_cl" id="id_L_turn_on_L_dark">Dark mode</a>
+					<span> | </span>
+					<a class="a_cl" id="id_L_turn_on_L_light">Light mode</a>
+					<span> | </span>
+					<a class="a_cl" id="id_L_turn_back_L_theme">Turn back</a>
 			</div>		
 
 		</div>

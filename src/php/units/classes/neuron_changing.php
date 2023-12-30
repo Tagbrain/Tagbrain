@@ -1,17 +1,33 @@
 <?php
+
 include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/put_neuron_tree_in_file.php";
 include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/check_session_data.php";
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/change_L_user_L_ram_L_neuron00s.php";
+
 class neuron_changing {
 
     use check_session_data;
     use put_neuron_tree_in_file;
+    use change_L_user_L_ram_L_neuron00s;
 
-    function __construct($action, $graph_name, $neuron_tree, $neuron_id, $unix_time){
+    function __construct(
+        $action, 
+        $graph_name, 
+        $neuron_tree, 
+        $neuron_id, 
+        $unix_time, 
+        $neuron00s_L_ram_X_id00s
+    ){
         $this->action = $action;
         $this->graph_name = $graph_name;
         $this->neuron_id = $neuron_id;
         $this->neuron_tree = $neuron_tree;
         $this->unix_time = $unix_time;
+
+        $this->neuron00s_L_ram_X_id00s = $neuron00s_L_ram_X_id00s;
+
+        $this->neuron00s_L_ram_X_id00s = $neuron00s_L_ram_X_id00s;
+
         $this->channel =  $_SERVER['DOCUMENT_ROOT']."/channels/".$this->graph_name;
         $this->graph_dir = $this->channel."/content_items/";
         $this->graph_history = $this->channel."/last_changing";
@@ -20,7 +36,7 @@ class neuron_changing {
         $this->all_member_channels = $_SESSION["all_member_channels"];
         $this->editors =  $_SESSION["editor"];
         $this->creators = $_SESSION["creator"];
-        
+        $this->controller_action();
     }
 
     public function controller_action(){
@@ -66,12 +82,21 @@ class neuron_changing {
             echo  json_encode($array_response);
             exit();
         }
+        
+        //change_L_user_obj
+        if($this->neuron00s_L_ram_X_id00s != false){
+            $this->change_L_user_L_ram_L_neuron00s(
+                $this->neuron00s_L_ram_X_id00s,
+                $_SESSION["userid"],
+                $this->graph_name
+            );
+        }
     }
 
     protected function put_history_changing_row(){
         $new_row = $this->user.",".$this->neuron_id.",".$this->unix_time."\n";
         if(!file_exists($this->graph_history.'.csv')){
-            file_put_contents($this->graph_history.'.csv', $new_row ,FILE_APPEND);
+            file_put_contents($this->graph_history.'.csv', $new_row, FILE_APPEND);
         }
         $writing = fopen($this->graph_history.'.tmp', 'w');
         $reading = fopen($this->graph_history.'.csv', 'r');

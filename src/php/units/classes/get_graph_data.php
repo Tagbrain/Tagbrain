@@ -2,11 +2,13 @@
 include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/check_session_data.php";
 include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/collect_random_array.php";
 include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/get_neuron_data.php";
+include $_SERVER['DOCUMENT_ROOT']."/php/units/functions/get_L_user_graph_L_ram_L_neuron00s_L_id00s.php";
 
 class get_graph_data {
     use collect_random_array;
     use get_neuron_data;
     use check_session_data;
+    use get_L_user_graph_L_ram_L_neuron00s_L_id00s;
 
     function __construct($action, $graph_name, $facultative){
         //consultative
@@ -38,54 +40,88 @@ class get_graph_data {
             $this->get_current_neuron();
         }
     }
-    protected function collect_c_file00s_c_by_last_modified($file00s, $amount_L_neuron00s): array {
-        $file_info = [];
-        foreach ($file00s as $file) {
-            $file_info[$file] = filemtime($this->graph_dir.$file);
-        }
-        arsort($file_info);
-        $file00s_c_sorted = [];
-        $file00s_c_other = [];
-        $i = 0;
-        foreach ($file_info as $file => $time) {
-            $i++;
-            if($i < $amount_L_neuron00s){
-                $file00s_c_sorted[] = $file;
-            } else {
-                $file00s_c_other[] = $file;
+    protected function collect_c_file00s_c_by_last_modified(
+        $neuron00s, 
+        $amount_L_neuron00s
+    ): array {
+        //get_X_sort_L_neuron_L_id_X_time
+        $neuron_X_time = [];
+
+        foreach ($neuron00s as $neuron_L_name) {
+            if($neuron_L_name == ""){
+                continue;
             }
+            $neuron_X_time[$neuron_L_name] = filemtime($this->graph_dir.$file);
+        }
+
+        arsort($neuron_X_time);
+
+        $neuron00s_L_id_L_current_X_ram = $this->get_L_user_graph_L_ram_L_neuron00s_L_id00s(
+            $_SESSION["userid"],
+            $this->graph_name
+        );
+
+        $neuron00s_L_last_modified = [];
+        $ram_X_current = [];
+
+        $i = 0;
+        foreach ($neuron_X_time as $neuron_L_name => $time) {
+            $i++;
+            $is_current_ram = false;
+            $neuron_L_id = str_replace(".json","", $neuron_L_name);
+            if(in_array($neuron_L_id, $neuron00s_L_id_L_current_X_ram)){
+                $ram_X_current[] = $neuron_L_name;
+                $is_current_ram = true;
+            }
+            if($i < $amount_L_neuron00s && $is_current_ram == false){
+                $neuron00s_L_last_modified[] = $neuron_L_name;
+            } 
         }
         return array(
-            "last_c_modified" => $file00s_c_sorted,
-            "other" => $file00s_c_other
+            "last_modified" => $neuron00s_L_last_modified,
+            "ram_X_current" => $ram_X_current
         );
     }
 
     protected function get_random_neurons(){
         try {
             $files = array_diff(scandir($this->graph_dir), array('..', '.'));
-            $neuron_data_arr = array(); 
+            $neuron00s_data = array(
+                "main" => array(),
+                "ram" => array()
+            ); 
 
-            $obj_file00s = $this->collect_c_file00s_c_by_last_modified($files, $this->amount_L_neuron00s + 1);
+            $obj_neuron00s = $this->collect_c_file00s_c_by_last_modified(
+                $files, 
+                $this->amount_L_neuron00s + 1
+            );
 
-            if(count($obj_file00s["other"]) > 20){
-                $obj_file00s["other"] = $this->collect_random_array($obj_file00s["other"], $this->amount_L_neuron00s);
+            foreach($obj_neuron00s["ram_X_current"] as $neuron_L_id_X_ram){
+                $neuron00s_data_L_ram = $this->get_neuron_data(
+                    $this->graph_dir, 
+                    $neuron_L_id_X_ram
+                );  
+                array_push($neuron00s_data["ram"], $neuron00s_data_L_ram);
             }
 
-            $file00s_c_target = $obj_file00s["last_c_modified"] + $obj_file00s["other"];
+            foreach($obj_neuron00s["last_modified"] as $neuron_L_id){
 
-            foreach($file00s_c_target as $file_c_id){
-
-                if($file_c_id == ""){
+                if($neuron_L_id == ""){
                     continue;
                 }
 
-                $neuron_data = $this->get_neuron_data($this->graph_dir, $file_c_id);  
-                array_push($neuron_data_arr, $neuron_data);
+                $neuron_data = $this->get_neuron_data(
+                    $this->graph_dir, 
+                    $neuron_L_id
+                );  
+                array_push($neuron00s_data["main"], $neuron_data);
             }
 
             $access = $this->check_session_data($this->graph_name);
-            $this->send_data_c_client($access, $neuron_data_arr);
+            $this->send_data_c_client(
+                $access, 
+                $neuron00s_data
+            );
         } catch (Exception $e){
             $this->return_fail($e);
         };
@@ -98,7 +134,10 @@ class get_graph_data {
         try {
             $access = $this->check_session_data($this->graph_name);
             $neuron_data = $this->get_neuron_data($this->graph_dir, $this->neuron_id.".json"); 
-            $this->send_data_c_client($access, $neuron_data);
+            $this->send_data_c_client(
+                $access, 
+                $neuron_data
+            );
         } catch (Exception $e){
             $this->return_fail($e);
         };
@@ -145,20 +184,20 @@ class get_graph_data {
     );
     echo json_encode($response);
    }
-   protected function return_success($data, $access){
-    $response = array(
-        "status" => "success",
-        "data" => $data,
-        "contenteditable" => $access["can_editing"],
-        "private" => $access["private"],
-        "graph00s_c_name00s" => $_SESSION["all_member_channels"],
-        "user" => $_SESSION["userid"],
-        "channel_is_private" => $_SESSION["channel_is_private"],
-        "graph_c_style00s" => $this->get_c_string_c_theme_c_css(),
-        "channel_c_header_c_animation" => $this->get_c_header_c_animation()
-    );
-    echo json_encode($response);
-   }
+    protected function return_success($data, $access){
+        $response = array(
+            "status" => "success",
+            "data" => $data,
+            "contenteditable" => $access["can_editing"],
+            "private" => $access["private"],
+            "graph00s_c_name00s" => $_SESSION["all_member_channels"],
+            "user" => $_SESSION["userid"],
+            "channel_is_private" => $_SESSION["channel_is_private"],
+            "graph_c_style00s" => $this->get_c_string_c_theme_c_css(),
+            "channel_c_header_c_animation" => $this->get_c_header_c_animation()
+        );
+        echo json_encode($response);
+    }
    protected function send_data_c_client($access, $data){
     if($access["private"] == true){
         if($access["can_editing"] == true){

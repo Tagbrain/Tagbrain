@@ -40,8 +40,8 @@ replaced_text{
     opacity: .95; 
 }
 .special_symbols_style{
-    color: #ffffff;
-    text-shadow: 0 0 5px var(--shiny-light);
+    color: var(--attachment-text);
+    cursor: var(--cursor-pointer);
 }
 
 .icon_buttons_visual_effects{

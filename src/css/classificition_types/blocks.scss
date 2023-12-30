@@ -119,6 +119,22 @@ display:block;
   padding: 0px 2px;
   overflow:hidden;
 }
+.neuron_L_attachment00s{
+  display: none;
+  grid-template: 1fr/1fr;
+  grid-column: 2/3;
+  grid-row: 1/2;
+  overflow: hidden;
+}
+.attachment_L_unit{
+  display: grid;
+  grid-column: 1/2;
+  padding: 12px 40px 12px 0;
+  border-bottom: 1px dashed var(--text-content);
+}
+.attachment_L_unit:last-child{
+  border-bottom: none;
+}
 .post_name{
   display: grid;
   grid-column: 1/3;
@@ -228,8 +244,8 @@ display:block;
 }
 .search_row{
   display: grid;
-  margin: 20px 0;
-  padding: 0 4px;
+  margin: 12px 0;
+  padding: 0 8px;
   transition: 1s;
   line-height: 1.4;
   grid-template-rows: auto auto;
@@ -240,7 +256,6 @@ display:block;
 }
 .search_row:hover{
   border-left: 1px dashed var(--text-content);
-  border-right: 1px dashed var(--text-content);
   transition: 1s;
 }
 
@@ -571,9 +586,8 @@ a.link_part>* {
 .first_words_search_row{
   grid-row: 2/3;
   grid-column: 1/3;
-  overflow: hidden;
-  width: max-content;
   white-space: pre-wrap;
+  width: max-content;
 }
 .ram_row{
   display: grid;
@@ -624,7 +638,6 @@ a.link_part>* {
 }
 .output_block{
   font-size: 12px;
-  border-bottom: 1px dashed var(--text-content);
   margin-bottom: 400px;
 }
 .public_private_index{
@@ -990,5 +1003,40 @@ a.link_swipe_animation>* {
 }
 .icon_c_dashed{
   stroke-dasharray: 100;
+}
+.attachment_L_img{
+  height: 400px;
+  padding: 4px;
+  opacity: 0.8;
+  border-radius: 12px;
+}
+.tag_solid{
+  border: 1px solid var(--background-svg);
+  border-radius: 5px;
+  padding: 2px;
+  margin: 0 4px;
+}
+.content_L_element{
+  padding: 8px 0;
+}
+.key_L_element{
+  padding: 8px;
+}
+.developing{
+  color: var(--strokes);
+  border: 1px solid var(--strokes);
+}
+.attachment_L_textarea{
+  border-left: 1px dashed var(--backgroud);
+  border-radius: 5px;
+  padding: 8px;
+  background: var(--background-pop-up-blocks);
+}
+.attachment_L_textarea:focus{
+  border-radius: 0px;
+  border-left: 1px dashed var(--attachment-text);
+}
+.attachment_L_textarea:focus-visible {
+  outline:none;
 }
 

@@ -10,7 +10,7 @@ export function send_c_change_request_x_target_c_local_storage(
 ){
     let neuron_tree = get_neuron_object_outgrowths(options.neuron_el);
     let value = encodeURIComponent(JSON.stringify(neuron_tree));
-    let key:string = "neuron_c_dr["+options.neuron_id+"]";
+    let key:string = "neuron_L_draft["+options.neuron_id+"]";
     localStorage.setItem(key, value);
     delete_c_neuron_c_save_flag(options.neuron_shell, options.neuron_id);
 }

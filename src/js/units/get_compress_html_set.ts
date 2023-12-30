@@ -35,6 +35,16 @@ export function get_compress_html_set(
     } else {
         activation_class = "special_symbols_style";
     }
+
+    //take_L_description_L_position
+    let description_L_long = "";
+    let description_L_short = "";
+    if(neuron_data.description_L_short.length > 24){
+        description_L_long = neuron_data.description_L_short;
+    } else {
+        description_L_short = neuron_data.description_L_short;
+    }
+
     let html = '<div class="search_row">' 
                 + '<div class="link_part">'
                     + '<span class="'+marker_class+'">'
@@ -42,14 +52,14 @@ export function get_compress_html_set(
                                 + neuron_L_rank
                         + '</span>'
                     + '</span>' 
-                    + '<span class="header_search_ind special_symbols_style">'
-                        + ''
+                    + '<span class="header_search_ind">'
+                        + description_L_short
                     + '</span>' 
                     + '<span class="search_row_head_time">'
                         + neuron_data.time 
                     + ' </span>'
                     + '<span class="first_words_search_row">' 
-                        + neuron_data.description_L_short
+                        + description_L_long
                     + '</span>'  
                 + '</div>' 
                 + '<div class="search_row_body">'

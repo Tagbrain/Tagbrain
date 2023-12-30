@@ -54,6 +54,7 @@ function start_search_controller(
                let neuron_features = new class_formate_c_neuron(
                     neuron_obj.id, 
                     searcher,
+                    false,
                     false
                );
                if(neuron_features.neuron_activation > 0){

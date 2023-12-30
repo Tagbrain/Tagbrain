@@ -8,6 +8,8 @@ let path = {
         js: project_folder + "/js/",
         js_special: project_folder + "/js/",
         css: project_folder + "/css/",
+        theme_L_basic: project_folder + "/theme_L_basic/",
+        user00s_L_obj00s: project_folder + "/user00s_L_obj00s/",
         img: project_folder + "/img/",
         icons_c_root: project_folder + "/",
         fonts: project_folder + "/fonts/",
@@ -25,6 +27,8 @@ let path = {
         js_special: source_folder + "/js_special/",
         js: source_folder + "/js/",
         css: [source_folder + "/css/collector.scss"],
+        theme_L_basic: source_folder + "/theme_L_basic/*.css",
+        user00s_L_obj00s: source_folder + "/user00s_L_obj00s/",
         img: source_folder + "/img/**/*.{jpg,png,svg,webp,php}",
         icons_c_root: source_folder + "/*.{jpg,png,svg,webp,php}",
         fonts: source_folder + "/fonts/*.{otf,ttf,woff2}",
@@ -43,6 +47,8 @@ let path = {
         js: source_folder + "/js/**/*.{js,ts}",
         js_special: source_folder + "/js_special/**/*.{js,ts}",
         css: source_folder + "/css/**/*.{css,scss}",
+        theme_L_basic: source_folder + "/*.{css,scss}",
+        user00s_L_obj00s: source_folder + "/*.json",
         img: source_folder + "/img/**/*.{jpg,png,svg,webp,php}",
         icons_c_root: source_folder + "/*.{jpg,png,svg,webp,php}",
         html_content_items: source_folder + "/content_items/**/*.php",
@@ -230,6 +236,14 @@ function basket(){
     return src(path.src.basket)
         .pipe(dest(path.build.basket))
 }
+function theme_L_basic(){
+    return src(path.src.theme_L_basic)
+        .pipe(dest(path.build.theme_L_basic))
+}
+function user00s_L_obj00s(){
+    return src(path.src.user00s_L_obj00s)
+        .pipe(dest(path.build.user00s_L_obj00s))
+}
 function zip_c_timing_container(){
     return src(path.src.zip_c_timing_container)
         .pipe(dest(path.build.zip_c_timing_container))
@@ -247,13 +261,33 @@ function watchFiles(params){
     gulp.watch([path.watch.htaccess], htaccess);
     gulp.watch([path.watch.txt_root], txt_root);
     gulp.watch([path.watch.css], css);
+    gulp.watch([path.watch.theme_L_basic], theme_L_basic);
+    gulp.watch([path.watch.user00s_L_obj00s], user00s_L_obj00s);
 }
 
 function clean(){
     return del(path.clean);
 }
 
-let build = gulp.series(clean, gulp.parallel(index_php, js, js_special, php, css, img, html_content_items, channel_post, technical_post, fonts, htaccess, txt_root, basket, zip_c_timing_container));
+let build = gulp.series(clean, gulp.parallel(
+    index_php, 
+    js, 
+    js_special, 
+    php, 
+    css, 
+    img, 
+    html_content_items, 
+    channel_post, 
+    technical_post, 
+    fonts, 
+    htaccess, 
+    txt_root, 
+    basket, 
+    theme_L_basic, 
+    user00s_L_obj00s,
+    zip_c_timing_container
+));
+
 let build_watch = gulp.parallel(build, watchFiles);
 
 exports.build_watch = build_watch;
@@ -272,6 +306,8 @@ exports.fonts = fonts;
 exports.htaccess = htaccess;
 exports.txt_root = txt_root;
 exports.basket = basket;
+exports.theme_L_basic = theme_L_basic;
+exports.user00s_L_obj00s = user00s_L_obj00s;
 exports.zip_c_timing_container = zip_c_timing_container;
 exports.html_content_items = html_content_items;
 exports.channel_post = channel_post;

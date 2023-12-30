@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         class_neuron = new class_formate_c_neuron(
                             neuron_c_id, 
                             "",
+                            false,
                             false
                         ),
                         branch00s_c_current = generate_c_neuron_c_branch(

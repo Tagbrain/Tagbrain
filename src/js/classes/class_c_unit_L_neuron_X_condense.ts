@@ -141,6 +141,7 @@ class class_L_unit_L_neuron_X_condense {
         } else {//to_end
             this.output_container_L_element.appendChild(this.unit_c_element );
         }
+        this.unit_c_element.className = "unit_L_element"
         this.unit_c_element.innerHTML = html;
 
         this.push_c_data_c_target_c_tagbrain_obj();
@@ -170,6 +171,7 @@ class class_L_unit_L_neuron_X_condense {
             new class_formate_c_neuron(
                 this.unit_L_neuron_L_id, 
                 this.og_L_activator,
+                false,
                 false
             );
         }
@@ -281,7 +283,8 @@ class class_L_unit_L_neuron_X_condense {
                 let class_neuron = new class_formate_c_neuron(
                     this.unit_L_neuron_L_id, 
                     this.og_L_activator,
-                    neuron_c_obj.neuron_el
+                    neuron_c_obj.neuron_el,
+                    neuron_c_obj.neuron_shell,
                 );
                 let tree_c_prepared = class_neuron.tagbrain_graph_c_neuron_c_tree; //for line neuron shape #edit #add
                 let obj_c_tree_c_string = get_c_tree_c_string(tree_c_prepared);

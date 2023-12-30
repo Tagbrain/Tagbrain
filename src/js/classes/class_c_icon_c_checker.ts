@@ -7,8 +7,8 @@ class class_c_icon_c_checker {
     public container_c_icon_c_checker: Element;
     public id: string;
     public checker_c_function: any;
-    protected turn_on_c_action: any;
-    protected turn_off_c_action: any;
+    public turn_on_c_action: any;
+    public turn_off_c_action: any;
 
     constructor(features:any){
         this.icon_c_checker = features.icon_c_checker;

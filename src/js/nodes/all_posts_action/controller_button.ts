@@ -3,6 +3,7 @@ import { class_c_icon_c_button } from "../../classes/class_c_icon_c_button";
 import { class_L_neuron } from "../../classes/class_L_neuron";
 import { gEBI, dCE } from "../../units/compress_f.js";
 import { focus_c_neuron_x_scroll } from "../../units/focus_c_neuron_x_scroll";
+import { get_L_theme_css_L_from_server } from "../../units/get_L_theme_css_L_from_server";
 import { get_selection_neuron_outgrowths } from "../../units/get_selection_neuron_outgrowths";
 import { add_c_neuron_c_secondary_z_purpose_c_create_c_new_channel } from "../neuron_action_controller/add_c_neuron_c_secondary_z_purpose_c_create_c_new_channel";
 import { export_c_graph_s_c_zip } from "./export_c_graph_s_c_zip";
@@ -176,6 +177,33 @@ let buttons_objs = [
             );
         }
     },
+    {//change_theme_L_to_light
+        change_target: 'id_L_turn_on_L_light',
+        value: 'turn_on_L_light',
+        click_contextmenu: "Turn on the light theme",
+        button_event: function(){
+            get_L_theme_css_L_from_server("light"); 
+        }
+    },
+    {//change_theme_L_to_dark
+        change_target: 'id_L_turn_on_L_dark',
+        value: 'turn_on_L_dark',
+        click_contextmenu: "Turn on the dark theme",
+        button_event: function(){
+            get_L_theme_css_L_from_server("dark"); 
+        }
+    },
+    {//turn_back_L_theme
+        change_target: 'id_L_turn_back_L_theme',
+        value: 'id_L_turn_back_L_theme',
+        click_contextmenu: "Turn on the dark theme",
+        button_event: function(){
+            let css_c_theme_c_el = gEBI("css_c_theme_a");
+            if (css_c_theme_c_el != false) 
+              css_c_theme_c_el.remove();
+        }
+    },
+
 
 ]
 

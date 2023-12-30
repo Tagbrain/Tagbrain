@@ -107,7 +107,7 @@ class controller_c_activate_c_graph {
         //get_c_neuron00s_c_not_exist
         for($i=0; $i < count($neuron00s_c_client_x_not_exist); $i++){
             $neuron_data = $this->get_neuron_data(
-                $this->graph_dir."/", 
+                $this->graph_dir, 
                 $neuron00s_c_client_x_not_exist[$i]["neuron_c_id"].".json"
             );
             $neuron00s_c_client_x_not_exist[$i]["content"] = $neuron_data["neuron_tree_json"]; 
