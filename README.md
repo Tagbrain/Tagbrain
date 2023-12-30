@@ -68,16 +68,14 @@ Screenshots
     ...
 
 + News
- + ✅v 1.3.0⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯11.17.2023
+ + ✅v 1.3.5⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯30.12.2023
 ```
-🟢 Registration is now done through three entities: Name, Password, and Email.
-🟢 The search, activation graph, and RAM have been changed and combined into one type of interface unit.
-🟢 The main testing channel has been increased to 11,000 neurons, which caused performance problems with the graph activation function. This issue will be fixed in the next updates.
-🟢 The mobile version has been improved.
-🟢 The interfaces of pop-up windows have been improved.
-🟢 Read mode is completed now.
-🟢 The stability of tabs, channels features has been increased.
-🟢 Many others bugs have been fixed.
+🟢 Added text attachments to neurons with link support.
+🟢 Improved interface of the right bar.
+🟢 Added color schemes: dark and light.
+🟢 Optimized automatic saves.
+🟢 Improved application layout.
+🟢 Fixed minor bugs.
 ```
 
 
