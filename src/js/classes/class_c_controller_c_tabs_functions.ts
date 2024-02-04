@@ -94,9 +94,9 @@ class class_c_controller_c_tabs_functions {
                     '<span>'
                         + this.id_name
                     + '</span>'
-                    + '<span class="remove_tab">'
-                        + ' ×'
-                    +'</span>';
+                    + '<a class="remove_tab">'
+                        + '×'
+                    +'</a>';
             }
             this.tab_button_c_container = this.create_element("tab_button", tab_c_html);
             let mental_image_container = this.create_element("mental_image", this.html_x_tab_content_c_container);

@@ -4,9 +4,14 @@ import { class_L_neuron } from "../../classes/class_L_neuron";
 import { gEBI, dCE } from "../../units/compress_f.js";
 import { focus_c_neuron_x_scroll } from "../../units/focus_c_neuron_x_scroll";
 import { get_L_theme_css_L_from_server } from "../../units/get_L_theme_css_L_from_server";
-import { get_selection_neuron_outgrowths } from "../../units/get_selection_neuron_outgrowths";
+import { get_L_og_L_branch_X_current } from "../../units/get_L_og_L_branch_X_current";
+import { set_L_cursor_L_style00s } from "../../units/set_L_cursor_L_style00s";
+import { toggle_pop_up } from "../../units/toggle_pop_up";
 import { add_c_neuron_c_secondary_z_purpose_c_create_c_new_channel } from "../neuron_action_controller/add_c_neuron_c_secondary_z_purpose_c_create_c_new_channel";
 import { export_c_graph_s_c_zip } from "./export_c_graph_s_c_zip";
+import { get_L_neuron_L_current_X_obj } from "../../units/get_L_neuron_L_current_X_obj";
+import { get_L_neuron_L_tree_L_current } from "../../units/get_L_neuron_L_tree_L_current";
+import { reduct_L_tree_X_by_og_L_branch } from "../../units/reduct_L_tree_X_by_og_L_branch";
 
 let buttons_objs = [
     {//graph_c_zip
@@ -132,49 +137,42 @@ let buttons_objs = [
     {//create_c_new_c_neuron_c_from_c_selection
         change_target: 'button_id_17_c_create_c_neuron_c_from_selection',
         value: 'create_c_new_c_neuron_c_from_c_selection',
-        click_contextmenu: "Create a neuron from selection",
+        click_contextmenu: "Dissector",
         button_event: function(){
-            window["tagbrain_graph"]["selection_obj"]["last_outgrowths"] = get_selection_neuron_outgrowths();
-            function toggle_pop_up(
-                remove_class: string, 
-                add_class: string, 
-                el_cls: any, 
-                back_layer_element: any, 
-                pointer_L_stl: any
-            ){
-                el_cls.remove(remove_class);
-                back_layer_element.style.pointerEvents = pointer_L_stl;
-                el_cls.add(add_class);
-            }
-            function add_new_neuron_from_selection(
-                outgrowths: any
-            ){
+            
+            let neuron_L_current_X_obj = get_L_neuron_L_current_X_obj();
+            if (neuron_L_current_X_obj.element != undefined){
+
+                
                 if(window["tagbrain_graph"]["neuron00s_c_access"]){//check_c_session_c_access
-                   let neuron_features = {
-                      neuron_id:"",
-                      content: outgrowths,
-                      is_outgrowth00s: true,
-                      contenteditable: true,
-                      add_ram_boolen: true,
-                      is_format: true,
-                      time_L_last_edit: "",
-                      default_tab: "neurons"
-                   }
-                   let neuron_c_new_x_class = new class_L_neuron(neuron_features);
+
+                    //add_L_neuron
+                    let neuron_features = {
+                    neuron_id: "",
+                    content: get_L_og_L_branch_X_current(),
+                    is_outgrowth00s: true,
+                    contenteditable: true,
+                    add_ram_boolen: true,
+                    is_format: true,
+                    time_L_last_edit: "",
+                    default_tab: "neurons"
+                    }
+                    let neuron_c_new_x_class = new class_L_neuron(neuron_features);
+                
+
+                    //get_L_tree_L_reducted
+                    let neuron_L_tree_L_current = get_L_neuron_L_tree_L_current(neuron_L_current_X_obj.neuron_L_id);
+                    
+                    let tree_L_reducted = reduct_L_tree_X_by_og_L_branch(
+                        neuron_L_tree_L_current, 
+                        neuron_L_current_X_obj.og_L_position_X_last_L_activated
+                    );
+
+                    //refresh_L_data
+                    window["tagbrain_graph"]["neuron00s_obj00s"][neuron_L_current_X_obj.neuron_L_id].set_L_neuron_L_tree_L_new(tree_L_reducted);
                 }
-                let upper_layer_for_animation = document.querySelector(".upper_layer_for_animation"),
-                neuron_pop_up_menu = gEBI("id_c_pop_up_c_context"),
-                classes = neuron_pop_up_menu.classList;
-                toggle_pop_up(
-                    'neuron_pop_up_show', 
-                    'neuron_pop_up_hide', 
-                    classes, 
-                    upper_layer_for_animation, 
-                    'none');
             }
-            add_new_neuron_from_selection(
-                window["tagbrain_graph"]["selection_obj"]["last_outgrowths"]
-            );
+
         }
     },
     {//change_theme_L_to_light
@@ -191,6 +189,14 @@ let buttons_objs = [
         click_contextmenu: "Turn on the dark theme",
         button_event: function(){
             get_L_theme_css_L_from_server("dark"); 
+        }
+    },
+    {//id_L_turn_on_L_red_L_dark
+        change_target: 'id_L_turn_on_L_red_L_dark',
+        value: 'turn_on_L_red_L_dark',
+        click_contextmenu: "Turn on the red-dark theme",
+        button_event: function(){
+            get_L_theme_css_L_from_server("red_L_dark"); 
         }
     },
     {//turn_back_L_theme

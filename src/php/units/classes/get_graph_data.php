@@ -21,8 +21,8 @@ class get_graph_data {
         //facultative
             $this->amount_L_neuron00s = $facultative->amount;
             $this->search_keys = $facultative->search_keys;
-            if(property_exists($facultative, "neuron_id"))
-                $this->neuron_id = $facultative->neuron_id;
+            if(property_exists($facultative, "neuron00s_L_id00s"))
+                $this->neuron00s_L_id00s = $facultative->neuron00s_L_id00s;
         //macrofeatures
             $this->graph_dir = $_SERVER['DOCUMENT_ROOT']."/channels/".$this->graph_name."/content_items/";
             if (!file_exists($this->graph_dir)) {
@@ -36,8 +36,8 @@ class get_graph_data {
             $this->get_random_neurons();
         } else if ($this->action == 'get_mental_image'){
             $this->get_most_activated_neurons();
-        } else if ($this->action == 'get_c_neuron_c_with_id'){
-            $this->get_current_neuron();
+        } else if ($this->action == 'get_L_neuron00s_L_with_id00s'){
+            $this->get_L_neuron00s_L_target();
         }
     }
     protected function collect_c_file00s_c_by_last_modified(
@@ -51,7 +51,9 @@ class get_graph_data {
             if($neuron_L_name == ""){
                 continue;
             }
-            $neuron_X_time[$neuron_L_name] = filemtime($this->graph_dir.$file);
+            if(file_exists($this->graph_dir.$file)){
+                $neuron_X_time[$neuron_L_name] = filemtime($this->graph_dir.$file);
+            }
         }
 
         arsort($neuron_X_time);
@@ -130,13 +132,23 @@ class get_graph_data {
     protected function get_most_activated_neurons(){
     }
 
-    protected function get_current_neuron(){
+    protected function get_L_neuron00s_L_target(){
         try {
             $access = $this->check_session_data($this->graph_name);
-            $neuron_data = $this->get_neuron_data($this->graph_dir, $this->neuron_id.".json"); 
+            $data_L_neuron00s = array();
+            foreach($this->neuron00s_L_id00s as $neuron_L_id){
+                $neuron_data = $this->get_neuron_data(
+                    $this->graph_dir, 
+                    $neuron_L_id.".json"
+                ); 
+                array_push(
+                    $data_L_neuron00s, 
+                    $neuron_data
+                );
+            }
             $this->send_data_c_client(
                 $access, 
-                $neuron_data
+                $data_L_neuron00s
             );
         } catch (Exception $e){
             $this->return_fail($e);

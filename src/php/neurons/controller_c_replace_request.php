@@ -25,7 +25,7 @@ if($_SESSION["userid"]){
         echo json_encode($array_response);
     }
 } else {
-    $array_response = array("status" => "No session");
+    $array_response = array("status" => "No session 436098");
     echo json_encode($array_response); 
 }
 

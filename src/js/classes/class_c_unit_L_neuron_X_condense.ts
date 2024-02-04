@@ -27,13 +27,14 @@ type neuron_L_feature00s = {
     count_c_string_c_og00s: number,
     is_saved: boolean,
     button_L_replace: string,
+    tab_L_unit_X_name: string
 }
 
 class class_L_unit_L_neuron_X_condense {
 
     protected tab_L_unit_X_name: string;
     protected output_container_L_element: Element;
-    protected unit_c_element: Element;
+    public unit_c_element: Element;
     protected tagbrain_L_unit00s_collection_L_path: string
     protected graph_c_name: string;
     
@@ -121,7 +122,6 @@ class class_L_unit_L_neuron_X_condense {
         )
 
         this.add_L_unit();
-        
     }
     add_L_unit(){
         let obj = this.get_L_unit_obj(this.unit_L_neuron_L_id);
@@ -131,8 +131,8 @@ class class_L_unit_L_neuron_X_condense {
         //create_L_unit
         let neuron_c_feature00s = this.collect_L_neuron_L_current_X_features();
         neuron_c_feature00s["button_L_replace"] = this.button_L_replace;
+        neuron_c_feature00s["tab_L_unit_X_name"] = this.tab_L_unit_X_name;
         let html = get_compress_html_set(neuron_c_feature00s);
-        //let html_c_highlight = this.unit_L_select_L_target_L_text(html);
         this.neuron00s_L_select_L_target_L_text();
 
         //add_unit
@@ -155,7 +155,12 @@ class class_L_unit_L_neuron_X_condense {
         let replacer_val = this.field_L_replacer_L_value;
         if(this.field_L_replacer_L_value != ""){
             html_new = html.replace(regexp, function (search_key: string) {
-                search_key = '<replaced_text>'+search_key+'</replaced_text><replacer>' + replacer_val + '</replacer>';
+                search_key = '<replaced_text>'
+                                    + search_key 
+                                + '</replaced_text>' 
+                                + '<replacer>' 
+                                    + replacer_val 
+                                + '</replacer>';
                 return search_key
             })
         } else {
@@ -170,8 +175,7 @@ class class_L_unit_L_neuron_X_condense {
         if(window["tagbrain_graph"]["neuron00s_obj00s"].hasOwnProperty(this.unit_L_neuron_L_id)){
             new class_formate_c_neuron(
                 this.unit_L_neuron_L_id, 
-                this.og_L_activator,
-                false,
+                window["tagbrain_graph"]["neuron00s_obj00s"][this.unit_L_neuron_L_id].neuron_el,
                 false
             );
         }
@@ -183,6 +187,7 @@ class class_L_unit_L_neuron_X_condense {
                 {
                     id: this.unit_L_neuron_L_id,
                     el: this.unit_c_element,
+                    class: this,
                 }
             );
     }
@@ -230,28 +235,32 @@ class class_L_unit_L_neuron_X_condense {
         link_element.addEventListener("click", (e:any)=>{
             if(!window["tagbrain_graph"]["neuron00s_obj00s"].hasOwnProperty(this.unit_L_neuron_L_id)){//load_L_neuron
                 let data = {
-                    action: 'get_c_neuron_c_with_id',
+                    action: 'get_L_neuron00s_L_with_id00s',
                     graph_name: this.graph_c_name,
                     facultative:{
-                        neuron_id: this.unit_L_neuron_L_id,
+                        neuron00s_L_id00s: [this.unit_L_neuron_L_id],
                     }
                 };
                 let url = "php/neurons/controller_getting_graph_data.php";
                 let controller_f = function (response_obj: any) {
                     if (response_obj.status == "success") {
-                        console.log(response_obj)
-                        let features = {
-                            neuron_id: response_obj.data.neuron_id,
-                            is_outgrowth00s: true,
-                            content: response_obj.data.neuron_tree_json,
-                            contenteditable: response_obj.contenteditable,
-                            time_L_last_edit: response_obj.time_L_last_edit,
-                            add_ram_boolen: false,
-                            is_format: true,
-                            default_tab: "neurons"
-                        };
-                        let obj = new class_L_neuron(features);
-                        focus_c_neuron_c_target_c_tab(obj.neuron_id, "neurons");
+                        for (let i = 0; i < response_obj.data.length; i++) {
+                            let neuron_L_data = response_obj.data[i];
+                            let features = {
+                                neuron_id: neuron_L_data.neuron_id,
+                                is_outgrowth00s: true,
+                                content: neuron_L_data.neuron_tree_json,
+                                contenteditable: response_obj.contenteditable,
+                                time_L_last_edit: response_obj.time_L_last_edit,
+                                add_ram_boolen: false,
+                                is_format: true,
+                                default_tab: "neurons"
+                            };
+                            let obj = new class_L_neuron(features);
+                            if(i == response_obj.data.length - 1){
+                                focus_c_neuron_c_target_c_tab(obj.neuron_id, "neurons");
+                            }
+                        }
                     } else {
                         console.log("Neuron not exist. FREnd124745")
                     }
@@ -259,7 +268,8 @@ class class_L_unit_L_neuron_X_condense {
                 let error_message = "Error 123y657";
                 send_data_ajax(data, url, controller_f, true, error_message);
             } else {
-                focus_c_neuron_c_target_c_tab(this.unit_L_neuron_L_id, "neurons");
+                let tab_L_neuron = window["tagbrain_graph"]["neuron00s_obj00s"][this.unit_L_neuron_L_id]["tab_L_neuron"]
+                focus_c_neuron_c_target_c_tab(this.unit_L_neuron_L_id, tab_L_neuron);
             }
         })
     }
@@ -282,7 +292,6 @@ class class_L_unit_L_neuron_X_condense {
                 let neuron_c_obj = window["tagbrain_graph"]["neuron00s_obj00s"][this.unit_L_neuron_L_id];
                 let class_neuron = new class_formate_c_neuron(
                     this.unit_L_neuron_L_id, 
-                    this.og_L_activator,
                     neuron_c_obj.neuron_el,
                     neuron_c_obj.neuron_shell,
                 );

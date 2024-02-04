@@ -13,4 +13,5 @@ export function send_c_change_request_x_target_c_local_storage(
     let key:string = "neuron_L_draft["+options.neuron_id+"]";
     localStorage.setItem(key, value);
     delete_c_neuron_c_save_flag(options.neuron_shell, options.neuron_id);
+    window["tagbrain_graph"]["neuron00s_obj00s"][options.neuron_id].content = neuron_tree;
 }

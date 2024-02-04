@@ -11,12 +11,15 @@ import { get_neuron00s_c_id00s_c_without_ram } from "../../units/get_neuron00s_c
 import { is_class_of_event_target } from "../../units/is_class_of_event_target";
 import { parent_is_exist } from "../../units/parent_is_exist";
 import {get_parent_with_class} from "../../units/get_parent_with_class";
-import {generate_c_neuron_c_branch} from "../../units/generate_c_neuron_c_branch";
+import {O_isolate_X_get_OL_branch_L_from_L_neuron} from "../../units/O_isolate_X_get_OL_branch_L_from_L_neuron";
 import {class_formate_c_neuron} from "../../classes/class_formate_c_neuron";
 import { get_c_neuron_c_by_neuron_nucleus_c_og00s } from "../../units/get_c_neuron_c_by_neuron_nucleus_c_og00s";
 import { class_c_attach_c_summarization_tree } from "../../classes/class_c_attach_c_summarization_tree";
 import { collect_c_blank_c_tangle_c_activation } from "../../brain_units/collect_c_blank_c_tangle_c_activation";
 import { class_L_unit_L_neuron_X_condense } from "../../classes/class_c_unit_L_neuron_X_condense";
+import { load_L_attachment00s_L_from_neuron } from "../../units/load_L_attachment00s_L_from_neuron";
+import { set_L_button_L_attachment00s_L_state } from "../../units/set_L_button_L_attachment00s_L_state";
+import { add_wave_animation_x_click_c_event } from "../../units/add_wave_animation_x_click_c_event";
 
 
 /*
@@ -43,47 +46,69 @@ type neuron_L_unit_L_options = {
 
 document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('dblclick', function (e:any) {
-        if (is_class_of_event_target(e, "item_tags_style")) {
+
+        let is_tag = is_class_of_event_target(e, "item_tags_style");
+        let is_attachment = is_class_of_event_target(e, "special_symbols_style");
+
+        if (is_tag || is_attachment) {
             let target = e.target as Element | null;
             if (target != null) {
                 if (parent_is_exist(target, "item_input")) {
-                    let neuron_c_el = get_parent_with_class(target, "item_input"),
-                        neuron_c_id = get_c_neuron_c_by_neuron_nucleus_c_og00s(
-                            neuron_c_el
+
+                    let neuron_L_el = get_parent_with_class(target, "item_input"),
+                        neuron_L_id = get_c_neuron_c_by_neuron_nucleus_c_og00s(
+                            neuron_L_el
                         ).neuron_id,
+                        //get_L_row_element_L_current
                         outgrowth = get_parent_with_class(target, "post_row"),
-                        event_c_row = [...neuron_c_el.children].indexOf(outgrowth),
+                        event_c_row = [...neuron_L_el.children].indexOf(outgrowth),
                         class_neuron = new class_formate_c_neuron(
-                            neuron_c_id, 
-                            "",
-                            false,
+                            neuron_L_id, 
+                            neuron_L_el,
                             false
                         ),
-                        branch00s_c_current = generate_c_neuron_c_branch(
+                        branch00s_c_current = O_isolate_X_get_OL_branch_L_from_L_neuron(
                             [event_c_row], 
                             class_neuron.outgrowths_c_all
-                        ),
-                        target_c_content = target.textContent;
+                        ).branch00s_L_isolated,   
 
+                    target_c_content = target.textContent;
                     if(target_c_content != null){
                         target_c_content = target_c_content.trim();
-                        
-                        //use it to work with all function with chain_fathers
-                        if(branch00s_c_current != undefined){//branch00s exist
-                            let class_options = {//options
-                                neuron_c_id: neuron_c_id,
-                                branch00s_c_current: branch00s_c_current,
-                                ctrl_is_activated: e.ctrlKey,
-                                target_c_content: target_c_content,
+                        if(is_tag){//complete_L_summarization
+                            //use it to work with all function with chain_fathers
+                            if(branch00s_c_current != undefined){//branch00s exist
+                                let class_options = {//options
+                                    neuron_L_id: neuron_L_id,
+                                    branch00s_c_current: branch00s_c_current,
+                                    ctrl_is_activated: e.ctrlKey,
+                                    target_c_content: target_c_content,
+                                }
+                                new class_c_attach_c_summarization_tree(class_options);
                             }
-                            new class_c_attach_c_summarization_tree(class_options);
+                            let tab_c_fractal_c_controller = gEBI("fractal_controller_right_bar");
+                            tab_c_fractal_c_controller.click();
+                            
+                        } else if(is_attachment){
+                            add_wave_animation_x_click_c_event(e, "");
+                            set_L_button_L_attachment00s_L_state("turn_on", class_neuron.neuron_L_shell);
+                            let neuron_L_data = {
+                                graph_L_name: window["tagbrain_graph"]["graph_name"],
+                                neuron_L_id: neuron_L_id,
+                                neuron_L_shell: class_neuron.neuron_L_shell
+                            };
+                            load_L_attachment00s_L_from_neuron(
+                                [target_c_content.replace('@', '')], 
+                                neuron_L_data,
+                                neuron_L_id
+                            )
                         }
                     }
-                    let tab_c_fractal_c_controller = gEBI("fractal_controller_right_bar");
-                    tab_c_fractal_c_controller.click();
+
                 }
             }
         };
+
     }, false);
     let button_c_activate = gEBI("send_request_c_activate_c_graph");
     button_c_activate.addEventListener('click', function (e:any) {

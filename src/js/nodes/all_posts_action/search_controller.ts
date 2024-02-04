@@ -53,8 +53,7 @@ function start_search_controller(
                let neuron_obj = collection_c_neuron_s_c_target[i];
                let neuron_features = new class_formate_c_neuron(
                     neuron_obj.id, 
-                    searcher,
-                    false,
+                    window["tagbrain_graph"]["neuron00s_obj00s"][neuron_obj.id].neuron_el,
                     false
                );
                if(neuron_features.neuron_activation > 0){
@@ -73,7 +72,7 @@ function success_controller(server_data: any, input_keys: any){
      let list_c_graphs: string[] = Object.keys(server_data);
      for(var i = 0; i < list_c_graphs.length; i++){
           let graph_name = list_c_graphs[i];
-          let neurons = server_data[graph_name];
+          let neurons = server_data;
           neurons.sort((a:any, b:any) =>  b.key_rows.length - a.key_rows.length);
 
           for(var j = 0; j < neurons.length; j++){

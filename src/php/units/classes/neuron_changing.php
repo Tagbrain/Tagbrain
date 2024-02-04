@@ -40,7 +40,8 @@ class neuron_changing {
     }
 
     public function controller_action(){
-        $is_valid = $this->get_and_check_data();
+        $access_arr = $this->check_session_data($this->graph_name);
+        $is_valid = $access_arr["can_editing"];
         if($is_valid == true){
 
             try{
@@ -129,10 +130,6 @@ class neuron_changing {
 
     }
 
-    public function get_and_check_data(){
-        $access_arr = $this->check_session_data($this->graph_name);
-        return $access_arr["can_editing"];
-    }
 
     protected function add_neuron(){
         $name_neuron = $this->neuron_id.".json";
@@ -157,6 +154,7 @@ class neuron_changing {
             "status" => "success",
             "body" => "Neuron tree is changed"
         );
+
         echo json_encode($response);
     }
 
@@ -172,7 +170,7 @@ class neuron_changing {
             } else {
                 $response = array(
                     "status" => "success",
-                    "body" => "The post has been deleted"
+                    "body" => "The neuron has been deleted"
                 );
             }
         } catch(PDOException $e){

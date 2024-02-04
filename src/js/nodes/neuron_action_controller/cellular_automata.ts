@@ -1,6 +1,6 @@
 import {gEBI, dCE } from "../../units/compress_f.js";
 import { turn_L_toggle_L_fullscreen } from "../../units/turn_L_toggle_L_fullscreen";
-import { save_L_neuron00s_L_edited } from "../../units/save_L_neuron00s_L_edited";
+import { save_L_neuron00s_L_edited_Z_to_server } from "../../units/save_L_neuron00s_L_edited_Z_to_server";
 
 
 setInterval(function(){ 
@@ -22,7 +22,7 @@ document.addEventListener('keydown', function(event) {
         event.preventDefault();
         //unfocus_c_neuron00s
         gEBI("layoutViewport").click();
-        save_L_neuron00s_L_edited();
+        refresh_automate();
     }
   });
 
@@ -45,11 +45,17 @@ function refresh_automate(){
     let part3 = str_boolean.substr(12, 6);
 
     cellular_automata.innerHTML = '<tspan x="580">'+part1+'</tspan>'+'<tspan x="580" dy="15">'+part2+'</tspan>'+'<tspan x="580" dy="15">'+part3+'</tspan>';
-    if(window["tagbrain_graph"]["checker_collection"]["power_mode"].is_activated == true){
-        if(!document.fullscreenElement) {
-            turn_L_toggle_L_fullscreen("turn_off");
+    if(window["tagbrain_graph"]["checker_collection"]["power_mode"]){
+        if(window["tagbrain_graph"]["checker_collection"]["power_mode"].is_activated == true){
+            if(!document.fullscreenElement) {
+                turn_L_toggle_L_fullscreen("turn_off");
+            }
         }
+    } else {
+        console.log("Not exist. Fix");
     }
+
+    save_L_neuron00s_L_edited_Z_to_server();
 }
 
 

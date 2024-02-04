@@ -11,7 +11,10 @@ export function paste_c_symbol_x_current_position(symbol: string){
     if(symbol == "tab+"){
         insert_one_tab(el_c_current_x_last, false);
         symbol_len = 4;
-        put_c_caret_x_target_c_string_position(el_c_current_x_last, position_c_current_x_last+symbol_len);
+        put_c_caret_x_target_c_string_position(
+            el_c_current_x_last, 
+            position_c_current_x_last + symbol_len
+        );
     } else if(symbol == "tab-"){
         let reducted = delete_one_tab(el_c_current_x_last, false);
         symbol_len = -reducted;

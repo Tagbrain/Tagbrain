@@ -8,6 +8,19 @@ trait check_session_data {
             "private" => false
         );
 
+        //creator_L_session
+        if(!$_SESSION["userid"]){
+            if(count($_COOKIE) > 0) {
+                if($_COOKIE["session_user"]){
+                    //refresh session
+                    include_once $_SERVER['DOCUMENT_ROOT']."/php/sessions/sign_in/controller_L_sign_in.php";  
+                    new controller_L_sign_in($_COOKIE["session_user"].":".$_COOKIE["password"], false);
+                }
+            } else {
+                //Cookies are disabled
+            }
+        }
+
         if($_SESSION["channel_is_private"]){
             $access["private"] = $_SESSION["channel_is_private"];
         }

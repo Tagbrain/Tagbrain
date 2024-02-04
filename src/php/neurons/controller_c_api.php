@@ -24,31 +24,23 @@ if($_POST["data"]){//init_controller
         }
     } else if ($action == "change_L_neuron"){
         include $_SERVER['DOCUMENT_ROOT']."/php/units/classes/neuron_changing.php";
+        if(isset($data["neuron_id"], $data["graph_name"])){
 
-        if($_SESSION["userid"]){
-            if(isset($data["neuron_id"], $data["graph_name"])){
+            new neuron_changing(
+                $data["parameter"], 
+                $data["graph_name"], 
+                $data["neuron_tree"], 
+                $data["neuron_id"], 
+                $data["unix_time"],
+                $data["neuron00s_L_ram_X_id"]
+            );
 
-                new neuron_changing(
-                    $data["parameter"], 
-                    $data["graph_name"], 
-                    $data["neuron_tree"], 
-                    $data["neuron_id"], 
-                    $data["unix_time"],
-                    $data["neuron00s_L_ram_X_id"]
-                );
-
-            } else {
-                $array_response = array(
-                    "status" => "fail",
-                    "body"=> "Data is not complete"
-                );
-                echo json_encode($array_response);
-            }
         } else {
-
-            $array_response = array("status" => "No session");
-            echo json_encode($array_response); 
-            
+            $array_response = array(
+                "status" => "fail",
+                "body"=> "Data is not complete"
+            );
+            echo json_encode($array_response);
         }
     } else if ($action == "load_L_attachment00s_X_if_exist"){
         $graph_L_name = $data["graph_name"];
@@ -56,6 +48,7 @@ if($_POST["data"]){//init_controller
             include $_SERVER['DOCUMENT_ROOT']."/php/units/classes/class_L_get_L_attachment00s.php";
             new class_L_get_L_attachment00s(
                 $graph_L_name,
+                $data["attachment00s_L_name00s_X_all"],
                 $data["attachment00s_L_name00s"],
                 $data["neuron_L_id"]
             );
@@ -63,6 +56,22 @@ if($_POST["data"]){//init_controller
             $array_response = array(
                 "status" => "fail",
                 "body" => "Data is not received ER000003"
+            );
+            echo json_encode($array_response);
+        }
+    } else if ($action == "remove_L_attachment00s"){
+        $graph_L_name = $data["graph_name"];
+        if(isset($graph_L_name)){
+            include $_SERVER['DOCUMENT_ROOT']."/php/units/classes/class_L_delete_L_attachment00s.php";
+            new class_L_delete_L_attachment00s(
+                $graph_L_name,
+                $data["attachment00s_L_name00s"],
+                $data["neuron_L_id"]
+            );
+        } else {
+            $array_response = array(
+                "status" => "fail",
+                "body" => "Data is not received ER005003"
             );
             echo json_encode($array_response);
         }

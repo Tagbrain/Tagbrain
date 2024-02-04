@@ -92,13 +92,17 @@
 					<span> | </span>
 					<a class="a_cl" id="id_L_turn_on_L_light">Light mode</a>
 					<span> | </span>
+					<a class="a_cl" id="id_L_turn_on_L_red_L_dark">Red_L_dark mode</a>
+					<span> | </span>
 					<a class="a_cl" id="id_L_turn_back_L_theme">Turn back</a>
 			</div>		
 
 		</div>
 	</div>
 	<div id="id_c_pop_up_c_context" class="pop_up neuron_pop_up_hide">
-		<a class="a_cl" id="button_id_17_c_create_c_neuron_c_from_selection">Create a new post from the selection</a><br>
+		<a class="a_cl" id="button_id_17_c_create_c_neuron_c_from_selection" title="Create a new neuron from first selection node">
+			Isolate branch from selection outgrowth
+		</a><br>
 		<a class="a_cl" id="paste_text">Paste</a><br>
 		<a class="a_cl" id="export_content">Export the selection → other channel</a><br>
 		<a class="a_cl" id="post_parsing">Post parsing</a>

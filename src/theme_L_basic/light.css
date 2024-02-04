@@ -10,5 +10,19 @@
     --shiny-light50: #aeaeae73;
     --shiny-light00: #aeaeae00;
     --background-svg: #3d00588a;
-    --attachment-text: #ab00ff;
+    --attachment-text: #696969;
+}
+body{
+    text-shadow: none;
+}
+
+.linear_icon_c_target, .linear_icon_c_target>* {
+    stroke-width: 16;
+    filter: none;
+}
+.item_tags_style {
+    text-shadow: none;
+}
+.special_symbols_style {
+    text-shadow: none;
 }

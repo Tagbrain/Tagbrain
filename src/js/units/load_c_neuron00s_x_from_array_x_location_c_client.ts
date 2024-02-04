@@ -9,7 +9,7 @@ export function load_c_neuron00s_x_from_array_x_location_c_client(
                 neuron_id: neuron_id,
                 content: neuron00s[i].content,
                 is_outgrowth00s: true,
-                contenteditable: "true",
+                contenteditable: true,
                 add_ram_boolen: false,
                 is_format: true,
                 time_L_last_edit: neuron00s[i].time_L_last_edit,

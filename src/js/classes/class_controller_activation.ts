@@ -1,8 +1,8 @@
 import {gEBI, dCE} from "../units/compress_f.js";
-import {class_generator_tree_structure} from "../units/generate_tree_structure_2v";
 import {class_generator_c_tree_c_html} from "../classes/class_generator_c_tree_c_html";
-import { get_deduction_anemones } from "../units/get_deduction_anemones";
-import { get_induction_anemones } from "../units/get_induction_anemones";
+import { get_deduction_anemones } from "../brain_units/get_deduction_anemones.js";
+import { get_induction_anemones } from "../brain_units/get_induction_anemones.js";
+import { class_generator_tree_structure } from "../brain_units/generate_tree_structure_2v.js";
 
 
 type outgrowth = {content: string, v_index: number, depth: number};

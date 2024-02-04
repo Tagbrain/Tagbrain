@@ -168,15 +168,6 @@ class class_generator_tree_structure {
         return branch
     }
 
-
-    /*
-    macroanemones diagnostic to choose the best network
-        let macroanemones_induction = collect_x_macroanemones_induction_c_body(collector_tree, current_anemone);
-        let macroanemones_deduction = collect_x_macroanemones_deduction_c_body(collector_tree, current_anemone);
-        if (macroanemones_induction.length == 0 && macroanemones_deduction.length == 0) {
-            //reverse opening x use map generation 
-        }
-    */
 }
 
 export {class_generator_tree_structure}

@@ -3,7 +3,6 @@ import { is_exist_global_c_microfeature } from "./is_exist_global_c_microfeature
 import { get_c_og_c_child00s } from "./get_c_og_c_child00s";
 import { get_child00s_c_from_floor00s } from "./get_child00s_c_from_floor00s";
 import { is_exist_c_location_c_global_z_target_c_microfeature } from "./is_exist_c_location_c_global_z_target_c_microfeature";
-import { generate_c_neuron_c_branch } from "../units/generate_c_neuron_c_branch";
 import { collect_c_hierarchy_c_truncus00a } from "./collect_c_hierarchy_c_truncus00a";
 import { is_exist_c_in_interval } from "../units/is_exist_c_in_interval";
 import { is_exist_c_anemone_c_in_listner00s } from "./is_exist_c_anemone_c_in_listner00s";

@@ -31,13 +31,16 @@ class class_formate_c_neuron {
     public tagbrain_graph_c_neuron_c_tree:any;
 
     protected neuron_c_el: HTMLElement;
-    protected neuron_L_shell: HTMLElement;
+    public neuron_L_shell: HTMLElement;
 
     protected neuron_c_id: string;
     protected outgrowths:any;
-    protected input_data:any;
+    protected input_data: string;
 
-    protected input_data_c_modifier_c_is_correct: boolean;
+    //words_L_searched
+    protected og_L_activator00s: string;
+    protected searching_L_string: string;
+
     protected is_zero_activation: boolean;
 
     //stack_c_timing
@@ -47,18 +50,12 @@ class class_formate_c_neuron {
 
     constructor(
         neuron_c_id: string, 
-        input_data: any,
-        neuron_c_el: HTMLElement | false,
+        neuron_c_el: HTMLElement,
         neuron_L_shell: HTMLElement | false,
     ) {
+        //define
+        this.neuron_c_el = neuron_c_el;
         this.neuron_c_id = neuron_c_id;
-
-        if(neuron_c_el == false){
-            this.neuron_c_el = window["tagbrain_graph"]["neuron00s_obj00s"][this.neuron_c_id].neuron_el;
-        } else {
-            this.neuron_c_el = neuron_c_el;
-        }
-
         if(neuron_L_shell == false){
             this.neuron_L_shell = window["tagbrain_graph"]["neuron00s_obj00s"][this.neuron_c_id].neuron_shell;
         } else {
@@ -68,16 +65,23 @@ class class_formate_c_neuron {
         this.outgrowths = this.neuron_c_el.children;
 
         this.is_zero_activation = false;
-        this.input_data = input_data;
 
         this.outgrowth_c_depth_c_memory_x_current_iteration = 0;
         this.tagbrain_graph_c_neuron_c_tree = [];
 
-        this.input_data_c_modifier_c_is_correct = true;
-        if(this.input_data == ""){
-            this.input_data_c_modifier_c_is_correct = false;
-            this.input_data = "za92jr4njFrjv"
+
+        //receiver_search_L_data
+        this.og_L_activator00s = window["tagbrain_graph"]["ram"]["synapse00s_c_key"].join("|");
+        if(this.og_L_activator00s == ""){
+            if(this.og_L_activator00s.length < 4){
+                this.og_L_activator00s = "89empty_cap98F";
+            }
         }
+        this.searching_L_string = gEBI('search_input_block').value;
+        if(this.searching_L_string.length < 3){
+            this.searching_L_string = "89empty_cap98F";
+        }
+
         this.refresh_L_attachment00s();
         this.controller_formatting();
     }
@@ -93,7 +97,7 @@ class class_formate_c_neuron {
         let outgrowths_c_all:any = [];
         let outgrowths_c_current:number[] = [];
 
-        for (let i = 0; i < this.outgrowths.length ; i++) {
+        for (let i = 0; i < this.outgrowths.length ; i++) {//take_L_og
             let fix_obj:any = {};
             if(this.synapse_c_features != undefined){
                 if(this.synapse_c_features.escape){
@@ -109,30 +113,29 @@ class class_formate_c_neuron {
                 }
             }
 
-            let response_c_g_o_f: response_c_get_outgrowth_features = get_outgrowth_features(
+            let object_L_og: response_c_get_outgrowth_features = get_outgrowth_features(
                 this.outgrowths[i],
                 i, 
                 fix_obj
             );
-            this.outgrowth_c_depth_c_memory_x_current_iteration = response_c_g_o_f.new_depth;
-            this.synapse_c_features = this.reduct_obj(response_c_g_o_f);
+            this.outgrowth_c_depth_c_memory_x_current_iteration = object_L_og.new_depth;
+            this.synapse_c_features = this.reduct_obj(object_L_og);
 
             let obj_features:any = {};
             if(this.synapse_c_features.escape == true){
                 continue
             } else {
-                let content_c_formated_c_spaces = "    ".repeat(this.synapse_c_features.depth) + this.synapse_c_features.content;
-                let content_c_escaped = escape_text(content_c_formated_c_spaces);
-                let regexp: any;
-                if(this.input_data_c_modifier_c_is_correct){
-                    regexp = new RegExp(this.input_data + '|' + patterns.pattern_tag + '|' + patterns.pattern_L_attach, 'gmu');
-                    obj_features = this.main_formatter(regexp, content_c_escaped, this);
-                } else {
-                    regexp = new RegExp(patterns.pattern_tag + '|' + patterns.pattern_L_attach, 'gmu');
-                    obj_features = this.main_formatter(regexp, content_c_escaped, this);
-                }
+                let content_c_escaped = escape_text(this.synapse_c_features.content);
+
+                obj_features = this.main_formatter2(
+                    content_c_escaped, 
+                    this.searching_L_string,
+                    this.og_L_activator00s
+                );
+                obj_features.content = "    ".repeat(this.synapse_c_features.depth) + obj_features.content;
+                
                 this.tagbrain_graph_c_neuron_c_tree.push({ 
-                    k: response_c_g_o_f.content, 
+                    k: object_L_og.content, 
                     i: i, 
                     d: this.outgrowth_c_depth_c_memory_x_current_iteration 
                 });
@@ -160,70 +163,60 @@ class class_formate_c_neuron {
         const { new_depth, ...otherProps} = obj;
         return otherProps
     }
-    main_formatter(regexp: RegExp, content_c_escaped:string, this_obj:any){
+    main_formatter2(
+        content_c_escaped:string, 
+        searching_L_string: any,
+        og_L_activator00s: any
+    ){
         let is_key_row = false;
+
+        let is_exist_finding_word = false;
 
         let reg_attachment = new RegExp(patterns.pattern_L_attach, 'iu'),
             reg_tag = new RegExp(patterns.pattern_tag, 'iu'),
-            input_regex = new RegExp(this_obj.input_data, 'giu');
+            input_regex = new RegExp(searching_L_string +'|'+ og_L_activator00s, 'giu');
         let neuron_c_id = this.neuron_c_id;
-        let text_c_terminal = content_c_escaped.replace(regexp, function (content_c_unit: string) {
-            let is_exist_tags = reg_tag.test(content_c_unit),
-                is_exist_attachment = reg_attachment.test(content_c_unit),
-                is_exist_finding_word = input_regex.test(content_c_unit);
+        let regexp = new RegExp("[\\w#@]*", 'giu');
 
-            if(is_exist_finding_word){
+        let all_word00s = content_c_escaped.replace(regexp, function (og_L_one_word: string) {
+
+            let is_exist_tags = reg_tag.test(og_L_one_word),
+                is_exist_attachment = reg_attachment.test(og_L_one_word);
+
+            //put_L_style_L_internal
+            let word_L_input_regex = og_L_one_word.replace(input_regex, function (word_L_changed: string) {
+                is_exist_finding_word = true;
                 is_key_row = true;
-                if (is_exist_tags) {
+                return word_L_changed = 
+                    "<mark>" 
+                        + word_L_changed 
+                    + "</mark>";
+            });
 
-                    content_c_unit = 
-                        "<span class='item_tags_style'><mark>" 
-                            + content_c_unit 
-                        + "</mark></span>";
+            //put_L_style_L_internal
+            if(is_exist_tags){
+                og_L_one_word = 
+                    "<span class='item_tags_style'>" 
+                        + word_L_input_regex 
+                    + "</span>";
+            } else if(is_exist_attachment){
+                og_L_one_word = 
+                "<span class='special_symbols_style'>" 
+                    + word_L_input_regex 
+                + "</span>";
 
-                } else if (is_exist_attachment) {
-
-                    complete_L_attachment00s_L_unit00s(
-                        content_c_unit, 
-                        neuron_c_id
-                    );
-                    
-                    content_c_unit = 
-                        "<span class='special_symbols_style'><mark>" 
-                            + content_c_unit 
-                        + "</mark></span>";
-
-                } else {
-                    content_c_unit = 
-                        "<mark>" 
-                            + content_c_unit 
-                        + "</mark>";
-                }
-            } else {
-                if (is_exist_tags) {
-                    content_c_unit = 
-                        "<span class='item_tags_style'>" 
-                            + content_c_unit 
-                        + "</span>";
-                } else if (is_exist_attachment) {
-
-                    complete_L_attachment00s_L_unit00s(
-                        content_c_unit, 
-                        neuron_c_id
-                    );
-
-                    content_c_unit = 
-                        "<span class='special_symbols_style'>" 
-                            + content_c_unit 
-                        + "</span>";
-
-                }
+                //add_L_attachment
+                complete_L_attachment00s_L_unit00s(
+                    og_L_one_word, 
+                    neuron_c_id
+                );
             }
-            return content_c_unit
+            return og_L_one_word;
+
         });
 
         return {
-            content: text_c_terminal,
+            content: all_word00s,
             is_key_row: is_key_row,
         }
     }

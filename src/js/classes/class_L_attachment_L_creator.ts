@@ -28,7 +28,7 @@ class class_L_attachment_L_creator {
         //client_L_attachment00s 
         //window["tagbrain_graph"]["attachment00s"]
         this.neuron_L_id = neuron_L_id;
-        this.attachment_L_key = attachment_L_key.replace('@', '');;
+        this.attachment_L_key = attachment_L_key.replace('@', '');
         this.attachment_L_content = attachment_L_content;
         this.type = type;
         this.container_L_attachment00s = neuron_L_shell.querySelector(".neuron_L_attachment00s");
@@ -109,7 +109,7 @@ class class_L_attachment_L_creator {
                 let content_L_html = this.attachment_L_content.replaceAll("\n", '<br>');
                 let reg_L_link = new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/, "gmi");
                 content_L_html = content_L_html.replace(reg_L_link, function (link: string) {
-                    let response = '<a contenteditable="false" target="_blank" href="'+ link + '">'
+                    let response = '<a class="a_L_link" contenteditable="false" target="_blank" href="'+ link + '">'
                         + link 
                     + '</a>';
                     return response;
@@ -142,8 +142,6 @@ class class_L_attachment_L_creator {
         let attachment_L_value = this.attachment_L_content;
         let type = this.type;
         let key_L_flag = this.key_L_flag;
-
-        let refracter = false;
         let attachment_L_textarea_L_element: any = this.attachment_L_textarea_L_element;
 
         //validation_L_textarea_L_event
@@ -153,7 +151,7 @@ class class_L_attachment_L_creator {
             let htmltext:string = attachment_L_textarea_L_element.innerText.replaceAll("\n", '<br>');
             let reg_L_link = new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/, "gmi");
             htmltext = htmltext.replace(reg_L_link, function (link: string) {
-                let response = '<a contenteditable="false" target="_blank" href="'+ link + '">'
+                let response = '<a class="a_L_link" contenteditable="false" target="_blank" href="'+ link + '">'
                     + link 
                 + '</a>';
                 return response;
@@ -162,6 +160,7 @@ class class_L_attachment_L_creator {
         })
 
         //save_L_textarea_L_event
+        let refracter = false;
         this.content_L_element.addEventListener("input", async function(e:any) {
             key_L_flag.innerHTML = " ●";
 

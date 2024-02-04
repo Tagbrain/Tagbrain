@@ -1,4 +1,7 @@
-export function put_c_caret_x_target_c_string_position(node: HTMLElement | Text, pos: number){
+export function put_c_caret_x_target_c_string_position(
+     node: HTMLElement | Text, 
+     pos: number
+){
     // do => SAVE_SELECTION
     if(typeof(pos) === 'number'){
          let position: number = pos;

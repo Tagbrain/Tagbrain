@@ -19,7 +19,9 @@ trait get_neuron_data {
         }
  
         $neuron_id = substr($neuron_name, 0, strrpos($neuron_name, '.'));
-        $unix_timestamp = filemtime($new_neuron_path);
+        if(file_exists($new_neuron_path)){
+            $unix_timestamp = filemtime($new_neuron_path);
+        }
         //$time_last_change = date("d|m|Y", $unix_timestamp); #remove
         $neuron_tree_json = $this->load_neuron_tree($new_neuron_path, true);
 

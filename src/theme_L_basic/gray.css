@@ -1,0 +1,19 @@
+:root {
+    --backgroud: #1a1b20;
+    --backgroud80: #1a1b20d2;
+    --text-content: #3c9491;
+    --background-pop-up-blocks: #0f161e80;
+    --tags-color: #e1e1e1;
+    --strokes: #2e7e6847;
+    --shiny-light: #ffa500;
+    --shiny-light10: #ffa50010;
+    --shiny-light50: #ffa50050;
+    --shiny-light00: #ffa50000;
+    --background-svg: #5e6f84e8;
+    --attachment-text: #ab00ff;
+    --wrong:red;
+    --correct:green;
+    --cursor-auto: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='100' width='100'%3E%3Ccircle cx='8' cy='8' r='5' stroke='white' stroke-width='1.5' filter='drop-shadow(0px 2px 2px gray)' fill='none' /%3E%3C/svg%3E")8 8, auto;
+    --cursor-pointer: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='100' width='100'%3E%3Ccircle cx='10' cy='10' r='8' stroke='white' stroke-width='1.5' stroke-dasharray='6 3' filter='drop-shadow(0px 2px 2px gray)' fill='none' /%3E%3C/svg%3E")12 12, pointer;
+}
+  

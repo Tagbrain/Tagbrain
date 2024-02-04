@@ -26,7 +26,7 @@ let tagbrain_graph: any = {
         search_c_last_finded: [],
     },
     selection_obj:{
-        last_outgrowths:[],
+        branch_L_last:[],
     },
     cursor_position:{
         neuron_element: undefined,

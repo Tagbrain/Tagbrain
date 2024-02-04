@@ -1,6 +1,7 @@
-import {collapse_by_truncus} from "../brain_units/collapse_by_truncus";
-import {collapse_similar_outgrowths} from "../brain_units/collapse_similar_outgrowths";
-import { gEBI } from "./compress_f";
+import { gEBI } from "../units/compress_f";
+import { collapse_by_truncus } from "./collapse_by_truncus";
+import { collapse_similar_outgrowths } from "./collapse_similar_outgrowths";
+
 
 type arr_branches = {
     depth: number,

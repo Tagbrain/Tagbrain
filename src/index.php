@@ -4,12 +4,13 @@ session_start([
 	'cookie_lifetime' => 3600000,
 ]);
 
+//creator_L_session
 if(!$_SESSION["userid"]){
 	if(count($_COOKIE) > 0) {
 		if($_COOKIE["session_user"]){
 			//refresh session
 			include_once $_SERVER['DOCUMENT_ROOT']."/php/sessions/sign_in/controller_L_sign_in.php";  
-			new controller_L_sign_in($_COOKIE["session_user"].":".$_COOKIE["password"]);
+			new controller_L_sign_in($_COOKIE["session_user"].":".$_COOKIE["password"], true);
 		}
 	} else {
 		//Cookies are disabled

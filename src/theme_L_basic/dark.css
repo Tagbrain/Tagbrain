@@ -1,5 +1,5 @@
 :root {
-    --backgroud: #0f0710;
+    --backgroud: #160000;
     --backgroud80: #000000d2;
     --text-content: #b50101;
     --background-pop-up-blocks: #55000080;
@@ -10,5 +10,8 @@
     --shiny-light50: #ffa50050;
     --shiny-light00: #ffa50000;
     --background-svg: #c10b0be8;
-    --attachment-text: #ab00ff;
+    --attachment-text: #620093;
+}
+body{
+    text-shadow: none;
 }

@@ -22,7 +22,7 @@ if($data){
         echo json_encode($array_response);
     }
 } else {
-    $array_response = array("status" => "No session");
+    $array_response = array("status" => "No session 0283495");
     echo json_encode($array_response); 
 }
 

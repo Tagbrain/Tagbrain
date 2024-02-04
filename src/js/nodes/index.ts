@@ -22,7 +22,7 @@ import './all_posts_action/activation_controller';
 import './all_posts_action/post_save_controller.js';
 import './all_posts_action/controller_user_activity';
 
-import './interface/interface_function_end.js';
+import './interface/interface_function_end';
 import './interface/clipboard_buttons_end.js';
 import './interface/settings_pop_up_end.js';
 import './interface/controller_c_log_up_x_log_out'; 

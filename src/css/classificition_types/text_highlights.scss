@@ -18,6 +18,9 @@ mark {
     border-top: 1px dashed var(--strokes);
     color: var(--shiny-light);
 }
+mark > *{
+    color: var(--shiny-light);
+}
 replacer{
     background: none;
     color: var(--shiny-light);

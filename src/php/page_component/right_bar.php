@@ -125,8 +125,7 @@
 			</div>
 
 			<div class="tools_container" id="RAM_right_bar_page">
-				<a> Clean All</a>
-				<a>Collapse items</a>
+				<a title="Hide all neurons">Hide All</a>
 				<div id="neuron00s_L_RAM" class="output_block"></div>
 			</div>
 
@@ -183,6 +182,8 @@
 			</div>
 
 			<div class="tools_container" id="functions_right_bar_page">
+				<a title="Sort by structure">Sort-<</a>
+				<a title="Collapse neuron body">Collapse neurons</a>
 				<a title="5 last items">open_c_copy_buffer()</a>
 				<a title="The most activated synapse of the graph">get_с_main_c_synapse00s()</a>
 				<br>
@@ -203,6 +204,7 @@
 			<div class="tools_container" id="smart_tips_right_bar_page">
 				<div class="">Tagbrain tips generator</div>
 				<div>Dynamic error output</div>
+				<div>Reminders</div>
 				<button id="check_content">
 					Check graph
 				</button>
