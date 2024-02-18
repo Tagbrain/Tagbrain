@@ -1,4 +1,4 @@
-import { is_inside_c_node_c_in_block } from "../../units/is_inside_c_node_c_in_block";
+import { is_inside_L_node_L_in_block } from "../../units/is_inside_L_node_L_in_block";
 
 let upper_layer_for_animation = document.querySelector(".upper_layer_for_animation");
 let shadow_container = document.querySelector(".shadow_background_container_pos");

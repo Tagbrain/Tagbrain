@@ -31,10 +31,16 @@
 }
 .logo_and_menu_buttons{
   display: grid;
-  grid-area: 1/2/3/3;
-  grid-template-columns: 60px 1fr 40px;
+  grid-column: 2/4;
+  grid-row: 1/2;
+  grid-template: 1fr/60px 1fr 40px;
   align-items: center;
   z-index: 3;
+}
+.animation_L_header{
+  display: grid;
+  grid-row: 1/2;
+  grid-column: 1/4;
 }
 .container_work{
     display: grid;
@@ -204,7 +210,7 @@ display:block;
   grid-row: 1/2;
   display: grid;
 }
-.sprite_c_log_in{
+.sprite_L_log_in{
   display: grid;
   grid-column: 1/2;
   grid-row: 1/2;
@@ -271,12 +277,26 @@ display:block;
   border: 1px dashed #ffffff00;
   padding: 0 0 0 0;
 }
+.og_L_content:focus{
+  border-radius: 0px;
+}
+.og_L_content:focus-visible {
+  outline:none;
+}
 .post_row{
   transition: 1s;
   height: 22px;
   padding-right: 6px;
   //background: var(--background-svg);
 }
+.neuron_L_og{
+  display: grid;
+  grid-template: 22px/ 20px 1fr;
+  transition: 1s;
+  height: 22px;
+  padding-right: 6px;
+}
+
 .button_cont_stl{
   width: 24px;
   height: 24px;
@@ -309,11 +329,11 @@ display:block;
   font-weight: bolder;    
   opacity: 1;
 }
-.header_c_menu_c_right{
+.header_L_menu_L_right{
   display:grid;
   grid-template: 1fr/ 1fr;
 }
-.unit_c_search_c_footer{
+.unit_L_search_L_footer{
   grid-row: 2/3;
   display: grid;
   grid-column: 2/3;
@@ -396,23 +416,23 @@ display:block;
 .tab_right_bar {
   display: grid;
   grid-template:1fr / 1fr;
-  .neuron_c_finded_synapses {
+  .neuron_L_finded_synapses {
     display: grid;
     grid-template: 20px 1fr/1fr 40px;
     border-top: 1px dashed var(--text-content);
     padding: 12px 0;
-    .contaner_c_header_x_find_c_synapse{
+    .contaner_L_header_x_find_L_synapse{
       display: grid;
       grid-row: 1/2;
       grid-column: 1/2;
       overflow: hidden;
     }
-    .container_c_body_x_find_c_synapse{
+    .container_L_body_x_find_L_synapse{
       padding: 0 0 0 12px;
       grid-row: 2/3;
       grid-column: 1/2;
     }
-    .container_c_body_x_find_c_synapse > *{
+    .container_L_body_x_find_L_synapse > *{
       line-height: 1.6;
     }
   }
@@ -854,7 +874,7 @@ color: var(--tags-color);
 .remove_tab{
   padding: 0 0 0 8px;
 }
-.dashed_c_brackets{
+.dashed_L_brackets{
   border: 1px dashed var(--background-svg);
   border-bottom: 1px dashed var(--backgroud);
   border-top: 1px dashed var(--backgroud);
@@ -863,7 +883,7 @@ color: var(--tags-color);
   margin: 0px 2px;
 }
 
-.mental_image_c_container{
+.mental_image_L_container{
   display:grid;
   grid-template: 1fr / 1fr;
   grid-row: 2/3;
@@ -948,7 +968,7 @@ a.link_swipe_animation>* {
   height: 100%;
   visibility: hidden;
 }
-.contrainer_c_synapses_c_tree{
+.contrainer_L_synapses_L_tree{
   grid-column: 1/2;
   grid-row: 2/3;
   display: grid;
@@ -965,7 +985,7 @@ a.link_swipe_animation>* {
   width: max-content;
   overflow:hidden;
 }
-.container_c_fantom_c_tree{
+.container_L_fantom_L_tree{
   grid-column: 1/2;
   grid-row: 1/2;
   white-space: pre-wrap;
@@ -977,6 +997,7 @@ a.link_swipe_animation>* {
   transition: 1s;
   width: max-content;
   overflow:hidden;
+  opacity: 0.6;
 }
 @keyframes colorChange{
   0%   {color:var(--strokes)}
@@ -992,27 +1013,27 @@ a.link_swipe_animation>* {
   overflow: auto;
 }
 
-.summary_tree_c_header{
+.summary_tree_L_header{
   grid-column: 1/2;
   grid-row: 1/2;
   font-size: 12px;
   display: flex;
 }
-.summary_tree_c_header > *{
+.summary_tree_L_header > *{
   margin-right: 12px;
 }
-.summary_tree_c_footer{
+.summary_tree_L_footer{
   grid-column: 1/2;
   grid-row: 3/4;
 }
-.output_c_neural_guide{
+.output_L_neural_guide{
   border-bottom: 1px dashed var(--text-content);
   font-size: 12px;
 }
-.container_c_neuron_id00s{
+.container_L_neuron_id00s{
   font-size: 12px;
 }
-.icon_c_dashed{
+.icon_L_dashed{
   stroke-dasharray: 100;
 }
 .attachment_L_img{

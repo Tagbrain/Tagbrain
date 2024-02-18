@@ -17,7 +17,7 @@ class class_L_creator_L_attachment {
         $this->graph_L_name = $graph_L_name;
         $this->type = $type;
         $this->direction_L_name = $direction_L_name;
-        $this->attachment_L_key = $attachment_L_key;
+        $this->attachment_L_key_L_base64 = base64_encode($attachment_L_key);
 
         if($attachment_L_value == false){
             $this->attachment_L_value = "";
@@ -48,7 +48,7 @@ class class_L_creator_L_attachment {
     }
 
     protected function put_L_attachment(){
-        $file_L_name = $this->attachment_L_key . '_X_' . $this->neuron_L_id;
+        $file_L_name = $this->attachment_L_key_L_base64 . '_X_' . $this->neuron_L_id;
         $extension = '';
         if($this->type == "txt"){
             $extension = '.txt';

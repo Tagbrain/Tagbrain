@@ -9,10 +9,10 @@ class loader_L_theme {
     ){
         $this->theme_L_name = $theme_L_name;
         $this->graph_L_name = $graph_L_name;
-        $this->response = $this->get_c_string_c_theme_c_css();
+        $this->response = $this->get_L_string_L_theme_L_css();
     }
 
-   protected function get_c_string_c_theme_c_css(){
+   protected function get_L_string_L_theme_L_css(){
     $theme_L_path = $_SERVER['DOCUMENT_ROOT']."/theme_L_basic/".$this->theme_L_name.".css";
 
     if (file_exists($theme_L_path)) {

@@ -49,8 +49,8 @@ class neuron_changing {
                     $this->change_neuron();
                 } else if($this->action == 'add'){
                     $this->add_neuron();
-                } else if($this->action == 'add_c_cookie_x_draft_zc_neuron'){
-                    $this->add_c_cookie_x_draft_zc_neuron(); 
+                } else if($this->action == 'add_L_cookie_x_draft_zc_neuron'){
+                    $this->add_L_cookie_x_draft_zc_neuron(); 
                 } else if($this->action == 'remove'){
                     $this->remove_neuron();
                 } 

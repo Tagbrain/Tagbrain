@@ -45,7 +45,7 @@ export function attachment_L_creator00s_button00s(
                 neuron_L_id: neuron_L_id,
                 graph_L_name: window["tagbrain_graph"]["graph_name"],
             };
-            let url = "php/neurons/controller_c_api.php";
+            let url = "php/neurons/controller_L_api.php";
             let error_message = "Request error";
             let controller_f = function(response_obj: any){
                 if(response_obj.status == "success"){

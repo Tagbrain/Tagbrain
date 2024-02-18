@@ -2,12 +2,12 @@
 import { send_data_ajax } from "../../units/send_data_ajax.js";
 import { gEBI, dCE } from "../../units/compress_f.js";
 import { set_refractor } from "../../units/set_refractor";
-import { get_c_collection_c_neuron_s } from "../../units/get_c_collection_c_neuron_s";
-import { validate_x_input_field_and_search_c_target } from "../../units/validate_x_input_field_and_search_c_target";
-import { get_c_replace_pattern } from "../../units/get_c_replace_pattern";
-import { clean_c_element_c_with_id } from "../../units/clean_c_element_c_with_id";
-import { class_formate_c_neuron } from "../../classes/class_formate_c_neuron";
-import { class_L_unit_L_neuron_X_condense } from "../../classes/class_c_unit_L_neuron_X_condense";
+import { get_L_collection_L_neuron_s } from "../../units/get_L_collection_L_neuron_s";
+import { validate_x_input_field_and_search_L_target } from "../../units/validate_x_input_field_and_search_L_target";
+import { get_L_replace_pattern } from "../../units/get_L_replace_pattern";
+import { clean_L_element_L_with_id } from "../../units/clean_L_element_L_with_id";
+import { class_formate_L_neuron } from "../../classes/class_formate_L_neuron";
+import { class_L_unit_L_neuron_X_condense } from "../../classes/class_L_unit_L_neuron_X_condense";
 
 type neuron_L_unit_L_options = {
      tab_L_unit_X_name: string,
@@ -36,7 +36,7 @@ function start_search_controller(
                regexp_is_activated: true,
                is_all_graphes_activated: is_all_graphes_activated,
           };
-          let url = "php/neurons/controller_c_search_request.php";
+          let url = "php/neurons/controller_L_search_request.php";
           let controller_f = function (response_obj: any) {
                success_controller(response_obj["content"], searcher);
           }
@@ -44,14 +44,14 @@ function start_search_controller(
           send_data_ajax(data, url, controller_f, true, error_message);
 
      } else if(front_end_search == true){
-          clean_c_element_c_with_id("result_block");
+          clean_L_element_L_with_id("result_block");
           window["tagbrain_graph"]["ram"]["unit00s_L_search"] = [];
 
-          let tab_c_current = window["tagbrain_graph"]["current_tab"];
-          let collection_c_neuron_s_c_target = get_c_collection_c_neuron_s(tab_c_current);
-          for(var i = 0; i < collection_c_neuron_s_c_target.length; i++){
-               let neuron_obj = collection_c_neuron_s_c_target[i];
-               let neuron_features = new class_formate_c_neuron(
+          let tab_L_current = window["tagbrain_graph"]["current_tab"];
+          let collection_L_neuron_s_L_target = get_L_collection_L_neuron_s(tab_L_current);
+          for(var i = 0; i < collection_L_neuron_s_L_target.length; i++){
+               let neuron_obj = collection_L_neuron_s_L_target[i];
+               let neuron_features = new class_formate_L_neuron(
                     neuron_obj.id, 
                     window["tagbrain_graph"]["neuron00s_obj00s"][neuron_obj.id].neuron_el,
                     false
@@ -66,12 +66,12 @@ function start_search_controller(
 }
 
 function success_controller(server_data: any, input_keys: any){
-     clean_c_element_c_with_id("result_block");
-     window["tagbrain_graph"]["ram"]["unit00s_L_search"] = [];//clean_c_
+     clean_L_element_L_with_id("result_block");
+     window["tagbrain_graph"]["ram"]["unit00s_L_search"] = [];//clean_L_
 
-     let list_c_graphs: string[] = Object.keys(server_data);
-     for(var i = 0; i < list_c_graphs.length; i++){
-          let graph_name = list_c_graphs[i];
+     let list_L_graphs: string[] = Object.keys(server_data);
+     for(var i = 0; i < list_L_graphs.length; i++){
+          let graph_name = list_L_graphs[i];
           let neurons = server_data;
           neurons.sort((a:any, b:any) =>  b.key_rows.length - a.key_rows.length);
 
@@ -96,10 +96,10 @@ function success_controller(server_data: any, input_keys: any){
 //LISTENERS
 document.addEventListener('DOMContentLoaded', () => {
 
-     let input_c_target_x_find_synapses_c_purpose = gEBI('search_input_block');
-     let button_c_target_x_find_synapses_c_purpose = gEBI('send_search_request');
+     let input_L_target_x_find_synapses_L_purpose = gEBI('search_input_block');
+     let button_L_target_x_find_synapses_L_purpose = gEBI('send_search_request');
 
-     button_c_target_x_find_synapses_c_purpose.addEventListener('click', function (e:any) {
+     button_L_target_x_find_synapses_L_purpose.addEventListener('click', function (e:any) {
           let start_controller = function(){}
           if(window["tagbrain_graph"]["current_tab"] == "neurons"){
                start_controller = function(){
@@ -113,11 +113,11 @@ document.addEventListener('DOMContentLoaded', () => {
           set_refractor(start_controller, 3000);
      })
 
-     input_c_target_x_find_synapses_c_purpose.addEventListener('keydown', function (e:any) {
+     input_L_target_x_find_synapses_L_purpose.addEventListener('keydown', function (e:any) {
 
           const key = e.code || e.keyCode;
           if (key === 13 || key === 'Enter') {
-               button_c_target_x_find_synapses_c_purpose.click();
+               button_L_target_x_find_synapses_L_purpose.click();
           }
      })
 })

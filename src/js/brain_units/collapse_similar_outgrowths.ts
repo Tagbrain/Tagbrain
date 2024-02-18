@@ -8,10 +8,10 @@ function round(num:number) {
     return Math.round(num * 100) / 100;
 }
 export function collapse_similar_outgrowths(all_microfeature00s: anemones_collection) {
-    let og00s_c_summarization: number = 0;
+    let og00s_L_summarization: number = 0;
     for (let i = 0; i < all_microfeature00s.length; i++) {
         let anemone = all_microfeature00s[i];
-        //iterate_c_anemone_c_og00s
+        //iterate_L_anemone_L_og00s
         outer: for (let j = 0; j < anemone.length; j++) {
             let current_outgrowth = anemone[j];
 
@@ -24,20 +24,20 @@ export function collapse_similar_outgrowths(all_microfeature00s: anemones_collec
                         anemone.splice(z, 1);
                         z = z - 1;
                     } else {//addition_is_outgrowth
-                        let ao_c_vi = addition_outgrowth["v_index"];
-                        let co_c_vi = current_outgrowth["v_index"];
+                        let ao_L_vi = addition_outgrowth["v_index"];
+                        let co_L_vi = current_outgrowth["v_index"];
     
-                        let sum_c_vi:number = 0;
-                        if (co_c_vi == 0 && ao_c_vi == 0) {
-                            sum_c_vi = 0; 
+                        let sum_L_vi:number = 0;
+                        if (co_L_vi == 0 && ao_L_vi == 0) {
+                            sum_L_vi = 0; 
                         } else {
-                            sum_c_vi = round(sigmoid(ao_c_vi + co_c_vi));
+                            sum_L_vi = round(sigmoid(ao_L_vi + co_L_vi));
                         }
 
-                        anemone[j].v_index = sum_c_vi;
+                        anemone[j].v_index = sum_L_vi;
                         anemone.splice(z, 1);
-                        og00s_c_summarization++;
-                        //refresh_c_counter00s
+                        og00s_L_summarization++;
+                        //refresh_L_counter00s
                         z = z - 1;
                     }
                 }
@@ -48,6 +48,6 @@ export function collapse_similar_outgrowths(all_microfeature00s: anemones_collec
     }
     return {
         microfeature00s: all_microfeature00s,
-        og00s_c_summarization: og00s_c_summarization
+        og00s_L_summarization: og00s_L_summarization
     };
 }

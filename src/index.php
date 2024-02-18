@@ -61,8 +61,8 @@ if($first_letters == "/"){
 				<?php include("php/page_component/header.php"); ?>
 			<div class="container_work">
 				<div id="tab00s_container" class="tab00s_container"></div>
-				<div id="mental_image_c_container" class="mental_image_c_container">
-						<!-- mental_images_c_js_injection_c_action-->
+				<div id="mental_image_L_container" class="mental_image_L_container">
+						<!-- mental_images_L_js_injection_L_action-->
 				</div>
 				<?php include("php/page_component/right_bar.php"); ?>
 			</div>

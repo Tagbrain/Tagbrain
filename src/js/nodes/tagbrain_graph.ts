@@ -11,19 +11,18 @@ let tagbrain_graph: any = {
     },
     current_neuron_element: 0,
     graph_name: document.location.pathname.split("/")[1],
-    graph00s_c_user: [],
-    cellular_automata:[],
+    graph00s_L_user: [],
     keeper_last_data:[],
     tab_collection: {},
     neuron00s_obj00s: {},
     current_tab: "neurons",
     checker_collection: [],
     current_outgrowth: 0,
-    neuron_collections_c_current: {
+    neuron_collections_L_current: {
         start:{},
         ram:{},
         new:{},
-        search_c_last_finded: [],
+        search_L_last_finded: [],
     },
     selection_obj:{
         branch_L_last:[],
@@ -31,7 +30,7 @@ let tagbrain_graph: any = {
     cursor_position:{
         neuron_element: undefined,
         outgrowth: undefined,
-        depth_c_in_outgrowth: 0,
+        depth_L_in_outgrowth: 0,
     },
     pop_up: {
         context:{
@@ -39,20 +38,21 @@ let tagbrain_graph: any = {
         }
     },
     ram: {
-        generalizated_c_neuron00s: [],
-        branch_c_current: [],
-        synapse00s_c_key: [],
-        tree_c_generalizated:[],
+        generalizated_L_neuron00s: [],
+        branch_L_current: [],
+        synapse00s_L_key: [],
+        tree_L_generalizated:[],
         anemone00s: {
             deduction:[],
             induction:[],
         },
-        listner00s_c_anemone00a:[],
-        ram_c_unit00s: [],
-        neuron00s_c_activated: [],
+        listner00s_L_anemone00a:[],
+        ram_L_unit00s: [],
+        neuron00s_L_activated: [],
         unit00s_L_search: [],
+        copy_L_buffer_L_tree: [],
     },
-    neuron00s_c_access: "",
+    neuron00s_L_access: "",
     attachment00s:[],
 }
 export {tagbrain_graph};

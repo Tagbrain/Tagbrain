@@ -16,7 +16,7 @@ body{
     text-shadow: none;
 }
 
-.linear_icon_c_target, .linear_icon_c_target>* {
+.linear_icon_L_target, .linear_icon_L_target>* {
     stroke-width: 16;
     filter: none;
 }

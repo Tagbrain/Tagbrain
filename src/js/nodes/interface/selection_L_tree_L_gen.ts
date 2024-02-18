@@ -7,7 +7,7 @@ const selection123 = new SelectionArea({
         selectionAreaClass: 'selection_L_area',
     container: 'body', 
     document: window.document,
-    selectables: ['div#synapses_tree_x_output_field > .post_row'],
+    selectables: ['div#synapses_tree_x_output_field > .neuron_L_og'],
     //startareas: ['html'],
     boundaries: ['div#synapses_tree_x_output_field'],
     behaviour: {

@@ -40,7 +40,7 @@ class get_graph_data {
             $this->get_L_neuron00s_L_target();
         }
     }
-    protected function collect_c_file00s_c_by_last_modified(
+    protected function collect_L_file00s_L_by_last_modified(
         $neuron00s, 
         $amount_L_neuron00s
     ): array {
@@ -93,7 +93,7 @@ class get_graph_data {
                 "ram" => array()
             ); 
 
-            $obj_neuron00s = $this->collect_c_file00s_c_by_last_modified(
+            $obj_neuron00s = $this->collect_L_file00s_L_by_last_modified(
                 $files, 
                 $this->amount_L_neuron00s + 1
             );
@@ -120,7 +120,7 @@ class get_graph_data {
             }
 
             $access = $this->check_session_data($this->graph_name);
-            $this->send_data_c_client(
+            $this->send_data_L_client(
                 $access, 
                 $neuron00s_data
             );
@@ -146,7 +146,7 @@ class get_graph_data {
                     $neuron_data
                 );
             }
-            $this->send_data_c_client(
+            $this->send_data_L_client(
                 $access, 
                 $data_L_neuron00s
             );
@@ -157,7 +157,7 @@ class get_graph_data {
 
     public function output_list_posts_variable($graph_folder){     
    }
-   protected function get_c_string_c_theme_c_css(){
+   protected function get_L_string_L_theme_L_css(){
     function convertCssToString($filePath) {
         if (!file_exists($filePath)) {
           return false; 
@@ -170,16 +170,16 @@ class get_graph_data {
     $cssString = convertCssToString($theme_path);
     return $cssString;
    }
-    protected function get_c_header_c_animation(){
-        function convert_c_html_c_to_string($filePath) {
+    protected function get_L_header_L_animation(){
+        function convert_L_html_L_to_string($filePath) {
             if (!file_exists($filePath)) {
                 return false; // 
             }
-            $html_c_string = file_get_contents($filePath); 
-            return $html_c_string;
+            $html_L_string = file_get_contents($filePath); 
+            return $html_L_string;
         }
-        $animation_c_path = $_SERVER['DOCUMENT_ROOT']."/channels/".$this->graph_name."/header_animation.php";
-        $str_x_false = convert_c_html_c_to_string($animation_c_path);
+        $animation_L_path = $_SERVER['DOCUMENT_ROOT']."/channels/".$this->graph_name."/header_animation.php";
+        $str_x_false = convert_L_html_L_to_string($animation_L_path);
         if($str_x_false == false){
             return "";
         } else {
@@ -202,15 +202,15 @@ class get_graph_data {
             "data" => $data,
             "contenteditable" => $access["can_editing"],
             "private" => $access["private"],
-            "graph00s_c_name00s" => $_SESSION["all_member_channels"],
+            "graph00s_L_name00s" => $_SESSION["all_member_channels"],
             "user" => $_SESSION["userid"],
             "channel_is_private" => $_SESSION["channel_is_private"],
-            "graph_c_style00s" => $this->get_c_string_c_theme_c_css(),
-            "channel_c_header_c_animation" => $this->get_c_header_c_animation()
+            "graph_L_style00s" => $this->get_L_string_L_theme_L_css(),
+            "channel_L_header_L_animation" => $this->get_L_header_L_animation()
         );
         echo json_encode($response);
     }
-   protected function send_data_c_client($access, $data){
+   protected function send_data_L_client($access, $data){
     if($access["private"] == true){
         if($access["can_editing"] == true){
             $this->return_success($data, $access);

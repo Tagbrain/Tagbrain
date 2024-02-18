@@ -6,5 +6,5 @@ export function focus_end_element(element: Node) {
     document.getSelection()?.addRange(new_range);
     new_range.collapse();
     window["tagbrain_graph"]["cursor_position"]["neuron_element"] = element;
-    window["tagbrain_graph"]["cursor_position"]["depth_c_in_outgrowth"] = get_row_caret_position();
+    window["tagbrain_graph"]["cursor_position"]["depth_L_in_outgrowth"] = get_row_caret_position();
 }

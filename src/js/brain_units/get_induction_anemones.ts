@@ -2,24 +2,24 @@ type outgrowth = {content: string, v_index: number, depth: number};
 type anemone = outgrowth[];
 type anemones_collection = anemone[];
 
-export function get_induction_anemones(anemone00s_c_deduction: anemones_collection) {
+export function get_induction_anemones(anemone00s_L_deduction: anemones_collection) {
     let anemone00s_induction: anemones_collection = [] as anemones_collection;
-    let len = anemone00s_c_deduction.length;
+    let len = anemone00s_L_deduction.length;
 
-    //get_c_anemone_c_deduction
+    //get_L_anemone_L_deduction
     for (let i = 0; i < len; i++) {
-        let anemone = anemone00s_c_deduction[i];
+        let anemone = anemone00s_L_deduction[i];
         let truncus = anemone[0];
         for (let j = 1; j < anemone.length; j++) { 
             let og = anemone[j];
             truncus.v_index = og.v_index;
-            let is_exist_c_main_stream = false
-            //check_exist_c_target_c_anemone00s_induction
+            let is_exist_L_main_stream = false
+            //check_exist_L_target_L_anemone00s_induction
             for (let a = 0; a < anemone00s_induction.length; a++) {
                 let main_stream = anemone00s_induction[a][0];
                 if(main_stream.content == og.content){
-                    is_exist_c_main_stream = true
-                    //main_stream_c_exist
+                    is_exist_L_main_stream = true
+                    //main_stream_L_exist
                         //check_exist_truncus_in_feeder_stream
                         if(is_exist_truncus_in_feeder_stream00s(truncus, anemone00s_induction[a])){//exist
                             continue
@@ -30,8 +30,8 @@ export function get_induction_anemones(anemone00s_c_deduction: anemones_collecti
                     continue
                 }
             }
-            if(!is_exist_c_main_stream){
-                //main_stream_c_not_exist
+            if(!is_exist_L_main_stream){
+                //main_stream_L_not_exist
                 let anemone_induction = [og, truncus];
                 anemone00s_induction.push(anemone_induction)
             }

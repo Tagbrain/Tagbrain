@@ -2,21 +2,21 @@ import { post_format } from "../units/formate_neuron";
 import { gEBI, dCE } from "../units/compress_f.js";
 import { get_neuron_object_outgrowths } from "../units/get_neuron_object_outgrowths";
 import { send_data_ajax } from "../units/send_data_ajax.js";
-import { put_c_marker_c_not_save } from "../units/put_c_marker_c_not_save";
-import { validate_c_style_c_outgrowth } from "../units/validate_c_style_c_outgrowth";
-import { class_generator_c_tree_c_html } from "../classes/class_generator_c_tree_c_html";
+import { put_L_marker_L_not_save } from "../units/put_L_marker_L_not_save";
+import { validate_L_style_L_outgrowth } from "../units/validate_L_style_L_outgrowth";
+import { class_generator_L_tree_L_html } from "../classes/class_generator_L_tree_L_html";
 
 
-import { class_formate_c_neuron } from "./class_formate_c_neuron";
+import { class_formate_L_neuron } from "./class_formate_L_neuron";
 
-import { echo_c_statistic_c_to_neuron } from "../units/echo_c_statistic_c_to_neuron";
-import { drop_down_c_neuron_c_branche_s } from "../units/drop_down_c_neuron_c_branche_s";
-import { class_L_unit_L_neuron_X_condense } from "./class_c_unit_L_neuron_X_condense";
+import { echo_L_statistic_L_to_neuron } from "../units/echo_L_statistic_L_to_neuron";
+import { drop_down_L_neuron_L_branche_s } from "../units/drop_down_L_neuron_L_branche_s";
+import { class_L_unit_L_neuron_X_condense } from "./class_L_unit_L_neuron_X_condense";
 import { patterns } from "../units/declare_patterns";
-import { class_c_icon_c_checker } from "./class_c_icon_c_checker";
-import { add_wave_animation_x_click_c_event } from "../units/add_wave_animation_x_click_c_event";
+import { class_L_icon_L_checker } from "./class_L_icon_L_checker";
+import { add_wave_animation_x_click_L_event } from "../units/add_wave_animation_x_click_L_event";
 import { class_L_attachment_L_creator } from "./class_L_attachment_L_creator";
-import { get_c_neuron00s_id00s_x_ram } from "../units/get_c_neuron00s_id00s_x_ram";
+import { get_L_neuron00s_id00s_x_ram } from "../units/get_L_neuron00s_id00s_x_ram";
 import { track_L_element_L_change } from "../units/track_L_element_L_change";
 import { load_L_attachment00s_L_from_neuron } from "../units/load_L_attachment00s_L_from_neuron";
 import { set_L_button_L_attachment00s_L_state } from "../units/set_L_button_L_attachment00s_L_state";
@@ -24,7 +24,7 @@ import { combine_L_ram_L_neuron00s_Z_server_L_neuron00s } from "../units/combine
 import { get_row_caret_position } from "../units/get_row_caret_position";
 import { get_current_line_div } from "../units/get_current_line_div";
 import { put_L_focus_class } from "../units/put_L_focus_class";
-import { put_c_caret_x_target_c_string_position } from "../units/put_c_caret_x_target_c_string_position";
+import { put_L_caret_x_target_L_string_position } from "../units/put_L_caret_x_target_L_string_position";
 import { validate_row_formate } from "../units/validate_row_formate";
 import { transfer_line } from "../units/transfer_line";
 import { insert_one_tab } from "../units/insert_one_tab";
@@ -104,13 +104,13 @@ class class_L_neuron {
             if (this.tab_L_neuron == "neurons") {
                 this.add_neuron_server();
             } else if(this.tab_L_neuron == "draft"){
-                this.add_neuron_storage_c_local();
+                this.add_neuron_storage_L_local();
             }
         }
-        this.put_c_this_class_x_target_c_tg();
+        this.put_L_this_class_x_target_L_tg();
 
         if (this.is_format == true) {
-            new class_formate_c_neuron(
+            new class_formate_L_neuron(
                 this.neuron_id, 
                 this.neuron_el,
                 this.neuron_shell
@@ -143,16 +143,18 @@ class class_L_neuron {
         this.content = tree_L_new;
         let og00s_L_html = this.transformate_input_content(tree_L_new);
         this.neuron_el.innerHTML = og00s_L_html;
-        drop_down_c_neuron_c_branche_s(this.neuron_el);
+        drop_down_L_neuron_L_branche_s(this.neuron_el);
         //formatting
-            new class_formate_c_neuron(
+            new class_formate_L_neuron(
             this.neuron_id, 
             window["tagbrain_graph"]["neuron00s_obj00s"][this.neuron_id].neuron_el,
             false
         );
+        //refresh_L_server
+        this.add_neuron_server();
     }
     add_neuron() {
-        let tab_obj = this.get_c_tab_c_current_c_obj();
+        let tab_obj = this.get_L_tab_L_current_L_obj();
         let neurons_container = tab_obj.mental_image_container;
 
         let neuron_shell = this.create_element(this.neuron_id, "item");
@@ -166,17 +168,17 @@ class class_L_neuron {
             + '</div>'
             + '<div class="post_icon_container">'
                 + '<a class="button_cont_stl">'
-                    + '<svg class="linear_icon_c_target icon_size_middle button_L_attachment00s">'
+                    + '<svg class="linear_icon_L_target icon_size_middle button_L_attachment00s">'
                         + '<use xlink:href="#sprite_attachment"></use>'
                     + '</svg>'
                 + '</a>'
                 + '<a class="button_cont_stl">'
-                    + '<svg class="linear_icon_c_target icon_size_middle">'
+                    + '<svg class="linear_icon_L_target icon_size_middle">'
                         + '<use xlink:href="#sprite_fork_icon"></use>'
                     + '</svg>'
                 + '</a>'
                 + '<a class="button_cont_stl">'
-                    + '<svg class="linear_icon_c_target icon_size_middle delete_neuron_button">'
+                    + '<svg class="linear_icon_L_target icon_size_middle delete_neuron_button">'
                         + '<use xlink:href="#sprite_delete_button"></use>'
                     + '</svg>'
                 + '</a>'
@@ -227,7 +229,7 @@ class class_L_neuron {
             unix_time: this.unix_time,
             neuron00s_L_ram_X_id: false
         };
-        let url = "php/neurons/controller_c_api.php";
+        let url = "php/neurons/controller_L_api.php";
         let controller_f = function (response_obj: any) {
             if (response_obj.status == "success") {
                 console.log("Remove the not_save-flag")
@@ -238,7 +240,7 @@ class class_L_neuron {
         let error_message = "Error server";
         send_data_ajax(data, url, controller_f, true, error_message);
     }
-    add_neuron_storage_c_local() {
+    add_neuron_storage_L_local() {
         let neuron_tree = get_neuron_object_outgrowths(this.neuron_el);
         let value = encodeURIComponent(JSON.stringify(neuron_tree));
         let key: string = "neuron_L_draft[" + this.neuron_id + "]";
@@ -251,7 +253,7 @@ class class_L_neuron {
         element.className = className;
         return element
     }
-    put_c_this_class_x_target_c_tg() {
+    put_L_this_class_x_target_L_tg() {
         window["tagbrain_graph"]["neuron00s_obj00s"][this.neuron_id] = this;
     }
     put_L_neuron_L_attach_listner(){
@@ -264,7 +266,7 @@ class class_L_neuron {
 
         button_L_attachment00s.addEventListener("click", function(e:any) {
             if (getComputedStyle(neuron_L_attachment_L_element).display == 'none') {//attachment_L_is_turned_on
-                add_wave_animation_x_click_c_event(e, "");
+                add_wave_animation_x_click_L_event(e, "");
                 set_L_button_L_attachment00s_L_state("turn_on", neuron_shell);
 
                 let attachment00s_L_name00s = window["tagbrain_graph"]["neuron00s_obj00s"][neuron_id]["attachment00s"];
@@ -306,7 +308,7 @@ class class_L_neuron {
                             unix_time: time,
                             neuron00s_L_ram_X_id: false
                         };
-                        let url = "php/neurons/controller_c_api.php";
+                        let url = "php/neurons/controller_L_api.php";
                         let controller_f = function(response_obj: any){
                             if(response_obj.status == "success"){
                                 console.log(response_obj);
@@ -320,16 +322,16 @@ class class_L_neuron {
                         
                     }  else if(tab_L_neuron == "draft") {
 
-                        let key_s_c_local = Object.keys(localStorage);
-                        for (var i = 0; i < key_s_c_local.length; i++) {
-                            if (/neuron_L_draft/.test(key_s_c_local[i])) {
+                        let key_s_L_local = Object.keys(localStorage);
+                        for (var i = 0; i < key_s_L_local.length; i++) {
+                            if (/neuron_L_draft/.test(key_s_L_local[i])) {
                                 let reg_id = new RegExp("neuron_L_draft\\[(?<id>[0-9]{10})\\]", "g");
-                                let arr_c_number: any = key_s_c_local[i].matchAll(reg_id);
-                                for (let number of arr_c_number) {
+                                let arr_L_number: any = key_s_L_local[i].matchAll(reg_id);
+                                for (let number of arr_L_number) {
                                     let { id } = number.groups;
                                     if(id == neuron_id){
                                         //remove
-                                        localStorage.removeItem(key_s_c_local[i]);
+                                        localStorage.removeItem(key_s_L_local[i]);
                                         neuron_shell.remove();  
                                         let obj = get_L_obj_ram_L_with_id(neuron_id);
                                         obj.class.remove_L_unit_obj_X_el(neuron_id);
@@ -342,9 +344,9 @@ class class_L_neuron {
             });
             
         //#edit
-        //remove_c_from_c_server
-        //remove_c_obj
-        //remove_c_from_client_c_collection
+        //remove_L_from_L_server
+        //remove_L_obj
+        //remove_L_from_client_L_collection
     }
     put_L_events_L_validation() {
         let neuron_element: any = this.neuron_el,
@@ -369,7 +371,7 @@ class class_L_neuron {
                     window["tagbrain_graph"]["cursor_position"] = {
                         neuron_element: neuron_element,
                         outgrowth: outgrowth_L_element,
-                        depth_c_in_outgrowth: get_row_caret_position(), //get_caret_c_pos_x_put_tb_c_caret #edit
+                        depth_L_in_outgrowth: get_row_caret_position(), //get_caret_L_pos_x_put_tb_L_caret #edit
                     }
                 } else {
                     console.log("check undefined")
@@ -378,7 +380,7 @@ class class_L_neuron {
 
             })
             neuron_element.addEventListener("input", function () {
-                put_c_marker_c_not_save(neuron_shell, graph_L_name);
+                put_L_marker_L_not_save(neuron_shell, graph_L_name);
                 if (window["tagbrain_graph"]["neuron00s_obj00s"][neuron_id]) {
                     window["tagbrain_graph"]["neuron00s_obj00s"][neuron_id]["neuron_is_saved"] = false;
                     window["tagbrain_graph"]["neuron00s_obj00s"][neuron_id]["unix_time"] = Math.round(new Date().getTime() / 1000).toString();
@@ -388,7 +390,7 @@ class class_L_neuron {
                 //create_L_unit_L_condense
                 if (window["tagbrain_graph"]["neuron00s_obj00s"][neuron_id]) {
                     //check_L_ram_L_exist
-                    let ram00s = get_c_neuron00s_id00s_x_ram();
+                    let ram00s = get_L_neuron00s_id00s_x_ram();
                     //create_X_refresh_L_condense_L_unit
                     let unit_x_option00s: neuron_L_unit_L_options = {
                         tab_L_unit_X_name: "ram",
@@ -401,11 +403,11 @@ class class_L_neuron {
                     }
                     new class_L_unit_L_neuron_X_condense(unit_x_option00s); 
                 }
-                validate_c_style_c_outgrowth();
-                drop_down_c_neuron_c_branche_s(neuron_element);
+                validate_L_style_L_outgrowth();
+                drop_down_L_neuron_L_branche_s(neuron_element);
 
                 //formatting
-                new class_formate_c_neuron(
+                new class_formate_L_neuron(
                     neuron_id,
                     window["tagbrain_graph"]["neuron00s_obj00s"][neuron_id].neuron_el,
                     false
@@ -463,21 +465,21 @@ class class_L_neuron {
                 if ((!e.shiftKey) && (!e.ctrlKey) && (e.keyCode != 9) && (e.keyCode != 8) && (e.keyCode != 46)) {
                     let old_caret_pos = get_row_caret_position();
                     validate_row_formate(current_line);
-                    put_c_caret_x_target_c_string_position(current_line, old_caret_pos);
+                    put_L_caret_x_target_L_string_position(current_line, old_caret_pos);
                 }
                 if (e.key === 'Enter') {
                     e.preventDefault();
                     transfer_line("shift_enter");
                 }
                 put_L_focus_class(current_line);
-                echo_c_statistic_c_to_neuron();
+                echo_L_statistic_L_to_neuron();
 
                 window["tagbrain_graph"]["cursor_position"]["neuron_element"] = neuron_element;
                 current_line = get_current_line_div("start");
                 window["tagbrain_graph"]["cursor_position"] = {
                     neuron_element: neuron_element,
                     outgrowth: current_line,
-                    depth_c_in_outgrowth: get_row_caret_position(),
+                    depth_L_in_outgrowth: get_row_caret_position(),
                 }
 
             });
@@ -495,7 +497,7 @@ class class_L_neuron {
                 window["tagbrain_graph"]["cursor_position"] = {
                     neuron_element: neuron_element,
                     outgrowth: current_line,
-                    depth_c_in_outgrowth: get_row_caret_position(),
+                    depth_L_in_outgrowth: get_row_caret_position(),
                 }
             })
 
@@ -509,18 +511,18 @@ class class_L_neuron {
         unix_time = this.unix_time;
 
         window["tagbrain_graph"]["cursor_position"]["neuron_element"] = neuron_element;
-        echo_c_statistic_c_to_neuron();
+        echo_L_statistic_L_to_neuron();
         
         
     }
-    hide_c_neuron() {
+    hide_L_neuron() {
         //clean_ram
-        let neuron00s_c_ram_c_obj00s = window["tagbrain_graph"]["ram"]["ram_c_unit00s"];
-        for (let i = 0; i < neuron00s_c_ram_c_obj00s.length; i++) {
-            let current_obj = neuron00s_c_ram_c_obj00s[i];
+        let neuron00s_L_ram_L_obj00s = window["tagbrain_graph"]["ram"]["ram_L_unit00s"];
+        for (let i = 0; i < neuron00s_L_ram_L_obj00s.length; i++) {
+            let current_obj = neuron00s_L_ram_L_obj00s[i];
             current_obj.el.remove();
             if(current_obj.id == this.neuron_id){
-                window["tagbrain_graph"]["ram"]["ram_c_unit00s"].splice(i, 1);
+                window["tagbrain_graph"]["ram"]["ram_L_unit00s"].splice(i, 1);
             }
             
         }
@@ -533,12 +535,12 @@ class class_L_neuron {
             }
             
         }
-        let neuron00s_L_activated_L_obj00s = window["tagbrain_graph"]["ram"]["neuron00s_c_activated"];
+        let neuron00s_L_activated_L_obj00s = window["tagbrain_graph"]["ram"]["neuron00s_L_activated"];
         for (let i = 0; i < neuron00s_L_activated_L_obj00s.length; i++) {
             let current_obj = neuron00s_L_activated_L_obj00s[i];
             current_obj.el.remove();
             if(current_obj.id == this.neuron_id){
-                window["tagbrain_graph"]["ram"]["neuron00s_c_activated"].splice(i, 1);
+                window["tagbrain_graph"]["ram"]["neuron00s_L_activated"].splice(i, 1);
             }
         }
         this.neuron_shell.remove();
@@ -549,12 +551,12 @@ class class_L_neuron {
         let html:any = "";
         if (Array.isArray(content)) {
             let options = {
-                action: "neuron_x_tab_c_usual",
+                action: "neuron_x_tab_L_usual",
                 tree: content,
                 depth_factor: 4
             }
-            let cl_g_html = new class_generator_c_tree_c_html(options);
-            html = cl_g_html.controller_generator();
+            let cl_g_html = new class_generator_L_tree_L_html(options);
+            html = cl_g_html.generator_L_html();
         } else {//html
             if (content == '<div class="post_row">$Write connections of a #new neuron</div>') {
                 html = content;
@@ -571,7 +573,7 @@ class class_L_neuron {
             //open_L_container_L_attachment00s
             //load_L_attachment00s_L_from_server_L_if_exist
     }
-    get_c_tab_c_current_c_obj() {
+    get_L_tab_L_current_L_obj() {
         let tab_obj: any = {};
         tab_obj = window["tagbrain_graph"]["tab_collection"][this.tab_L_neuron];
         return tab_obj;

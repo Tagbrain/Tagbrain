@@ -51,9 +51,13 @@ class class_L_get_L_attachment00s {
 
             if(!$att_L_is_exist_X_txt){
                 if(!$att_L_is_exist_X_img){//microfeature not exist
-
+                    
                     if(!in_array($name_L_searched, $this->response_L_attachment00s["attachment_L_no"])){
-                        array_push($this->response_L_attachment00s["attachment_L_no"], $name_L_searched);
+                        
+                        array_push(
+                            $this->response_L_attachment00s["attachment_L_no"], 
+                            $name_L_searched
+                        );
                     }
 
                 }
@@ -61,6 +65,7 @@ class class_L_get_L_attachment00s {
         }
     }
     protected function get_L_attachment00s_L_txt($name_L_searched){
+        $name_L_searched_L_base64 = base64_encode($name_L_searched);
         $folder_L_path = $this->attachment00s_L_path . "txt00s" . '/';
         $attachment00s_L_file00s_L_name00s = array_diff(scandir($folder_L_path), array('.', '..'));
         $is_got = false;
@@ -68,10 +73,10 @@ class class_L_get_L_attachment00s {
 
             $attachment_L_name_X_neurond_id_X_from_server = pathinfo($attachment_L_file_L_name, PATHINFO_FILENAME);
             $att_L_arr = explode("_X_", $attachment_L_name_X_neurond_id_X_from_server);
-            $name_L_from_server = $att_L_arr[0];
+            $name_L_from_server_X_base64 = $att_L_arr[0];
             $neuron_id_L_from_server = $att_L_arr[1];
 
-            if($name_L_from_server == $name_L_searched){//attachment_L_is_finded
+            if($name_L_from_server_X_base64 == $name_L_searched_L_base64){//attachment_L_is_finded
 
                 $file = $folder_L_path .$attachment_L_file_L_name;
                 $content = file_get_contents($file);
@@ -80,6 +85,7 @@ class class_L_get_L_attachment00s {
                 $is_got = true;
             } else {//check in input array
                 if($neuron_id_L_from_server == $this->neuron_L_id){//check_L_attachment_is_from_the_neuron
+                    $name_L_from_server = base64_decode($name_L_from_server_X_base64);
                     if(!in_array($name_L_from_server, $this->attachment00s_L_name00s_X_all)){
                         if(!in_array($name_L_from_server, $this->response_L_attachment00s["old_L_attachment00s"])){
                             array_push($this->response_L_attachment00s["old_L_attachment00s"], $name_L_from_server);
@@ -92,6 +98,7 @@ class class_L_get_L_attachment00s {
         return $is_got;
     }
     protected function get_L_attachment00s_L_img($name_L_searched){
+        $name_L_searched_L_base64 = base64_encode($name_L_searched);
         $folder_L_path = $this->attachment00s_L_path . "txt00s" . '/';
         $attachment00s_L_file00s_L_name00s = array_diff(scandir($folder_L_path), array('.', '..'));
         $is_got = false;
@@ -99,10 +106,10 @@ class class_L_get_L_attachment00s {
 
             $attachment_L_name_X_from_server = pathinfo($attachment_L_file_L_name, PATHINFO_FILENAME);
             $att_L_arr = explode("_X_", $attachment_L_name_X_neurond_id_X_from_server);
-            $name_L_from_server = $att_L_arr[0];
+            $name_L_from_server_X_base64 = $att_L_arr[0];
             $neuron_id_L_from_server = $att_L_arr[1];
             
-            if($name_L_from_server == $name_L_searched){//attachment_L_is_finded
+            if($name_L_from_server_X_base64 == $name_L_searched_L_base64){//attachment_L_is_finded
 
                 $file = $folder_L_path .$attachment_L_file_L_name;
                 $size = getimagesize($file);
@@ -113,6 +120,7 @@ class class_L_get_L_attachment00s {
 
             } else {
                 if($neuron_id_L_from_server == $this->neuron_L_id){//check_L_attachment_is_from_the_neuron
+                    $name_L_from_server = base64_decode($name_L_from_server_X_base64);
                     if(!in_array($name_L_from_server, $this->attachment00s_L_name00s_X_all)){
                         if(!in_array($name_L_from_server, $this->response_L_attachment00s["old_L_attachment00s"])){
                             array_push($this->response_L_attachment00s["old_L_attachment00s"], $name_L_from_server);
@@ -137,6 +145,7 @@ class class_L_get_L_attachment00s {
             "status" => "success",
             "data" => $this->response_L_attachment00s,
         );
-        echo json_encode($response);
+        $json = json_encode($response, JSON_UNESCAPED_UNICODE);
+        echo $json;
     }
 }

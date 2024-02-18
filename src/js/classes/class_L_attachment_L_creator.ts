@@ -83,7 +83,7 @@ class class_L_attachment_L_creator {
                 + '</div>'
                 + '<div class="content_L_element">'
                     + '<a class="create_element_button">'
-                        + '<svg class="linear_icon_c_target icon_size_sl_a_middle">'
+                        + '<svg class="linear_icon_L_target icon_size_sl_a_middle">'
                             + '<use xlink:href="#sprite_new_post">'
                             + '</use>'
                         + '</svg>'
@@ -180,7 +180,7 @@ class class_L_attachment_L_creator {
                         attachment_L_value: attachment_L_textarea_L_element.innerText,
                         graph_L_name: window["tagbrain_graph"]["graph_name"],
                     };
-                    let url = "php/neurons/controller_c_api.php";
+                    let url = "php/neurons/controller_L_api.php";
                     let error_message = "Request 'change_L_attachment' error";
                     let controller_f = function(response_obj: any){
                         if(response_obj.status == "success"){

@@ -1,11 +1,11 @@
-import { get_c_neuron_c_by_neuron_nucleus_c_og00s } from "./get_c_neuron_c_by_neuron_nucleus_c_og00s";
+import { get_L_neuron_L_by_neuron_nucleus_L_og00s } from "./get_L_neuron_L_by_neuron_nucleus_L_og00s";
 
 export function get_L_neuron_L_current_X_obj(){
     
     let neuron_L_element = window["tagbrain_graph"]["cursor_position"]["neuron_element"];
     let og_L_element = window["tagbrain_graph"]["cursor_position"]["outgrowth"];
 
-    let neuron_L_id = get_c_neuron_c_by_neuron_nucleus_c_og00s(
+    let neuron_L_id = get_L_neuron_L_by_neuron_nucleus_L_og00s(
         neuron_L_element
      ).neuron_id;
 

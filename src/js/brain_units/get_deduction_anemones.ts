@@ -17,28 +17,26 @@ type anemones_collection = anemone[];
 //get from arr_branches => [[{parent:[child, ...]},[], ...],[], ...]
 export function get_deduction_anemones(arr_branches: arr_branches[]){
     let anemone00s = convert_branches_to_anemones(arr_branches);
-    //anemone00s = cut_c_similar_anemones(anemone00s);
+    //anemone00s = cut_L_similar_anemones(anemone00s);
     anemone00s = filterShortArrays(anemone00s);
     let obj = collapse_by_truncus(anemone00s);
     let obj2 = collapse_similar_outgrowths(obj.microfeature00s);
     let anemones_deduction = filterShortArrays(obj2.microfeature00s);
     echo_summarization(
         obj.truncus_summarization,
-        obj2.og00s_c_summarization
+        obj2.og00s_L_summarization
     )
     return anemones_deduction;
 }
 function echo_summarization(
     truncus_summarization: number,
-    og00s_c_summarization: number,
+    og00s_L_summarization: number,
 ){
-    let gen_c_summarization_c_element = gEBI("gen_c_summarization");
-    gen_c_summarization_c_element.innerHTML = 
-        "&nbsp;&nbsp;&nbsp;&nbsp;truncus00s[<span class='item_tags_style'>" 
-            + truncus_summarization 
-        + "</span>],</br>&nbsp;&nbsp;&nbsp;&nbsp;og00s[<span class='item_tags_style'>" 
-            + og00s_c_summarization 
-        + "</span>]";
+    let gen_L_summarization_L_element = gEBI("gen_L_summarization");
+    gen_L_summarization_L_element.innerHTML = 
+        "[<span title='summarization of truncus' class='item_tags_style'>" 
+            + truncus_summarization + "</span>][<span title='summarization of outgrowths' class='item_tags_style'>" 
+            + og00s_L_summarization + "</span>]";
 }
 function filterShortArrays(arrays:anemones_collection) {
     return arrays.filter(array => array.length >= 2);
@@ -49,12 +47,12 @@ function convert_branches_to_anemones(arr_branches: arr_branches[]){
         let branch = arr_branches[i];
         for (let j = 0; j < branch.length; j++){
             
-            let truncus_c_content = branch[j]["content"];
-            let anemone: anemone = [{content: truncus_c_content, v_index: 0, depth: 0}] as anemone;
+            let truncus_L_content = branch[j]["content"];
+            let anemone: anemone = [{content: truncus_L_content, v_index: 0, depth: 0}] as anemone;
 
             for (let z = j + 1; z < branch.length; z++){
-                //remove_c_cycle_c_microfeature00a
-                if(truncus_c_content != branch[z]["content"]){
+                //remove_L_cycle_L_microfeature00a
+                if(truncus_L_content != branch[z]["content"]){
                     let diff = branch[z]["depth"] - branch[j]["depth"];
 
                     if(diff == 1){
@@ -76,7 +74,7 @@ function convert_branches_to_anemones(arr_branches: arr_branches[]){
     }
     return anemones_collection;
 }
-function cut_c_similar_anemones(
+function cut_L_similar_anemones(
     anemone00s: anemones_collection
 ){
     for (let i = 0; i < anemone00s.length; i++) {

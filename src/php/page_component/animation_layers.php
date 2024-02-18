@@ -3,7 +3,7 @@
 		<div id="central_pop_up_block" class="central_pop_up_block">
 			<div class="settings_header">
 				<a class="exit_icon_pos button_cont_stl" id="exit_button">
-					<svg class="linear_icon_c_target  icon_size_middle">
+					<svg class="linear_icon_L_target  icon_size_middle">
 						<use xlink:href="#sprite_cross"></use>
 					</svg>
 				</a>
@@ -42,7 +42,7 @@
 							echo '<form  method="post" action="php/sessions/logout.inc.php" id="container_post_code">'.
 								' <input type="submit" title="'.$_SESSION["userid"].'" id="logout_a" value="logout">'.
 							'</form>'.
-							'<div id="logout_c_input_c_guide"></div>';
+							'<div id="logout_L_input_L_guide"></div>';
 						} else {
 							echo '<form method="post" action="php/sessions/sign_in/signin_inc.php" class="header_central_text" id="container_post_code">'.
 								'<input type="submit" id="send_code_to_email" value="▷">'.
@@ -59,7 +59,7 @@
 					<a class="a_cl">Change channel name</a><br>
 					<a class="a_cl">Change channel editors</a><br>
 					<br>
-					<button id="button_id_14_c_get_c_data_c_channel">Get channel data</button>
+					<button id="button_id_14_L_get_L_data_L_channel">Get channel data</button>
 					<br>
 					<div>Date of measurement</div><br>
 						<div>Total tags:</div>
@@ -99,11 +99,11 @@
 
 		</div>
 	</div>
-	<div id="id_c_pop_up_c_context" class="pop_up neuron_pop_up_hide">
-		<a class="a_cl" id="button_id_17_c_create_c_neuron_c_from_selection" title="Create a new neuron from first selection node">
-			Isolate branch from selection outgrowth
+	<div id="id_L_pop_up_L_context" class="pop_up neuron_pop_up_hide">
+		<a class="a_cl" id="button_id_17_L_create_L_neuron_L_from_selection" title="Create a new neuron from first selection node">
+			Isolate branch from current og
 		</a><br>
-		<a class="a_cl" id="paste_text">Paste</a><br>
+		<a class="a_cl" id="paste_L_node_L_to_og_L_current">Paste in current og</a><br>
 		<a class="a_cl" id="export_content">Export the selection → other channel</a><br>
 		<a class="a_cl" id="post_parsing">Post parsing</a>
 	</div>

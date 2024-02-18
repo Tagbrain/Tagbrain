@@ -22,7 +22,7 @@ class class_L_controller_L_form {
 
     constructor(
         obj00s_L_all_field: {
-            neuron_c_nucleus_L_element: Element,
+            neuron_L_nucleus_L_element: Element,
             url_L_request: string,
             action_L_request: string,
             event_L_success_L_response: any,
@@ -40,7 +40,7 @@ class class_L_controller_L_form {
         }
     ) {
         this.url_L_request = obj00s_L_all_field.url_L_request;
-        this.form_L_element = obj00s_L_all_field.neuron_c_nucleus_L_element;
+        this.form_L_element = obj00s_L_all_field.neuron_L_nucleus_L_element;
         this.field00s_L_input = obj00s_L_all_field.field00s_L_input;
         this.action_L_request = obj00s_L_all_field.action_L_request;
         this.validation_controller(
@@ -68,7 +68,7 @@ class class_L_controller_L_form {
                 input_L_value = field_L_input_L_el.value,
                 input_L_val_L_length = input_L_value.length;
         
-            let input_c_size = input_L_val_L_length + "/" + obj.maxlength;
+            let input_L_size = input_L_val_L_length + "/" + obj.maxlength;
             let textnode = "";
         
             let is_exist_L_error = true;
@@ -90,7 +90,7 @@ class class_L_controller_L_form {
             }
             
         
-            element_L_output.innerHTML = input_c_size + textnode;
+            element_L_output.innerHTML = input_L_size + textnode;
         
         };
         for (let i = 0; i < this.field00s_L_input.length; i++) {

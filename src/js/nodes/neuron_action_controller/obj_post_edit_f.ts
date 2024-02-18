@@ -1,12 +1,12 @@
 import {get_depth_outgrowth} from "../../units/get_depth_outgrowth";
-import {drop_down_c_neuron_c_branche_s} from "../../units/drop_down_c_neuron_c_branche_s";
+import {drop_down_L_neuron_L_branche_s} from "../../units/drop_down_L_neuron_L_branche_s";
 import {get_row_caret_position} from "../../units/get_row_caret_position";
 import {get_sel_range} from "../../units/get_sel_range";
 import {get_current_line_div} from "../../units/get_current_line_div";
 import {focus_end_element} from "../../units/focus_end_element";
 import {get_current_div_n} from "../../units/get_current_div_n";
 import {create_new_row} from "../../units/create_new_row";
-import {put_c_caret_x_target_c_string_position} from "../../units/put_c_caret_x_target_c_string_position";
+import {put_L_caret_x_target_L_string_position} from "../../units/put_L_caret_x_target_L_string_position";
 
 export let elements = {
      all_posts: document.querySelectorAll(".item_input"),
@@ -78,14 +78,14 @@ export let functions = {
                     let paste_line = [current_row_content.slice(0, caret_position), paste_text_node, current_row_content.slice(caret_position)].join('');
                     
                     current_node.textContent = paste_line;
-                    put_c_caret_x_target_c_string_position(this_post.childNodes[start_sel_block], caret_position);
+                    put_L_caret_x_target_L_string_position(this_post.childNodes[start_sel_block], caret_position);
                }
 
           } else {
                for (let i = 0; i < paste_rows.length; i++) {
                     let content = " ".repeat(obj_space.depth * 4) + paste_rows[i];
                     let paste_line = create_new_row(content, false);
-                    drop_down_c_neuron_c_branche_s(window["tagbrain_graph"]["cursor_position"]["neuron_element"]);
+                    drop_down_L_neuron_L_branche_s(window["tagbrain_graph"]["cursor_position"]["neuron_element"]);
                     obj_caret.sel.deleteFromDocument();
                     if(i == 0){
                          if(current_node.textContent.trim() != ""){

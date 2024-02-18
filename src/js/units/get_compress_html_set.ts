@@ -1,4 +1,4 @@
-import { get_c_neuron00s_id00s_x_ram } from "./get_c_neuron00s_id00s_x_ram";
+import { get_L_neuron00s_id00s_x_ram } from "./get_L_neuron00s_id00s_x_ram";
 
 type neuron_obj = {
     //obligat
@@ -7,8 +7,8 @@ type neuron_obj = {
     description_L_short: string,
     type_window:string,
     neuron_L_rank: number | undefined, 
-    count_c_string_c_og00s: number | undefined,
-    tree_c_string: string | undefined,
+    count_L_string_L_og00s: number | undefined,
+    tree_L_string: string | undefined,
     button_L_replace: string
     is_saved:boolean | undefined,
     tab_L_unit_X_name: string,
@@ -39,7 +39,7 @@ export function get_compress_html_set(
     }
 
 
-    let ram_L_id00s = get_c_neuron00s_id00s_x_ram();
+    let ram_L_id00s = get_L_neuron00s_id00s_x_ram();
     let qr_code = '';
     if(ram_L_id00s.includes(neuron_data.id) || neuron_data.type_window == "ram"){
         //generate_L_neuron_L_qr
@@ -88,11 +88,11 @@ export function get_compress_html_set(
                 + '<div class="search_row_body">'
                     + '<span>'
                         + '<span> '
-                                + neuron_data.count_c_string_c_og00s
+                                + neuron_data.count_L_string_L_og00s
                         + ' </span>'
                         + '<span class="search_toggle toggle_turned_off"> + </span>'
                         + '<span class="toggle_content hide_cl"> [ '
-                                + neuron_data.tree_c_string
+                                + neuron_data.tree_L_string
                         + ']</span>'
                     + '</span>'
                     + '<a class="search_row_delete">✖</a>'

@@ -1,7 +1,7 @@
 //svg styles
 
-.linear_icon_c_target, 
-.linear_icon_c_target > * {
+.linear_icon_L_target, 
+.linear_icon_L_target > * {
         transition: .3s;
         fill: none;
         stroke: var(--text-content);
@@ -9,16 +9,16 @@
         stroke-miterlimit: 10;
 }
 
-.linear_icon_c_target:hover{
+.linear_icon_L_target:hover{
         stroke:var(--shiny-light); 
         transition: .3s;
         cursor:var(--cursor-pointer);
 }
-.linear_icon_c_target_x_checked > *{
+.linear_icon_L_target_x_checked > *{
         stroke:var(--shiny-light); 
         cursor:var(--cursor-pointer);
 }
-.linear_icon_c_target_x_checked:hover{
+.linear_icon_L_target_x_checked:hover{
         cursor:var(--cursor-auto);
 }
 

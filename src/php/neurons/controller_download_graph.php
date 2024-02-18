@@ -10,10 +10,10 @@ $data = json_decode(htmlspecialchars_decode($_POST["data"]));
 if($data){  
     if(isset($action)){
         $uniq_name = $graph_name."_".session_id()."_".strval(time());
-        $keeper_zip = generate_folder_c_purpose_c_for_zip($uniq_name);
+        $keeper_zip = generate_folder_L_purpose_L_for_zip($uniq_name);
         $zip_path = generate_zip_archive($keeper_zip);
-        get_c_zip_archive_x_ftp($zip_path);
-        //delete_c_zip_archieve($uniq_name);
+        get_L_zip_archive_x_ftp($zip_path);
+        //delete_L_zip_archieve($uniq_name);
     } else {
         $array_response = array(
             "status" => "fail",
@@ -26,7 +26,7 @@ if($data){
     echo json_encode($array_response); 
 }
 
-function get_c_zip_archive_x_ftp($zip_path){
+function get_L_zip_archive_x_ftp($zip_path){
     header("Pragma: public");
     header("Expires: 0");
     header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
@@ -66,13 +66,13 @@ function generate_zip_archive($keeper_zip){
     return $zipPath;
 }
 
-function generate_folder_c_purpose_c_for_zip($uniq_name){
-    $keeper_zip_s = $_SERVER['DOCUMENT_ROOT']."/zip_c_timing_container/";
+function generate_folder_L_purpose_L_for_zip($uniq_name){
+    $keeper_zip_s = $_SERVER['DOCUMENT_ROOT']."/zip_L_timing_container/";
     $keeper_zip = $keeper_zip_s.$uniq_name;
     mkdir($keeper_zip, 0777, true);
-    $path_c_dir_c_channel_s = $_SERVER['DOCUMENT_ROOT']."/channels/";
+    $path_L_dir_L_channel_s = $_SERVER['DOCUMENT_ROOT']."/channels/";
     foreach($_SESSION["all_member_channels"] as $current_channel){
-        $path_channel_folder = $path_c_dir_c_channel_s.$current_channel;
+        $path_channel_folder = $path_L_dir_L_channel_s.$current_channel;
         custom_copy($path_channel_folder, $keeper_zip."/".$current_channel);
     }
     return $keeper_zip;

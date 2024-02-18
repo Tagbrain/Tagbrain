@@ -1,38 +1,39 @@
-import { class_c_create_c_neuron_c_secondary_x_temporary } from "../../classes/class_c_create_c_neuron_c_secondary_x_temporary";
-import { class_c_icon_c_button } from "../../classes/class_c_icon_c_button";
+import { class_L_create_L_neuron_L_secondary_x_temporary } from "../../classes/class_L_create_L_neuron_L_secondary_x_temporary";
+import { class_L_icon_L_button } from "../../classes/class_L_icon_L_button";
 import { class_L_neuron } from "../../classes/class_L_neuron";
 import { gEBI, dCE } from "../../units/compress_f.js";
-import { focus_c_neuron_x_scroll } from "../../units/focus_c_neuron_x_scroll";
+import { focus_L_neuron_x_scroll } from "../../units/focus_L_neuron_x_scroll";
 import { get_L_theme_css_L_from_server } from "../../units/get_L_theme_css_L_from_server";
 import { get_L_og_L_branch_X_current } from "../../units/get_L_og_L_branch_X_current";
 import { set_L_cursor_L_style00s } from "../../units/set_L_cursor_L_style00s";
 import { toggle_pop_up } from "../../units/toggle_pop_up";
-import { add_c_neuron_c_secondary_z_purpose_c_create_c_new_channel } from "../neuron_action_controller/add_c_neuron_c_secondary_z_purpose_c_create_c_new_channel";
-import { export_c_graph_s_c_zip } from "./export_c_graph_s_c_zip";
+import { add_L_neuron_L_secondary_z_purpose_L_create_L_new_channel } from "../neuron_action_controller/add_L_neuron_L_secondary_z_purpose_L_create_L_new_channel";
+import { export_L_graph_s_L_zip } from "./export_L_graph_s_L_zip";
 import { get_L_neuron_L_current_X_obj } from "../../units/get_L_neuron_L_current_X_obj";
 import { get_L_neuron_L_tree_L_current } from "../../units/get_L_neuron_L_tree_L_current";
 import { reduct_L_tree_X_by_og_L_branch } from "../../units/reduct_L_tree_X_by_og_L_branch";
+import { extend_L_tree_X_by_tree_L_from_L_copy_L_buffer } from "../../units/extend_L_tree_X_by_tree_L_from_L_copy_L_buffer";
 
 let buttons_objs = [
-    {//graph_c_zip
+    {//graph_L_zip
         change_target:'button_id_2',
         value: 'export_graph',
         click_contextmenu:"export",
         button_event: function(){
-            export_c_graph_s_c_zip();
+            export_L_graph_s_L_zip();
         }
     },
     {
         change_target:'button_id_6',
-        value:'transformator_c_text_s',
+        value:'transformator_L_text_s',
         click_contextmenu:"TB-reader",
         button_event: function(){
-            console.log("transformator_c_text_s");
+            console.log("transformator_L_text_s");
         }
     },
     {
         change_target:'button_id_7',
-        value:'opener_c_keyboard',
+        value:'opener_L_keyboard',
         click_contextmenu:"keyboard",
         button_event: function(){
             let keyboard_el:Element | null = document.querySelector(".keyboard");
@@ -47,73 +48,58 @@ let buttons_objs = [
             }
         }
     },
-    {
+    {//add_L_parent
         change_target: 'button_id_8',
-        value: 'add_c_parent',
-        click_contextmenu: "add_c_parent",
+        value: 'add_L_parent',
+        click_contextmenu: "add_L_parent",
         button_event: function(){
-            console.log("add_c_parent");
+            console.log("add_L_parent");
         }
     },
-    {
+    {//add_L_child
         change_target: 'button_id_9',
-        value: 'add_c_child',
-        click_contextmenu: "add_c_parent",
+        value: 'add_L_child',
+        click_contextmenu: "add_L_parent",
         button_event: function(){
-            console.log("add_c_child");
+            console.log("add_L_child");
         }
     },
-    {
+    {//button_L_copy
         change_target: 'button_id_10',
-        value: 'button_c_copy',
-        click_contextmenu: "button_c_copy",
+        value: 'button_L_copy',
+        click_contextmenu: "button_L_copy",
         button_event: function(){
-            console.log("button_c_copy");
-        }
-    },
-    {
-        change_target:'button_id_11',
-        value: 'button_c_edit',
-        click_contextmenu: "button_c_edit",
-        button_event: function(){
-            console.log("button_c_edit");
+            let tree_L_generalizated = window["tagbrain_graph"]["ram"]["tree_L_generalizated"];
+            window["tagbrain_graph"]["ram"]["copy_L_buffer_L_tree"] = tree_L_generalizated;
         }
     },
     {
         change_target: 'button_id_12',
-        value: 'button_c_cut',
-        click_contextmenu: "button_c_cut",
+        value: 'button_L_cut',
+        click_contextmenu: "button_L_cut",
         button_event: function(){
-            console.log("button_c_cut");
+            console.log("button_L_cut");
         }
     },
     {
-        change_target: 'button_id_13',
-        value: 'button_c_holder',
-        click_contextmenu: "activate cursor holder",
-        button_event: function(){
-            console.log("button_c_holder");
-        }
-    },
-    {
-        change_target: 'button_id_14_c_get_c_data_c_channel',
-        value: 'get_c_data_c_channel',
+        change_target: 'button_id_14_L_get_L_data_L_channel',
+        value: 'get_L_data_L_channel',
         click_contextmenu: "Request is sended",
         button_event: function(){
-            new class_c_create_c_neuron_c_secondary_x_temporary();
+            new class_L_create_L_neuron_L_secondary_x_temporary();
         }
     },
     {//create_new_channel
-        change_target: 'button_id_15_c_create_c_channel',
-        value: 'create_c_new_c_channel',
+        change_target: 'button_id_15_L_create_L_channel',
+        value: 'create_L_new_L_channel',
         click_contextmenu: "Trying to create a channel",
         button_event: function(){
-            add_c_neuron_c_secondary_z_purpose_c_create_c_new_channel();
+            add_L_neuron_L_secondary_z_purpose_L_create_L_new_channel();
         }
     },
-    {//create_c_neuron
-        change_target: 'button_id_16_c_create_c_neuron',
-        value: 'create_c_new_c_neuron',
+    {//create_L_neuron
+        change_target: 'button_id_16_L_create_L_neuron',
+        value: 'create_L_new_L_neuron',
         click_contextmenu: "Create a neuron",
         button_event: function(){
             let outgrowths = [{
@@ -130,13 +116,45 @@ let buttons_objs = [
                 time_L_last_edit: "",
                 default_tab: false
              }
-             let neuron_c_new_x_class = new class_L_neuron(neuron_features);
-             focus_c_neuron_x_scroll(neuron_c_new_x_class.neuron_id); 
+             let neuron_L_new_x_class = new class_L_neuron(neuron_features);
+             focus_L_neuron_x_scroll(neuron_L_new_x_class.neuron_id); 
         }
     },
-    {//create_c_new_c_neuron_c_from_c_selection
-        change_target: 'button_id_17_c_create_c_neuron_c_from_selection',
-        value: 'create_c_new_c_neuron_c_from_c_selection',
+    {
+        change_target: 'paste_L_node_L_to_og_L_current',
+        value: 'cut_L_neuron_L_node',
+        click_contextmenu: "Pasted",
+        button_event: function(){
+
+            console.log("node is pasted");
+
+            let neuron_L_current_X_obj = get_L_neuron_L_current_X_obj();
+            if (neuron_L_current_X_obj.element != undefined){
+                if(window["tagbrain_graph"]["neuron00s_L_access"]){//check_L_session_L_access
+
+                    //get_L_tree_L_current
+                    let neuron_L_tree_L_current = get_L_neuron_L_tree_L_current(neuron_L_current_X_obj.neuron_L_id);
+
+                    //get_L_tree_L_extended
+                    
+                    let obj_L_extention = extend_L_tree_X_by_tree_L_from_L_copy_L_buffer(
+                        neuron_L_tree_L_current, 
+                        neuron_L_current_X_obj.og_L_position_X_last_L_activated
+                    );
+                    
+                    if(obj_L_extention.is_extended == true){
+                        //refresh_L_data
+                        window["tagbrain_graph"]["neuron00s_obj00s"][neuron_L_current_X_obj.neuron_L_id].set_L_neuron_L_tree_L_new(obj_L_extention.tree_L_extended);
+                    }
+                }
+            }
+
+
+        }
+    },
+    {//cut_L_neuron_L_node
+        change_target: 'button_id_17_L_create_L_neuron_L_from_selection',
+        value: 'cut_L_neuron_L_node',
         click_contextmenu: "Dissector",
         button_event: function(){
             
@@ -144,7 +162,7 @@ let buttons_objs = [
             if (neuron_L_current_X_obj.element != undefined){
 
                 
-                if(window["tagbrain_graph"]["neuron00s_c_access"]){//check_c_session_c_access
+                if(window["tagbrain_graph"]["neuron00s_L_access"]){//check_L_session_L_access
 
                     //add_L_neuron
                     let neuron_features = {
@@ -157,12 +175,13 @@ let buttons_objs = [
                     time_L_last_edit: "",
                     default_tab: "neurons"
                     }
-                    let neuron_c_new_x_class = new class_L_neuron(neuron_features);
+                    let neuron_L_new_x_class = new class_L_neuron(neuron_features);
                 
 
-                    //get_L_tree_L_reducted
+                    //get_L_tree_L_current
                     let neuron_L_tree_L_current = get_L_neuron_L_tree_L_current(neuron_L_current_X_obj.neuron_L_id);
-                    
+
+                    //get_L_tree_L_reducted
                     let tree_L_reducted = reduct_L_tree_X_by_og_L_branch(
                         neuron_L_tree_L_current, 
                         neuron_L_current_X_obj.og_L_position_X_last_L_activated
@@ -204,9 +223,9 @@ let buttons_objs = [
         value: 'id_L_turn_back_L_theme',
         click_contextmenu: "Turn on the dark theme",
         button_event: function(){
-            let css_c_theme_c_el = gEBI("css_c_theme_a");
-            if (css_c_theme_c_el != false) 
-              css_c_theme_c_el.remove();
+            let css_L_theme_L_el = gEBI("css_L_theme_a");
+            if (css_L_theme_L_el != false) 
+              css_L_theme_L_el.remove();
         }
     },
 
@@ -218,11 +237,11 @@ for(let i = 0; i < buttons_objs.length; i++){
     anchor.removeAttribute("id");
 
     let features = {
-        icon_c_button: anchor,
+        icon_L_button: anchor,
         id: buttons_objs[i].value,
         click_contextmenu: buttons_objs[i].click_contextmenu,
         button_event: buttons_objs[i].button_event,
     }
-    new class_c_icon_c_button(features);
+    new class_L_icon_L_button(features);
 }
 

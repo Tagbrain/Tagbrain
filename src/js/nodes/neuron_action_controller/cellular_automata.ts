@@ -20,7 +20,7 @@ function getRandomInt(min:number, max:number) {
 document.addEventListener('keydown', function(event) {
     if(event.ctrlKey == true && event.keyCode == 83) {
         event.preventDefault();
-        //unfocus_c_neuron00s
+        //unfocus_L_neuron00s
         gEBI("layoutViewport").click();
         refresh_automate();
     }

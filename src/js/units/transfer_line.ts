@@ -3,7 +3,7 @@ import { focus_end_element } from "./focus_end_element";
 import { get_row_caret_position } from "./get_row_caret_position";
 import { get_depth_outgrowth } from "./get_depth_outgrowth";
 import { get_current_div_n } from "./get_current_div_n";
-import { drop_down_c_neuron_c_branche_s } from "./drop_down_c_neuron_c_branche_s";
+import { drop_down_L_neuron_L_branche_s } from "./drop_down_L_neuron_L_branche_s";
 import { create_new_row } from "./create_new_row";
 import { validate_row_formate } from "./validate_row_formate";
 
@@ -27,7 +27,7 @@ export function transfer_line(tab_index: string) {
      
      let content = " ".repeat(4 * obj_space.depth) + second_part_content;
      new_line_div = create_new_row(content, is_enter);
-     drop_down_c_neuron_c_branche_s(window["tagbrain_graph"]["cursor_position"]["neuron_element"]);
+     drop_down_L_neuron_L_branche_s(window["tagbrain_graph"]["cursor_position"]["neuron_element"]);
      current_node.after(new_line_div);
      let new_div_lastchild = new_line_div.lastChild;
      validate_row_formate(current_node);

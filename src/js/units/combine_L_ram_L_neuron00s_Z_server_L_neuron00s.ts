@@ -1,10 +1,10 @@
-import { get_c_neuron00s_id00s_x_ram } from "./get_c_neuron00s_id00s_x_ram";
+import { get_L_neuron00s_id00s_x_ram } from "./get_L_neuron00s_id00s_x_ram";
 import { is_equal_L_tree00s } from "./is_equal_L_tree00s";
-import { put_c_caret_x_target_c_string_position } from "./put_c_caret_x_target_c_string_position";
+import { put_L_caret_x_target_L_string_position } from "./put_L_caret_x_target_L_string_position";
 import { send_data_ajax } from "./send_data_ajax";
 
 export function combine_L_ram_L_neuron00s_Z_server_L_neuron00s(){
-    let neuron00s_id00s = get_c_neuron00s_id00s_x_ram();
+    let neuron00s_id00s = get_L_neuron00s_id00s_x_ram();
     let data = {
         action: 'get_L_neuron00s_L_with_id00s',
         graph_name: window["tagbrain_graph"]["graph_name"],
@@ -27,7 +27,7 @@ export function combine_L_ram_L_neuron00s_Z_server_L_neuron00s(){
                     //save focus
                     let outgrowth_L_element = window["tagbrain_graph"]["cursor_position"]["outgrowth"];
                     let neuron_element = window["tagbrain_graph"]["cursor_position"]["neuron_element"];
-                    let og_L_position = window["tagbrain_graph"]["cursor_position"]["depth_c_in_outgrowth"];
+                    let og_L_position = window["tagbrain_graph"]["cursor_position"]["depth_L_in_outgrowth"];
                     let og_L_number = [...neuron_element.children].indexOf(outgrowth_L_element);
 
                     //change_L_neuron_L_tree
@@ -35,7 +35,7 @@ export function combine_L_ram_L_neuron00s_Z_server_L_neuron00s(){
                     
                     //put_L_caret_L_previous_position
                     if(og_L_number != -1){
-                        put_c_caret_x_target_c_string_position(
+                        put_L_caret_x_target_L_string_position(
                             neuron_element.children[og_L_number],
                             og_L_position
                         )

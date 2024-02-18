@@ -22,7 +22,7 @@ export function load_L_attachment00s_L_from_neuron(
         graph_name: neuron_L_data.graph_L_name,
         neuron_L_id: neuron_L_data.neuron_L_id
     };
-    let url = "php/neurons/controller_c_api.php";
+    let url = "php/neurons/controller_L_api.php";
     let controller_f = function(response_obj: any){
         if(response_obj.status == "success"){
 
@@ -107,7 +107,7 @@ function put_L_listner_L_delete_attachment(
             graph_name: window["tagbrain_graph"]["graph_name"],
             neuron_L_id: neuron_L_id
         };
-        let url = "php/neurons/controller_c_api.php";
+        let url = "php/neurons/controller_L_api.php";
         let controller_f = function(response_L_obj: any){
             if(response_L_obj.status = "success"){
                 tab_L_attachment.remove();

@@ -1,6 +1,6 @@
 import { get_sel_range } from "./get_sel_range";
 import { surrounded_div } from "./surrounded_div";
-import { drop_down_c_neuron_c_branche_s } from "./drop_down_c_neuron_c_branche_s";
+import { drop_down_L_neuron_L_branche_s } from "./drop_down_L_neuron_L_branche_s";
 import { create_new_row } from "./create_new_row";
 import { focus_end_element } from "./focus_end_element";
 
@@ -40,7 +40,7 @@ export function get_current_div_n(node_par: Element | string) {
                }
           } else if (current_element.classList.contains("item_input")) {
                let new_line_div = create_new_row("", true);//zero symbol
-               drop_down_c_neuron_c_branche_s(window["tagbrain_graph"]["cursor_position"]["neuron_element"]);
+               drop_down_L_neuron_L_branche_s(window["tagbrain_graph"]["cursor_position"]["neuron_element"]);
                current_element.innerHTML = "";
                current_element.appendChild(new_line_div);
                focus_end_element(new_line_div);

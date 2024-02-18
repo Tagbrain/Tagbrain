@@ -1,8 +1,8 @@
 <header class="header">
-			<div class="animation_c_header" id="animation_c_header">
+			<div class="animation_L_header" id="animation_L_header">
 			</div>
 			<div class="logo_and_menu_buttons">
-				<a href="https://tagbrain.org/project" class="header_logo_container">
+				<a class="header_logo_container">
 					<svg class="header_logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 615 600" style="enable-background:new 0 0 600 600;" xml:space="preserve">
 						<g class="circle_cont">
 							<g>
@@ -72,48 +72,48 @@
 					</div>
 					<div class="menu_button_panel">
 						<a title="Read mode toggle">
-							<svg class="linear_icon_c_target icon_size_sl_a_middle" id="checker_id_1">
+							<svg class="linear_icon_L_target icon_size_sl_a_middle" id="checker_id_1">
 								<use xlink:href="#sprite_r"></use>
 							</svg>
 						</a>
 						<a id="export_import" title="Export">
-							<svg class="linear_icon_c_target icon_size_sl_a_middle" id="button_id_2">
+							<svg class="linear_icon_L_target icon_size_sl_a_middle" id="button_id_2">
 								<use xlink:href="#sprite_export"></use>
 							</svg>
 						</a>
 						<a id="work_mode_button" class="icon_buttons_visual_effects" title="Work Mode">
-							<svg class="linear_icon_c_target icon_size_sl_a_middle" id="checker_id_3">
+							<svg class="linear_icon_L_target icon_size_sl_a_middle" id="checker_id_3">
 								<use xlink:href="#sprite_ligthning"></use>
 							</svg>
 						</a>
-						<a id="transformate text" class="icon_buttons_visual_effects" title="Transformate a text in neuron formate">
-							<svg class="linear_icon_c_target icon_size_sl_a_middle" id="button_id_6">
+						<a id="transformate_text" class="icon_buttons_visual_effects" title="Transformate a text in neuron formate">
+							<svg class="linear_icon_L_target icon_size_sl_a_middle" id="button_id_6">
 								<use xlink:href="#sprite_whirlpool"></use>
 							</svg>
 						</a>
 						<a class="icon_buttons_visual_effects big_arrows_stl keyboard_stl" id="button_id_13">
-							<svg class="linear_icon_c_target icon_size_sl_a_middle icon_c_dashed">
-								<use xlink:href="#sprite_button_c_holder"></use>
+							<svg class="linear_icon_L_target icon_size_sl_a_middle icon_L_dashed">
+								<use xlink:href="#sprite_button_L_holder"></use>
 							</svg>
 						</a>
 						<a class="icon_buttons_visual_effects big_arrows_stl keyboard_stl" id="button_id_7">
-							<svg class="linear_icon_c_target icon_size_sl_a_middle">
+							<svg class="linear_icon_L_target icon_size_sl_a_middle">
 								<use xlink:href="#sprite_keyboard"></use>
 							</svg>
 						</a>
 					</div>
 				</div>
-				<div class="header_c_menu_c_right">
+				<div class="header_L_menu_L_right">
 					<?php if(!$_SESSION["userid"]){
-							echo '<a class="sprite_c_log_in">'.
-								'<svg class="linear_icon_c_target icon_size_middle">'.
-									'<use xlink:href="#sprite_c_log_in"></use>'.
+							echo '<a class="sprite_L_log_in">'.
+								'<svg class="linear_icon_L_target icon_size_middle">'.
+									'<use xlink:href="#sprite_L_log_in"></use>'.
 								'</svg>'.
 							'</a>';
 						}
 					?>
 					<a id="setting_button" class="setting_button">
-						<svg class="linear_icon_c_target icon_size_middle">
+						<svg class="linear_icon_L_target icon_size_middle">
 							<use xlink:href="#sprite_settings"></use>
 						</svg>
 					</a>

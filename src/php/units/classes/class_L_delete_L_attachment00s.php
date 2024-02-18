@@ -33,6 +33,8 @@ class class_L_delete_L_attachment00s {
     protected function delete_L_attachment00s(){
         foreach ($this->attachment00s_L_name00s_L_for_deletting as $attachment_L_name_X_for_deletting) {
 
+            $base64 = base64_encode($attachment_L_name_X_for_deletting);
+
             $attachment00s_L_folder00s = array(
                 "txt00s" => "txt",      
                 "img00s" => "jpg",
@@ -41,7 +43,7 @@ class class_L_delete_L_attachment00s {
             );
             foreach($attachment00s_L_folder00s as $folder_name => $extension){
                 $folder_L_path = $this->attachment00s_L_path . $folder_name . '/';
-                $file_L_path_L_pattern = $folder_L_path.$attachment_L_name_X_for_deletting."_X_".$this->neuron_L_id.".".$extension;
+                $file_L_path_L_pattern = $folder_L_path.$base64."_X_".$this->neuron_L_id.".".$extension;
 
                 if(file_exists($file_L_path_L_pattern)){
                     if (!unlink($file_L_path_L_pattern)) { 

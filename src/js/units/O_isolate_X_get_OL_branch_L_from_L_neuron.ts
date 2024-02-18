@@ -17,9 +17,9 @@ type current_outgrowth = {
 
 export function O_isolate_X_get_OL_branch_L_from_L_neuron(
     og_L_position00s_L_current: number[], 
-    og00s_c_full: current_outgrowth
+    og00s_L_full: current_outgrowth
 ) {
-    if (og00s_c_full != null) {
+    if (og00s_L_full != null) {
         //get_group_of_key_word
 
         let branch00s: arr_chain[] = [];
@@ -29,30 +29,30 @@ export function O_isolate_X_get_OL_branch_L_from_L_neuron(
             let og_L_position_L_current = og_L_position00s_L_current[i];
 
             let branch_L_full: arr_chain = [];
-            let current_depth: number = og00s_c_full[og_L_position_L_current]["depth"];
+            let current_depth: number = og00s_L_full[og_L_position_L_current]["depth"];
 
             let current_outgrowth = {
-                content: og00s_c_full[og_L_position_L_current]["content"],
-                depth: og00s_c_full[og_L_position_L_current]["depth"],
+                content: og00s_L_full[og_L_position_L_current]["content"],
+                depth: og00s_L_full[og_L_position_L_current]["depth"],
                 //row: og_L_position_L_current,
                 is_key_row: true,
                 escape: false,
             }
             let og00s_L_parent: arr_chain = collect_parent_outgrowth(
                 og_L_position_L_current, 
-                og00s_c_full, 
+                og00s_L_full, 
                 current_depth
             ).reverse();
 
             let og00s_L_child00s: arr_chain = get_L_og_L_child00s(
                 og_L_position_L_current, 
-                og00s_c_full, 
+                og00s_L_full, 
                 current_depth,
             );
                 
             let consequence00s: arr_chain = get_L_og00s_L_consequence00s(
                 og_L_position_L_current,
-                og00s_c_full, 
+                og00s_L_full, 
                 current_depth,
             );
         

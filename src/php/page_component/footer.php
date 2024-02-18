@@ -1,6 +1,6 @@
 
-<a id="button_id_16_c_create_c_neuron" class="create_element_button">
-    <svg class="linear_icon_c_target icon_size_sl_a_middle">
+<a id="button_id_16_L_create_L_neuron" class="create_element_button">
+    <svg class="linear_icon_L_target icon_size_sl_a_middle">
         <use xlink:href="#sprite_new_post">
         </use>
     </svg>
@@ -25,7 +25,7 @@
 <div class="footer_rigth_container">
 
     <div class="switch_right_bar big_arrows_stl" id="switch_right_bar">
-        <svg class="linear_icon_c_target icon_size_sl_a_middle">
+        <svg class="linear_icon_L_target icon_size_sl_a_middle">
             <use xlink:href="#sprite_arrow"></use>
         </svg>
     </div>

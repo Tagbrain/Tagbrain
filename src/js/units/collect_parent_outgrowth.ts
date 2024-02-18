@@ -11,11 +11,11 @@ type current_outgrowth = {
     escape:boolean,
 }[];
 export function collect_parent_outgrowth(
-    outgrowths_c_current: number,
+    outgrowths_L_current: number,
     arr_objs_rows: current_outgrowth,
     current_depth: number, 
 ){
-    let j = outgrowths_c_current - 1; // number current row
+    let j = outgrowths_L_current - 1; // number current row
     let max_length_parent_part = 0;
     let parent_chain_fathers: arr_chain = [];
     while (j >= 0 && max_length_parent_part < 10) {

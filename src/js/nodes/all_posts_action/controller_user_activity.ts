@@ -1,9 +1,9 @@
 import {gEBI, dCE} from "../../units/compress_f.js";
-import {generate_c_graph_c_environment} from "./generate_c_graph_c_environment";
+import {generate_L_graph_L_environment} from "./generate_L_graph_L_environment";
 
 document.addEventListener('DOMContentLoaded',function(){
     let graph_name = document.location.pathname.split("/")[1];
-    generate_c_graph_c_environment(graph_name);
+    generate_L_graph_L_environment(graph_name);
 });
 //content volume
     //get posts
