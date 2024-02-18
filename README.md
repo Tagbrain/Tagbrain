@@ -68,14 +68,22 @@ Screenshots
     ...
 
 + News
- + ✅v 1.3.5⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯30.12.2023
+ + ✅v 1.4⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯18.02.2024
 ```
-🟢 Added text attachments to neurons with link support.
-🟢 Improved interface of the right bar.
-🟢 Added color schemes: dark and light.
-🟢 Optimized automatic saves.
-🟢 Improved application layout.
-🟢 Fixed minor bugs.
+🟢 Search response: speed increased
+🟢 Old attachments can now be deleted.
+🟢 Browser stability at login has been increased.
+🟢 Added neuron scatterer by current node.
+🟢 Improved tree formatting features. They now support implications.
+🟢 Added QR codes for RAM neurons.
+🟢 Added synchronization of neurons by focus event between different devices.
+🟢 Improved the client side of the search function.
+🟢 Changed the cursor theme.
+🟢 Optimized stability of neuron events.
+🟢 Improved project code syntax by using the L construct to implement graphs in each variable.
+🟢 Updated the generalization tab icons.
+🟢 Added multilingual support for attachment tags.
+🟢 Added the ability to insert a tree into another tree node using a right🟢click context menu.
 ```
 
 
